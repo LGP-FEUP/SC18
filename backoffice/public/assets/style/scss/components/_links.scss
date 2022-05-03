@@ -1,0 +1,14 @@
+.link {
+  color: $linkColor;
+  cursor: pointer;
+  transition: 200ms all ease;
+
+  &.disabled {
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    color: $linkHoverColor;
+    text-decoration: underline;
+  }
+}

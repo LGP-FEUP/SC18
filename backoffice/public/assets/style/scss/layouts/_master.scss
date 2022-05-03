@@ -1,0 +1,56 @@
+#master {
+  background-color: $backgroundColor;
+
+  header {
+    background-color: $boxGray;
+    border: 1px solid $gray;
+    @extend .shadow;
+
+    nav {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      margin: -1px; // Chelou, y'a un espace de 1px entre le nav et le reste je sais pas pourquoi
+
+      .header-menu {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        #main-logo {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding-top: 0 !important;
+          padding-bottom: 0 !important;
+
+          img {
+            width: 80px;
+            height: 50px;
+          }
+        }
+
+        a {
+          cursor: pointer;
+          padding: 25px;
+          transition: 200ms all ease;
+          text-decoration: none !important;
+
+          &.active {
+            background-color: $primaryColorLight;
+          }
+
+          &:hover:not(#main-logo):not(.active) {
+            background-color: $primaryColorLighter;
+          }
+        }
+      }
+    }
+  }
+
+  #app {
+    padding: 20px 10px; // On ajoute 15px sur les côtés pour compenser les row
+  }
+}
