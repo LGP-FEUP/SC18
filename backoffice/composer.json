@@ -1,0 +1,27 @@
+{
+    "name": "vendor/erasmushelper",
+    "description": "Erasmus Helper setup",
+    "type": "project",
+    "license": "none",
+    "authors": [
+        {
+            "name": "Eliott Tardieu"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "kreait/firebase-php": "^6.2.0",
+        "guzzlehttp/guzzle": "~7.4.0",
+        "nikic/fast-route": "^1.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "AgileBundle\\": "bundle/src/",
+            "ErasmusHelper\\": "src/"
+        }
+    },
+    "config": {
+
+        "platform-check": false
+    }
+}

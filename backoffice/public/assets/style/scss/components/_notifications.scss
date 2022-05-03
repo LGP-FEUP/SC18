@@ -1,0 +1,28 @@
+#notification-container {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+
+  .notification {
+    padding: 20px;
+    border-radius: 5px;
+    opacity: 1;
+    color: white;
+    font-size: 1.15rem;
+    animation: 500ms notification-fade-in;
+
+    &.success {
+      background-color: $green;
+    }
+
+    &.error {
+      background-color: $red;
+    }
+
+    &.fade {
+      animation: 500ms notification-fade-out;
+    }
+  }
+}

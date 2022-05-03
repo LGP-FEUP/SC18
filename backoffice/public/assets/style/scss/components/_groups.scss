@@ -1,0 +1,17 @@
+.link-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .link:not(:last-child) {
+    margin-right: 15px;
+  }
+}
+
+.button-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .button:not(:last-child) {
+    margin-right: 15px;
+  }
+}

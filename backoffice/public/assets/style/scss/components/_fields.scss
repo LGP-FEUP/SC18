@@ -1,0 +1,100 @@
+.field {
+  display: flex;
+
+  &:not(.vertical){
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .label {
+    font-size: 1.2em;
+    color: $darkGray;
+    flex: 50% 0 1;
+    text-align: left;
+    margin-right: 30px;
+    &.nowrap {
+      white-space: nowrap;
+    }
+  }
+
+  .value {
+    flex: 50% 0 1;
+    text-align: right;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 1.2rem;
+
+    &.xl { font-size: 1.7rem; }
+    &.nowrap {white-space: nowrap; }
+
+    textarea, input, .multiselect {
+      &:not([type="radio"]):not([type='checkbox']){
+        width: 100%;
+        width: -moz-available;          /* For Mozzila */
+        width: -webkit-fill-available;  /* For Chrome */
+        width: stretch;                 /* Unprefixed */
+      }
+
+      &[type='checkbox'], &[type='radio'] {
+        margin: 5px 0;
+      }
+    }
+  }
+
+  &.vertical {
+    flex-direction: column;
+    justify-content: space-between;
+    width: min-content;
+
+    .label {
+      margin-right: 0;
+      margin-bottom: 30px;
+      flex: auto;
+      text-align: left;
+    }
+
+    .value {
+      flex: auto;
+      text-align: center;
+    }
+  }
+
+  &.min {
+    justify-content: flex-start;
+
+    .value, .label {
+      flex: unset;
+    }
+  }
+
+  &:not(:last-of-type):not(.vertical) {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $gray;
+  }
+}
+
+.field-group {
+
+  &:not(.horizontal) {
+    .field:not(:last-of-type) {
+      margin-bottom: 10px;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+  }
+
+  &.horizontal {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    .field:not(:last-of-type) {
+      margin-right: 30px;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+  }
+}
