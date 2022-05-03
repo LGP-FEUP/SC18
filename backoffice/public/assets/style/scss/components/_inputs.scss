@@ -1,0 +1,16 @@
+.input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid $gray;
+  transition: 200ms all ease;
+  font-size: 0.95rem;
+
+  &:focus {
+    border: 1px solid $primaryColorHover;
+  }
+}
+
+.select {
+  @extend .input;
+  cursor: pointer;
+}
