@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  php:
+    build:
+      context: .
+      args:
+        user: ruben
+        uid: 1000
+    volumes:
+      - .:/var/www
+    networks:
+      - backoffice
+    ports:
+      - "8000:80"
+networks:
+  backoffice:
+    driver: bridge

@@ -1,0 +1,14 @@
+{
+  "name": "backoffice",
+  "version": "1.0.0",
+  "description": "sudo npm install -g sass -> Install watcher.xml Upgrade php8.0 and enable it on apache php composer.phar update to setup composer dependencies.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "sass": "^1.51.0"
+  }
+}
