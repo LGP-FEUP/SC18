@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-class RegisterInput extends StatefulWidget {
+class FormInput extends StatefulWidget {
   final TextInputType keyboard;
   final Icon icon;
   final String hintText;
   final FieldValidator validator;
   final bool hidable;
 
-  const RegisterInput({
+  const FormInput({
     Key? key,
     required this.keyboard,
     required this.icon,
@@ -18,10 +18,10 @@ class RegisterInput extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _RegisterInputState();
+  State<StatefulWidget> createState() => _FormInputState();
 }
 
-class _RegisterInputState extends State<RegisterInput> {
+class _FormInputState extends State<FormInput> {
   final _formKey = GlobalKey<FormState>();
   bool _hidden = true;
 

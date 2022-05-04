@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
+
+import 'formInput.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -11,76 +14,97 @@ class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
 
   List<Widget> genInputs(BuildContext context) {
-    final emailInput = TextFormField(
-          keyboardType: TextInputType.emailAddress,
-          decoration: InputDecoration(
-              icon: const Icon(Icons.email),
-              hintText: "Email address",
-              contentPadding: const EdgeInsets.all(20),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50.0)
-                )
-              ),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter an email';
-            }
-            return null;
-          },
-        );
+    final emailInput = FormInput(
+        keyboard: TextInputType.emailAddress,
+        icon: const Icon(Icons.email),
+        hintText: "Email address",
+        validator: MultiValidator([
+          RequiredValidator(errorText: 'Password is required.'),
+          EmailValidator(errorText: "Invalid email.")
+        ]));
 
-    final passwordInput = TextFormField(
-          keyboardType: TextInputType.emailAddress,
-          decoration: InputDecoration(
-              icon: const Icon(Icons.key),
-              hintText: "Password",
-              contentPadding: const EdgeInsets.all(20),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50.0)
-                )
-              ),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter a password';
-            }
-            return null;
-          },
-        );
-    
+    final passwordInput = FormInput(
+      keyboard: TextInputType.text,
+      icon: const Icon(Icons.key),
+      hintText: "Password",
+      validator: MultiValidator([
+        RequiredValidator(errorText: 'Password is required.'),
+        MinLengthValidator(8,
+            errorText: 'Password must be at least 8 digits long.'),
+        PatternValidator(r'(?=.*?[#?!@$%^&*-])',
+            errorText: 'Passwords must have at least one special character.')
+      ]),
+      hidable: true,
+    );
+
     return [
-      Padding(
-        padding: const EdgeInsets.only(bottom: 5, left: 20, right: 20, top: 20),
-        child: emailInput
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-        child: passwordInput
-      ),
-    ];
+      emailInput,
+      passwordInput,
+    ]
+        .map((e) => Row(children: [
+              Expanded(
+                  child: Padding(
+                      padding:
+                          const EdgeInsets.only(top: 10, left: 12, right: 12),
+                      child: e))
+            ]))
+        .toList();
+    ;
   }
 
   @override
   Widget build(BuildContext context) {
     var ht = MediaQuery.of(context).size.height;
-    return Form(
-        key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Expanded(
-                    child: Container(
-                  height: ht * 0.2,
+
+    final logo = Row(
+      children: [
+        Expanded(
+            child: Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Container(
+                  height: ht * 0.15,
                   decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("assets/logo.png"))),
-                )),
-              ],
-            ),
-            ...genInputs(context)
-          ],
+                ))),
+      ],
+    );
+
+    final title = Row(
+      children: const [
+        Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: Text(
+              'Sign in',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            ))
+      ],
+    );
+
+    final submitButton = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: ElevatedButton(
+            onPressed: () {
+              // Validate returns true if the form is valid, or false otherwise.
+              if (_formKey.currentState!.validate()) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Processing Data')),
+                );
+              }
+            },
+            child: const Text('Login'),
+          ),
+        )
+      ],
+    );
+
+    return Form(
+        key: _formKey,
+        child: Column(
+          children: <Widget>[logo, title, ...genInputs(context), submitButton],
         ));
   }
 }

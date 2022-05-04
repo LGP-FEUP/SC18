@@ -1,3 +1,4 @@
+import 'package:erasmus_helper/model/login.dart';
 import 'package:flutter/material.dart';
 import 'package:erasmus_helper/model/register.dart';
 void main() {
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const RegisterPage(),
+      home: const LoginPage(),
     );
   }
 }
