@@ -7,25 +7,11 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var ht = MediaQuery.of(context).size.height;
-
-    return SafeArea(
+    return const SafeArea(
         child: Scaffold(
-            body: ListView(children: [
-      Row(
-        children: [
-          Expanded(
-              child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                    height: ht * 0.14,
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage("assets/logo.png"))),
-                  ))),
-        ],
-      ),
-      const RegisterForm()
-    ])));
+            body: Center(
+                child: SingleChildScrollView(
+      child: RegisterForm(),
+    ))));
   }
 }

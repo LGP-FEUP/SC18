@@ -12,22 +12,75 @@ class RegisterForm extends StatefulWidget {
 class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
 
-  // Generates a styled text input given a set of options
-  Row genInputRow(BuildContext context, RegisterInput input) {
-    return Row(children: [
-      Expanded(
-          child: Padding(
-              padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-              child: input))
-    ]);
+  @override
+  Widget build(BuildContext context) {
+    var ht = MediaQuery.of(context).size.height;
+
+    final logo = Row(
+      children: [
+        Expanded(
+            child: Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Container(
+                  height: ht * 0.14,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/logo.png"))),
+                ))),
+      ],
+    );
+
+    final title = Row(
+      children: const [
+        Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: Text(
+              'Sign up',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            ))
+      ],
+    );
+
+    final submitButton = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: ElevatedButton(
+            onPressed: () {
+              // Validate returns true if the form is valid, or false otherwise.
+              if (_formKey.currentState!.validate()) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Processing Data')),
+                );
+              }
+            },
+            child: const Text('Create account'),
+          ),
+        )
+      ],
+    );
+
+    return Form(
+        key: _formKey,
+        child: Column(children: [
+          logo,
+          title,
+          ...genInputs(context),
+          submitButton
+        ]));
   }
 
+  // Generates styled text inputs for the register form
   List<Widget> genInputs(BuildContext context) {
-    final emailInput = genInputRow(context, RegisterInput(
+    final emailInput = RegisterInput(
         keyboard: TextInputType.emailAddress,
         icon: const Icon(Icons.email),
         hintText: "Email address",
-        validator: EmailValidator(errorText: "Invalid email.")));
+        validator: MultiValidator([
+          RequiredValidator(errorText: 'Password is required.'),
+          EmailValidator(errorText: "Invalid email.")
+        ]));
 
     final passwordValidator = MultiValidator([
       RequiredValidator(errorText: 'Password is required.'),
@@ -37,48 +90,62 @@ class _RegisterFormState extends State<RegisterForm> {
           errorText: 'Passwords must have at least one special character.')
     ]);
 
-    final passwordInput = genInputRow(context, RegisterInput(
+    final passwordInput = RegisterInput(
       keyboard: TextInputType.text,
       icon: const Icon(Icons.key),
       hintText: "Password",
       validator: passwordValidator,
-      hidable: true,));
+      hidable: true,
+    );
 
-    final confirmPasswordInput = genInputRow(context, RegisterInput(
+    final confirmPasswordInput = RegisterInput(
         keyboard: TextInputType.text,
         icon: const Icon(Icons.key),
         hintText: "Confirm password",
         validator: passwordValidator,
-        hidable: true));
+        hidable: true);
 
-    final nameInput = genInputRow(context, RegisterInput(
+    final nameInput = RegisterInput(
         keyboard: TextInputType.text,
         icon: const Icon(Icons.account_circle_rounded),
         hintText: "Name",
         validator: MultiValidator([
           RequiredValidator(errorText: "Name is required."),
           MaxLengthValidator(32, errorText: "Max characters reached.")
-        ])));
+        ]));
 
-    return [emailInput, passwordInput, confirmPasswordInput, nameInput];
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    const title = Padding(
-        padding: EdgeInsets.only(left: 10),
-        child: Text(
-          'Sign up',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+    final facultyInput = Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: DropdownButtonFormField<String>(
+          icon: const Padding(
+            padding: EdgeInsets.only(right: 22),
+            child: Icon(Icons.arrow_drop_down),
+          ),
+          decoration: const InputDecoration(prefixIcon: Icon(Icons.school)),
+          hint: const Text('University of origin'),
+          items: [
+            'University of France',
+            'University of Italy',
+            'University of Spain',
+            'University of Germany'
+          ]
+              .map(
+                  (label) => DropdownMenuItem(child: Text(label), value: label))
+              .toList(),
+          onChanged: (_) {},
+          validator: RequiredValidator(errorText: 'University is required.'),
         ));
 
-    return Form(
-        key: _formKey,
-        child: Column(children: [
-          Row(
-            children: const [title],
-          ),
-          ...genInputs(context)
-        ]));
+    final inputs = [emailInput, passwordInput, confirmPasswordInput, nameInput]
+        .map((e) => Row(children: [
+              Expanded(
+                  child: Padding(
+                      padding:
+                          const EdgeInsets.only(top: 10, left: 12, right: 12),
+                      child: e))
+            ]))
+        .toList();
+
+    return List<Widget>.from(inputs) + [facultyInput];
   }
 }

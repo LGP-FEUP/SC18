@@ -25,27 +25,25 @@ class _RegisterInputState extends State<RegisterInput> {
   final _formKey = GlobalKey<FormState>();
   bool _hidden = true;
 
-
-
   @override
   Widget build(BuildContext context) {
     return TextFormField(
         keyboardType: widget.keyboard,
-        obscureText: widget.hidable ? _hidden: false,
+        obscureText: widget.hidable ? _hidden : false,
         decoration: InputDecoration(
             icon: widget.icon,
             hintText: widget.hintText,
-            contentPadding: const EdgeInsets.all(20),
-            suffixIcon: widget.hidable ? GestureDetector(
-              onTap: () {
-                setState(() {
-                  _hidden = !_hidden;
-                });
-              },
-              child: Icon(_hidden ? Icons.visibility : Icons.visibility_off),
-            ) : null,
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(50.0))),
+            suffixIcon: widget.hidable
+                ? GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _hidden = !_hidden;
+                      });
+                    },
+                    child:
+                        Icon(_hidden ? Icons.visibility : Icons.visibility_off),
+                  )
+                : null,),
         validator: widget.validator);
   }
 }
