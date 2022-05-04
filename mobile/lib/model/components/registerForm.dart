@@ -1,4 +1,6 @@
+import 'package:erasmus_helper/model/components/registerInput.dart';
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({Key? key}) : super(key: key);
@@ -10,56 +12,55 @@ class RegisterForm extends StatefulWidget {
 class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
 
+  // Generates a styled text input given a set of options
+  Row genInputRow(BuildContext context, RegisterInput input) {
+    return Row(children: [
+      Expanded(
+          child: Padding(
+              padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+              child: input))
+    ]);
+  }
+
   List<Widget> genInputs(BuildContext context) {
-    final emailInput = TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-          icon: const Icon(Icons.email),
-          hintText: "Email address",
-          contentPadding: const EdgeInsets.all(20),
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(50.0))),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter an email';
-        }
-        return null;
-      },
-    );
+    final emailInput = genInputRow(context, RegisterInput(
+        keyboard: TextInputType.emailAddress,
+        icon: const Icon(Icons.email),
+        hintText: "Email address",
+        validator: EmailValidator(errorText: "Invalid email.")));
 
-    final passwordInput = TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-          icon: const Icon(Icons.key),
-          hintText: "Password",
-          contentPadding: const EdgeInsets.all(20),
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(50.0))),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter a password';
-        }
-        return null;
-      },
-    );
+    final passwordValidator = MultiValidator([
+      RequiredValidator(errorText: 'Password is required.'),
+      MinLengthValidator(8,
+          errorText: 'Password must be at least 8 digits long.'),
+      PatternValidator(r'(?=.*?[#?!@$%^&*-])',
+          errorText: 'Passwords must have at least one special character.')
+    ]);
 
-    return [
-      Row(children: [
-        Expanded(
-            child: Padding(
-                padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-                child: emailInput))
-      ]),
-      Row(
-        children: [
-          Expanded(
-              child: Padding(
-            padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-            child: passwordInput,
-          ))
-        ],
-      )
-    ];
+    final passwordInput = genInputRow(context, RegisterInput(
+      keyboard: TextInputType.text,
+      icon: const Icon(Icons.key),
+      hintText: "Password",
+      validator: passwordValidator,
+      hidable: true,));
+
+    final confirmPasswordInput = genInputRow(context, RegisterInput(
+        keyboard: TextInputType.text,
+        icon: const Icon(Icons.key),
+        hintText: "Confirm password",
+        validator: passwordValidator,
+        hidable: true));
+
+    final nameInput = genInputRow(context, RegisterInput(
+        keyboard: TextInputType.text,
+        icon: const Icon(Icons.account_circle_rounded),
+        hintText: "Name",
+        validator: MultiValidator([
+          RequiredValidator(errorText: "Name is required."),
+          MaxLengthValidator(32, errorText: "Max characters reached.")
+        ])));
+
+    return [emailInput, passwordInput, confirmPasswordInput, nameInput];
   }
 
   @override

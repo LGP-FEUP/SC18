@@ -16,7 +16,7 @@ class RegisterPage extends StatelessWidget {
         children: [
           Expanded(
               child: Padding(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: Container(
                     height: ht * 0.14,
                     decoration: const BoxDecoration(
