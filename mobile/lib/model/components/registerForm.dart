@@ -1,4 +1,4 @@
-import 'package:erasmus_helper/model/components/registerInput.dart';
+import 'package:erasmus_helper/model/components/formInput.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
@@ -73,7 +73,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
   // Generates styled text inputs for the register form
   List<Widget> genInputs(BuildContext context) {
-    final emailInput = RegisterInput(
+    final emailInput = FormInput(
         keyboard: TextInputType.emailAddress,
         icon: const Icon(Icons.email),
         hintText: "Email address",
@@ -90,7 +90,7 @@ class _RegisterFormState extends State<RegisterForm> {
           errorText: 'Passwords must have at least one special character.')
     ]);
 
-    final passwordInput = RegisterInput(
+    final passwordInput = FormInput(
       keyboard: TextInputType.text,
       icon: const Icon(Icons.key),
       hintText: "Password",
@@ -98,14 +98,14 @@ class _RegisterFormState extends State<RegisterForm> {
       hidable: true,
     );
 
-    final confirmPasswordInput = RegisterInput(
+    final confirmPasswordInput = FormInput(
         keyboard: TextInputType.text,
         icon: const Icon(Icons.key),
         hintText: "Confirm password",
         validator: passwordValidator,
         hidable: true);
 
-    final nameInput = RegisterInput(
+    final nameInput = FormInput(
         keyboard: TextInputType.text,
         icon: const Icon(Icons.account_circle_rounded),
         hintText: "Name",
