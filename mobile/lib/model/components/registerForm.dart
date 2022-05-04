@@ -1,4 +1,5 @@
 import 'package:erasmus_helper/model/components/formInput.dart';
+import 'package:erasmus_helper/model/login.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
@@ -61,13 +62,23 @@ class _RegisterFormState extends State<RegisterForm> {
       ],
     );
 
+    final login = TextButton(
+        child: const Text('Already have an account?',
+          style: TextStyle(color: Colors.grey, fontSize: 14),),
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => const LoginPage()));
+        }
+    );
+
     return Form(
         key: _formKey,
         child: Column(children: [
           logo,
           title,
           ...genInputs(context),
-          submitButton
+          submitButton,
+          login
         ]));
   }
 

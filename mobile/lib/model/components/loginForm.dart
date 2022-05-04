@@ -1,3 +1,4 @@
+import 'package:erasmus_helper/model/register.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
@@ -41,20 +42,24 @@ class _LoginFormState extends State<LoginForm> {
       emailInput,
       passwordInput,
     ]
-        .map((e) => Row(children: [
-              Expanded(
-                  child: Padding(
-                      padding:
-                          const EdgeInsets.only(top: 10, left: 12, right: 12),
-                      child: e))
-            ]))
+        .map((e) =>
+        Row(children: [
+          Expanded(
+              child: Padding(
+                  padding:
+                  const EdgeInsets.only(top: 10, left: 12, right: 12),
+                  child: e))
+        ]))
         .toList();
     ;
   }
 
   @override
   Widget build(BuildContext context) {
-    var ht = MediaQuery.of(context).size.height;
+    var ht = MediaQuery
+        .of(context)
+        .size
+        .height;
 
     final logo = Row(
       children: [
@@ -101,10 +106,25 @@ class _LoginFormState extends State<LoginForm> {
       ],
     );
 
+    final register = TextButton(
+        child: const Text('Create account',
+          style: TextStyle(color: Colors.grey, fontSize: 14),),
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => const RegisterPage()));
+        }
+    );
+
     return Form(
         key: _formKey,
         child: Column(
-          children: <Widget>[logo, title, ...genInputs(context), submitButton],
+          children: <Widget>[
+            logo,
+            title,
+            ...genInputs(context),
+            submitButton,
+            register
+          ],
         ));
   }
 }
