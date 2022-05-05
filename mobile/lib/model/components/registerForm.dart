@@ -175,7 +175,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   (label) => DropdownMenuItem(child: Text(label), value: label))
               .toList(),
           onChanged: (_) {},
-          validator: RequiredValidator(errorText: 'University is required.'),
+          validator: (value) => value == null ? 'Mandatory field.' : null,
         ));
 
     final inputs = [emailInput, passwordInput, confirmPasswordInput, nameInput]
