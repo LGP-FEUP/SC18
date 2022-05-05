@@ -50,3 +50,15 @@ class _FormInputState extends State<FormInput> {
         validator: widget.validator);
   }
 }
+
+class ConfirmPasswordValidator extends TextFieldValidator {
+  final String originalPass;
+  ConfirmPasswordValidator(this.originalPass, {String errorText = 'Passwords do not match.'}) : super(errorText);
+
+  @override
+  bool isValid(String? value) {
+    print("C: " + value!);
+    print("P: " + originalPass);
+    return value == originalPass;
+  }
+}

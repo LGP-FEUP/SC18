@@ -123,20 +123,18 @@ class _RegisterFormState extends State<RegisterForm> {
           EmailValidator(errorText: "Invalid email.")
         ]));
 
-    final passwordValidator = MultiValidator([
-      RequiredValidator(errorText: 'Password is required.'),
-      MinLengthValidator(8,
-          errorText: 'Password must be at least 8 digits long.'),
-      PatternValidator(r'(?=.*?[#?!@$%^&*-])',
-          errorText: 'Passwords must have at least one special character.')
-    ]);
-
     final passwordInput = FormInput(
       keyboard: TextInputType.text,
       icon: const Icon(Icons.key),
       controller: passwordController,
       hintText: "Password",
-      validator: passwordValidator,
+      validator: MultiValidator([
+        RequiredValidator(errorText: 'Password is required.'),
+        MinLengthValidator(8,
+            errorText: 'Password must be at least 8 digits long.'),
+        PatternValidator(r'(?=.*?[#?!@$%^&*-])',
+            errorText: 'Passwords must have at least one special character.'),
+      ]),
       hidable: true,
     );
 
@@ -145,7 +143,7 @@ class _RegisterFormState extends State<RegisterForm> {
         icon: const Icon(Icons.key),
         controller: confirmController,
         hintText: "Confirm password",
-        validator: passwordValidator,
+        validator: ConfirmPasswordValidator(passwordController.text),
         hidable: true);
 
     final nameInput = FormInput(
