@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "720342091332",
+    "firebase_url": "https://erasmus-helper-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "erasmus-helper",
+    "storage_bucket": "erasmus-helper.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720342091332:android:76e115152a8251b27e5e11",
+        "android_client_info": {
+          "package_name": "com.sumsera.erasmus_helper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720342091332-jucemhgplph712tpeuiaqq3a7pconq6c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnZP5MSPUN6KjYVp39Qw1GR64Qla2REBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720342091332-jucemhgplph712tpeuiaqq3a7pconq6c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
