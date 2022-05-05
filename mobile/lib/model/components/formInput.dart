@@ -7,14 +7,16 @@ class FormInput extends StatefulWidget {
   final String hintText;
   final FieldValidator validator;
   final bool hidable;
+  TextEditingController controller;
 
-  const FormInput({
+  FormInput({
     Key? key,
     required this.keyboard,
     required this.icon,
     required this.hintText,
     required this.validator,
     this.hidable = false,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -22,7 +24,6 @@ class FormInput extends StatefulWidget {
 }
 
 class _FormInputState extends State<FormInput> {
-  final _formKey = GlobalKey<FormState>();
   bool _hidden = true;
 
   @override
@@ -30,20 +31,22 @@ class _FormInputState extends State<FormInput> {
     return TextFormField(
         keyboardType: widget.keyboard,
         obscureText: widget.hidable ? _hidden : false,
+        controller: widget.controller,
         decoration: InputDecoration(
-            icon: widget.icon,
-            hintText: widget.hintText,
-            suffixIcon: widget.hidable
-                ? GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _hidden = !_hidden;
-                      });
-                    },
-                    child:
-                        Icon(_hidden ? Icons.visibility : Icons.visibility_off),
-                  )
-                : null,),
+          icon: widget.icon,
+          hintText: widget.hintText,
+          suffixIcon: widget.hidable
+              ? GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _hidden = !_hidden;
+                    });
+                  },
+                  child:
+                      Icon(_hidden ? Icons.visibility : Icons.visibility_off),
+                )
+              : null,
+        ),
         validator: widget.validator);
   }
 }

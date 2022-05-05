@@ -2,6 +2,10 @@ import 'package:erasmus_helper/model/components/formInput.dart';
 import 'package:erasmus_helper/model/login.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:provider/provider.dart';
+
+import '../../main.dart';
+import '../../services/authentication_service.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({Key? key}) : super(key: key);
@@ -12,6 +16,19 @@ class RegisterForm extends StatefulWidget {
 
 class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    confirmController.dispose();
+    nameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +69,19 @@ class _RegisterFormState extends State<RegisterForm> {
               // Validate returns true if the form is valid, or false otherwise.
               if (_formKey.currentState!.validate()) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Processing Data')),
+                  const SnackBar(content: Text('Creating account')),
                 );
+                context
+                    .read<AuthenticationService>()
+                    .signUp(
+                      email: emailController.text.trim(),
+                      password: passwordController.text.trim(),
+                    )
+                    .then((value) => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const MyHomePage(title: "Homepage"))));
               }
             },
             child: const Text('Create account'),
@@ -63,13 +91,14 @@ class _RegisterFormState extends State<RegisterForm> {
     );
 
     final login = TextButton(
-        child: const Text('Already have an account?',
-          style: TextStyle(color: Colors.grey, fontSize: 14),),
+        child: const Text(
+          'Already have an account?',
+          style: TextStyle(color: Colors.grey, fontSize: 14),
+        ),
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => const LoginPage()));
-        }
-    );
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const LoginPage()));
+        });
 
     return Form(
         key: _formKey,
@@ -87,6 +116,7 @@ class _RegisterFormState extends State<RegisterForm> {
     final emailInput = FormInput(
         keyboard: TextInputType.emailAddress,
         icon: const Icon(Icons.email),
+        controller: emailController,
         hintText: "Email address",
         validator: MultiValidator([
           RequiredValidator(errorText: 'Password is required.'),
@@ -104,6 +134,7 @@ class _RegisterFormState extends State<RegisterForm> {
     final passwordInput = FormInput(
       keyboard: TextInputType.text,
       icon: const Icon(Icons.key),
+      controller: passwordController,
       hintText: "Password",
       validator: passwordValidator,
       hidable: true,
@@ -112,6 +143,7 @@ class _RegisterFormState extends State<RegisterForm> {
     final confirmPasswordInput = FormInput(
         keyboard: TextInputType.text,
         icon: const Icon(Icons.key),
+        controller: confirmController,
         hintText: "Confirm password",
         validator: passwordValidator,
         hidable: true);
@@ -119,6 +151,7 @@ class _RegisterFormState extends State<RegisterForm> {
     final nameInput = FormInput(
         keyboard: TextInputType.text,
         icon: const Icon(Icons.account_circle_rounded),
+        controller: nameController,
         hintText: "Name",
         validator: MultiValidator([
           RequiredValidator(errorText: "Name is required."),
