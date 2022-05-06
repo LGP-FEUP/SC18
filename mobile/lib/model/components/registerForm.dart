@@ -19,14 +19,16 @@ class _RegisterFormState extends State<RegisterForm> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
+  TextEditingController fNameController = TextEditingController();
+  TextEditingController lNameController = TextEditingController();
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
     confirmController.dispose();
-    nameController.dispose();
+    fNameController.dispose();
+    lNameController.dispose();
     super.dispose();
   }
 
@@ -146,13 +148,23 @@ class _RegisterFormState extends State<RegisterForm> {
         validator: ConfirmPasswordValidator(passwordController.text),
         hidable: true);
 
-    final nameInput = FormInput(
+    final fNameInput = FormInput(
         keyboard: TextInputType.text,
         icon: const Icon(Icons.account_circle_rounded),
-        controller: nameController,
-        hintText: "Name",
+        controller: fNameController,
+        hintText: "First name",
         validator: MultiValidator([
-          RequiredValidator(errorText: "Name is required."),
+          RequiredValidator(errorText: "First name is required."),
+          MaxLengthValidator(32, errorText: "Max characters reached.")
+        ]));
+
+    final lNameInput = FormInput(
+        keyboard: TextInputType.text,
+        icon: const Icon(Icons.account_circle_rounded),
+        controller: lNameController,
+        hintText: "Last name",
+        validator: MultiValidator([
+          RequiredValidator(errorText: "Last name is required."),
           MaxLengthValidator(32, errorText: "Max characters reached.")
         ]));
 
@@ -178,7 +190,13 @@ class _RegisterFormState extends State<RegisterForm> {
           validator: (value) => value == null ? 'Mandatory field.' : null,
         ));
 
-    final inputs = [emailInput, passwordInput, confirmPasswordInput, nameInput]
+    final inputs = [
+      emailInput,
+      passwordInput,
+      confirmPasswordInput,
+      fNameInput,
+      lNameInput
+    ]
         .map((e) => Row(children: [
               Expanded(
                   child: Padding(
