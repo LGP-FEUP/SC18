@@ -1,3 +1,4 @@
+import 'package:erasmus_helper/services/faculty_service.dart';
 import 'package:erasmus_helper/views/components/formInput.dart';
 import 'package:erasmus_helper/views/login.dart';
 import 'package:flutter/material.dart';
@@ -102,19 +103,43 @@ class _RegisterFormState extends State<RegisterForm> {
               MaterialPageRoute(builder: (context) => const LoginPage()));
         });
 
-    return Form(
-        key: _formKey,
-        child: Column(children: [
-          logo,
-          title,
-          ...genInputs(context),
-          submitButton,
-          login
-        ]));
+    return FutureBuilder<Map<String, String>>(
+      future: FacultyService.getFacultiesNames(),
+      builder: (context, response) {
+        if (response.connectionState == ConnectionState.done) {
+          if (response.data != null) {
+            var faculties = response.data?.entries
+                .map((e) => DropdownMenuItem<String>(
+                    child: Text(e.value), value: e.key))
+                .toList();
+
+            return Form(
+                key: _formKey,
+                child: Column(children: [
+                  logo,
+                  title,
+                  ...genInputs(context, faculties!),
+                  submitButton,
+                  login
+                ]));
+          }
+        }
+        return Form(
+            key: _formKey,
+            child: Column(children: [
+              logo,
+              title,
+              ...genInputs(context, []),
+              submitButton,
+              login
+            ]));
+      },
+    );
   }
 
   // Generates styled text inputs for the register form
-  List<Widget> genInputs(BuildContext context) {
+  List<Widget> genInputs(
+      BuildContext context, List<DropdownMenuItem<String>> faculties) {
     final emailInput = FormInput(
         keyboard: TextInputType.emailAddress,
         icon: const Icon(Icons.email),
@@ -177,15 +202,7 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           decoration: const InputDecoration(prefixIcon: Icon(Icons.school)),
           hint: const Text('University of origin'),
-          items: [
-            'University of France',
-            'University of Italy',
-            'University of Spain',
-            'University of Germany'
-          ]
-              .map(
-                  (label) => DropdownMenuItem(child: Text(label), value: label))
-              .toList(),
+          items: faculties,
           onChanged: (_) {},
           validator: (value) => value == null ? 'Mandatory field.' : null,
         ));
