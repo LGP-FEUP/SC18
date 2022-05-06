@@ -1,4 +1,7 @@
+import 'package:erasmus_helper/services/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../models/user.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
@@ -25,10 +28,14 @@ class AuthenticationService {
   }
 
   Future<String?> signUp(
-      {required String email, required String password}) async {
+      {required UserModel user}) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: password);
+      UserCredential creadential = await _firebaseAuth.createUserWithEmailAndPassword(
+          email: user.email, password: user.password);
+
+      user.uid = creadential.user!.uid;
+      UserService.addUser(user);
+
       return "Signed up";
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

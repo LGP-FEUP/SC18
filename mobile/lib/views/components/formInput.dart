@@ -57,8 +57,6 @@ class ConfirmPasswordValidator extends TextFieldValidator {
 
   @override
   bool isValid(String? value) {
-    print("C: " + value!);
-    print("P: " + originalPass);
     return value == originalPass;
   }
 }

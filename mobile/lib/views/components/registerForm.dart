@@ -1,3 +1,4 @@
+import 'package:erasmus_helper/models/user.dart';
 import 'package:erasmus_helper/services/faculty_service.dart';
 import 'package:erasmus_helper/views/components/formInput.dart';
 import 'package:erasmus_helper/views/login.dart';
@@ -22,6 +23,7 @@ class _RegisterFormState extends State<RegisterForm> {
   TextEditingController confirmController = TextEditingController();
   TextEditingController fNameController = TextEditingController();
   TextEditingController lNameController = TextEditingController();
+  var faculty;
 
   @override
   void dispose() {
@@ -35,7 +37,10 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    var ht = MediaQuery.of(context).size.height;
+    var ht = MediaQuery
+        .of(context)
+        .size
+        .height;
 
     final logo = Row(
       children: [
@@ -74,17 +79,20 @@ class _RegisterFormState extends State<RegisterForm> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Creating account')),
                 );
+
+                UserModel user = UserModel(
+                    emailController.text.trim(), passwordController.text.trim(),
+                    fNameController.text.trim(), lNameController.text.trim(), faculty);
+
                 context
                     .read<AuthenticationService>()
-                    .signUp(
-                      email: emailController.text.trim(),
-                      password: passwordController.text.trim(),
-                    )
-                    .then((value) => Navigator.push(
+                    .signUp(user: user)
+                    .then((value) =>
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const MyHomePage(title: "Homepage"))));
+                            const MyHomePage(title: "Homepage"))));
               }
             },
             child: const Text('Create account'),
@@ -109,7 +117,8 @@ class _RegisterFormState extends State<RegisterForm> {
         if (response.connectionState == ConnectionState.done) {
           if (response.data != null) {
             var faculties = response.data?.entries
-                .map((e) => DropdownMenuItem<String>(
+                .map((e) =>
+                DropdownMenuItem<String>(
                     child: Text(e.value), value: e.key))
                 .toList();
 
@@ -138,8 +147,8 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 
   // Generates styled text inputs for the register form
-  List<Widget> genInputs(
-      BuildContext context, List<DropdownMenuItem<String>> faculties) {
+  List<Widget> genInputs(BuildContext context,
+      List<DropdownMenuItem<String>> faculties) {
     final emailInput = FormInput(
         keyboard: TextInputType.emailAddress,
         icon: const Icon(Icons.email),
@@ -170,7 +179,7 @@ class _RegisterFormState extends State<RegisterForm> {
         icon: const Icon(Icons.key),
         controller: confirmController,
         hintText: "Confirm password",
-        validator: ConfirmPasswordValidator(passwordController.text),
+        validator: ConfirmPasswordValidator(passwordController.value.text),
         hidable: true);
 
     final fNameInput = FormInput(
@@ -196,6 +205,7 @@ class _RegisterFormState extends State<RegisterForm> {
     final facultyInput = Padding(
         padding: const EdgeInsets.only(top: 10),
         child: DropdownButtonFormField<String>(
+          value: faculty,
           icon: const Padding(
             padding: EdgeInsets.only(right: 22),
             child: Icon(Icons.arrow_drop_down),
@@ -203,7 +213,9 @@ class _RegisterFormState extends State<RegisterForm> {
           decoration: const InputDecoration(prefixIcon: Icon(Icons.school)),
           hint: const Text('University of origin'),
           items: faculties,
-          onChanged: (_) {},
+          onChanged: (selected) {
+            faculty = selected;
+          },
           validator: (value) => value == null ? 'Mandatory field.' : null,
         ));
 
@@ -214,13 +226,14 @@ class _RegisterFormState extends State<RegisterForm> {
       fNameInput,
       lNameInput
     ]
-        .map((e) => Row(children: [
-              Expanded(
-                  child: Padding(
-                      padding:
-                          const EdgeInsets.only(top: 10, left: 12, right: 12),
-                      child: e))
-            ]))
+        .map((e) =>
+        Row(children: [
+          Expanded(
+              child: Padding(
+                  padding:
+                  const EdgeInsets.only(top: 10, left: 12, right: 12),
+                  child: e))
+        ]))
         .toList();
 
     return List<Widget>.from(inputs) + [facultyInput];
