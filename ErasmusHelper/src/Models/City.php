@@ -2,7 +2,6 @@
 
 namespace ErasmusHelper\Models;
 
-use ErasmusHelper\App;
 use Kreait\Firebase\Exception\DatabaseException;
 
 class City extends Model {

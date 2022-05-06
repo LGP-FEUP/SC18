@@ -20,6 +20,8 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY conf/000-default.conf /etc/apache2/sites-available/000-default.conf
 
+#COPY conf/apache2.conf /etc/apache2/apache2.conf
+
 RUN a2enmod rewrite
 
 RUN useradd -G www-data,root -u $uid -d /home/$user $user

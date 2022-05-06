@@ -1,6 +1,5 @@
 <?php
 
-use AgileBundle\Utils\Dbg;
 use JetBrains\PhpStorm\Pure;
 
 #[Pure] function filterStrictPositiveFloat($float): ?float {

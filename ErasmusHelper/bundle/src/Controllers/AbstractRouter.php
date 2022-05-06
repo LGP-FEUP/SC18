@@ -9,7 +9,6 @@ use FastRoute\RouteCollector;
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Immutable;
 use JetBrains\PhpStorm\Pure;
-use stdClass;
 use function FastRoute\cachedDispatcher;
 
 /**

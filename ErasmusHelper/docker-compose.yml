@@ -8,11 +8,11 @@ services:
         user: ruben
         uid: 1000
     volumes:
-      - .:/var/www
+      - .:/var/www/ErasmusHelper
     networks:
       - backoffice
     ports:
-      - "8000:80"
+      - "80:80"
 networks:
   backoffice:
     driver: bridge

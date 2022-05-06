@@ -2,7 +2,6 @@
 
 namespace ErasmusHelper;
 
-use AgileBundle\Utils\Dbg;
 use ErasmusHelper\Controllers\AuthController;
 use ErasmusHelper\Core\Auth;
 use ErasmusHelper\Core\DBConf;

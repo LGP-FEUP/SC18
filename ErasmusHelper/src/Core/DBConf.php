@@ -2,13 +2,10 @@
 
 namespace ErasmusHelper\Core;
 
-use AgileBundle\Utils\Dbg;
-use ErasmusHelper\App;
 use Kreait\Firebase\Auth\UserRecord;
-use Kreait\Firebase\Contract\Database;
-use Kreait\Firebase\Exception\DatabaseException;
-use Kreait\Firebase\Factory;
 use Kreait\Firebase\Contract\Auth;
+use Kreait\Firebase\Contract\Database;
+use Kreait\Firebase\Factory;
 
 class DBConf {
 

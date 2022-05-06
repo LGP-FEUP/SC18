@@ -5,7 +5,6 @@ namespace AgileBundle\Database;
 use DateTime;
 use PDO;
 use PDOStatement;
-use stdClass;
 
 /**
  * Class SQL
