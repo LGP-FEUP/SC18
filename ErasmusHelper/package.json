@@ -2,13 +2,26 @@
   "name": "backoffice",
   "version": "1.0.0",
   "description": "sudo npm install -g sass -> Install watcher.xml Upgrade php8.0 and enable it on apache php composer.phar update to setup composer dependencies.",
-  "main": "index.js",
+  "main": "./public/assets/scripts/bootstrap.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npm run development",
+    "development": "mix",
+    "watch": "mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
+    "prod": "npm run production",
+    "production": "mix --production"
   },
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "laravel-mix": "^6.0.43",
+    "resolve-url-loader": "^5.0.0",
+    "sass": "^1.51.0",
+    "sass-loader": "^12.6.0"
+  },
   "dependencies": {
-    "sass": "^1.51.0"
+    "bootstrap": "^4.6.1"
   }
 }
