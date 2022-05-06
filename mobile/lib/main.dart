@@ -1,4 +1,4 @@
-import 'package:erasmus_helper/model/login.dart';
+import 'package:erasmus_helper/views/login.dart';
 import 'package:erasmus_helper/services/authentication_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
