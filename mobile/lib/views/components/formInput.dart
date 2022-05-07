@@ -7,9 +7,9 @@ class FormInput extends StatefulWidget {
   final String hintText;
   final FieldValidator validator;
   final bool hidable;
-  TextEditingController controller;
+  final TextEditingController controller;
 
-  FormInput({
+  const FormInput({
     Key? key,
     required this.keyboard,
     required this.icon,
@@ -51,9 +51,78 @@ class _FormInputState extends State<FormInput> {
   }
 }
 
+class EmailInput extends FormInput {
+  EmailInput({Key? key, required TextEditingController controller})
+      : super(
+            key: key,
+            keyboard: TextInputType.emailAddress,
+            icon: const Icon(Icons.email),
+            hintText: "Email address",
+            validator: MultiValidator([
+              RequiredValidator(errorText: 'Password is required.'),
+              EmailValidator(errorText: "Invalid email.")
+            ]),
+            controller: controller);
+}
+
+class PasswordInput extends FormInput {
+  PasswordInput({Key? key, required TextEditingController controller})
+      : super(
+            key: key,
+            keyboard: TextInputType.text,
+            icon: const Icon(Icons.key),
+            hintText: "Password",
+            validator: MultiValidator([
+              RequiredValidator(errorText: 'Password is required.'),
+              MinLengthValidator(8,
+                  errorText: 'Password must be at least 8 digits long.'),
+              PatternValidator(r'(?=.*?[#?!@$%^&*-])',
+                  errorText:
+                      'Passwords must have at least one special character.'),
+            ]),
+            controller: controller,
+            hidable: true);
+}
+
+class ConfirmPasswordInput extends FormInput {
+  ConfirmPasswordInput(
+      {Key? key,
+      required TextEditingController controller,
+      required TextEditingController passwordController})
+      : super(
+            key: key,
+            keyboard: TextInputType.text,
+            icon: const Icon(Icons.key),
+            hintText: "Confirm password",
+            validator: ConfirmPasswordValidator(passwordController.text),
+            controller: controller,
+            hidable: true);
+}
+
+class NameInput extends FormInput {
+  NameInput(
+      {Key? key,
+      required TextEditingController controller,
+      required String name})
+      : super(
+            key: key,
+            keyboard: TextInputType.text,
+            icon: const Icon(Icons.account_circle_rounded),
+            hintText: name,
+            validator: MultiValidator([
+              RequiredValidator(errorText: name + " is required."),
+              MaxLengthValidator(32, errorText: "Max characters reached.")
+            ]),
+            controller: controller,
+            hidable: true);
+}
+
 class ConfirmPasswordValidator extends TextFieldValidator {
   final String originalPass;
-  ConfirmPasswordValidator(this.originalPass, {String errorText = 'Passwords do not match.'}) : super(errorText);
+
+  ConfirmPasswordValidator(this.originalPass,
+      {String errorText = 'Passwords do not match.'})
+      : super(errorText);
 
   @override
   bool isValid(String? value) {

@@ -3,7 +3,6 @@ import 'package:erasmus_helper/services/faculty_service.dart';
 import 'package:erasmus_helper/views/components/formInput.dart';
 import 'package:erasmus_helper/views/login.dart';
 import 'package:flutter/material.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'package:provider/provider.dart';
 
 import '../../main.dart';
@@ -25,6 +24,28 @@ class _RegisterFormState extends State<RegisterForm> {
   TextEditingController lNameController = TextEditingController();
   var faculty;
 
+  void onSubmit() {
+    // if form is valid
+    if (_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Creating account')),
+      );
+
+      UserModel user = UserModel(
+          emailController.text.trim(),
+          passwordController.text.trim(),
+          fNameController.text.trim(),
+          lNameController.text.trim(),
+          faculty);
+
+      context.read<AuthenticationService>().signUp(user: user).then((value) =>
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const MyHomePage(title: "Homepage"))));
+    }
+  }
+
   @override
   void dispose() {
     emailController.dispose();
@@ -37,10 +58,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    var ht = MediaQuery
-        .of(context)
-        .size
-        .height;
+    var ht = MediaQuery.of(context).size.height;
 
     final logo = Row(
       children: [
@@ -73,28 +91,7 @@ class _RegisterFormState extends State<RegisterForm> {
         Padding(
           padding: const EdgeInsets.only(top: 10),
           child: ElevatedButton(
-            onPressed: () {
-              // Validate returns true if the form is valid, or false otherwise.
-              if (_formKey.currentState!.validate()) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Creating account')),
-                );
-
-                UserModel user = UserModel(
-                    emailController.text.trim(), passwordController.text.trim(),
-                    fNameController.text.trim(), lNameController.text.trim(), faculty);
-
-                context
-                    .read<AuthenticationService>()
-                    .signUp(user: user)
-                    .then((value) =>
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                            const MyHomePage(title: "Homepage"))));
-              }
-            },
+            onPressed: onSubmit,
             child: const Text('Create account'),
           ),
         )
@@ -117,8 +114,7 @@ class _RegisterFormState extends State<RegisterForm> {
         if (response.connectionState == ConnectionState.done) {
           if (response.data != null) {
             var faculties = response.data?.entries
-                .map((e) =>
-                DropdownMenuItem<String>(
+                .map((e) => DropdownMenuItem<String>(
                     child: Text(e.value), value: e.key))
                 .toList();
 
@@ -147,60 +143,16 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 
   // Generates styled text inputs for the register form
-  List<Widget> genInputs(BuildContext context,
-      List<DropdownMenuItem<String>> faculties) {
-    final emailInput = FormInput(
-        keyboard: TextInputType.emailAddress,
-        icon: const Icon(Icons.email),
-        controller: emailController,
-        hintText: "Email address",
-        validator: MultiValidator([
-          RequiredValidator(errorText: 'Password is required.'),
-          EmailValidator(errorText: "Invalid email.")
-        ]));
-
-    final passwordInput = FormInput(
-      keyboard: TextInputType.text,
-      icon: const Icon(Icons.key),
-      controller: passwordController,
-      hintText: "Password",
-      validator: MultiValidator([
-        RequiredValidator(errorText: 'Password is required.'),
-        MinLengthValidator(8,
-            errorText: 'Password must be at least 8 digits long.'),
-        PatternValidator(r'(?=.*?[#?!@$%^&*-])',
-            errorText: 'Passwords must have at least one special character.'),
-      ]),
-      hidable: true,
-    );
-
-    final confirmPasswordInput = FormInput(
-        keyboard: TextInputType.text,
-        icon: const Icon(Icons.key),
-        controller: confirmController,
-        hintText: "Confirm password",
-        validator: ConfirmPasswordValidator(passwordController.value.text),
-        hidable: true);
-
-    final fNameInput = FormInput(
-        keyboard: TextInputType.text,
-        icon: const Icon(Icons.account_circle_rounded),
-        controller: fNameController,
-        hintText: "First name",
-        validator: MultiValidator([
-          RequiredValidator(errorText: "First name is required."),
-          MaxLengthValidator(32, errorText: "Max characters reached.")
-        ]));
-
-    final lNameInput = FormInput(
-        keyboard: TextInputType.text,
-        icon: const Icon(Icons.account_circle_rounded),
-        controller: lNameController,
-        hintText: "Last name",
-        validator: MultiValidator([
-          RequiredValidator(errorText: "Last name is required."),
-          MaxLengthValidator(32, errorText: "Max characters reached.")
-        ]));
+  List<Widget> genInputs(
+      BuildContext context, List<DropdownMenuItem<String>> faculties) {
+    final emailInput = EmailInput(controller: emailController);
+    final passwordInput = PasswordInput(controller: passwordController);
+    final confirmPasswordInput = ConfirmPasswordInput(
+        controller: confirmController, passwordController: passwordController);
+    final fNameInput =
+        NameInput(controller: fNameController, name: "First name");
+    final lNameInput =
+        NameInput(controller: lNameController, name: "Last name");
 
     final facultyInput = Padding(
         padding: const EdgeInsets.only(top: 10),
@@ -226,14 +178,13 @@ class _RegisterFormState extends State<RegisterForm> {
       fNameInput,
       lNameInput
     ]
-        .map((e) =>
-        Row(children: [
-          Expanded(
-              child: Padding(
-                  padding:
-                  const EdgeInsets.only(top: 10, left: 12, right: 12),
-                  child: e))
-        ]))
+        .map((e) => Row(children: [
+              Expanded(
+                  child: Padding(
+                      padding:
+                          const EdgeInsets.only(top: 10, left: 12, right: 12),
+                      child: e))
+            ]))
         .toList();
 
     return List<Widget>.from(inputs) + [facultyInput];
