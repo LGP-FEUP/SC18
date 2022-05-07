@@ -1,5 +1,3 @@
-import 'package:erasmus_helper/views/login.dart';
-import 'package:erasmus_helper/services/authentication_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -7,9 +5,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
+import 'package:erasmus_helper/views/login.dart';
+import 'package:erasmus_helper/services/authentication_service.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
+  await  Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
@@ -18,16 +19,14 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
+  Widget _app() {
     return MultiProvider(
       providers: [
         Provider<AuthenticationService>(
             create: (_) => AuthenticationService(FirebaseAuth.instance)),
         StreamProvider(
           create: (context) =>
-              context.read<AuthenticationService>().authStateChanges,
+          context.read<AuthenticationService>().authStateChanges,
           initialData: null,
         )
       ],
@@ -39,6 +38,27 @@ class MyApp extends StatelessWidget {
         home: const AuthenticationWrapper(),
       ),
     );
+  }
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    /*
+    Future<FirebaseApp> _initFireBase = Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+
+    return FutureBuilder(
+      future: _initFireBase,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return _app();
+        }
+        return Container();
+      },
+    );
+     */
+    return _app();
   }
 }
 
