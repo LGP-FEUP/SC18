@@ -22,7 +22,7 @@ class _RegisterFormState extends State<RegisterForm> {
   TextEditingController confirmController = TextEditingController();
   TextEditingController fNameController = TextEditingController();
   TextEditingController lNameController = TextEditingController();
-  var faculty;
+  var faculty_origin, faculty_arriving;
 
   void onSubmit() {
     // if form is valid
@@ -36,7 +36,7 @@ class _RegisterFormState extends State<RegisterForm> {
           passwordController.text.trim(),
           fNameController.text.trim(),
           lNameController.text.trim(),
-          faculty);
+          faculty_origin, faculty_arriving);
 
       context.read<AuthenticationService>().signUp(user: user).then((value) =>
           Navigator.push(
@@ -113,9 +113,16 @@ class _RegisterFormState extends State<RegisterForm> {
       builder: (context, response) {
         if (response.connectionState == ConnectionState.done) {
           if (response.data != null) {
-            var faculties = response.data?.entries
+            // arriving faculty is always FEUP
+            faculty_arriving = response.data!["FEUP"];
+
+            // remove FEUP from origin possibilities
+            final erasmus_faculties = response.data;
+            erasmus_faculties?.remove("FEUP");
+
+            var faculties = erasmus_faculties?.entries
                 .map((e) => DropdownMenuItem<String>(
-                    child: Text(e.value), value: e.key))
+                    child: Text(e.key), value: e.value))
                 .toList();
 
             return Form(
@@ -157,7 +164,7 @@ class _RegisterFormState extends State<RegisterForm> {
     final facultyInput = Padding(
         padding: const EdgeInsets.only(top: 10),
         child: DropdownButtonFormField<String>(
-          value: faculty,
+          value: faculty_origin,
           icon: const Padding(
             padding: EdgeInsets.only(right: 22),
             child: Icon(Icons.arrow_drop_down),
@@ -166,7 +173,7 @@ class _RegisterFormState extends State<RegisterForm> {
           hint: const Text('University of origin'),
           items: faculties,
           onChanged: (selected) {
-            faculty = selected;
+            faculty_origin = selected;
           },
           validator: (value) => value == null ? 'Mandatory field.' : null,
         ));

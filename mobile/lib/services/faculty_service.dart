@@ -8,6 +8,6 @@ class FacultyService {
     final Map map = snap.value as Map<dynamic, dynamic>;
 
     return map.map((key, value) => MapEntry(
-        key.toString(), (value as Map<dynamic, dynamic>)["name"].toString()));
+        (value as Map<dynamic, dynamic>)["name"].toString(), key.toString()));
   }
 }
