@@ -123,7 +123,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 child: Column(children: [
                   logo,
                   title,
-                  ...genInputs(context, faculties!),
+                  ..._genInputs(context, faculties!),
                   submitButton,
                   login
                 ]));
@@ -134,7 +134,7 @@ class _RegisterFormState extends State<RegisterForm> {
             child: Column(children: [
               logo,
               title,
-              ...genInputs(context, []),
+              ..._genInputs(context, []),
               submitButton,
               login
             ]));
@@ -143,7 +143,7 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 
   // Generates styled text inputs for the register form
-  List<Widget> genInputs(
+  List<Widget> _genInputs(
       BuildContext context, List<DropdownMenuItem<String>> faculties) {
     final emailInput = EmailInput(controller: emailController);
     final passwordInput = PasswordInput(controller: passwordController);

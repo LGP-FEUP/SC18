@@ -94,7 +94,7 @@ class ConfirmPasswordInput extends FormInput {
             keyboard: TextInputType.text,
             icon: const Icon(Icons.key),
             hintText: "Confirm password",
-            validator: ConfirmPasswordValidator(passwordController.text),
+            validator: ConfirmPasswordValidator(passwordController),
             controller: controller,
             hidable: true);
 }
@@ -118,7 +118,7 @@ class NameInput extends FormInput {
 }
 
 class ConfirmPasswordValidator extends TextFieldValidator {
-  final String originalPass;
+  final TextEditingController originalPass;
 
   ConfirmPasswordValidator(this.originalPass,
       {String errorText = 'Passwords do not match.'})
@@ -126,6 +126,6 @@ class ConfirmPasswordValidator extends TextFieldValidator {
 
   @override
   bool isValid(String? value) {
-    return value == originalPass;
+    return value == originalPass.text;
   }
 }

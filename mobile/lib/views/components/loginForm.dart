@@ -102,38 +102,16 @@ class _LoginFormState extends State<LoginForm> {
           children: <Widget>[
             logo,
             title,
-            ...genInputs(context),
+            ..._genInputs(context),
             submitButton,
             register
           ],
         ));
   }
 
-  List<Widget> genInputs(BuildContext context) {
-    final emailInput = FormInput(
-        keyboard: TextInputType.emailAddress,
-        icon: const Icon(Icons.email),
-        controller: emailController,
-        hintText: "Email address",
-        validator: MultiValidator([
-          RequiredValidator(errorText: 'Password is required.'),
-          EmailValidator(errorText: "Invalid email.")
-        ]));
-
-    final passwordInput = FormInput(
-      keyboard: TextInputType.text,
-      icon: const Icon(Icons.key),
-      controller: passwordController,
-      hintText: "Password",
-      validator: MultiValidator([
-        RequiredValidator(errorText: 'Password is required.'),
-        MinLengthValidator(8,
-            errorText: 'Password must be at least 8 digits long.'),
-        PatternValidator(r'(?=.*?[#?!@$%^&*-])',
-            errorText: 'Passwords must have at least one special character.')
-      ]),
-      hidable: true,
-    );
+  List<Widget> _genInputs(BuildContext context) {
+    final emailInput = EmailInput(controller: emailController);
+    final passwordInput = PasswordInput(controller: passwordController);
 
     return [
       emailInput,
