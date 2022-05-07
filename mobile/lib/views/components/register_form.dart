@@ -22,7 +22,8 @@ class _RegisterFormState extends State<RegisterForm> {
   TextEditingController confirmController = TextEditingController();
   TextEditingController fNameController = TextEditingController();
   TextEditingController lNameController = TextEditingController();
-  String? facultyOrigin="", facultyArriving="";
+  // ignore: prefer_typing_uninitialized_variables
+  var facultyOrigin, facultyArriving;
 
   void onSubmit() {
     // if form is valid
@@ -36,7 +37,7 @@ class _RegisterFormState extends State<RegisterForm> {
           passwordController.text.trim(),
           fNameController.text.trim(),
           lNameController.text.trim(),
-          facultyOrigin!, facultyArriving!);
+          facultyOrigin, facultyArriving);
 
       context.read<AuthenticationService>().signUp(user: user).then((value) =>
           Navigator.push(
