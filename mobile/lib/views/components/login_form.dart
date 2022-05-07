@@ -1,11 +1,10 @@
 import 'package:erasmus_helper/views/register.dart';
 import 'package:erasmus_helper/services/authentication_service.dart';
 import 'package:flutter/material.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'package:provider/provider.dart';
 
 import '../../main.dart';
-import 'formInput.dart';
+import 'form_input.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);

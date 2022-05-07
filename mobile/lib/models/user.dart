@@ -1,16 +1,16 @@
 class UserModel {
-  final String email, password, fName, lName, faculty_origin, erasmus_faculty;
+  final String email, password, fName, lName, facultyOrigin, erasmusFaculty;
   String uid = "";
 
   UserModel(this.email, this.password, this.fName, this.lName,
-      this.faculty_origin, this.erasmus_faculty);
+      this.facultyOrigin, this.erasmusFaculty);
 
   Map<String, String> getInfo() {
     return {
       "firstName": fName,
       "lastName": lName,
-      "faculty_origin_id": faculty_origin,
-      "faculty_arriving_id": erasmus_faculty
+      "faculty_origin_id": facultyOrigin,
+      "faculty_arriving_id": erasmusFaculty
     };
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:erasmus_helper/views/components/registerForm.dart';
+import 'package:erasmus_helper/views/components/register_form.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({Key? key}) : super(key: key);

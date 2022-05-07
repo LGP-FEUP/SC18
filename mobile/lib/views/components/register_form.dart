@@ -1,6 +1,6 @@
 import 'package:erasmus_helper/models/user.dart';
 import 'package:erasmus_helper/services/faculty_service.dart';
-import 'package:erasmus_helper/views/components/formInput.dart';
+import 'package:erasmus_helper/views/components/form_input.dart';
 import 'package:erasmus_helper/views/login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +22,7 @@ class _RegisterFormState extends State<RegisterForm> {
   TextEditingController confirmController = TextEditingController();
   TextEditingController fNameController = TextEditingController();
   TextEditingController lNameController = TextEditingController();
-  var faculty_origin, faculty_arriving;
+  String? facultyOrigin="", facultyArriving="";
 
   void onSubmit() {
     // if form is valid
@@ -36,7 +36,7 @@ class _RegisterFormState extends State<RegisterForm> {
           passwordController.text.trim(),
           fNameController.text.trim(),
           lNameController.text.trim(),
-          faculty_origin, faculty_arriving);
+          facultyOrigin!, facultyArriving!);
 
       context.read<AuthenticationService>().signUp(user: user).then((value) =>
           Navigator.push(
@@ -114,13 +114,13 @@ class _RegisterFormState extends State<RegisterForm> {
         if (response.connectionState == ConnectionState.done) {
           if (response.data != null) {
             // arriving faculty is always FEUP
-            faculty_arriving = response.data!["FEUP"];
+            facultyArriving = response.data!["FEUP"];
 
             // remove FEUP from origin possibilities
-            final erasmus_faculties = response.data;
-            erasmus_faculties?.remove("FEUP");
+            final erasmusFaculties = response.data;
+            erasmusFaculties?.remove("FEUP");
 
-            var faculties = erasmus_faculties?.entries
+            var faculties = erasmusFaculties?.entries
                 .map((e) => DropdownMenuItem<String>(
                     child: Text(e.key), value: e.value))
                 .toList();
@@ -164,7 +164,7 @@ class _RegisterFormState extends State<RegisterForm> {
     final facultyInput = Padding(
         padding: const EdgeInsets.only(top: 10),
         child: DropdownButtonFormField<String>(
-          value: faculty_origin,
+          value: facultyOrigin,
           icon: const Padding(
             padding: EdgeInsets.only(right: 22),
             child: Icon(Icons.arrow_drop_down),
@@ -173,7 +173,7 @@ class _RegisterFormState extends State<RegisterForm> {
           hint: const Text('University of origin'),
           items: faculties,
           onChanged: (selected) {
-            faculty_origin = selected;
+            facultyOrigin = selected;
           },
           validator: (value) => value == null ? 'Mandatory field.' : null,
         ));
