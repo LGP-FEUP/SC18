@@ -7,8 +7,10 @@ import 'firebase_options.dart';
 
 import 'package:erasmus_helper/views/login.dart';
 import 'package:erasmus_helper/services/authentication_service.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
+  await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
