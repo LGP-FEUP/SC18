@@ -1,0 +1,45 @@
+.menu {
+  cursor: pointer;
+  transition: 200ms all ease;
+  border-left: 5px solid $lightGray;
+
+  .menu-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 12px 12px 18px;
+    transition: 200ms all ease;
+    &:hover {
+      background-color: $primaryColorLighter;
+    }
+  }
+
+  .menu-content {
+    display: none;
+    max-height: 0;
+    opacity: 0;
+
+    .menu {
+      margin-left: 28px;
+    }
+  }
+
+  &.active {
+    border-left: 5px solid $primaryColor;
+
+    > .menu-content {
+      animation: 1s menu-extend-animation;
+      transition: 200ms all ease;
+      display: block;
+      opacity: 1;
+      max-height: none;
+    }
+  }
+}
+
+.menu-group {
+  .menu:not(:last-child) {
+    border-bottom: 1px solid $gray;
+  }
+}

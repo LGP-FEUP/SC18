@@ -1,0 +1,36 @@
+name: Flutter Dev CI
+
+# asd
+on:
+  pull_request:
+  push:
+    branches: [ main, development ]
+    paths:
+      - 'mobile/**'
+  
+jobs:
+  build:
+    name: Test App
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./mobile
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@v3
+    
+    - name: Install and set Flutter version
+      uses: subosito/flutter-action@v2
+      with:
+        channel: 'stable'
+        cache: true
+        cache-key: flutter # optional, change this to force refresh cache
+
+    - name: Restore packages 
+      run: flutter pub get
+
+    - name: Analyze
+      run: flutter analyze
+    
+    - name: Run tests
+      run: flutter test

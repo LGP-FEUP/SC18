@@ -1,0 +1,50 @@
+@keyframes menu-extend-animation {
+  0% {
+    display: none;
+    opacity: 0;
+    max-height: 0;
+  }
+  100% {
+    display: block;
+    opacity: 1;
+    max-height: 1000px;
+  }
+}
+
+@keyframes modal-container-show-animation {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+  100% {
+    display: block;
+    opacity: 1;
+  }
+}
+
+@keyframes modal-body-show-animation {
+  0% {
+    top: 40%;
+  }
+  100% {
+    top: 50%;
+  }
+}
+
+@keyframes notification-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes notification-fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
