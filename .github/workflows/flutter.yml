@@ -2,13 +2,9 @@ name: Flutter Dev CI
 
 on: 
   push:
-    branches:
-      - 'development'
-    paths:
-      - 'mobile/**'
   pull_request:
     branches:
-      - 'development'
+      - [ 'main', 'development' ]
     paths:
       - 'mobile/**'
   
