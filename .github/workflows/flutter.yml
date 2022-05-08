@@ -1,14 +1,10 @@
 name: Flutter Dev CI
 
-on: 
-  push:
-    branches:
-      - 'development'
-    paths:
-      - 'mobile/**'
+# asd
+on:
   pull_request:
-    branches:
-      - 'development'
+  push:
+    branches: [ main, development ]
     paths:
       - 'mobile/**'
   
@@ -27,6 +23,8 @@ jobs:
       uses: subosito/flutter-action@v2
       with:
         channel: 'stable'
+        cache: true
+        cache-key: flutter # optional, change this to force refresh cache
 
     - name: Restore packages 
       run: flutter pub get
