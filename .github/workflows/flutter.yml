@@ -1,10 +1,10 @@
 name: Flutter Dev CI
 
-on: 
-  push:
+# asd
+on:
   pull_request:
-    branches:
-      - [ 'main', 'development' ]
+  push:
+    branches: [ main, development ]
     paths:
       - 'mobile/**'
   
