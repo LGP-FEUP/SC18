@@ -27,8 +27,7 @@ class MyApp extends StatelessWidget {
             create: (_) => AuthenticationService(FirebaseAuth.instance)),
         StreamProvider(
           create: (context) =>
-          context.read<AuthenticationService>().authStateChanges,
-          initialData: null,
+          context.read<AuthenticationService>().currentUser, initialData: null,
         )
       ],
       child: MaterialApp(
@@ -68,7 +67,7 @@ class AuthenticationWrapper extends StatelessWidget {
     final firebaseUser = context.watch<User?>();
 
     if (firebaseUser != null) {
-      return const MyHomePage(title: "Homepage");
+      return const HomePage(title: "Homepage");
     }
 
     return const LoginPage();

@@ -60,6 +60,6 @@ class Utils {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => const MyHomePage(title: "Homepage")));
+            builder: (context) => const HomePage(title: "Homepage")));
   }
 }

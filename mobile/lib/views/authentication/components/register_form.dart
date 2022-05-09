@@ -62,8 +62,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   Utils.genTitle("Sign in"),
                   ..._genInputs(context, faculties!),
                   Utils.genSubmitButton("Sign in", onSubmit),
-                  Utils.genLink(
-                      "Already have an account?", navigateToLoginPage)
+                  Utils.genLink("Already have an account?", navigateToLoginPage)
                 ]));
           }
         }
@@ -74,8 +73,7 @@ class _RegisterFormState extends State<RegisterForm> {
               Utils.genTitle("Sign in"),
               ..._genInputs(context, []),
               Utils.genSubmitButton("Sign in", onSubmit),
-              Utils.genLink(
-                  "Already have an account?", navigateToLoginPage)
+              Utils.genLink("Already have an account?", navigateToLoginPage)
             ]));
       },
     );
@@ -140,7 +138,7 @@ class _RegisterFormState extends State<RegisterForm> {
       context
           .read<AuthenticationService>()
           .signUp(user: user)
-          .then((value) => Utils.navigateToHomePage(context));
+          .then((value) => navigateToLoginPage());
     }
   }
 

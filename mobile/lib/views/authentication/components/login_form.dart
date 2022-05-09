@@ -65,8 +65,7 @@ class _LoginFormState extends State<LoginForm> {
           .signIn(
             email: emailController.text.trim(),
             password: passwordController.text.trim(),
-          )
-          .then((value) => Utils.navigateToHomePage(context));
+          );
     }
   }
 
