@@ -1,3 +1,4 @@
+import 'package:erasmus_helper/views/checklist.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -103,7 +104,8 @@ class AuthenticationWrapper extends StatelessWidget {
     final firebaseUser = context.watch<User?>();
 
     if (firebaseUser != null) {
-      return const MyHomePage(title: "Homepage");
+      // return const MyHomePage(title: "Homepage");
+      return const Checklist();
     }
 
     return const LoginPage();

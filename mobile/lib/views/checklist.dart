@@ -1,4 +1,5 @@
 import 'package:erasmus_helper/services/user_service.dart';
+import 'package:erasmus_helper/views/components/task_item.dart';
 import 'package:flutter/material.dart';
 
 class Checklist extends StatefulWidget {
@@ -13,8 +14,12 @@ class _ChecklistState extends State<Checklist> {
   Widget build(BuildContext context) {
     UserService.getUserFacultyId();
     return Scaffold(
-      body: Container(),
+      appBar: AppBar(
+        title: const Text("Checklist"),
+      ),
+      body: Column(
+        children: [const TaskItem(), const TaskItem()],
+      ),
     );
   }
-
 }
