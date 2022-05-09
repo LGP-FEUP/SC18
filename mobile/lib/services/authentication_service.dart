@@ -27,13 +27,13 @@ class AuthenticationService {
     }
   }
 
-  Future<String?> signUp(
-      {required UserModel user}) async {
+  Future<String?> signUp({required UserModel user}) async {
     try {
-      UserCredential creadential = await _firebaseAuth.createUserWithEmailAndPassword(
+      UserCredential credential = await _firebaseAuth
+          .createUserWithEmailAndPassword(
           email: user.email, password: user.password);
 
-      user.uid = creadential.user!.uid;
+      user.uid = credential.user!.uid;
       UserService.addUser(user);
 
       return "Signed up";

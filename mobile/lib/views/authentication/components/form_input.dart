@@ -76,9 +76,6 @@ class PasswordInput extends FormInput {
               RequiredValidator(errorText: 'Password is required.'),
               MinLengthValidator(8,
                   errorText: 'Password must be at least 8 digits long.'),
-              PatternValidator(r'(?=.*?[#?!@$%^&*-])',
-                  errorText:
-                      'Passwords must have at least one special character.'),
             ]),
             controller: controller,
             hidable: true);
@@ -99,6 +96,19 @@ class ConfirmPasswordInput extends FormInput {
             hidable: true);
 }
 
+class ConfirmPasswordValidator extends TextFieldValidator {
+  final TextEditingController originalPass;
+
+  ConfirmPasswordValidator(this.originalPass,
+      {String errorText = 'Passwords do not match.'})
+      : super(errorText);
+
+  @override
+  bool isValid(String? value) {
+    return value == originalPass.text;
+  }
+}
+
 class NameInput extends FormInput {
   NameInput(
       {Key? key,
@@ -113,19 +123,5 @@ class NameInput extends FormInput {
               RequiredValidator(errorText: name + " is required."),
               MaxLengthValidator(32, errorText: "Max characters reached.")
             ]),
-            controller: controller,
-            hidable: true);
-}
-
-class ConfirmPasswordValidator extends TextFieldValidator {
-  final TextEditingController originalPass;
-
-  ConfirmPasswordValidator(this.originalPass,
-      {String errorText = 'Passwords do not match.'})
-      : super(errorText);
-
-  @override
-  bool isValid(String? value) {
-    return value == originalPass.text;
-  }
+            controller: controller);
 }

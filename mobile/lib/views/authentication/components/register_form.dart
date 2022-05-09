@@ -1,12 +1,12 @@
 import 'package:erasmus_helper/models/user.dart';
 import 'package:erasmus_helper/services/faculty_service.dart';
-import 'package:erasmus_helper/views/components/form_input.dart';
-import 'package:erasmus_helper/views/login.dart';
+import 'package:erasmus_helper/views/authentication/components/utils.dart';
+import 'package:erasmus_helper/views/authentication/login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../main.dart';
-import '../../services/authentication_service.dart';
+import '../../../services/authentication_service.dart';
+import 'form_input.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({Key? key}) : super(key: key);
@@ -22,6 +22,7 @@ class _RegisterFormState extends State<RegisterForm> {
   TextEditingController confirmController = TextEditingController();
   TextEditingController fNameController = TextEditingController();
   TextEditingController lNameController = TextEditingController();
+
   // ignore: prefer_typing_uninitialized_variables
   var facultyOrigin, facultyArriving;
 
@@ -37,13 +38,13 @@ class _RegisterFormState extends State<RegisterForm> {
           passwordController.text.trim(),
           fNameController.text.trim(),
           lNameController.text.trim(),
-          facultyOrigin, facultyArriving);
+          facultyOrigin,
+          facultyArriving);
 
-      context.read<AuthenticationService>().signUp(user: user).then((value) =>
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const MyHomePage(title: "Homepage"))));
+      context
+          .read<AuthenticationService>()
+          .signUp(user: user)
+          .then((value) => Utils.navigateToHomePage(context));
     }
   }
 
@@ -59,56 +60,6 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    var ht = MediaQuery.of(context).size.height;
-
-    final logo = Row(
-      children: [
-        Expanded(
-            child: Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Container(
-                  height: ht * 0.14,
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/logo.png"))),
-                ))),
-      ],
-    );
-
-    final title = Row(
-      children: const [
-        Padding(
-            padding: EdgeInsets.only(left: 10),
-            child: Text(
-              'Sign up',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-            ))
-      ],
-    );
-
-    final submitButton = Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: ElevatedButton(
-            onPressed: onSubmit,
-            child: const Text('Create account'),
-          ),
-        )
-      ],
-    );
-
-    final login = TextButton(
-        child: const Text(
-          'Already have an account?',
-          style: TextStyle(color: Colors.grey, fontSize: 14),
-        ),
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const LoginPage()));
-        });
-
     return FutureBuilder<Map<String, String>>(
       future: FacultyService.getFacultiesNames(),
       builder: (context, response) {
@@ -129,22 +80,24 @@ class _RegisterFormState extends State<RegisterForm> {
             return Form(
                 key: _formKey,
                 child: Column(children: [
-                  logo,
-                  title,
+                  Utils.genLogo(MediaQuery.of(context).size.height),
+                  Utils.genTitle("Sign in"),
                   ..._genInputs(context, faculties!),
-                  submitButton,
-                  login
+                  Utils.genSubmitButton("Sign in", onSubmit),
+                  Utils.genLink(
+                      "Already have an account?", navigateToLoginPage)
                 ]));
           }
         }
         return Form(
             key: _formKey,
             child: Column(children: [
-              logo,
-              title,
+              Utils.genLogo(MediaQuery.of(context).size.height),
+              Utils.genTitle("Sign in"),
               ..._genInputs(context, []),
-              submitButton,
-              login
+              Utils.genSubmitButton("Sign in", onSubmit),
+              Utils.genLink(
+                  "Already have an account?", navigateToLoginPage)
             ]));
       },
     );
@@ -153,15 +106,6 @@ class _RegisterFormState extends State<RegisterForm> {
   // Generates styled text inputs for the register form
   List<Widget> _genInputs(
       BuildContext context, List<DropdownMenuItem<String>> faculties) {
-    final emailInput = EmailInput(controller: emailController);
-    final passwordInput = PasswordInput(controller: passwordController);
-    final confirmPasswordInput = ConfirmPasswordInput(
-        controller: confirmController, passwordController: passwordController);
-    final fNameInput =
-        NameInput(controller: fNameController, name: "First name");
-    final lNameInput =
-        NameInput(controller: lNameController, name: "Last name");
-
     final facultyInput = Padding(
         padding: const EdgeInsets.only(top: 10),
         child: DropdownButtonFormField<String>(
@@ -180,11 +124,13 @@ class _RegisterFormState extends State<RegisterForm> {
         ));
 
     final inputs = [
-      emailInput,
-      passwordInput,
-      confirmPasswordInput,
-      fNameInput,
-      lNameInput
+      EmailInput(controller: emailController),
+      PasswordInput(controller: passwordController),
+      ConfirmPasswordInput(
+          controller: confirmController,
+          passwordController: passwordController),
+      NameInput(controller: fNameController, name: "First name"),
+      NameInput(controller: lNameController, name: "Last name")
     ]
         .map((e) => Row(children: [
               Expanded(
@@ -196,5 +142,10 @@ class _RegisterFormState extends State<RegisterForm> {
         .toList();
 
     return List<Widget>.from(inputs) + [facultyInput];
+  }
+
+  void navigateToLoginPage() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const LoginPage()));
   }
 }

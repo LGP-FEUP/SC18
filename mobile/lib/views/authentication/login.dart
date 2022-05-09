@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:erasmus_helper/views/components/login_form.dart';
+import 'components/login_form.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
