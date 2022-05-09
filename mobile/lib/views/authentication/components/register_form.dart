@@ -26,28 +26,6 @@ class _RegisterFormState extends State<RegisterForm> {
   // ignore: prefer_typing_uninitialized_variables
   var facultyOrigin, facultyArriving;
 
-  void onSubmit() {
-    // if form is valid
-    if (_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Creating account')),
-      );
-
-      UserModel user = UserModel(
-          emailController.text.trim(),
-          passwordController.text.trim(),
-          fNameController.text.trim(),
-          lNameController.text.trim(),
-          facultyOrigin,
-          facultyArriving);
-
-      context
-          .read<AuthenticationService>()
-          .signUp(user: user)
-          .then((value) => Utils.navigateToHomePage(context));
-    }
-  }
-
   @override
   void dispose() {
     emailController.dispose();
@@ -142,6 +120,28 @@ class _RegisterFormState extends State<RegisterForm> {
         .toList();
 
     return List<Widget>.from(inputs) + [facultyInput];
+  }
+
+  void onSubmit() {
+    // if form is valid
+    if (_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Creating account')),
+      );
+
+      UserModel user = UserModel(
+          emailController.text.trim(),
+          passwordController.text.trim(),
+          fNameController.text.trim(),
+          lNameController.text.trim(),
+          facultyOrigin,
+          facultyArriving);
+
+      context
+          .read<AuthenticationService>()
+          .signUp(user: user)
+          .then((value) => Utils.navigateToHomePage(context));
+    }
   }
 
   void navigateToLoginPage() {

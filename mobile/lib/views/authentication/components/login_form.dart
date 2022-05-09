@@ -40,12 +40,9 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   List<Widget> _genInputs(BuildContext context) {
-    final emailInput = EmailInput(controller: emailController);
-    final passwordInput = PasswordInput(controller: passwordController);
-
     return [
-      emailInput,
-      passwordInput,
+      EmailInput(controller: emailController),
+      PasswordInput(controller: passwordController),
     ]
         .map((e) => Row(children: [
               Expanded(
