@@ -72,13 +72,25 @@ class PasswordInput extends FormInput {
             keyboard: TextInputType.text,
             icon: const Icon(Icons.key),
             hintText: "Password",
-            validator: MultiValidator([
-              RequiredValidator(errorText: 'Password is required.'),
-              MinLengthValidator(8,
-                  errorText: 'Password must be at least 8 digits long.'),
-            ]),
+            validator: RequiredValidator(errorText: 'Password is required.'),
             controller: controller,
             hidable: true);
+}
+
+class NewPasswordInput extends FormInput {
+  NewPasswordInput({Key? key, required TextEditingController controller})
+      : super(
+      key: key,
+      keyboard: TextInputType.text,
+      icon: const Icon(Icons.key),
+      hintText: "Password",
+      validator: MultiValidator([
+        RequiredValidator(errorText: 'Password is required.'),
+        MinLengthValidator(8,
+            errorText: 'Password must be at least 8 digits long.'),
+      ]),
+      controller: controller,
+      hidable: true);
 }
 
 class ConfirmPasswordInput extends FormInput {

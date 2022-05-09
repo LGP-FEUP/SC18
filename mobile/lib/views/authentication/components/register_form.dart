@@ -103,7 +103,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
     final inputs = [
       EmailInput(controller: emailController),
-      PasswordInput(controller: passwordController),
+      NewPasswordInput(controller: passwordController),
       ConfirmPasswordInput(
           controller: confirmController,
           passwordController: passwordController),
