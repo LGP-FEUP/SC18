@@ -19,8 +19,8 @@ class TasksService {
 
     final List<TaskModel> tasks = [];
     map.forEach((key, value) {
-      tasks.add(TaskModel(
-          value["description"], value["faculty_id"], value["title"], key));
+      tasks.add(TaskModel(key,
+          value["title"], value["description"], value["due_date"], value["faculty_id"]));
     });
 
     return tasks;

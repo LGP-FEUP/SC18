@@ -1,7 +1,10 @@
+import 'package:erasmus_helper/models/task.dart';
 import 'package:flutter/material.dart';
 
 class TaskItem extends StatefulWidget {
-  const TaskItem({Key? key}) : super(key: key);
+  final TaskModel task;
+
+  const TaskItem({Key? key, required this.task}) : super(key: key);
 
   @override
   State<TaskItem> createState() => _TaskItemState();
@@ -10,6 +13,8 @@ class TaskItem extends StatefulWidget {
 class _TaskItemState extends State<TaskItem> {
   @override
   Widget build(BuildContext context) {
+    TaskModel task = widget.task;
+
     return Padding(
         padding: const EdgeInsets.all(10),
         child: Row(
@@ -17,16 +22,16 @@ class _TaskItemState extends State<TaskItem> {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
-                    "Send Documents",
+                    task.title!,
                     style: TextStyle(fontSize: 20),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    "Due date 25/01/2010",
+                    "Due date " + task.dueDate!,
                   )
                 ],
               ),

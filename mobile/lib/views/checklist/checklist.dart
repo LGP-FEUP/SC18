@@ -38,13 +38,7 @@ class _ChecklistState extends State<Checklist> {
   }
 
   List<TaskItem> genTasks(List<TaskModel> tasks) {
-    for (var element in tasks) {
-      print(element.uid);
-      print(element.description);
-      print(element.title);
-      print(element.faculty_id);
-    }
-    return [TaskItem(), TaskItem()];
+    return tasks.map((e) => TaskItem(task: e)).toList();
   }
 
   Widget genPage(List<TaskItem> tasks) {

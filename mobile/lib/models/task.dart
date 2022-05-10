@@ -1,5 +1,6 @@
 class TaskModel {
-  final String? description, faculty_id, title, uid;
+  final String? description, facultyId, title, uid, dueDate;
 
-  TaskModel(this.description, this.faculty_id, this.title, this.uid);
+  TaskModel(
+      this.uid, this.title, this.description, this.dueDate, this.facultyId);
 }
