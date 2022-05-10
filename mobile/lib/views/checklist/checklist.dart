@@ -1,6 +1,5 @@
 import 'package:erasmus_helper/services/tasks_service.dart';
 import 'package:erasmus_helper/services/user_service.dart';
-import 'package:erasmus_helper/views/checklist/task_item.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/task.dart';
@@ -26,7 +25,7 @@ class _ChecklistState extends State<Checklist> {
                   builder: (context, response) {
                     if (response.connectionState == ConnectionState.done) {
                       if (response.data != null) {
-                        return genPage(genTasks(response.data as List<TaskModel>));
+                        return genPage(response.data as List<TaskModel>);
                       }
                     }
                     return genPage([]);
@@ -37,17 +36,38 @@ class _ChecklistState extends State<Checklist> {
         });
   }
 
-  List<TaskItem> genTasks(List<TaskModel> tasks) {
-    return tasks.map((e) => TaskItem(task: e)).toList();
-  }
-
-  Widget genPage(List<TaskItem> tasks) {
+  Widget genPage(List<TaskModel> tasks) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Checklist"),
       ),
-      body: Column(
-        children: tasks,
+      body: _buildList(tasks),
+    );
+  }
+
+  Widget _buildList(List<TaskModel> tasks) {
+    final tasksList = tasks.map((e) => _tile(e)).toList();
+    return ListView(
+      children: tasksList,
+    );
+  }
+
+  ListTile _tile(TaskModel task) {
+    return ListTile(
+      dense: true,
+      title: Text(task.title!,
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 20,
+          )),
+      subtitle: Text("Due date: " + task.dueDate!),
+      leading: const Icon(
+        Icons.check_circle,
+        color: Colors.black,
+      ),
+      trailing: const Icon(
+        Icons.arrow_forward_ios,
+        color: Colors.black,
       ),
     );
   }
