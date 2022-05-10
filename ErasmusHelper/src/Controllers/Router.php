@@ -66,6 +66,10 @@ class Router extends AbstractRouter
             'university_faq.delete' => ["GET", "/university_faq/delete/{id}", [UniversityFaqController::class, "delete"]],
             'university_faq.edit' => ["POST", "/university_faq/edit/{id}", [UniversityFaqController::class, "editFaq"]],
             'university_faq' => ["GET", "/university_faq/{id}", [UniversityFaqController::class, "edit"]],
+            'bureaucracies' => ["GET", "/bureaucracies", [BureaucracyController::class, "displayAll"]],
+            'bureaucracy.create.page' => ["GET", "/bureaucracy/create", [BureaucracyController::class, "create"]],
+            'bureaucracy.create' => ["POST", "/bureaucracy/new", [BureaucracyController::class, "createBureaucracy"]],
+            'bureaucracy' => ["GET", "/bureaucracy/{id}", [BureaucracyController::class, "edit"]],
         ];
     }
 }
