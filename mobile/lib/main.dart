@@ -1,13 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-
-import 'package:firebase_core/firebase_core.dart';
-import 'package:provider/provider.dart';
-import 'firebase_options.dart';
-
-import 'package:erasmus_helper/views/login.dart';
 import 'package:erasmus_helper/services/authentication_service.dart';
+import 'package:erasmus_helper/views/login.dart';
+import 'package:erasmus_helper/views/profile_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
+
+import 'firebase_options.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity),
-        home: const AuthenticationWrapper(),
+        home: ProfileScreen(),
       ),
     );
   }
