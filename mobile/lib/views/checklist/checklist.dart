@@ -1,5 +1,6 @@
 import 'package:erasmus_helper/services/tasks_service.dart';
 import 'package:erasmus_helper/services/user_service.dart';
+import 'package:erasmus_helper/views/checklist/task_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/task.dart';
@@ -54,6 +55,8 @@ class _ChecklistState extends State<Checklist> {
 
   ListTile _tile(TaskModel task) {
     return ListTile(
+      onTap: () => Navigator.push(
+          context, MaterialPageRoute(builder: (context) => TaskPage(task: task))),
       dense: true,
       title: Text(task.title!,
           style: const TextStyle(

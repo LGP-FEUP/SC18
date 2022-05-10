@@ -1,7 +1,10 @@
+import 'package:erasmus_helper/models/task.dart';
 import 'package:flutter/material.dart';
 
 class TaskPage extends StatefulWidget {
-  const TaskPage({Key? key}) : super(key: key);
+  const TaskPage({Key? key, required this.task}) : super(key: key);
+
+  final TaskModel task;
 
   @override
   State<TaskPage> createState() => _TaskPageState();
@@ -17,11 +20,15 @@ final List a = [
 ];
 
 class _TaskPageState extends State<TaskPage> {
+
+
   @override
   Widget build(BuildContext context) {
+    TaskModel task = widget.task;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Task"),
+        title: Text(task.title!),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,17 +37,17 @@ class _TaskPageState extends State<TaskPage> {
             padding: const EdgeInsets.all(15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
-                  "Due Date " + date,
-                  style: TextStyle(fontSize: 20),
+                  "Due Date " + task.dueDate!,
+                  style: const TextStyle(fontSize: 20),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
-                  description,
-                  style: TextStyle(fontSize: 15),
+                  task.description!,
+                  style: const TextStyle(fontSize: 15),
                 ),
               ],
             ),
