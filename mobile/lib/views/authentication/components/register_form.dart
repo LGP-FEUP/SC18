@@ -138,7 +138,11 @@ class _RegisterFormState extends State<RegisterForm> {
       context
           .read<AuthenticationService>()
           .signUp(user: user)
-          .then((value) => navigateToLoginPage());
+          .then((value) { // On success
+                if (value?.compareTo("Signed up") == 0) {
+                  Utils.navigateToHomePage(context);
+                }
+              });
     }
   }
 
