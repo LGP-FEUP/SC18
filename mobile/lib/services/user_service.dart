@@ -7,13 +7,19 @@ class UserService {
   static String collectionName = "users/";
 
   static void addUser(UserModel user) async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref(collectionName + user.uid);
+    DatabaseReference ref =
+        FirebaseDatabase.instance.ref(collectionName + user.uid);
 
     await ref.set(user.getInfo());
   }
 
-  static void getUserFacultyId() {
+  static Future<String> getUserFacultyId() async {
     FirebaseAuth auth = FirebaseAuth.instance;
-    print(auth.currentUser?.uid);
+    final DataSnapshot snap = await FirebaseDatabase.instance
+        .ref(collectionName)
+        .child(auth.currentUser!.uid).child("faculty_arriving_id")
+        .get();
+
+    return snap.value as String;
   }
 }
