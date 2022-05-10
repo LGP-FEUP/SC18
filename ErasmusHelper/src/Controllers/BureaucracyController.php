@@ -50,7 +50,7 @@ class BureaucracyController extends Controller
      */
     public function edit($id)
     {
-        $this->render("bureaucracies.details", ["id" => $id, "bureaucracy" => Bureaucracy::select($id)]);
+        $this->render("bureaucracies.details", ["id" => $id, "bureaucracy" => Bureaucracy::select(["id" => $id])]);
     }
 
 }
