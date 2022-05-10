@@ -1,5 +1,5 @@
 import 'package:erasmus_helper/services/user_service.dart';
-import 'package:erasmus_helper/views/components/task_item.dart';
+import 'package:erasmus_helper/views/checklist/task_item.dart';
 import 'package:flutter/material.dart';
 
 class Checklist extends StatefulWidget {
@@ -18,7 +18,7 @@ class _ChecklistState extends State<Checklist> {
         title: const Text("Checklist"),
       ),
       body: Column(
-        children: [const TaskItem(), const TaskItem()],
+        children: const [TaskItem(), TaskItem()],
       ),
     );
   }

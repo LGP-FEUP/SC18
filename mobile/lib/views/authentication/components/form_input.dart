@@ -72,16 +72,25 @@ class PasswordInput extends FormInput {
             keyboard: TextInputType.text,
             icon: const Icon(Icons.key),
             hintText: "Password",
-            validator: MultiValidator([
-              RequiredValidator(errorText: 'Password is required.'),
-              MinLengthValidator(8,
-                  errorText: 'Password must be at least 8 digits long.'),
-              PatternValidator(r'(?=.*?[#?!@$%^&*-])',
-                  errorText:
-                      'Passwords must have at least one special character.'),
-            ]),
+            validator: RequiredValidator(errorText: 'Password is required.'),
             controller: controller,
             hidable: true);
+}
+
+class NewPasswordInput extends FormInput {
+  NewPasswordInput({Key? key, required TextEditingController controller})
+      : super(
+      key: key,
+      keyboard: TextInputType.text,
+      icon: const Icon(Icons.key),
+      hintText: "Password",
+      validator: MultiValidator([
+        RequiredValidator(errorText: 'Password is required.'),
+        MinLengthValidator(8,
+            errorText: 'Password must be at least 8 digits long.'),
+      ]),
+      controller: controller,
+      hidable: true);
 }
 
 class ConfirmPasswordInput extends FormInput {
@@ -99,6 +108,19 @@ class ConfirmPasswordInput extends FormInput {
             hidable: true);
 }
 
+class ConfirmPasswordValidator extends TextFieldValidator {
+  final TextEditingController originalPass;
+
+  ConfirmPasswordValidator(this.originalPass,
+      {String errorText = 'Passwords do not match.'})
+      : super(errorText);
+
+  @override
+  bool isValid(String? value) {
+    return value == originalPass.text;
+  }
+}
+
 class NameInput extends FormInput {
   NameInput(
       {Key? key,
@@ -113,19 +135,5 @@ class NameInput extends FormInput {
               RequiredValidator(errorText: name + " is required."),
               MaxLengthValidator(32, errorText: "Max characters reached.")
             ]),
-            controller: controller,
-            hidable: true);
-}
-
-class ConfirmPasswordValidator extends TextFieldValidator {
-  final TextEditingController originalPass;
-
-  ConfirmPasswordValidator(this.originalPass,
-      {String errorText = 'Passwords do not match.'})
-      : super(errorText);
-
-  @override
-  bool isValid(String? value) {
-    return value == originalPass.text;
-  }
+            controller: controller);
 }
