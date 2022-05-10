@@ -16,8 +16,8 @@ class _AppScaffold extends State<AppScaffold> {
   int _selectedPageIndex = 0;
 
   final pages = [
-    const HomePage(),
     const SchoolPage(),
+    const HomePage(),
     const SocialPage()
   ];
 
@@ -39,8 +39,8 @@ class _AppScaffold extends State<AppScaffold> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(icon: Icon(Icons.school), label: "School"),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(icon: Icon(Icons.group), label: "Social")
           ],
           currentIndex: _selectedPageIndex,
