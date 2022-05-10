@@ -10,7 +10,7 @@ class UserService {
     DatabaseReference ref =
         FirebaseDatabase.instance.ref(collectionName + user.uid);
 
-    await ref.set(user.getInfo());
+    await ref.set(user.toJson());
   }
 
   static Future<String> getUserFacultyId() async {

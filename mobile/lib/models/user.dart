@@ -5,12 +5,20 @@ class UserModel {
   UserModel(this.email, this.password, this.fName, this.lName,
       this.facultyOrigin, this.erasmusFaculty);
 
-  Map<String, String> getInfo() {
-    return {
-      "firstName": fName,
-      "lastName": lName,
-      "faculty_origin_id": facultyOrigin,
-      "faculty_arriving_id": erasmusFaculty
-    };
-  }
+  UserModel.fromJson(Map<String, dynamic> json)
+      : email = json['email'],
+        password = json['password'],
+        fName = json['fName'],
+        lName = json['lName'],
+        facultyOrigin = json['facultyOrigin'],
+        erasmusFaculty = json['erasmusFaculty'];
+
+  Map<String, dynamic> toJson() => {
+    'email': email,
+    'password': password,
+    'fName': fName,
+    'lName': lName,
+    'facultyOrigin': facultyOrigin,
+    'erasmusFaculty': erasmusFaculty
+  };
 }
