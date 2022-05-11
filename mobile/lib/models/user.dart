@@ -1,5 +1,4 @@
 import 'package:erasmus_helper/models/date.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 
 class UserModel {
   final String email, password, fName, lName, facultyOrigin, erasmusFaculty;
