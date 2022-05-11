@@ -1,18 +1,22 @@
-import 'package:erasmus_helper/views/home_page.dart';
-import 'package:erasmus_helper/views/school_page.dart';
-import 'package:erasmus_helper/views/social_page.dart';
-import 'package:flutter/material.dart';
+import 'package:erasmus_helper/services/authentication_service.dart';
+import 'package:erasmus_helper/views/authentication/login.dart';
+import 'package:erasmus_helper/views/home/home_page.dart';
+import 'package:erasmus_helper/views/school/school_page.dart';
+import 'package:erasmus_helper/views/social/social_page.dart';
 
-/// Mother widgets of all the 3 pages (Home, School, Social), contain the bottom
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+/// Mother widget of all the 3 pages (Home, School, Social), contain the bottom
 /// navigation bar and its logic
-class AppScaffold extends StatefulWidget {
-  const AppScaffold({Key? key}) : super(key: key);
-  
+class AppLayout extends StatefulWidget {
+  const AppLayout({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _AppScaffold();
 
 }
-class _AppScaffold extends State<AppScaffold> {
+class _AppScaffold extends State<AppLayout> {
   int _selectedPageIndex = 0;
 
   final pages = [
@@ -49,4 +53,3 @@ class _AppScaffold extends State<AppScaffold> {
     );// This trailing comma makes auto-formatting nicer for build methods.
   }
 }
-
