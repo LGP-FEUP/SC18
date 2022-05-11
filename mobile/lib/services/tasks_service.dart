@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:erasmus_helper/models/task.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -13,25 +12,12 @@ class TasksService {
         .equalTo(facultyId)
         .get();
 
-    final Map<String, Map<String, String>> map =
-    (snap.value as Map<dynamic, dynamic>).map((key, value) =>
-        MapEntry(
-            key.toString(),
-            (value as Map<dynamic, dynamic>).map(
-                    (key, value) {
-                  if (key.toString().compareTo("steps") == 0) {
-                    return MapEntry(key.toString(), value.toString());
-                  }
-                  return MapEntry(key.toString(), value.toString());
-                })));
+    Map<dynamic, dynamic> map = (snap.value as Map<dynamic, dynamic>);
+    List<TaskModel> tasks = [];
 
-
-    final List<TaskModel> tasks = [];
-    map.forEach((key, value) {
-      tasks.add(TaskModel(key,
-          value["title"], value["description"], value["due_date"],
-          value["faculty_id"], []));
-    });
+    for (var element in map.entries) {
+      tasks.add(TaskModel.fromJsonMap(element));
+    }
 
     return tasks;
   }
