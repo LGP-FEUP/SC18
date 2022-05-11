@@ -1,11 +1,8 @@
-import 'package:erasmus_helper/services/authentication_service.dart';
-import 'package:erasmus_helper/views/authentication/login.dart';
 import 'package:erasmus_helper/views/home/home_page.dart';
 import 'package:erasmus_helper/views/school/school_page.dart';
 import 'package:erasmus_helper/views/social/social_page.dart';
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 /// Mother widget of all the 3 pages (Home, School, Social), contain the bottom
 /// navigation bar and its logic
