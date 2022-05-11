@@ -14,10 +14,8 @@ class UserModel {
         erasmusFaculty = json['erasmusFaculty'];
 
   Map<String, dynamic> toJson() => {
-    'email': email,
-    'password': password,
-    'fName': fName,
-    'lName': lName,
+    'firstname': fName,
+    'lastname': lName,
     'facultyOrigin': facultyOrigin,
     'erasmusFaculty': erasmusFaculty
   };
