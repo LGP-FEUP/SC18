@@ -8,6 +8,6 @@ class UserService {
   static void addUser(UserModel user) async {
     DatabaseReference ref = FirebaseDatabase.instance.ref("users/" + user.uid);
 
-    await ref.set(user.getInfo());
+    await ref.set(user.toJson());
   }
 }
