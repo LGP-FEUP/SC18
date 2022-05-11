@@ -12,13 +12,6 @@ class TasksService {
         .equalTo(facultyId)
         .get();
 
-    Map<dynamic, dynamic> map = (snap.value as Map<dynamic, dynamic>);
-    List<TaskModel> tasks = [];
-
-    for (var element in map.entries) {
-      tasks.add(TaskModel.fromJsonMap(element));
-    }
-
-    return tasks;
+    return TaskModel.listFromJson(snap.value as Map<dynamic, dynamic>);
   }
 }
