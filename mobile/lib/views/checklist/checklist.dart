@@ -15,6 +15,8 @@ class Checklist extends StatefulWidget {
 class _ChecklistState extends State<Checklist> {
   @override
   Widget build(BuildContext context) {
+    UserService.getUserDoneTasks();
+
     return FutureBuilder(
         future: UserService.getUserFacultyId(),
         builder: (context, response) {
