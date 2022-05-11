@@ -22,6 +22,7 @@ class _RegisterFormState extends State<RegisterForm> {
   TextEditingController confirmController = TextEditingController();
   TextEditingController fNameController = TextEditingController();
   TextEditingController lNameController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
 
   // ignore: prefer_typing_uninitialized_variables
   var facultyOrigin, facultyArriving;
@@ -33,6 +34,7 @@ class _RegisterFormState extends State<RegisterForm> {
     confirmController.dispose();
     fNameController.dispose();
     lNameController.dispose();
+    dateController.dispose();
     super.dispose();
   }
 
@@ -106,7 +108,8 @@ class _RegisterFormState extends State<RegisterForm> {
           controller: confirmController,
           passwordController: passwordController),
       NameInput(controller: fNameController, name: "First name"),
-      NameInput(controller: lNameController, name: "Last name")
+      NameInput(controller: lNameController, name: "Last name"),
+      DateInput(controller: dateController)
     ]
         .map((e) => Row(children: [
               Expanded(
@@ -133,16 +136,15 @@ class _RegisterFormState extends State<RegisterForm> {
           fNameController.text.trim(),
           lNameController.text.trim(),
           facultyOrigin,
-          facultyArriving);
+          facultyArriving,
+          dateController.text.trim());
 
-      context
-          .read<AuthenticationService>()
-          .signUp(user: user)
-          .then((value) { // On success
-                if (value?.compareTo("Signed up") == 0) {
-                  Utils.navigateToHomePage(context);
-                }
-              });
+      context.read<AuthenticationService>().signUp(user: user).then((value) {
+        // On success
+        if (value?.compareTo("Signed up") == 0) {
+          Utils.navigateToHomePage(context);
+        }
+      });
     }
   }
 
