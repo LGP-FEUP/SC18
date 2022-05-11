@@ -1,5 +1,5 @@
 class TaskModel {
-  final String? uid, description, facultyId, title, dueDate;
+  final String uid, description, facultyId, title, dueDate;
   List<StepModel> steps = [];
 
   TaskModel(
@@ -35,7 +35,7 @@ class TaskModel {
 }
 
 class StepModel {
-  final String? title, uid;
+  final String title, uid;
 
   StepModel(this.uid, this.title);
 

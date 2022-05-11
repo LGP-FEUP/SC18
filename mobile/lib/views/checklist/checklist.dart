@@ -26,18 +26,18 @@ class _ChecklistState extends State<Checklist> {
                   builder: (context, response) {
                     if (response.connectionState == ConnectionState.done) {
                       if (response.data != null) {
-                        return genPage(response.data as List<TaskModel>);
+                        return _genPage(response.data as List<TaskModel>);
                       }
                     }
-                    return genPage([]);
+                    return _genPage([]);
                   });
             }
           }
-          return genPage([]);
+          return _genPage([]);
         });
   }
 
-  Widget genPage(List<TaskModel> tasks) {
+  Widget _genPage(List<TaskModel> tasks) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Checklist"),
@@ -55,15 +55,14 @@ class _ChecklistState extends State<Checklist> {
 
   ListTile _tile(TaskModel task) {
     return ListTile(
-      onTap: () => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => TaskPage(task: task))),
+      onTap: () => _navigateToTaskPage(task),
       dense: true,
-      title: Text(task.title!,
+      title: Text(task.title,
           style: const TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 20,
           )),
-      subtitle: Text("Due date: " + task.dueDate!),
+      subtitle: Text("Due date: " + task.dueDate),
       leading: const Icon(
         Icons.check_circle,
         color: Colors.black,
@@ -73,5 +72,10 @@ class _ChecklistState extends State<Checklist> {
         color: Colors.black,
       ),
     );
+  }
+
+  void _navigateToTaskPage(TaskModel task) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => TaskPage(task: task)));
   }
 }
