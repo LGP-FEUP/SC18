@@ -26,7 +26,7 @@ class TaskModel {
   static List<TaskModel> listFromJson(Map<dynamic, dynamic> json) {
     List<TaskModel> steps = [];
 
-    for(var element in json.entries) {
+    for (var element in json.entries) {
       steps.add(TaskModel.fromJsonMap(element));
     }
 
@@ -52,7 +52,7 @@ class StepModel {
   static List<StepModel> listFromJson(Map<dynamic, dynamic> json) {
     List<StepModel> steps = [];
 
-    for(var element in json.entries) {
+    for (var element in json.entries) {
       steps.add(StepModel.fromJsonMap(element));
     }
 

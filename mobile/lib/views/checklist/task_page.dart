@@ -33,7 +33,7 @@ class _TaskPageState extends State<TaskPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Due date: " + task.dueDate,
+            "Due date: ${task.dueDate}",
             style: const TextStyle(fontSize: 20),
           ),
           Text(

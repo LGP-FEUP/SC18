@@ -36,8 +36,8 @@ class UserService {
 
     if (snap.value != null) {
       final Map<String, Map<dynamic, dynamic>> map =
-      (snap.value as Map<dynamic, dynamic>).map((key, value) =>
-          MapEntry(key.toString(), (value as Map<dynamic, dynamic>)));
+          (snap.value as Map<dynamic, dynamic>).map((key, value) =>
+              MapEntry(key.toString(), (value as Map<dynamic, dynamic>)));
 
       for (var element in map.values) {
         doneTasks.add(element.values.toString());

@@ -64,7 +64,7 @@ class _ChecklistState extends State<Checklist> {
             fontWeight: FontWeight.w500,
             fontSize: 20,
           )),
-      subtitle: Text("Due date: " + task.dueDate),
+      subtitle: Text("Due date: ${task.dueDate}"),
       leading: const Icon(
         Icons.check_circle,
         color: Colors.black,

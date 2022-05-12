@@ -29,9 +29,9 @@ class AuthenticationService {
 
   Future<String?> signUp({required UserModel user}) async {
     try {
-      UserCredential credential = await _firebaseAuth
-          .createUserWithEmailAndPassword(
-          email: user.email, password: user.password);
+      UserCredential credential =
+          await _firebaseAuth.createUserWithEmailAndPassword(
+              email: user.email, password: user.password);
 
       user.uid = credential.user!.uid;
       UserService.addUser(user);

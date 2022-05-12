@@ -64,7 +64,8 @@ class _RegisterFormState extends State<RegisterForm> {
                   Utils.genTitle("Sign in"),
                   ..._genInputs(context, faculties!),
                   Utils.genSubmitButton("Sign in", _onSubmit),
-                  Utils.genLink("Already have an account?", _navigateToLoginPage)
+                  Utils.genLink(
+                      "Already have an account?", _navigateToLoginPage)
                 ]));
           }
         }

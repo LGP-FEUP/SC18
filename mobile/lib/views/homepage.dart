@@ -1,6 +1,5 @@
 import 'package:erasmus_helper/services/authentication_service.dart';
 import 'package:erasmus_helper/views/authentication/login.dart';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

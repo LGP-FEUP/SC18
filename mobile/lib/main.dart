@@ -1,15 +1,12 @@
-import 'package:erasmus_helper/views/checklist/task_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-
-import 'package:firebase_core/firebase_core.dart';
-import 'package:provider/provider.dart';
-import 'firebase_options.dart';
-
-import 'package:erasmus_helper/views/authentication/login.dart';
 import 'package:erasmus_helper/services/authentication_service.dart';
+import 'package:erasmus_helper/views/authentication/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 
+import 'firebase_options.dart';
 import 'views/checklist/checklist.dart';
 
 void main() async {
@@ -28,7 +25,8 @@ class MyApp extends StatelessWidget {
             create: (_) => AuthenticationService(FirebaseAuth.instance)),
         StreamProvider(
           create: (context) =>
-          context.read<AuthenticationService>().currentUser, initialData: null,
+              context.read<AuthenticationService>().currentUser,
+          initialData: null,
         )
       ],
       child: MaterialApp(

@@ -6,7 +6,7 @@ class UserModel {
   String uid = "";
 
   UserModel(this.email, this.password, this.fName, this.lName,
-      this.facultyOrigin, this.erasmusFaculty, String birthdate){
+      this.facultyOrigin, this.erasmusFaculty, String birthdate) {
     this.birthdate = DateModel(birthdate);
   }
 
@@ -19,12 +19,12 @@ class UserModel {
         erasmusFaculty = json['erasmusFaculty'];
 
   Map<String, dynamic> toJson() => {
-    'id': uid,
-    'firstname': fName,
-    'lastname': lName,
-    'faculty_origin_id': facultyOrigin,
-    'faculty_arriving_id': erasmusFaculty,
-    "date_of_birth": birthdate.toJson(),
-    "validation_level": "1"
-  };
+        'id': uid,
+        'firstname': fName,
+        'lastname': lName,
+        'faculty_origin_id': facultyOrigin,
+        'faculty_arriving_id': erasmusFaculty,
+        "date_of_birth": birthdate.toJson(),
+        "validation_level": "1"
+      };
 }
