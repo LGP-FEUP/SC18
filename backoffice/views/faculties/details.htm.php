@@ -63,14 +63,14 @@ use ErasmusHelper\Models\User;
                     <table class="table">
                         <tr>
                             <th>Firstname</th>
-                            <th>Name</th>
+                            <th>Lastname</th>
                             <th>Date of birth</th>
                             <th></th>
                         </tr>
                         <?php foreach ($students as $student){ ?>
                             <tr bgcolor="<?= $student->isDisabled() ? "lightgrey" : "white"; ?>">
                                 <td><?= $student->firstname; ?></td>
-                                <td><?= $student->name; ?></td>
+                                <td><?= $student->lastname; ?></td>
                                 <td><?= $student->computeBirthDate(); ?></td>
                                 <td><a class="button" href="<?= Router::route('user', ["id" => $student->id]) ?>"><i class="far fa-eye r"></i>Details</a></td>
                             </tr>

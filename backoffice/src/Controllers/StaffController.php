@@ -39,12 +39,11 @@ class StaffController extends BackOfficeController {
 
             $prop = array(
                 "email" => Request::valuePost("email"),
-                "password" => Request::valuePost("password"),
-                "uid" => $staff->id
+                "password" => Request::valuePost("password")
             );
             try {
-                App::getInstance()->firebase->auth->createUser($prop);
-                App::getInstance()->firebase->auth->setCustomUserClaims($staff->id, [
+                $user = App::getInstance()->firebase->auth->createUser($prop);
+                App::getInstance()->firebase->auth->setCustomUserClaims($user->uid, [
                     "faculty_id" => Request::valuePost("faculty_id"),
                     "privilege_level" => Request::valuePost("privilege_level")
                 ]);

@@ -5,7 +5,6 @@ namespace ErasmusHelper\Controllers;
 use AgileBundle\Utils\Dbg;
 use AgileBundle\Utils\Request;
 use ErasmusHelper\App;
-use ErasmusHelper\Models\Country;
 use ErasmusHelper\Models\Faculty;
 use ErasmusHelper\Models\User;
 use Exception;
@@ -28,27 +27,24 @@ class UserController extends BackOfficeController {
      * @throws DatabaseException
      */
     public function create() {
-        $this->render("users.create", ["countries" => Country::getAll(), "faculties" => Faculty::getAll()]);
+        $this->render("users.create", ["faculties" => Faculty::getAll()]);
     }
 
     /**
      * @throws Exception
-     * @throws DatabaseException
      */
     #[NoReturn] public function createPost() {
         if(Request::valuePost("name")
             && Request::valuePost("firstname")
-            && Request::valuePost("country_origin_id")
-            && Request::valuePost("faculty_id")
+            && Request::valuePost("faculty_arriving_id")
+            && Request::valuePost("faculty_origin_id")
             && Request::valuePost("validation_level")) {
             $user = new User();
             $user->id = App::UUIDGenerator();
-            $user->name = Request::valuePost("name");
+            $user->lastname = Request::valuePost("lastname");
             $user->firstname = Request::valuePost("firstname");
-            $faculty = Faculty::select(["id" => Request::valuePost("faculty_id")]);
-            $user->country_origin_id = Request::valuePost("country_origin_id");
-            $user->country_arriving_id = $faculty->getCity()->getCountry()->id;
-            $user->faculty_id = $faculty->id;
+            $user->faculty_origin_id = Request::valuePost("faculty_origin_id");
+            $user->faculty_arriving_id = Request::valuePost("faculty_arriving_id");
             $user->validation_level = Request::valuePost("validation_level");
 
             $prop = array(
@@ -72,7 +68,7 @@ class UserController extends BackOfficeController {
      * @throws DatabaseException
      */
     public function edit($id) {
-        $this->render("users.details", ["id" => $id, "countries" => Country::getAll(), "faculties" => Faculty::getAll()]);
+        $this->render("users.details", ["id" => $id, "faculties" => Faculty::getAll()]);
     }
 
     /**
@@ -83,9 +79,7 @@ class UserController extends BackOfficeController {
         if(Request::valuePost("faculty_id")
             && Request::valuePost("validation_level")
             && $user && $user->exists() == 1) {
-            $faculty = Faculty::select(["id" => Request::valuePost("faculty_id")]);
-            $user->country_arriving_id = $faculty->getCity()->getCountry()->id;
-            $user->faculty_id = $faculty->id;
+            $user->faculty_arriving_id = Request::valuePost("faculty_id");
             $user->validation_level = Request::valuePost("validation_level");
             if($user->save()) {
                 $this->redirect(Router::route("users"), ["success" => "User edited."]);

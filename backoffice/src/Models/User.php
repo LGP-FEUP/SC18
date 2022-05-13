@@ -13,14 +13,13 @@ class User extends Model {
 
     const STORAGE = 'users';
 
-    const COLUMNS = ["id", "name", "firstname", "validation_level", "country_origin_id", "country_arriving_id", "faculty_id", "date_of_birth"];
+    const COLUMNS = ["id", "lastname", "firstname", "validation_level", "faculty_origin_id", "faculty_arriving_id", "date_of_birth"];
 
-    public $name;
+    public $lastname;
     public $firstname;
     public $validation_level;
-    public $country_origin_id;
-    public $country_arriving_id;
-    public $faculty_id;
+    public $faculty_origin_id;
+    public $faculty_arriving_id;
     public $date_of_birth;
     private $authUser = null;
 
@@ -74,30 +73,25 @@ class User extends Model {
     /**
      * Returns the faculty for the user.
      *
+     * @param bool $arriving true for faculty of arriving, false for faculty of origin
      * @return Faculty|null
      * @throws DatabaseException
      */
-    public function getFaculty(): ?Faculty {
-        if($this->faculty_id) {
-            return Faculty::select(["id" => $this->faculty_id]);
+    public function getFaculty(bool $arriving = true): ?Faculty {
+        if($arriving) {
+            if($this->faculty_arriving_id) {
+                return Faculty::select(["id" => $this->faculty_arriving_id]);
+            } else {
+                Dbg::error("Unable to find faculty arriving for such user.");
+                return null;
+            }
         } else {
-            Dbg::error("Unable to find faculty for such user.");
-            return null;
-        }
-    }
-
-    /**
-     * Returns the Country object for arriving or origin country of the user.
-     *
-     * @param bool $origin true if origin, false if arriving.
-     * @return Country
-     * @throws DatabaseException
-     */
-    public function getCountry(bool $origin = true): Country {
-        if($origin) {
-            return Country::select(["id" => $this->country_origin_id]);
-        } else {
-            return Country::select(["id" => $this->country_arriving_id]);
+            if($this->faculty_origin_id) {
+                return Faculty::select(["id" => $this->faculty_origin_id]);
+            } else {
+                Dbg::error("Unable to find faculty of origin for such user.");
+                return null;
+            }
         }
     }
 

@@ -1,6 +1,6 @@
 <?php
-/** @var int $id
- *  @var Country[] $countries
+/**
+ * @var int $id
  *  @var Faculty[] $faculties
  */
 
@@ -18,7 +18,7 @@ use ErasmusHelper\Models\User;
                 <div class="box-header">
                     <span class="box-title"><?php
                         $user = User::select(["id" => $id]);
-                        echo $user->firstname . " " . $user->name;
+                        echo $user->firstname . " " . $user->lastname;
                         ?></span>
                 </div>
                 <form method="POST" action="<?= Router::route('user.edit', ["id" => $user->id]) ?>">
@@ -28,11 +28,11 @@ use ErasmusHelper\Models\User;
                             <input name="id" class="value" type="text" value="<?= $user->id; ?>"disabled/>
                         </div>
                         <div class="field">
-                            <div class="label">Faculty</div>
+                            <div class="label">Faculty of arrival</div>
                             <select name="faculty_id" class="value">
                                 <option disabled>Select a faculty</option>
                                 <?php foreach ($faculties as $faculty): ?>
-                                    <option <?php if($faculty->id == $user->faculty_id){echo "selected";} ?> value="<?= $faculty->id; ?>"><?= $faculty->name; ?></option>
+                                    <option <?php if($faculty->id == $user->faculty_arriving_id){echo "selected";} ?> value="<?= $faculty->id; ?>"><?= $faculty->name; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>

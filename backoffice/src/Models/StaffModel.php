@@ -31,8 +31,6 @@ abstract class StaffModel {
     public function __construct(UserRecord $user = null) {
         if($user != null) {
             $this->hydrate($user);
-        } else {
-            $this->id = App::UUIDGenerator();
         }
     }
 
@@ -42,7 +40,7 @@ abstract class StaffModel {
      * @param UserRecord $user
      * @return void
      */
-    protected function hydrate(UserRecord $user) {
+    protected function hydrate(UserRecord $user): void {
         $this->dbStored = true;
         $this->id = $user->uid;
         $this->disabled = $user->disabled;

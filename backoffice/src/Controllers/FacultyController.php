@@ -47,7 +47,7 @@ class FacultyController extends BackOfficeController {
      * @throws DatabaseException
      */
     public function edit($id) {
-        $this->render("faculties.details", ["id" => $id, "cities" => City::getAll(), "students" => User::getAll(["faculty_id" => $id])]);
+        $this->render("faculties.details", ["id" => $id, "cities" => City::getAll(), "students" => User::getAll(["faculty_arriving_id" => $id])]);
     }
 
     /**
