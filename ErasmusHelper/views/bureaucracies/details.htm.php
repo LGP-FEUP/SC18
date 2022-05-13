@@ -22,7 +22,27 @@ use ErasmusHelper\Models\Bureaucracy;
                 </div>
                 <div class="field">
                     <div class="label">Name</div>
-                    <input name="name" class="value" type="text" value="<?= $bureaucracy->task; ?>"/>
+                    <input name="task" class="value" type="text" value="<?= $bureaucracy->task; ?>"/>
+                </div>
+                <div class="field">
+                    <div class="label">Before Arrival</div>
+                    <input name="class" class="value" type="radio"
+                           value="before" <?= $bureaucracy->class === "before" ? "checked" : "" ?>/>
+                </div>
+                <div class="field">
+                    <div class="label">During Stay</div>
+                    <input name="class" class="value" type="radio"
+                           value="during"<?= $bureaucracy->class === "during" ? "checked" : "" ?>/>
+                </div>
+                <div class="field">
+                    <div class="label">After Departure</div>
+                    <input name="class" class="value" type="radio"
+                           value="after" <?= $bureaucracy->class === "after" ? "checked" : "" ?>/>
+                </div>
+                <div class="field">
+                    <div class="label">Deadline</div>
+                    <input name="deadline" class="value" value="<?= $bureaucracy->deadline->format('Y-m-d'); ?>"
+                           type="date"/>
                 </div>
             </div>
             <div class="box-footer">

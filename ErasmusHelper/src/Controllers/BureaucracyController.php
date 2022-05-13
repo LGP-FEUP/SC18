@@ -56,14 +56,25 @@ class BureaucracyController extends Controller
     /**
      * @throws DatabaseException
      */
-    public function editBureaucracy($id)
+    #[NoReturn] public function editBureaucracy($id)
     {
-        $bureaucracy = Bureaucracy::select($id);
+        $bureaucracy = Bureaucracy::select(["id" => $id]);
 
         if ($bureaucracy != null && $bureaucracy->exists()) {
+            if (Request::valuePost('task'))
+                $bureaucracy->task = Request::valuePost('task');
 
+            if (Request::valuePost('class'))
+                $bureaucracy->class = Request::valuePost('class');
 
+            if (Request::valuePost('deadline'))
+                $bureaucracy->deadline = Request::valuePost('deadline');
+
+            if ($bureaucracy->save()) {
+                $this->redirect(Router::route("bureaucracy", ["id" => $bureaucracy->id]), ["success" => "Bureaucracy edited successfully."]);
+            }
         }
+        $this->redirect(Router::route("bureaucracies"), ["error" => "Unable to edit the Bureaucracy item."]);
     }
 
 }
