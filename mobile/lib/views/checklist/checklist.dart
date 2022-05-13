@@ -1,6 +1,7 @@
 import 'package:erasmus_helper/services/tasks_service.dart';
 import 'package:erasmus_helper/services/user_service.dart';
 import 'package:erasmus_helper/views/checklist/task_page.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/task.dart';
@@ -70,9 +71,28 @@ class _ChecklistState extends State<Checklist> {
             fontSize: 20,
           )),
       subtitle: Text("Due date: ${task.dueDate}"),
-      leading: Icon(
-        task.done ? Icons.check_circle : Icons.circle_outlined,
-        color: Colors.black,
+      leading: GestureDetector(
+        onTap: () {
+          //TODO: Does not delete properly as the task_id is nested
+          print(task.uid);
+          if (!task.done) {
+            DatabaseReference ref = UserService.getUserDoneTasksReference();
+            DatabaseReference newRef = ref.push();
+            newRef.set(
+              {"task_id": task.uid},
+            );
+          } else {
+            DatabaseReference ref = UserService.getUserDoneTasksReference();
+            ref.child(task.uid).remove();
+          }
+          setState(() {
+            task.done = !task.done;
+          });
+        },
+        child: Icon(
+          task.done ? Icons.check_circle : Icons.circle_outlined,
+          color: Colors.black,
+        ),
       ),
       trailing: const Icon(
         Icons.arrow_forward_ios,

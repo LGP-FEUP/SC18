@@ -46,4 +46,26 @@ class UserService {
 
     return doneTasks;
   }
+
+  static Future<UserModel> getUser() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    final DataSnapshot snap = await FirebaseDatabase.instance
+        .ref(collectionName)
+        .child(auth.currentUser!.uid)
+        .get();
+
+    final Map<String, dynamic> map = (snap.value as Map<dynamic, dynamic>)
+        .map((key, value) => MapEntry(key.toString(), value));
+
+    print(map);
+    return UserModel.fromJson(map);
+  }
+
+  static DatabaseReference getUserDoneTasksReference() {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    return FirebaseDatabase.instance
+        .ref(collectionName)
+        .child(auth.currentUser!.uid)
+        .child("done_tasks");
+  }
 }

@@ -24,8 +24,12 @@ class UserModel {
         lName = json['lastname'],
         facultyOrigin = json['faculty_origin_id'],
         erasmusFaculty = json['faculty_arriving_id'],
-        doneTasks = json['doneTasks'],
-        birthdate = DateModel.fromJson(json["date_of_birth"]);
+        doneTasks = json['doneTasks'] ?? List.generate(0, (index) => "") {
+    final Map<String, dynamic> map =
+        (json["date_of_birth"] as Map<dynamic, dynamic>)
+            .map((key, value) => MapEntry(key.toString(), value));
+    birthdate = DateModel.fromJson(map);
+  }
 
   Map<String, dynamic> toJson() => {
         'id': uid,
