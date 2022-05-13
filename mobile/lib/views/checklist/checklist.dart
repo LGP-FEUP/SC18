@@ -15,20 +15,25 @@ class Checklist extends StatefulWidget {
 class _ChecklistState extends State<Checklist> {
   @override
   Widget build(BuildContext context) {
-    UserService.getUserDoneTasks();
-
     return FutureBuilder(
-        future: UserService.getUserFacultyId(),
+        future: Future.wait(
+            [UserService.getUserFacultyId(), UserService.getUserDoneTasks()]),
         builder: (context, response) {
           if (response.connectionState == ConnectionState.done) {
             if (response.data != null) {
-              String facultyId = response.data.toString();
+              List data = response.data as List;
+              String facultyId = data[0].toString();
+              List<String> doneTasks = data[1] as List<String>;
               return FutureBuilder(
                   future: TasksService.getTasks(facultyId),
                   builder: (context, response) {
                     if (response.connectionState == ConnectionState.done) {
                       if (response.data != null) {
-                        return _genPage(response.data as List<TaskModel>);
+                        List<TaskModel> tasks =
+                            response.data as List<TaskModel>;
+                        List<TaskModel> taskList =
+                            setDoneTasks(tasks, doneTasks);
+                        return _genPage(taskList);
                       }
                     }
                     return _genPage([]);
@@ -65,8 +70,8 @@ class _ChecklistState extends State<Checklist> {
             fontSize: 20,
           )),
       subtitle: Text("Due date: ${task.dueDate}"),
-      leading: const Icon(
-        Icons.check_circle,
+      leading: Icon(
+        task.done ? Icons.check_circle : Icons.circle_outlined,
         color: Colors.black,
       ),
       trailing: const Icon(
@@ -79,5 +84,20 @@ class _ChecklistState extends State<Checklist> {
   void _navigateToTaskPage(TaskModel task) {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => TaskPage(task: task)));
+  }
+
+  List<TaskModel> setDoneTasks(List<TaskModel> tasks, List<String> doneTasks) {
+    for (var element in tasks) {
+      if (doneTasks.contains(element.uid)) {
+        element.done = true;
+      }
+      for (var step in element.steps) {
+        if (doneTasks.contains(step.uid)) {
+          step.done = true;
+        }
+      }
+    }
+
+    return tasks;
   }
 }

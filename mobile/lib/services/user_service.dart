@@ -40,7 +40,7 @@ class UserService {
               MapEntry(key.toString(), (value as Map<dynamic, dynamic>)));
 
       for (var element in map.values) {
-        doneTasks.add(element.values.toString());
+        doneTasks.add(element.values.first.toString());
       }
     }
 

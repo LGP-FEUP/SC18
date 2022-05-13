@@ -138,7 +138,7 @@ class _RegisterFormState extends State<RegisterForm> {
           lNameController.text.trim(),
           facultyOrigin,
           facultyArriving,
-          dateController.text.trim());
+          dateController.text.trim(), []);
 
       context.read<AuthenticationService>().signUp(user: user).then((value) {
         // On success

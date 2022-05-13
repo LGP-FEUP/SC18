@@ -53,7 +53,8 @@ class _TaskPageState extends State<TaskPage> {
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
           title: Text(steps[index].title),
-          trailing: const Icon(Icons.circle_outlined),
+          trailing: Icon(
+              steps[index].done ? Icons.check_circle : Icons.circle_outlined),
           iconColor: Colors.indigo,
         );
       },

@@ -1,9 +1,10 @@
 class TaskModel {
   final String uid, description, facultyId, title, dueDate;
+  bool done;
   List<StepModel> steps = [];
 
-  TaskModel(
-      this.uid, this.title, this.description, this.dueDate, this.facultyId);
+  TaskModel(this.uid, this.title, this.description, this.dueDate,
+      this.facultyId, this.done);
 
   TaskModel.fromJson(this.uid, Map<String, dynamic> json)
       : title = json['title'],
@@ -12,7 +13,8 @@ class TaskModel {
         facultyId = json['faculty_id'],
         steps = json["steps"] != null
             ? StepModel.listFromJson(json["steps"] as Map<dynamic, dynamic>)
-            : [];
+            : [],
+        done = false;
 
   static TaskModel fromJsonMap(MapEntry<dynamic, dynamic> json) {
     var t = TaskModel.fromJson(
@@ -36,11 +38,13 @@ class TaskModel {
 
 class StepModel {
   final String title, uid;
+  bool done;
 
-  StepModel(this.uid, this.title);
+  StepModel(this.uid, this.title, this.done);
 
   StepModel.fromJson(this.uid, Map<String, dynamic> json)
-      : title = json['title'];
+      : title = json['title'],
+        done = false;
 
   static StepModel fromJsonMap(MapEntry<dynamic, dynamic> json) {
     return StepModel.fromJson(

@@ -31,7 +31,7 @@ class AuthenticationService {
     try {
       UserCredential credential =
           await _firebaseAuth.createUserWithEmailAndPassword(
-              email: user.email, password: user.password);
+              email: user.email!, password: user.password!);
 
       user.uid = credential.user!.uid;
       UserService.addUser(user);
