@@ -9,7 +9,7 @@ import 'package:erasmus_helper/views/authentication/login.dart';
 import 'package:erasmus_helper/services/authentication_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'homepage.dart';
+import 'app_layout.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -67,7 +67,7 @@ class AuthenticationWrapper extends StatelessWidget {
     final firebaseUser = context.watch<User?>();
 
     if (firebaseUser != null) {
-      return const HomePage(title: "Homepage");
+      return const AppLayout();
     }
 
     return const LoginPage();
