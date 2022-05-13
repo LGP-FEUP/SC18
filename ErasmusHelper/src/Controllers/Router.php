@@ -70,6 +70,10 @@ class Router extends AbstractRouter
             'bureaucracy.create.page' => ["GET", "/bureaucracy/create", [BureaucracyController::class, "create"]],
             'bureaucracy.create' => ["POST", "/bureaucracy/new", [BureaucracyController::class, "createBureaucracy"]],
             'bureaucracy' => ["GET", "/bureaucracy/{id}", [BureaucracyController::class, "edit"]],
+            'subtask.create' => ["POST", "/sub_task/new", [SubTaskController::class, "createSubTask"]],
+            'subtask.edit' => ["POST", "/sub_task/{id}", [SubTaskController::class, "editSubTask"]],
+
+
         ];
     }
 }

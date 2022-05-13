@@ -42,24 +42,16 @@ use ErasmusHelper\Models\Bureaucracy;
             <div class="box-header">
                 <span class="box-title"><?= "Add new Sub Task" ?></span>
             </div>
-            <form method="POST" action="<?= Router::route('bureaucracy.edit', ["id" => $bureaucracy->id]) ?>">
+            <form method="POST" action="<?= Router::route('subtask.create') ?>">
+                <input type="hidden" name="bureaucracyId" value="<?= $bureaucracy->id ?>">
                 <div class="box-content">
                     <div class="field">
-                        <div class="label">Identifier</div>
-                        <input name="id" class="value" type="text" value="<?= $bureaucracy->id; ?>" disabled/>
-                    </div>
-                    <div class="field">
-                        <div class="label">Name</div>
-                        <input name="name" class="value" type="text" value="<?= $bureaucracy->task; ?>"/>
+                        <div class="label">Sub Task Name</div>
+                        <input name="task-name" class="value" type="text"/>
                     </div>
                 </div>
                 <div class="box-footer">
                     <div class="button-group">
-                        <a href="<?= Router::route('bureaucracies') ?>" class="button">Cancel</a>
-                        <?php if (empty($cities)) { ?>
-                            <a onclick="confirm('Confirm the deletion of the Bureaucracy Item ?') ? window.location = '<?= Router::route('bureaucracy.delete', ["id" => $bureaucracy->id]) ?>' : void(0)"
-                               class="button red">Delete</a>
-                        <?php } ?>
                         <button type="submit" class="button cta">Submit</button>
                     </div>
                 </div>

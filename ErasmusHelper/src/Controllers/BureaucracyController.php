@@ -53,4 +53,17 @@ class BureaucracyController extends Controller
         $this->render("bureaucracies.details", ["id" => $id, "bureaucracy" => Bureaucracy::select(["id" => $id])]);
     }
 
+    /**
+     * @throws DatabaseException
+     */
+    public function editBureaucracy($id)
+    {
+        $bureaucracy = Bureaucracy::select($id);
+
+        if ($bureaucracy != null && $bureaucracy->exists()) {
+
+
+        }
+    }
+
 }
