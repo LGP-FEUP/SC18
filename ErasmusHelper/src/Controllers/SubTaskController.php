@@ -29,6 +29,10 @@ class SubTaskController extends Controller
                 $subTask->id = App::UUIDGenerator();
                 $subTask->name = Request::valuePost('task-name');
 
+                # TODO: Fix this bug that automatically updates the type of object to a Firebase Datetime that breaks the PHP Datetimes
+                $bureaucracy->deadline = date('Y-m-d', strtotime($bureaucracy->deadline->format('Y-m-d')));
+                #
+
                 $bureaucracy->list_subtasks[] = $subTask;
 
                 if ($bureaucracy->save())

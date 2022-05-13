@@ -36,7 +36,7 @@ class BureaucracyController extends Controller
             $bureaucracy->class = Request::valuePost("class");
 
             if (Request::valuePost("deadline"))
-                $bureaucracy->deadline = Request::valuePost("deadline");
+                $bureaucracy->deadline = date('Y-m-d', strtotime(Request::valuePost('deadline')));
 
             if ($bureaucracy->save()) {
                 $this->redirect(Router::route("bureaucracy", ["id" => $bureaucracy->id]), ["success" => "Bureaucracy added successfully."]);
@@ -68,13 +68,29 @@ class BureaucracyController extends Controller
                 $bureaucracy->class = Request::valuePost('class');
 
             if (Request::valuePost('deadline'))
-                $bureaucracy->deadline = Request::valuePost('deadline');
+                $bureaucracy->deadline = date('Y-m-d', strtotime(Request::valuePost('deadline')));
 
             if ($bureaucracy->save()) {
                 $this->redirect(Router::route("bureaucracy", ["id" => $bureaucracy->id]), ["success" => "Bureaucracy edited successfully."]);
             }
         }
         $this->redirect(Router::route("bureaucracies"), ["error" => "Unable to edit the Bureaucracy item."]);
+    }
+
+    /**
+     * @throws DatabaseException
+     */
+    #[NoReturn] public function delete($id)
+    {
+        $bureaucracy = Bureaucracy::select(["id" => $id]);
+
+        if ($bureaucracy != null && $bureaucracy->exists()) {
+            if ($bureaucracy->delete())
+                $this->redirect(Router::route('bureaucracies'), ['success' => "Task Deleted with Success"]);
+
+        }
+
+        $this->redirect(Router::route('bureaucracies'), ['error' => "Task Failed to Delete"]);
     }
 
 }

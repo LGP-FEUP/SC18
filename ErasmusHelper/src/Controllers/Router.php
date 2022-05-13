@@ -69,6 +69,7 @@ class Router extends AbstractRouter
             'bureaucracies' => ["GET", "/bureaucracies", [BureaucracyController::class, "displayAll"]],
             'bureaucracy.create.page' => ["GET", "/bureaucracy/create", [BureaucracyController::class, "create"]],
             'bureaucracy.create' => ["POST", "/bureaucracy/new", [BureaucracyController::class, "createBureaucracy"]],
+            'bureaucracy.delete' => ["GET", "/bureaucracy/delete/{id}", [BureaucracyController::class, "delete"]],
             'bureaucracy.edit' => ["POST", "/bureaucracy/edit/{id}", [BureaucracyController::class, "editBureaucracy"]],
             'bureaucracy' => ["GET", "/bureaucracy/{id}", [BureaucracyController::class, "edit"]],
             'subtask.create' => ["POST", "/sub_task/new", [SubTaskController::class, "createSubTask"]],
