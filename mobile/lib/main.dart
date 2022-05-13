@@ -2,12 +2,17 @@ import 'package:erasmus_helper/services/authentication_service.dart';
 import 'package:erasmus_helper/views/login.dart';
 import 'package:erasmus_helper/views/profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:provider/provider.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
+
+import 'package:erasmus_helper/views/authentication/login.dart';
+import 'package:erasmus_helper/services/authentication_service.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+import 'homepage.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -25,8 +30,7 @@ class MyApp extends StatelessWidget {
             create: (_) => AuthenticationService(FirebaseAuth.instance)),
         StreamProvider(
           create: (context) =>
-          context.read<AuthenticationService>().authStateChanges,
-          initialData: null,
+          context.read<AuthenticationService>().currentUser, initialData: null,
         )
       ],
       child: MaterialApp(
@@ -58,43 +62,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                context.read<AuthenticationService>().signOut().then((value) =>
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginPage())));
-              },
-              child: const Text("Sign out"),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class AuthenticationWrapper extends StatelessWidget {
   const AuthenticationWrapper({Key? key}) : super(key: key);
 
@@ -103,7 +70,7 @@ class AuthenticationWrapper extends StatelessWidget {
     final firebaseUser = context.watch<User?>();
 
     if (firebaseUser != null) {
-      return const MyHomePage(title: "Homepage");
+      return const HomePage(title: "Homepage");
     }
 
     return const LoginPage();
