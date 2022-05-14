@@ -37,7 +37,7 @@ class _ChecklistState extends State<Checklist> {
                     if (response.connectionState == ConnectionState.done) {
                       if (response.data != null) {
                         tasks = response.data as List<TaskModel>;
-                        setDoneTasks(doneTasks);
+                        _setDoneTasks(doneTasks);
                         return _genPage(tasks);
                       }
                     }
@@ -76,22 +76,7 @@ class _ChecklistState extends State<Checklist> {
           )),
       subtitle: Text("Due date: ${task.dueDate}"),
       leading: GestureDetector(
-        onTap: () {
-          //TODO: Does not delete properly as the task_id is nested
-          if (!task.done) {
-            DatabaseReference ref = TasksService.getUserDoneTasksRef();
-            DatabaseReference newRef = ref.push();
-            newRef.set(
-              {"task_id": task.uid},
-            );
-          } else {
-            DatabaseReference ref = TasksService.getUserDoneTasksRef();
-            ref.child(task.uid).remove();
-          }
-          setState(() {
-            task.done = !task.done;
-          });
-        },
+        onTap: () => _changeTaskState(task),
         child: Icon(
           task.done ? Icons.check_circle : Icons.circle_outlined,
           color: Colors.black,
@@ -104,12 +89,23 @@ class _ChecklistState extends State<Checklist> {
     );
   }
 
-  void setDoneTasks(List<String> doneTasks) {
-    for (var task in tasks) { // mark done tasks
+  void _changeTaskState (TaskModel task) {
+    task.done
+        ? TasksService.deleteUserDoneTask(task.uid)
+        : TasksService.addUserDoneTask(task.uid);
+    setState(() {
+      task.done = !task.done;
+    });
+  }
+
+  void _setDoneTasks(List<String> doneTasks) {
+    for (var task in tasks) {
+      // mark done tasks
       if (doneTasks.contains(task.uid)) {
         task.done = true;
       }
-      for (var step in task.steps) { // mark done steps
+      for (var step in task.steps) {
+        // mark done steps
         if (doneTasks.contains(step.uid)) {
           step.done = true;
         }

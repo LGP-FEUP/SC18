@@ -1,7 +1,6 @@
 import 'package:erasmus_helper/models/task.dart';
 import 'package:erasmus_helper/services/user_service.dart';
 import 'package:erasmus_helper/services/utils_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class TasksService {
@@ -15,7 +14,7 @@ class TasksService {
         .equalTo(facultyId)
         .get();
 
-    if (snap.value != null) {
+    if (snap.exists) {
       for (var element in UtilsService.snapToMapOfMap(snap).entries) {
         tasks.add(TaskModel.fromJson(element.key, element.value));
       }
@@ -28,9 +27,9 @@ class TasksService {
     List<String> doneTasks = [];
     final DataSnapshot snap = await getUserDoneTasksRef().get();
 
-    if (snap.value != null) {
+    if (snap.exists) {
       for (var element in UtilsService.snapToMapOfMap(snap).values) {
-        doneTasks.add(element.values.first);
+        doneTasks.add(element.values.first.toString());
       }
     }
 
@@ -39,5 +38,23 @@ class TasksService {
 
   static DatabaseReference getUserDoneTasksRef() {
     return UserService.getUserRef().child("done_tasks");
+  }
+
+  static Future<void> deleteUserDoneTask(String id) async {
+    final DataSnapshot snap = await
+         getUserDoneTasksRef()
+        .orderByChild("task_id")
+        .equalTo(id)
+        .get();
+
+    if (snap.exists) {
+      for (var element in snap.children) {
+        element.ref.remove();
+      }
+    }
+  }
+
+  static Future<void> addUserDoneTask(String id) async {
+    getUserDoneTasksRef().push().set({"task_id": id});
   }
 }
