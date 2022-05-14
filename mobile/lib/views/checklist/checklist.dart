@@ -1,6 +1,6 @@
 import 'package:erasmus_helper/services/tasks_service.dart';
 import 'package:erasmus_helper/services/faculty_service.dart';
-import 'package:erasmus_helper/views/checklist/task_tile.dart';
+import 'package:erasmus_helper/views/checklist/components/task_tile.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/task.dart';

@@ -1,4 +1,5 @@
 import 'package:erasmus_helper/models/task.dart';
+import 'package:erasmus_helper/views/checklist/components/step_tile.dart';
 import 'package:flutter/material.dart';
 
 class TaskPage extends StatefulWidget {
@@ -51,12 +52,7 @@ class _TaskPageState extends State<TaskPage> {
       shrinkWrap: true,
       itemCount: steps.length,
       itemBuilder: (BuildContext context, int index) {
-        return ListTile(
-          title: Text(steps[index].title),
-          trailing: Icon(
-              steps[index].done ? Icons.check_circle : Icons.circle_outlined),
-          iconColor: Colors.indigo,
-        );
+        return StepTile(step: steps[index]);
       },
     );
   }

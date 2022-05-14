@@ -2,7 +2,7 @@ import 'package:erasmus_helper/models/task.dart';
 import 'package:erasmus_helper/views/checklist/task_page.dart';
 import 'package:flutter/material.dart';
 
-import '../../services/tasks_service.dart';
+import '../../../services/tasks_service.dart';
 
 class TaskTile extends StatefulWidget {
   final TaskModel task;
