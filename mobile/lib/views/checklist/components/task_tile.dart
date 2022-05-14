@@ -16,7 +16,7 @@ class TaskTile extends StatefulWidget {
 class _TaskTileState extends State<TaskTile> {
   late Icon _icon;
   final doneIcon = const Icon(Icons.check_circle, color: Colors.black),
-    notDoneIcon = const Icon(Icons.circle_outlined, color: Colors.black);
+      notDoneIcon = const Icon(Icons.circle_outlined, color: Colors.black);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,8 @@ class _TaskTileState extends State<TaskTile> {
             fontWeight: FontWeight.w500,
             fontSize: 20,
           )),
-      subtitle: Text("Due date: ${task.dueDate}"),
+      subtitle: Text("Due date: ${task.dueDate}",
+          style: const TextStyle(fontSize: 16)),
       leading: GestureDetector(
         onTap: () => _changeTaskState(task),
         child: _icon,

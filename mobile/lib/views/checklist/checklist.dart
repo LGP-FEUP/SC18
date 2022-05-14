@@ -51,12 +51,7 @@ class _ChecklistState extends State<Checklist> {
   }
 
   Widget _genPage(List<TaskModel> tasks) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Checklist"),
-      ),
-      body: _buildList(tasks),
-    );
+    return _buildList(tasks);
   }
 
   Widget _buildList(List<TaskModel> tasks) {

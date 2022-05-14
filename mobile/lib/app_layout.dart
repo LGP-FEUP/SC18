@@ -1,5 +1,5 @@
+import 'package:erasmus_helper/views/checklist/checklist.dart';
 import 'package:erasmus_helper/views/home/home_page.dart';
-import 'package:erasmus_helper/views/school/school_page.dart';
 import 'package:erasmus_helper/views/social/social_page.dart';
 
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class _AppScaffold extends State<AppLayout> {
   int _selectedPageIndex = 0;
 
   final pages = [
-    const SchoolPage(),
+    const Checklist(),
     const HomePage(),
     const SocialPage()
   ];
