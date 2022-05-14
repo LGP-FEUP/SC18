@@ -58,8 +58,6 @@ class Utils {
 
   static void navigateToHomePage(BuildContext context) {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => const AppLayout()));
+        context, MaterialPageRoute(builder: (context) => const AppLayout()));
   }
 }

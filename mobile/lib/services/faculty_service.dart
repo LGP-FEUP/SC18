@@ -14,9 +14,8 @@ class FacultyService {
   }
 
   static Future<String> getUserFacultyId() async {
-    final DataSnapshot snap = await UserService.getUserRef()
-        .child("faculty_arriving_id")
-        .get();
+    final DataSnapshot snap =
+        await UserService.getUserRef().child("faculty_arriving_id").get();
 
     return snap.value.toString();
   }

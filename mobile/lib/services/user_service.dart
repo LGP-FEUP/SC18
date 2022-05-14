@@ -15,9 +15,8 @@ class UserService {
 
   static DatabaseReference getUserRef() {
     FirebaseAuth auth = FirebaseAuth.instance;
-   return FirebaseDatabase.instance
+    return FirebaseDatabase.instance
         .ref(collectionName)
         .child(auth.currentUser!.uid);
   }
-
 }

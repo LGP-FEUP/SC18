@@ -8,7 +8,9 @@ class SocialPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [Text('Social Page'),],
+      children: const [
+        Text('Social Page'),
+      ],
     );
   }
 }

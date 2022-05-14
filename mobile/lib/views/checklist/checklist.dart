@@ -1,9 +1,8 @@
-import 'package:erasmus_helper/services/tasks_service.dart';
 import 'package:erasmus_helper/services/faculty_service.dart';
+import 'package:erasmus_helper/services/tasks_service.dart';
 import 'package:erasmus_helper/views/checklist/components/task_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 
 import '../../models/task.dart';
 
@@ -79,9 +78,13 @@ class _ChecklistState extends State<Checklist> {
   }
 
   List<Widget> _genListItems(List<TaskTile> tasksTiles) {
-    List<Widget> before = [_genListTitle("Before Arrival")];
-    List<Widget> during = [_genListTitle("During Arrival")];
-    List<Widget> after = [_genListTitle("After Arrival")];
+    // List<Widget> before = [_genListTitle("Before Arrival")];
+    // List<Widget> during = [_genListTitle("During Arrival")];
+    // List<Widget> after = [_genListTitle("After Arrival")];
+
+    List<Widget> before = [];
+    List<Widget> during = [];
+    List<Widget> after = [];
 
     for (var t in tasksTiles) {
       var when = t.task.when;
@@ -96,24 +99,45 @@ class _ChecklistState extends State<Checklist> {
 
     final emptyFill = _genEmptyFill();
 
-    if (before.length == 1) {
+    if (before.isEmpty) {
       before.add(emptyFill);
     }
-    if (during.length == 1) {
+    if (during.isEmpty) {
       during.add(emptyFill);
     }
-    if (after.length == 1) {
+    if (after.isEmpty) {
       after.add(emptyFill);
     }
 
-    return before + during + after;
+    return [
+      Padding(
+        padding: const EdgeInsets.all(12),
+        child: ExpansionTile(
+          title: _genListTitle("Before Arrival"),
+          children: before,
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(12),
+        child: ExpansionTile(
+          title: _genListTitle("During Arrival"),
+          children: during,
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(12),
+        child: ExpansionTile(
+          title: _genListTitle("After Arrival"),
+          children: after,
+        ),
+      ),
+    ];
   }
 
   List<TaskModel> _sortTasks(List<TaskModel> tasks) {
     DateFormat format = DateFormat("dd/MM/yyyy");
     tasks.sort((a, b) {
-      DateTime aDate = format.parse(a.dueDate),
-          bDate = format.parse(b.dueDate);
+      DateTime aDate = format.parse(a.dueDate), bDate = format.parse(b.dueDate);
       return aDate.compareTo(bDate);
     });
 
@@ -127,7 +151,7 @@ class _ChecklistState extends State<Checklist> {
             padding: const EdgeInsets.all(10),
             child: Text(
               title,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ))
       ],
     );
