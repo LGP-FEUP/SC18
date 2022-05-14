@@ -8,6 +8,7 @@ use ErasmusHelper\App;
 abstract class Controller extends AbstractFrontController {
 
     protected bool $requireAuth = false;
+    protected int $requirePrivilege = 0;
 
     public function __construct() {
         if($this->requireAuth) {

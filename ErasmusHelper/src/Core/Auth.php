@@ -16,7 +16,7 @@ class Auth {
      */
     public function isAuth(): bool {
         if(isset($_SESSION["admin_uid"])) {
-            if($_SESSION["admin_uid"] != null)
+            if($_SESSION["admin_uid"] != null && $_SESSION["privilegeLevel"] >= 1)
                 return true;
         }
         return false;
@@ -28,6 +28,16 @@ class Auth {
     #[Pure] public function getAdminUID(): ?string {
         if($this->isAuth()) {
             return $_SESSION["admin_uid"];
+        }
+        return null;
+    }
+
+    /**
+     * @return string|null
+     */
+    #[Pure] public function getPrivilegeLevel(): ?string {
+        if($this->isAuth()) {
+            return $_SESSION["privilegeLevel"];
         }
         return null;
     }
@@ -51,8 +61,8 @@ class Auth {
     public function login(string $mail, string $password): bool {
         $loginResult = App::getInstance()->firebase->auth->signInWithEmailAndPassword($mail, $password);
         $admin = App::getInstance()->firebase->auth->getUser($loginResult->firebaseUserId());
-        if(!empty($admin->customClaims) && $admin->customClaims["privilege_level"] == 1) {
-            $this->auth($admin->uid);
+        if(!empty($admin->customClaims) && $admin->customClaims["privilege_level"] >= 1) {
+            $this->auth($admin->uid, $admin->customClaims["privilege_level"]);
             return true;
         }
         return false;
@@ -63,8 +73,9 @@ class Auth {
      *
      * @param string $adminUID
      */
-    private function auth(string $adminUID) {
+    private function auth(string $adminUID, int $privilegeLevel) {
         $_SESSION["admin_uid"] = $adminUID;
+        $_SESSION["privilegeLevel"] = $privilegeLevel;
     }
 
 }

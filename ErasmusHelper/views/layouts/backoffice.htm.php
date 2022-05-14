@@ -45,7 +45,7 @@ use ErasmusHelper\Controllers\Router;
             } else {
                 ?>
                 <a class="link" href="<?= Router::route("login") ?>"><i
-                            class="fas fa-user r"></i><?php echo App::getInstance()->firebase->auth->getUser(strval($_SESSION["admin_uid"]))->email; ?>
+                            class="fas fa-user r"></i><?php echo App::getInstance()->firebase->auth->getUser(App::getInstance()->auth->getAdminUID())->email; ?>
                 </a>
                 <a class="link" type="button" href="<?= Router::route("logout") ?>">Log out</a>
                 <?php
