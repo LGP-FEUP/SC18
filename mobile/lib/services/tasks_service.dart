@@ -55,6 +55,6 @@ class TasksService {
   }
 
   static Future<void> addUserDoneTask(String id) async {
-    getUserDoneTasksRef().push().set({"task_id": id});
+    await getUserDoneTasksRef().push().set({"task_id": id});
   }
 }

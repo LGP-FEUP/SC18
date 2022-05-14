@@ -1,7 +1,6 @@
 import 'package:erasmus_helper/services/tasks_service.dart';
 import 'package:erasmus_helper/services/faculty_service.dart';
-import 'package:erasmus_helper/views/checklist/task_page.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:erasmus_helper/views/checklist/task_tile.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/task.dart';
@@ -59,44 +58,11 @@ class _ChecklistState extends State<Checklist> {
   }
 
   Widget _buildList(List<TaskModel> tasks) {
-    final tasksList = tasks.map((e) => _tile(e)).toList();
+    final tasksList = tasks.map((e) => TaskTile(task: e)).toList();
     return ListView(
       children: tasksList,
     );
-  }
-
-  ListTile _tile(TaskModel task) {
-    return ListTile(
-      onTap: () => _navigateToTaskPage(task),
-      dense: true,
-      title: Text(task.title,
-          style: const TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: 20,
-          )),
-      subtitle: Text("Due date: ${task.dueDate}"),
-      leading: GestureDetector(
-        onTap: () => _changeTaskState(task),
-        child: Icon(
-          task.done ? Icons.check_circle : Icons.circle_outlined,
-          color: Colors.black,
-        ),
-      ),
-      trailing: const Icon(
-        Icons.arrow_forward_ios,
-        color: Colors.black,
-      ),
-    );
-  }
-
-  void _changeTaskState (TaskModel task) {
-    task.done
-        ? TasksService.deleteUserDoneTask(task.uid)
-        : TasksService.addUserDoneTask(task.uid);
-    setState(() {
-      task.done = !task.done;
-    });
-  }
+  }  
 
   void _setDoneTasks(List<String> doneTasks) {
     for (var task in tasks) {
@@ -111,10 +77,5 @@ class _ChecklistState extends State<Checklist> {
         }
       }
     }
-  }
-
-  void _navigateToTaskPage(TaskModel task) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => TaskPage(task: task)));
   }
 }
