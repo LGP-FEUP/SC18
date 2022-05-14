@@ -1,3 +1,5 @@
+import '../services/utils_service.dart';
+
 class TaskModel {
   final String uid, description, facultyId, title, dueDate;
   bool done;
@@ -11,28 +13,15 @@ class TaskModel {
         description = json['description'],
         dueDate = json['due_date'],
         facultyId = json['faculty_id'],
-        steps = json["steps"] != null
-            ? StepModel.listFromJson(json["steps"] as Map<dynamic, dynamic>)
-            : [],
-        done = false;
-
-  static TaskModel fromJsonMap(MapEntry<dynamic, dynamic> json) {
-    var t = TaskModel.fromJson(
-        json.key.toString(),
-        (json.value as Map<dynamic, dynamic>)
-            .map((key, value) => MapEntry(key.toString(), value)));
-
-    return t;
-  }
-
-  static List<TaskModel> listFromJson(Map<dynamic, dynamic> json) {
-    List<TaskModel> steps = [];
-
-    for (var element in json.entries) {
-      steps.add(TaskModel.fromJsonMap(element));
+        done = false {
+    List<StepModel> stepsList = [];
+    if (json["steps"] != null) {
+      for (var element
+          in UtilsService.dynamicToMapOfMap(json["steps"]).entries) {
+        stepsList.add(StepModel.fromJson(element.key, element.value));
+      }
     }
-
-    return steps;
+    steps = stepsList;
   }
 }
 
@@ -45,21 +34,4 @@ class StepModel {
   StepModel.fromJson(this.uid, Map<String, dynamic> json)
       : title = json['title'],
         done = false;
-
-  static StepModel fromJsonMap(MapEntry<dynamic, dynamic> json) {
-    return StepModel.fromJson(
-        json.key.toString(),
-        (json.value as Map<dynamic, dynamic>)
-            .map((key, value) => MapEntry(key.toString(), value)));
-  }
-
-  static List<StepModel> listFromJson(Map<dynamic, dynamic> json) {
-    List<StepModel> steps = [];
-
-    for (var element in json.entries) {
-      steps.add(StepModel.fromJsonMap(element));
-    }
-
-    return steps;
-  }
 }

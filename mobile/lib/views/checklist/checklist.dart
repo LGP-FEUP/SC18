@@ -1,5 +1,5 @@
 import 'package:erasmus_helper/services/tasks_service.dart';
-import 'package:erasmus_helper/services/user_service.dart';
+import 'package:erasmus_helper/services/faculty_service.dart';
 import 'package:erasmus_helper/views/checklist/task_page.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -14,27 +14,31 @@ class Checklist extends StatefulWidget {
 }
 
 class _ChecklistState extends State<Checklist> {
+  List<TaskModel> tasks = [];
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Future.wait(
-            [UserService.getUserFacultyId(), UserService.getUserDoneTasks()]),
+        future: Future.wait(// wait for user info
+            [
+          FacultyService.getUserFacultyId(),
+          TasksService.getUserDoneTasks()
+        ]),
         builder: (context, response) {
           if (response.connectionState == ConnectionState.done) {
             if (response.data != null) {
               List data = response.data as List;
               String facultyId = data[0].toString();
               List<String> doneTasks = data[1] as List<String>;
+
               return FutureBuilder(
                   future: TasksService.getTasks(facultyId),
                   builder: (context, response) {
                     if (response.connectionState == ConnectionState.done) {
                       if (response.data != null) {
-                        List<TaskModel> tasks =
-                            response.data as List<TaskModel>;
-                        List<TaskModel> taskList =
-                            setDoneTasks(tasks, doneTasks);
-                        return _genPage(taskList);
+                        tasks = response.data as List<TaskModel>;
+                        setDoneTasks(doneTasks);
+                        return _genPage(tasks);
                       }
                     }
                     return _genPage([]);
@@ -74,15 +78,14 @@ class _ChecklistState extends State<Checklist> {
       leading: GestureDetector(
         onTap: () {
           //TODO: Does not delete properly as the task_id is nested
-          print(task.uid);
           if (!task.done) {
-            DatabaseReference ref = UserService.getUserDoneTasksReference();
+            DatabaseReference ref = TasksService.getUserDoneTasksRef();
             DatabaseReference newRef = ref.push();
             newRef.set(
               {"task_id": task.uid},
             );
           } else {
-            DatabaseReference ref = UserService.getUserDoneTasksReference();
+            DatabaseReference ref = TasksService.getUserDoneTasksRef();
             ref.child(task.uid).remove();
           }
           setState(() {
@@ -101,23 +104,21 @@ class _ChecklistState extends State<Checklist> {
     );
   }
 
-  void _navigateToTaskPage(TaskModel task) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => TaskPage(task: task)));
-  }
-
-  List<TaskModel> setDoneTasks(List<TaskModel> tasks, List<String> doneTasks) {
-    for (var element in tasks) {
-      if (doneTasks.contains(element.uid)) {
-        element.done = true;
+  void setDoneTasks(List<String> doneTasks) {
+    for (var task in tasks) { // mark done tasks
+      if (doneTasks.contains(task.uid)) {
+        task.done = true;
       }
-      for (var step in element.steps) {
+      for (var step in task.steps) { // mark done steps
         if (doneTasks.contains(step.uid)) {
           step.done = true;
         }
       }
     }
+  }
 
-    return tasks;
+  void _navigateToTaskPage(TaskModel task) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => TaskPage(task: task)));
   }
 }

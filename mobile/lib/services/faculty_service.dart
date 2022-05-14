@@ -1,3 +1,4 @@
+import 'package:erasmus_helper/services/user_service.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class FacultyService {
@@ -10,5 +11,13 @@ class FacultyService {
 
     return map.map((key, value) => MapEntry(
         (value as Map<dynamic, dynamic>)["name"].toString(), key.toString()));
+  }
+
+  static Future<String> getUserFacultyId() async {
+    final DataSnapshot snap = await UserService.getUserRef()
+        .child("faculty_arriving_id")
+        .get();
+
+    return snap.value.toString();
   }
 }
