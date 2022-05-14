@@ -2,6 +2,8 @@ import 'package:erasmus_helper/services/tasks_service.dart';
 import 'package:erasmus_helper/services/faculty_service.dart';
 import 'package:erasmus_helper/views/checklist/components/task_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 
 import '../../models/task.dart';
 
@@ -58,11 +60,13 @@ class _ChecklistState extends State<Checklist> {
   }
 
   Widget _buildList(List<TaskModel> tasks) {
-    final tasksList = tasks.map((e) => TaskTile(task: e)).toList();
+    List<TaskModel> sortedTasks = _sortTasks(tasks);
+    final tasksList = sortedTasks.map((e) => TaskTile(task: e)).toList();
+
     return ListView(
-      children: tasksList,
+      children: _genListItems(tasksList),
     );
-  }  
+  }
 
   void _setDoneTasks(List<String> doneTasks) {
     for (var task in tasks) {
@@ -77,5 +81,73 @@ class _ChecklistState extends State<Checklist> {
         }
       }
     }
+  }
+
+  List<Widget> _genListItems(List<TaskTile> tasksTiles) {
+    List<Widget> before = [_genListTitle("Before Arrival")];
+    List<Widget> during = [_genListTitle("During Arrival")];
+    List<Widget> after = [_genListTitle("After Arrival")];
+
+    for (var t in tasksTiles) {
+      var when = t.task.when;
+      if (when == 0) {
+        before.add(t);
+      } else if (when == 1) {
+        during.add(t);
+      } else {
+        after.add(t);
+      }
+    }
+
+    final emptyFill = _genEmptyFill();
+
+    if (before.length == 1) {
+      before.add(emptyFill);
+    }
+    if (during.length == 1) {
+      during.add(emptyFill);
+    }
+    if (after.length == 1) {
+      after.add(emptyFill);
+    }
+
+    return before + during + after;
+  }
+
+  List<TaskModel> _sortTasks(List<TaskModel> tasks) {
+    DateFormat format = DateFormat("dd/MM/yyyy");
+    tasks.sort((a, b) {
+      DateTime aDate = format.parse(a.dueDate),
+          bDate = format.parse(b.dueDate);
+      return aDate.compareTo(bDate);
+    });
+
+    return tasks;
+  }
+
+  Row _genListTitle(String title) {
+    return Row(
+      children: [
+        Padding(
+            padding: const EdgeInsets.all(10),
+            child: Text(
+              title,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            ))
+      ],
+    );
+  }
+
+  Row _genEmptyFill() {
+    return Row(
+      children: const [
+        Padding(
+            padding: EdgeInsets.all(10),
+            child: Text(
+              "No tasks...",
+              style: TextStyle(fontSize: 18, color: Colors.black54),
+            ))
+      ],
+    );
   }
 }

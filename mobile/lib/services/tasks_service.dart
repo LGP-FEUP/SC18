@@ -41,10 +41,10 @@ class TasksService {
   }
 
   static Future<void> deleteUserDoneTask(String id) async {
-    final DataSnapshot snap = await
-         getUserDoneTasksRef()
+    final DataSnapshot snap = await getUserDoneTasksRef()
         .orderByChild("task_id")
         .equalTo(id)
+        .orderByChild("when")
         .get();
 
     if (snap.exists) {
