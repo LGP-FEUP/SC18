@@ -61,9 +61,9 @@ class _RegisterFormState extends State<RegisterForm> {
                 key: _formKey,
                 child: Column(children: [
                   Utils.genLogo(MediaQuery.of(context).size.height),
-                  Utils.genTitle("Sign in"),
+                  Utils.genTitle("Sign up"),
                   ..._genInputs(context, faculties!),
-                  Utils.genSubmitButton("Sign in", onSubmit),
+                  Utils.genSubmitButton("Sign up", onSubmit),
                   Utils.genLink("Already have an account?", navigateToLoginPage)
                 ]));
           }
@@ -75,7 +75,8 @@ class _RegisterFormState extends State<RegisterForm> {
               Utils.genTitle("Sign in"),
               ..._genInputs(context, []),
               Utils.genSubmitButton("Sign in", onSubmit),
-              Utils.genLink("Already have an account?", navigateToLoginPage)
+              Utils.genLink(
+                  "Already have an account? Sign in!", navigateToLoginPage)
             ]));
       },
     );

@@ -13,7 +13,7 @@ class Utils {
                   height: ht * 0.15,
                   decoration: const BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage("assets/logo.png"))),
+                          image: AssetImage("assets/logo_complex.png"))),
                 ))),
       ],
     );
@@ -58,8 +58,6 @@ class Utils {
 
   static void navigateToHomePage(BuildContext context) {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => const AppLayout()));
+        context, MaterialPageRoute(builder: (context) => const AppLayout()));
   }
 }
