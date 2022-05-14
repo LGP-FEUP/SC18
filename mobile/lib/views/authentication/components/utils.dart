@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../homepage.dart';
+import '../../../app_layout.dart';
 
 class Utils {
   static Row genLogo(double ht) {
@@ -60,6 +60,6 @@ class Utils {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => const HomePage(title: "Homepage")));
+            builder: (context) => const AppLayout()));
   }
 }

@@ -5,9 +5,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
-
 import 'firebase_options.dart';
-import 'views/checklist/checklist.dart';
+import 'app_layout.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -66,8 +65,7 @@ class AuthenticationWrapper extends StatelessWidget {
     final firebaseUser = context.watch<User?>();
 
     if (firebaseUser != null) {
-      // return const MyHomePage(title: "Homepage");
-      return const Checklist();
+      return const AppLayout();
     }
 
     return const LoginPage();
