@@ -1,6 +1,7 @@
 <?php
 /** @var UniModerator[] $staffs */
 
+use ErasmusHelper\App;
 use ErasmusHelper\Controllers\Router;
 use ErasmusHelper\Models\UniModerator;
 
@@ -13,7 +14,7 @@ use ErasmusHelper\Models\UniModerator;
                     <tr>
                         <th>Identifier</th>
                         <th>Email Address</th>
-                        <th>Privilege Level</th>
+                        <th>Level</th>
                         <th><a class="button" href="<?= Router::route('staff.create.page') ?>" ><i class="fas fa-plus r"></i>Add a staff member</a></th>
                     </tr>
                     <?php
@@ -22,7 +23,7 @@ use ErasmusHelper\Models\UniModerator;
                             <tr bgcolor="<?= $staff->disabled ? "lightgrey" : "white"; ?>">
                                 <td><?= $staff->id; ?></td>
                                 <td><?= $staff->email; ?></td>
-                                <td><?= $staff::PRIVILEGE_LEVEL; ?></td>
+                                <td><?= App::getPrivilegeName($staff::PRIVILEGE_LEVEL); ?></td>
                                 <td><a class="button" href="<?= Router::route('staff', ["id" => $staff->id]) ?>"><i class="far fa-eye r"></i>Details</a></td>
                             </tr>
                         <?php endforeach;
