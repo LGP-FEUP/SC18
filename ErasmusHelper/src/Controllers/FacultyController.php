@@ -11,19 +11,25 @@ use Exception;
 use JetBrains\PhpStorm\NoReturn;
 use Kreait\Firebase\Exception\DatabaseException;
 
-class FacultyController extends BackOfficeController {
+class FacultyController extends UniModsBackOfficeController {
 
     /**
      * @throws DatabaseException
      */
     public function displayAll() {
-        $this->render("faculties.list", ["faculties" => Faculty::getAll()]);
+        $faculty = App::getInstance()->auth->getFaculty();
+        if($faculty == null) {
+            $this->render("faculties.list", ["faculties" => Faculty::getAll()]);
+        } else {
+            $this->render("faculties.list", ["faculty" => $faculty]);
+        }
     }
 
     /**
      * @throws DatabaseException
      */
     public function create() {
+        $this->requirePrivileges(ADMIN_PRIVILEGES);
         $this->render("faculties.create", ["cities" => City::getAll()]);
     }
 
@@ -31,6 +37,7 @@ class FacultyController extends BackOfficeController {
      * @throws Exception
      */
     #[NoReturn] public function createPost() {
+        $this->requirePrivileges(ADMIN_PRIVILEGES);
         $faculty = new Faculty();
         if(Request::valuePost("name") && Request::valuePost("city_id")) {
             $faculty->id = App::UUIDGenerator();
@@ -69,6 +76,7 @@ class FacultyController extends BackOfficeController {
      * @throws DatabaseException
      */
     #[NoReturn] public function delete($id) {
+        $this->requirePrivileges(ADMIN_PRIVILEGES);
         $faculty = Faculty::select(["id" => $id]);
         if($faculty != null && $faculty->exists() && empty($faculty->getAssociatedStudents())) {
             if($faculty->delete()) {

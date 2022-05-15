@@ -13,55 +13,28 @@ use Kreait\Firebase\Exception\AuthException;
 use Kreait\Firebase\Exception\DatabaseException;
 use Kreait\Firebase\Exception\FirebaseException;
 
-class UserController extends BackOfficeController {
+class UserController extends UniModsBackOfficeController {
     //TODO Searchbar in view and handle it here
 
     /**
      * @throws DatabaseException
      */
     public function displayAll() {
-        $this->render("users.list", ["users" => User::getAll()]);
-    }
-
-    /**
-     * @throws DatabaseException
-     */
-    public function create() {
-        $this->render("users.create", ["faculties" => Faculty::getAll()]);
-    }
-
-    /**
-     * @throws Exception
-     */
-    #[NoReturn] public function createPost() {
-        if(Request::valuePost("name")
-            && Request::valuePost("firstname")
-            && Request::valuePost("faculty_arriving_id")
-            && Request::valuePost("faculty_origin_id")
-            && Request::valuePost("validation_level")) {
-            $user = new User();
-            $user->id = App::UUIDGenerator();
-            $user->lastname = Request::valuePost("lastname");
-            $user->firstname = Request::valuePost("firstname");
-            $user->faculty_origin_id = Request::valuePost("faculty_origin_id");
-            $user->faculty_arriving_id = Request::valuePost("faculty_arriving_id");
-            $user->validation_level = Request::valuePost("validation_level");
-
-            $prop = array(
-                "email" => Request::valuePost("email"),
-                "password" => Request::valuePost("password"),
-                "uid" => $user->id
-            );
-            try {
-                App::getInstance()->firebase->auth->createUser($prop);
-                if($user->save()) {
-                    $this->redirect(Router::route("users"), ["success" => "User created successfully."]);
-                }
-            } catch (AuthException|FirebaseException $e) {
-                Dbg::error($e->getMessage());
+        $faculty = App::getInstance()->auth->getFaculty();
+        if($faculty == null) {
+            $this->render("users.list", ["users" => User::getAll()]);
+        } else {
+            $users = array();
+            $users_arriving = User::getAll(["faculty_arriving_id" => $faculty->id]);
+            $users_origin = User::getAll(["faculty_origin_id" => $faculty->id]);
+            foreach ($users_arriving as $user) {
+                $users[] = $user;
             }
+            foreach ($users_origin as $user) {
+                $users[] = $user;
+            }
+            $this->render("users.list", ["users" => $users]);
         }
-        $this->redirect(Router::route("users"), ["error" => "Unable to create the user."]);
     }
 
     /**

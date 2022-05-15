@@ -9,7 +9,7 @@ use Exception;
 use JetBrains\PhpStorm\NoReturn;
 use Kreait\Firebase\Exception\DatabaseException;
 
-class BureaucracyController extends Controller
+class BureaucracyController extends UniModsBackOfficeController
 {
     /**
      * @throws DatabaseException

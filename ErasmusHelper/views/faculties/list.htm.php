@@ -1,6 +1,10 @@
 <?php
-/** @var Faculty[] $faculties */
+/**
+ * @var Faculty[] $faculties
+ * @var Faculty $faculty
+ */
 
+use ErasmusHelper\App;
 use ErasmusHelper\Controllers\Router;
 use ErasmusHelper\Models\Faculty;
 
@@ -14,7 +18,7 @@ use ErasmusHelper\Models\Faculty;
                         <th>Identifier</th>
                         <th>Name</th>
                         <th>City</th>
-                        <th><a class="button" href="<?= Router::route('faculty.create.page') ?>" ><i class="fas fa-plus r"></i>Add a faculty</a></th>
+                        <th><?php if(App::getInstance()->auth->getPrivilegeLevel() == ADMIN_PRIVILEGES) { ?><a class="button" href="<?= Router::route('faculty.create.page') ?>" ><i class="fas fa-plus r"></i>Add a faculty</a><?php } ?></th>
                     </tr>
                     <?php
                     if(!empty($faculties)) {
@@ -26,7 +30,14 @@ use ErasmusHelper\Models\Faculty;
                                 <td><a class="button" href="<?= Router::route('faculty', ["id" => $faculty->id]) ?>"><i class="far fa-eye r"></i>Details</a></td>
                             </tr>
                         <?php endforeach;
-                    } ?>
+                    } else { ?>
+                        <tr>
+                            <td><?= $faculty->id; ?></td>
+                            <td><?= $faculty->name; ?></td>
+                            <td><?= $faculty->getCity()->name; ?></td>
+                            <td><a class="button" href="<?= Router::route('faculty', ["id" => $faculty->id]) ?>"><i class="far fa-eye r"></i>Details</a></td>
+                        </tr>
+                    <?php } ?>
                 </table>
             </div>
         </div>

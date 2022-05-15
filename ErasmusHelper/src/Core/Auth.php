@@ -3,8 +3,11 @@
 namespace ErasmusHelper\Core;
 
 use ErasmusHelper\App;
+use ErasmusHelper\Models\Faculty;
 use JetBrains\PhpStorm\Pure;
+use Kreait\Firebase\Auth\UserRecord;
 use Kreait\Firebase\Exception\AuthException;
+use Kreait\Firebase\Exception\DatabaseException;
 use Kreait\Firebase\Exception\FirebaseException;
 
 class Auth {
@@ -15,8 +18,8 @@ class Auth {
      * @return bool
      */
     public function isAuth(): bool {
-        if(isset($_SESSION["admin_uid"])) {
-            if($_SESSION["admin_uid"] != null && $_SESSION["privilegeLevel"] >= 1)
+        if(isset($_SESSION["user_uid"])) {
+            if($_SESSION["user_uid"] != null && $_SESSION["privilege_level"] >= ADMIN_PRIVILEGES)
                 return true;
         }
         return false;
@@ -27,7 +30,7 @@ class Auth {
      */
     #[Pure] public function getAdminUID(): ?string {
         if($this->isAuth()) {
-            return $_SESSION["admin_uid"];
+            return $_SESSION["user_uid"];
         }
         return null;
     }
@@ -37,7 +40,18 @@ class Auth {
      */
     #[Pure] public function getPrivilegeLevel(): ?string {
         if($this->isAuth()) {
-            return $_SESSION["privilegeLevel"];
+            return $_SESSION["privilege_level"];
+        }
+        return null;
+    }
+
+    /**
+     * @return Faculty|null
+     * @throws DatabaseException
+     */
+    public function getFaculty(): ?Faculty {
+        if($this->isAuth() && $_SESSION["faculty_id"] != null) {
+            return Faculty::select(["id" => $_SESSION["faculty_id"]]);
         }
         return null;
     }
@@ -45,8 +59,10 @@ class Auth {
     /**
      * Disconnects the admin
      */
-    public function logout() {
-        $_SESSION["admin_uid"] = null;
+    public function logout(): void {
+        $_SESSION["user_uid"] = null;
+        $_SESSION["privilege_level"] = null;
+        $_SESSION["faculty_id"] = null;
     }
 
     /**
@@ -60,9 +76,9 @@ class Auth {
      */
     public function login(string $mail, string $password): bool {
         $loginResult = App::getInstance()->firebase->auth->signInWithEmailAndPassword($mail, $password);
-        $admin = App::getInstance()->firebase->auth->getUser($loginResult->firebaseUserId());
-        if(!empty($admin->customClaims) && $admin->customClaims["privilege_level"] >= 1) {
-            $this->auth($admin->uid, $admin->customClaims["privilege_level"]);
+        $user = App::getInstance()->firebase->auth->getUser($loginResult->firebaseUserId());
+        if(!empty($user->customClaims) && $user->customClaims["privilege_level"] >= ADMIN_PRIVILEGES) {
+            $this->auth($user);
             return true;
         }
         return false;
@@ -71,11 +87,14 @@ class Auth {
     /**
      * Sets the current admin connected UID as admin.
      *
-     * @param string $adminUID
+     * @param UserRecord $user
      */
-    private function auth(string $adminUID, int $privilegeLevel) {
-        $_SESSION["admin_uid"] = $adminUID;
-        $_SESSION["privilegeLevel"] = $privilegeLevel;
+    private function auth(UserRecord $user): void {
+        $_SESSION["user_uid"] = $user->uid;
+        $_SESSION["privilege_level"] = $user->customClaims["privilege_level"];
+        if($_SESSION["privilege_level"] == UNIMODERATORS_PRIVILEGES) {
+            $_SESSION["faculty_id"] = $user->customClaims["faculty_id"];
+        }
     }
 
 }

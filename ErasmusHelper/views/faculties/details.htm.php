@@ -5,6 +5,7 @@
  */
 
 
+use ErasmusHelper\App;
 use ErasmusHelper\Controllers\Router;
 use ErasmusHelper\Models\Faculty;
 use ErasmusHelper\Models\User;
@@ -43,7 +44,7 @@ use ErasmusHelper\Models\User;
                     <div class="box-footer">
                         <div class="button-group">
                             <a href="<?= Router::route('faculties') ?>" class="button">Cancel</a>
-                            <?php if(empty($students)) { ?>
+                            <?php if(empty($students) && App::getInstance()->auth->getPrivilegeLevel() == ADMIN_PRIVILEGES) { ?>
                             <a onclick="confirm('Confirm the deletion of the faculty ?') ? window.location = '<?= Router::route('faculty.delete', ["id" => $faculty->id]) ?>' : void(0)" class="button red">Delete</a>
                             <?php } ?>
                             <button type="submit" class="button cta">Submit</button>

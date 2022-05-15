@@ -131,7 +131,7 @@ class User extends Model {
         if($this->authUser) {
             return $this->authUser->disabled;
         } else {
-            Dbg::error("Unable to find email for such user.");
+            Dbg::error("Unable to find auth entity for such user.");
             return null;
         }
     }

@@ -12,7 +12,7 @@ use Kreait\Firebase\Exception\AuthException;
 use Kreait\Firebase\Exception\DatabaseException;
 use Kreait\Firebase\Exception\FirebaseException;
 
-class StaffController extends BackOfficeController {
+class StaffController extends AdminBackOfficeController {
 
     /**
      * @throws AuthException
