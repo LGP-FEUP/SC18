@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/backoffice/vendor/google/crc32" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/firebase/php-jwt" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/riverline/multipart-parser" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/fig/http-message-util" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/nikic/fast-route" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/lcobucci/jwt" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/lcobucci/clock" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/stella-maris/clock" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/symfony/polyfill-php81" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/rize/uri-template" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/kreait/firebase-tokens" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/kreait/firebase-php" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/mtdowling/jmespath.php" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/beste/json" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/beste/clock" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/composer" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/google/cloud-storage" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/google/auth" />
+      <path value="$PROJECT_DIR$/backoffice/vendor/google/cloud-core" />
+    </include_path>
+  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.0">
+    <option name="suggestChangeDefaultLanguageLevel" value="false" />
+  </component>
+</project>
