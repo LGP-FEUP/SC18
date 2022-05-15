@@ -44,7 +44,6 @@ class TasksService {
     final DataSnapshot snap = await getUserDoneTasksRef()
         .orderByChild("task_id")
         .equalTo(id)
-        .orderByChild("when")
         .get();
 
     if (snap.exists) {
