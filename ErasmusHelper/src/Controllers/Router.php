@@ -37,8 +37,6 @@ class Router extends AbstractRouter
             'staff.edit' => ["POST", "/staff/edit/{id}", [StaffController::class, "editPost"]],
             'staff' => ["GET", "/staff/{id}", [StaffController::class, "edit"]],
             'users' => ["GET", "/users", [UserController::class, "displayAll"]],
-            'user.create.page' => ["GET", "/user/create", [UserController::class, "create"]],
-            'user.create' => ["POST", "/user/new", [UserController::class, "createPost"]],
             'user.ability' => ["GET", "/user/ability/{id}", [UserController::class, "changeAbility"]],
             'user.edit' => ["POST", "/user/edit/{id}", [UserController::class, "editPost"]],
             'user' => ["GET", "/user/{id}", [UserController::class, "edit"]],

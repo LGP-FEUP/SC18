@@ -5,6 +5,7 @@
     background-color: $boxGray;
     border: 1px solid $gray;
     @extend .shadow;
+    height: $headerHeight;
 
     nav {
       display: flex;
@@ -53,4 +54,9 @@
   #app {
     padding: 20px 10px; // On ajoute 15px sur les côtés pour compenser les row
   }
+  
+  .vh-100-h {
+    min-height: calc(100vh - #{$headerHeight} - 40px - 5px);
+  }
 }
+

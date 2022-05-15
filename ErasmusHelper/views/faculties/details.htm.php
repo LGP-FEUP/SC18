@@ -5,6 +5,7 @@
  */
 
 
+use ErasmusHelper\App;
 use ErasmusHelper\Controllers\Router;
 use ErasmusHelper\Models\Faculty;
 use ErasmusHelper\Models\User;
@@ -43,7 +44,7 @@ use ErasmusHelper\Models\User;
                     <div class="box-footer">
                         <div class="button-group">
                             <a href="<?= Router::route('faculties') ?>" class="button">Cancel</a>
-                            <?php if(empty($students)) { ?>
+                            <?php if(empty($students) && App::getInstance()->auth->getPrivilegeLevel() == ADMIN_PRIVILEGES) { ?>
                             <a onclick="confirm('Confirm the deletion of the faculty ?') ? window.location = '<?= Router::route('faculty.delete', ["id" => $faculty->id]) ?>' : void(0)" class="button red">Delete</a>
                             <?php } ?>
                             <button type="submit" class="button cta">Submit</button>
@@ -63,14 +64,14 @@ use ErasmusHelper\Models\User;
                     <table class="table">
                         <tr>
                             <th>Firstname</th>
-                            <th>Name</th>
+                            <th>Lastname</th>
                             <th>Date of birth</th>
                             <th></th>
                         </tr>
                         <?php foreach ($students as $student){ ?>
                             <tr bgcolor="<?= $student->isDisabled() ? "lightgrey" : "white"; ?>">
                                 <td><?= $student->firstname; ?></td>
-                                <td><?= $student->name; ?></td>
+                                <td><?= $student->lastname; ?></td>
                                 <td><?= $student->computeBirthDate(); ?></td>
                                 <td><a class="button" href="<?= Router::route('user', ["id" => $student->id]) ?>"><i class="far fa-eye r"></i>Details</a></td>
                             </tr>

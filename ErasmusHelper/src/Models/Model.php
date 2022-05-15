@@ -17,7 +17,7 @@ abstract class Model {
     const STORAGE = "";
 
     /**
-     * Columns for such object
+     * Columns for fields
      * @example "id", "name", "firstname"...
      */
     const COLUMNS = [];
@@ -88,7 +88,7 @@ abstract class Model {
      * @param array $data
      * @return void
      */
-    protected function hydrate(array $data) {
+    protected function hydrate(array $data): void {
         $this->dbStored = true;
         foreach($data as $key => $value) {
             if(in_array($key, array_values(static::COLUMNS)) && property_exists($this, $key)) {

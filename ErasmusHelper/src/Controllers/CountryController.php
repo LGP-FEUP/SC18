@@ -10,7 +10,7 @@ use Exception;
 use JetBrains\PhpStorm\NoReturn;
 use Kreait\Firebase\Exception\DatabaseException;
 
-class CountryController extends BackOfficeController {
+class CountryController extends AdminBackOfficeController {
 
     /**
      * @throws DatabaseException
