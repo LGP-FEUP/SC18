@@ -50,7 +50,7 @@ class Auth {
      * @throws DatabaseException
      */
     public function getFaculty(): ?Faculty {
-        if($this->isAuth() && $_SESSION["faculty_id"] != null) {
+        if($this->isAuth() && $_SESSION["faculty_id"] != "") {
             return Faculty::select(["id" => $_SESSION["faculty_id"]]);
         }
         return null;
@@ -92,6 +92,7 @@ class Auth {
     private function auth(UserRecord $user): void {
         $_SESSION["user_uid"] = $user->uid;
         $_SESSION["privilege_level"] = $user->customClaims["privilege_level"];
+        $_SESSION["faculty_id"] = "";
         if($_SESSION["privilege_level"] == UNIMODERATORS_PRIVILEGES) {
             $_SESSION["faculty_id"] = $user->customClaims["faculty_id"];
         }
