@@ -63,12 +63,12 @@ use ErasmusHelper\Models\Task;
             <div class="box-header">
                 <span class="box-title"><?= "Add new Sub Task" ?></span>
             </div>
-            <form method="POST" action="<?= Router::route('subtask.create') ?>">
+            <form method="POST" action="<?= Router::route('step.create') ?>">
                 <input type="hidden" name="taskId" value="<?= $task->id ?>">
                 <div class="box-content">
                     <div class="field">
                         <div class="label">Sub Task Name</div>
-                        <input name="task-name" class="value" type="text"/>
+                        <input name="step-name" class="value" type="text"/>
                     </div>
                 </div>
                 <div class="box-footer">
@@ -91,12 +91,12 @@ use ErasmusHelper\Models\Task;
                                 <th>Name</th>
                                 <th>More Info</th>
                             </tr>
-                            <?php foreach ($task->steps as $subtask) { ?>
+                            <?php foreach ($task->steps as $step) { ?>
                                 <tr>
-                                    <td><?= $subtask['id']; ?></td>
-                                    <td><?= $subtask['name']; ?></td>
+                                    <td><?= $step['id']; ?></td>
+                                    <td><?= $step['name']; ?></td>
                                     <td><a class="button"
-                                           href="<?= Router::route('subtask', ["id" => $subtask['id']]) ?>"><i
+                                           href="<?= Router::route('step', ["id" => $step['id']]) ?>"><i
                                                     class="far fa-eye r"></i>Details</a></td>
                                 </tr>
                             <?php } ?>

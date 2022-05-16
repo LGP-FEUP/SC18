@@ -28,11 +28,12 @@ class TaskController extends UniModsBackOfficeController
     /**
      * @throws Exception
      */
-    #[NoReturn] public function createtask()
+    #[NoReturn] public function createTask()
     {
         $task = new Task();
 
         if (Request::valuePost("title") && Request::valuePost("when")) {
+            $task->id = App::UUIDGenerator();
             $task->title = Request::valuePost("title");
             $task->when = Request::valuePost("when");
 
@@ -58,7 +59,7 @@ class TaskController extends UniModsBackOfficeController
      * @throws DatabaseException
      * @throws Exception
      */
-    #[NoReturn] public function edittask($id)
+    #[NoReturn] public function editTask($id)
     {
         $task = Task::select(["id" => $id]);
 

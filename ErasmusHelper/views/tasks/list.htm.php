@@ -16,7 +16,7 @@ use ErasmusHelper\Models\Task;
                         <th>Task</th>
                         <th>Class</th>
                         <th>Deadline</th>
-                        <th>Number Subtasks</th>
+                        <th>Number steps</th>
                         <th><a class="button" href="<?= Router::route('task.create.page') ?>"><i
                                         class="fas fa-plus r"></i>Add a new Item</a></th>
                     </tr>
@@ -37,7 +37,7 @@ use ErasmusHelper\Models\Task;
                                     } else {
                                         echo "No Deadline Defined";
                                     } ?></td>
-                                <td><?= isset($task->steps) ? count($task->steps) : "Without Subtasks" ?></td>
+                                <td><?= isset($task->steps) ? count($task->steps) : "Without steps" ?></td>
                                 <td><a class="button"
                                        href="<?= Router::route('task', ["id" => $task->id]) ?>"><i
                                                 class="far fa-eye r"></i>Details</a></td>

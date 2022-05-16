@@ -2,7 +2,7 @@
 
 namespace ErasmusHelper\Models;
 
-class SubTask extends Model
+class Step extends Model
 {
     const COLUMNS = ["id", "name"];
 
