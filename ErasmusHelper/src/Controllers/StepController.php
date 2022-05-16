@@ -27,7 +27,7 @@ class StepController extends Controller
                 $step = new Step();
 
                 $step->id = App::UUIDGenerator();
-                $step->name = Request::valuePost('step-name');
+                $step->title = Request::valuePost('step-name');
 
                 $task->steps[] = $step;
 
@@ -51,7 +51,7 @@ class StepController extends Controller
         if ($task != null && $task->exists() && Request::valuePost('task-name')) {
             foreach ($task->step as $step) {
                 if ($step->id == $stepId) {
-                    $step->name = Request::valuePost('step-name');
+                    $step->title = Request::valuePost('step-name');
                     break;
                 }
             }

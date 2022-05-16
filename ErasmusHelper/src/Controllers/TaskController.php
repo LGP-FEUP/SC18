@@ -37,6 +37,9 @@ class TaskController extends UniModsBackOfficeController
             $task->title = Request::valuePost("title");
             $task->when = Request::valuePost("when");
 
+            if (Request::valuePost("description"))
+                $task->description = Request::valuePost('description');
+
             if (Request::valuePost("due_date"))
                 $task->due_date = new DateTime(Request::valuePost('due_date'));
 
@@ -69,6 +72,9 @@ class TaskController extends UniModsBackOfficeController
 
             if (Request::valuePost('when'))
                 $task->when = Request::valuePost('when');
+
+            if (Request::valuePost("description"))
+                $task->description = Request::valuePost('description');
 
             if (Request::valuePost("due_date"))
                 $task->due_date = new DateTime(Request::valuePost('due_date'));

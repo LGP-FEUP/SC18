@@ -7,9 +7,10 @@ use Kreait\Firebase\Exception\DatabaseException;
 
 class Task extends Model
 {
-    const COLUMNS = ["id", "title", "when", "due_date", "steps"];
+    const COLUMNS = ["id", "title", "description", "when", "due_date", "steps"];
 
     public $title;
+    public $description;
     public $when;
     public $steps;
     public $due_date;

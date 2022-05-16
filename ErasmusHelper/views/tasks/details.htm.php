@@ -25,6 +25,10 @@ use ErasmusHelper\Models\Task;
                     <input name="title" class="value" type="text" value="<?= $task->title; ?>"/>
                 </div>
                 <div class="field">
+                    <div class="label">Description</div>
+                    <textarea name="description" class="value" rows="5"><?= $task->description ?></textarea>
+                </div>
+                <div class="field">
                     <div class="label">Before Arrival</div>
                     <input name="when" class="value" type="radio"
                            value="before" <?= $task->when === "before" ? "checked" : "" ?>/>
@@ -93,8 +97,8 @@ use ErasmusHelper\Models\Task;
                             </tr>
                             <?php foreach ($task->steps as $step) { ?>
                                 <tr>
-                                    <td><?= $step['id']; ?></td>
-                                    <td><?= $step['name']; ?></td>
+                                    <td><?= $step['id'] ?></td>
+                                    <td><?= $step['title'] ?></td>
                                     <td><a class="button"
                                            href="<?= Router::route('step', ["id" => $step['id']]) ?>"><i
                                                     class="far fa-eye r"></i>Details</a></td>

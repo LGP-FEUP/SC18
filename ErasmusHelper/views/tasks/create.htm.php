@@ -15,6 +15,10 @@ use ErasmusHelper\Controllers\Router;
                     <input name="title" class="value" type="text"/>
                 </div>
                 <div class="field">
+                    <div class="label">Description</div>
+                    <textarea name="description" class="value" rows="5"></textarea>
+                </div>
+                <div class="field">
                     <div class="label">Before Arrival</div>
                     <input name="when" class="value" type="radio"
                            value="before"/>
