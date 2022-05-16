@@ -1,5 +1,5 @@
 <?php
-/** @var Country[] $countries
+/**
  *  @var Faculty[] $faculties
  */
 
@@ -24,25 +24,25 @@ use ErasmusHelper\Models\Faculty;
                     <input name="password" class="value" type="password" value=""/>
                 </div>
                 <div class="field">
-                    <div class="label">Name</div>
-                    <input name="name" class="value" type="text" value=""/>
+                    <div class="label">Lastname</div>
+                    <input name="lastname" class="value" type="text" value=""/>
                 </div>
                 <div class="field">
                     <div class="label">Firstname</div>
                     <input name="firstname" class="value" type="text" value=""/>
                 </div>
                 <div class="field">
-                    <div class="label">Country of origin</div>
-                    <select name="country_origin_id" class="value">
-                        <option disabled>Select a country</option>
-                        <?php foreach ($countries as $country): ?>
-                            <option value="<?= $country->id; ?>"><?= $country->name; ?></option>
+                    <div class="label">Faculty of Origin</div>
+                    <select name="faculty_origin_id" class="value">
+                        <option disabled>Select a faculty</option>
+                        <?php foreach ($faculties as $faculty): ?>
+                            <option value="<?= $faculty->id; ?>"><?= $faculty->name; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
                 <div class="field">
-                    <div class="label">Faculty</div>
-                    <select name="faculty_id" class="value">
+                    <div class="label">Faculty of Arrival</div>
+                    <select name="faculty_arriving_id" class="value">
                         <option disabled>Select a faculty</option>
                         <?php foreach ($faculties as $faculty): ?>
                             <option value="<?= $faculty->id; ?>"><?= $faculty->name; ?></option>

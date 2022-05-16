@@ -6,7 +6,7 @@ use Kreait\Firebase\Auth\UserRecord;
 
 class UniModerator extends StaffModel {
 
-    const PRIVILEGE_LEVEL = 2;
+    const PRIVILEGE_LEVEL = UNIMODERATORS_PRIVILEGES;
 
     const CLAIMS = ["faculty_id"];
 

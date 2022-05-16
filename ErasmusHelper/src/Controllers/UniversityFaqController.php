@@ -10,7 +10,7 @@ use Exception;
 use JetBrains\PhpStorm\NoReturn;
 use Kreait\Firebase\Exception\DatabaseException;
 
-class UniversityFaqController extends BackOfficeController
+class UniversityFaqController extends UniModsBackOfficeController
 {
     /**
      * @throws DatabaseException
