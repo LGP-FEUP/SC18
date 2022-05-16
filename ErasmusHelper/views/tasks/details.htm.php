@@ -2,64 +2,55 @@
 
 /**
  * @var int $id ;
- * @var Bureaucracy $bureaucracy ;
+ * @var Task $task ;
  */
 
 use ErasmusHelper\Controllers\Router;
-use ErasmusHelper\Models\Bureaucracy;
-
-$parsed_deadline = "";
-
-if ($bureaucracy->deadline) {
-    try {
-        $datetime = new DateTime("@$bureaucracy->deadline");
-        $parsed_deadline = $datetime->format('Y-m-d');
-    } catch (Exception $e) {
-    }
-}
-
+use ErasmusHelper\Models\Task;
 
 ?>
 <div class="row">
     <div class="box col-12 col-md-6">
         <div class="box-header">
-            <span class="box-title"><?= "Edit: $bureaucracy->task" ?></span>
+            <span class="box-title"><?= "Edit: $task->when" ?></span>
         </div>
-        <form method="POST" action="<?= Router::route('bureaucracy.edit', ["id" => $bureaucracy->id]) ?>">
+        <form method="POST" action="<?= Router::route('task.edit', ["id" => $task->id]) ?>">
             <div class="box-content">
                 <div class="field">
                     <div class="label">Identifier</div>
-                    <input name="id" class="value" type="text" value="<?= $bureaucracy->id; ?>" disabled/>
+                    <input name="id" class="value" type="text" value="<?= $task->id; ?>" disabled/>
                 </div>
                 <div class="field">
                     <div class="label">Name</div>
-                    <input name="task" class="value" type="text" value="<?= $bureaucracy->task; ?>"/>
+                    <input name="title" class="value" type="text" value="<?= $task->title; ?>"/>
                 </div>
                 <div class="field">
                     <div class="label">Before Arrival</div>
-                    <input name="class" class="value" type="radio"
-                           value="before" <?= $bureaucracy->class === "before" ? "checked" : "" ?>/>
+                    <input name="when" class="value" type="radio"
+                           value="before" <?= $task->when === "before" ? "checked" : "" ?>/>
                 </div>
                 <div class="field">
                     <div class="label">During Stay</div>
-                    <input name="class" class="value" type="radio"
-                           value="during"<?= $bureaucracy->class === "during" ? "checked" : "" ?>/>
+                    <input name="when" class="value" type="radio"
+                           value="during"<?= $task->when === "during" ? "checked" : "" ?>/>
                 </div>
                 <div class="field">
                     <div class="label">After Departure</div>
-                    <input name="class" class="value" type="radio"
-                           value="after" <?= $bureaucracy->class === "after" ? "checked" : "" ?>/>
+                    <input name="when" class="value" type="radio"
+                           value="after" <?= $task->when === "after" ? "checked" : "" ?>/>
                 </div>
                 <div class="field">
                     <div class="label">Deadline</div>
-                    <input name="deadline" class="value" value="<?= $parsed_deadline ?>" type="date"/>
+                    <input name="due_date" class="value"
+                           value="<?= $task->due_date ? date("Y-m-d", strtotime($task->due_date['date'])) : "" ?>"
+                           type="date"/>
                 </div>
             </div>
             <div class="box-footer">
                 <div class="button-group">
-                    <a href="<?= Router::route('bureaucracies') ?>" class="button">Cancel</a>
+                    <a href="<?= Router::route('tasks') ?>" class="button">Cancel</a>
                     <?php if (empty($cities)) { ?>
-                        <a onclick="confirm('Confirm the deletion of the Bureaucracy Item ?') ? window.location = '<?= Router::route('bureaucracy.delete', ["id" => $bureaucracy->id]) ?>' : void(0)"
+                        <a onclick="confirm('Confirm the deletion of the task Item ?') ? window.location = '<?= Router::route('task.delete', ["id" => $task->id]) ?>' : void(0)"
                            class="button red">Delete</a>
                     <?php } ?>
                     <button type="submit" class="button cta">Submit</button>
@@ -73,7 +64,7 @@ if ($bureaucracy->deadline) {
                 <span class="box-title"><?= "Add new Sub Task" ?></span>
             </div>
             <form method="POST" action="<?= Router::route('subtask.create') ?>">
-                <input type="hidden" name="bureaucracyId" value="<?= $bureaucracy->id ?>">
+                <input type="hidden" name="taskId" value="<?= $task->id ?>">
                 <div class="box-content">
                     <div class="field">
                         <div class="label">Sub Task Name</div>
@@ -87,7 +78,7 @@ if ($bureaucracy->deadline) {
                 </div>
             </form>
         </div>
-        <?php if ($bureaucracy->list_subtasks) { ?>
+        <?php if ($task->steps) { ?>
             <div class="box">
                 <div class="box-header">
                     <span class="box-title">Sub Tasks</span>
@@ -100,7 +91,7 @@ if ($bureaucracy->deadline) {
                                 <th>Name</th>
                                 <th>More Info</th>
                             </tr>
-                            <?php foreach ($bureaucracy->list_subtasks as $subtask) { ?>
+                            <?php foreach ($task->steps as $subtask) { ?>
                                 <tr>
                                     <td><?= $subtask['id']; ?></td>
                                     <td><?= $subtask['name']; ?></td>

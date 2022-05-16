@@ -4,14 +4,16 @@ namespace ErasmusHelper\Models;
 
 use Kreait\Firebase\Exception\DatabaseException;
 
-class Faculty extends Model {
+class Faculty extends Model
+{
 
     const STORAGE = 'faculties';
 
-    const COLUMNS = ["id", "name", "city_id"];
+    const COLUMNS = ["id", "name", "city_id", "tasks"];
 
     public $name;
     public $city_id;
+    public $tasks;
 
     /**
      * Returns the country associated to the city.
@@ -19,7 +21,8 @@ class Faculty extends Model {
      * @return City
      * @throws DatabaseException
      */
-    public function getCity(): City {
+    public function getCity(): City
+    {
         return City::select(["id" => $this->city_id]);
     }
 
@@ -29,7 +32,8 @@ class Faculty extends Model {
      * @return array
      * @throws DatabaseException
      */
-    public function getAssociatedStudents(): array {
+    public function getAssociatedStudents(): array
+    {
         return User::getAll(["faculty_id" => $this->id]);
     }
 

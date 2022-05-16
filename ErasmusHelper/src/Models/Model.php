@@ -8,7 +8,8 @@ use ErasmusHelper\Core\DBConf;
 use Exception;
 use Kreait\Firebase\Exception\DatabaseException;
 
-abstract class Model {
+abstract class Model
+{
 
     /**
      * Storage name
@@ -31,8 +32,9 @@ abstract class Model {
      *
      * @throws Exception
      */
-    public function __construct(array $data = null) {
-        if($data != null) {
+    public function __construct(array $data = null)
+    {
+        if ($data != null) {
             $this->hydrate($data);
         } else {
             $this->id = App::UUIDGenerator();
@@ -44,9 +46,10 @@ abstract class Model {
      *
      * @return bool
      */
-    public function save(): bool {
+    public function save(): bool
+    {
         try {
-            App::getInstance()->firebase->database->getReference(static::STORAGE)->getChild($this->id)->set($this->jsonFormat());
+            App::getInstance()->firebase->database->getReference(static::getStorage())->getChild($this->id)->set($this->jsonFormat());
             $this->dbStored = true;
             return true;
         } catch (DatabaseException $exception) {
@@ -60,9 +63,10 @@ abstract class Model {
      *
      * @return bool
      */
-    public function delete(): bool {
+    public function delete(): bool
+    {
         try {
-            App::getInstance()->firebase->database->getReference(static::STORAGE)->removeChildren([
+            App::getInstance()->firebase->database->getReference(static::getStorage())->removeChildren([
                 'id' => $this->id
             ]);
             $this->dbStored = false;
@@ -78,7 +82,8 @@ abstract class Model {
      *
      * @return bool
      */
-    public function exists(): bool {
+    public function exists(): bool
+    {
         return $this->dbStored;
     }
 
@@ -88,10 +93,11 @@ abstract class Model {
      * @param array $data
      * @return void
      */
-    protected function hydrate(array $data): void {
+    protected function hydrate(array $data): void
+    {
         $this->dbStored = true;
-        foreach($data as $key => $value) {
-            if(in_array($key, array_values(static::COLUMNS)) && property_exists($this, $key)) {
+        foreach ($data as $key => $value) {
+            if (in_array($key, array_values(static::COLUMNS)) && property_exists($this, $key)) {
                 if (is_bool($this->{$key}) && !is_bool($value)) {
                     $this->{$key} = $value == 1;
                 } else if (!is_null(filterDate($value))) {
@@ -108,10 +114,11 @@ abstract class Model {
      *
      * @return array
      */
-    private function jsonFormat(): array {
+    private function jsonFormat(): array
+    {
         $toReturn = array();
-        foreach(static::COLUMNS as $key) {
-            if(property_exists($this, $key)) {
+        foreach (static::COLUMNS as $key) {
+            if (property_exists($this, $key)) {
                 $toReturn += [$key => $this->$key];
             }
         }
@@ -124,11 +131,12 @@ abstract class Model {
      * @param array|null $where If not null, will only return objects according to the conditions in the array.
      * @throws DatabaseException
      */
-    public static function getAll(array $where = null): ?array {
-        $all = App::getInstance()->firebase->database->getReference(static::STORAGE)->getValue();
+    public static function getAll(array $where = null): ?array
+    {
+        $all = App::getInstance()->firebase->database->getReference(static::getStorage())->getValue();
         $toReturn = array();
-        Dbg::info("Fetch get all " . static::STORAGE); //TODO remove debug
-        if($all > 0) {
+        Dbg::info("Fetch get all " . static::getStorage()); //TODO remove debug
+        if ($all > 0) {
             if ($where != null) {
                 foreach ($all as $id => $row) {
                     foreach ($where as $request => $reqValue) {
@@ -143,7 +151,7 @@ abstract class Model {
                 }
             }
         }
-        if(sizeof($toReturn) == 0) {
+        if (sizeof($toReturn) == 0) {
             return null;
         } else {
             return DBConf::instantiateAll(static::class, $toReturn);
@@ -157,10 +165,11 @@ abstract class Model {
      * @return mixed
      * @throws DatabaseException
      */
-    public static function select(array $where): mixed {
-        $all = App::getInstance()->firebase->database->getReference(static::STORAGE)->getValue();
-        Dbg::info("Fetch select " . static::STORAGE); //TODO remove debug
-        if($all > 0) {
+    public static function select(array $where): mixed
+    {
+        $all = App::getInstance()->firebase->database->getReference(static::getStorage())->getValue();
+        Dbg::info("Fetch select " . static::getStorage()); //TODO remove debug
+        if ($all > 0) {
             if ($where != null) {
                 foreach ($all as $id => $row) {
                     $return = true;
@@ -169,13 +178,18 @@ abstract class Model {
                             $return = false; //TODO improve
                         }
                     }
-                    if($return) {
+                    if ($return) {
                         return DBConf::instantiate(static::class, $row);
                     }
                 }
             }
         }
         return null;
+    }
+
+    static function getStorage(): string
+    {
+        return static::STORAGE;
     }
 
 }

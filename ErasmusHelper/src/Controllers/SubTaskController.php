@@ -4,7 +4,7 @@ namespace ErasmusHelper\Controllers;
 
 use AgileBundle\Utils\Request;
 use ErasmusHelper\App;
-use ErasmusHelper\Models\Bureaucracy;
+use ErasmusHelper\Models\Task;
 use ErasmusHelper\Models\SubTask;
 use Exception;
 use JetBrains\PhpStorm\NoReturn;
@@ -19,38 +19,38 @@ class SubTaskController extends Controller
      */
     #[NoReturn] public function createSubTask()
     {
-        if (Request::valuePost('bureaucracyId') && Request::valuePost('task-name')) {
+        if (Request::valuePost('taskId') && Request::valuePost('task-name')) {
 
-            $bureaucracy = Bureaucracy::select(["id" => Request::valuePost('bureaucracyId')]);
+            $task = Task::select(["id" => Request::valuePost('taskId')]);
 
-            if ($bureaucracy != null && $bureaucracy->exists()) {
+            if ($task != null && $task->exists()) {
                 $subTask = new SubTask();
 
                 $subTask->id = App::UUIDGenerator();
                 $subTask->name = Request::valuePost('task-name');
                 
 
-                $bureaucracy->list_subtasks[] = $subTask;
+                $task->list_subtasks[] = $subTask;
 
-                if ($bureaucracy->save())
-                    $this->redirect(Router::route("bureaucracy", ["id" => Request::valuePost('bureaucracyId')]), ["success" => "SubTask added successfully."]);
+                if ($task->save())
+                    $this->redirect(Router::route("task", ["id" => Request::valuePost('taskId')]), ["success" => "SubTask added successfully."]);
             }
         }
 
-        $this->redirect(Router::route("bureaucracy", ["id" => Request::valuePost('bureaucracyId')]), ["error" => "Unable to add the Bureaucracy item."]);
+        $this->redirect(Router::route("task", ["id" => Request::valuePost('taskId')]), ["error" => "Unable to add the Task item."]);
 
     }
 
     /**
      * @throws DatabaseException
      */
-    public function editSubTask($bureaucracyId, $subtaskId)
+    public function editSubTask($taskId, $subtaskId)
     {
-        $bureaucracy = Bureaucracy::select($bureaucracyId);
+        $task = Task::select($taskId);
 
 
-        if ($bureaucracy != null && $bureaucracy->exists() && Request::valuePost('task-name')) {
-            foreach ($bureaucracy->subTasks as $subTask) {
+        if ($task != null && $task->exists() && Request::valuePost('task-name')) {
+            foreach ($task->subTasks as $subTask) {
                 if ($subTask->id == $subtaskId) {
                     $subTask->name = Request::valuePost('task-name');
                     break;
