@@ -8,6 +8,17 @@
 use ErasmusHelper\Controllers\Router;
 use ErasmusHelper\Models\Bureaucracy;
 
+$parsed_deadline = "";
+
+if ($bureaucracy->deadline) {
+    try {
+        $datetime = new DateTime("@$bureaucracy->deadline");
+        $parsed_deadline = $datetime->format('Y-m-d');
+    } catch (Exception $e) {
+    }
+}
+
+
 ?>
 <div class="row">
     <div class="box col-12 col-md-6">
@@ -41,8 +52,7 @@ use ErasmusHelper\Models\Bureaucracy;
                 </div>
                 <div class="field">
                     <div class="label">Deadline</div>
-                    <input name="deadline" class="value" value="<?= $bureaucracy->deadline->format('Y-m-d'); ?>"
-                           type="date"/>
+                    <input name="deadline" class="value" value="<?= $parsed_deadline ?>" type="date"/>
                 </div>
             </div>
             <div class="box-footer">

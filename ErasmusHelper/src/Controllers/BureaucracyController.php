@@ -3,6 +3,7 @@
 namespace ErasmusHelper\Controllers;
 
 use AgileBundle\Utils\Request;
+use DateTime;
 use ErasmusHelper\App;
 use ErasmusHelper\Models\Bureaucracy;
 use Exception;
@@ -35,8 +36,10 @@ class BureaucracyController extends Controller
             $bureaucracy->task = Request::valuePost("name");
             $bureaucracy->class = Request::valuePost("class");
 
-            if (Request::valuePost("deadline"))
-                $bureaucracy->deadline = date('Y-m-d', strtotime(Request::valuePost('deadline')));
+            if (Request::valuePost("deadline")) {
+                $datetime = new DateTime(Request::valuePost('deadline'));
+                $bureaucracy->deadline = $datetime->getTimestamp();
+            }
 
             if ($bureaucracy->save()) {
                 $this->redirect(Router::route("bureaucracy", ["id" => $bureaucracy->id]), ["success" => "Bureaucracy added successfully."]);
@@ -55,6 +58,7 @@ class BureaucracyController extends Controller
 
     /**
      * @throws DatabaseException
+     * @throws Exception
      */
     #[NoReturn] public function editBureaucracy($id)
     {
@@ -67,8 +71,10 @@ class BureaucracyController extends Controller
             if (Request::valuePost('class'))
                 $bureaucracy->class = Request::valuePost('class');
 
-            if (Request::valuePost('deadline'))
-                $bureaucracy->deadline = date('Y-m-d', strtotime(Request::valuePost('deadline')));
+            if (Request::valuePost("deadline")) {
+                $datetime = new DateTime(Request::valuePost('deadline'));
+                $bureaucracy->deadline = $datetime->getTimestamp();
+            }
 
             if ($bureaucracy->save()) {
                 $this->redirect(Router::route("bureaucracy", ["id" => $bureaucracy->id]), ["success" => "Bureaucracy edited successfully."]);
