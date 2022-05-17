@@ -2,18 +2,15 @@
 
 namespace ErasmusHelper\Controllers;
 
-use AgileBundle\Utils\Dbg;
 use AgileBundle\Utils\Request;
 use ErasmusHelper\App;
 use ErasmusHelper\Models\Faculty;
 use ErasmusHelper\Models\User;
-use Exception;
 use JetBrains\PhpStorm\NoReturn;
-use Kreait\Firebase\Exception\AuthException;
 use Kreait\Firebase\Exception\DatabaseException;
-use Kreait\Firebase\Exception\FirebaseException;
 
 class UserController extends UniModsBackOfficeController {
+
     //TODO Searchbar in view and handle it here
 
     /**
@@ -21,9 +18,10 @@ class UserController extends UniModsBackOfficeController {
      */
     public function displayAll() {
         $faculty = App::getInstance()->auth->getFaculty();
-        if($faculty == null) {
-            $this->render("users.list", ["users" => User::getAll()]);
-        } else {
+        $city = App::getInstance()->auth->getCity();
+        $country = App::getInstance()->auth->getCountry();
+
+        if($faculty != null) {
             $users = array();
             $users_arriving = User::getAll(["faculty_arriving_id" => $faculty->id]);
             $users_origin = User::getAll(["faculty_origin_id" => $faculty->id]);
@@ -34,6 +32,29 @@ class UserController extends UniModsBackOfficeController {
                 $users[] = $user;
             }
             $this->render("users.list", ["users" => $users]);
+        } elseif ($city != null) {
+            $this->requirePrivileges(CITYMODERATORS_PRIVILEGES);
+            $users = array();
+            $u = User::getAll();
+            foreach ($u as $user) {
+                if(Faculty::select(["id" => $user->faculty_arriving_id])->city_id == $city->id || Faculty::select(["id" => $user->faculty_origin_id])->city_id == $city->id) {
+                    $users[] = $user;
+                }
+            }
+            $this->render("users.list", ["users" => $users]);
+        } elseif ($country != null) {
+            $this->requirePrivileges(COUNTRYMODERATORS_PRIVILEGES);
+            $users = array();
+            $u = User::getAll();
+            foreach ($u as $user) {
+                if(Faculty::select(["id" => $user->faculty_arriving_id])->getCity()->country_id == $country->id || Faculty::select(["id" => $user->faculty_origin_id])->getCity()->country_id == $country->id) {
+                    $users[] = $user;
+                }
+            }
+            $this->render("users.list", ["users" => $users]);
+        } else {
+            $this->requirePrivileges(ADMIN_PRIVILEGES);
+            $this->render("users.list", ["users" => User::getAll()]);
         }
     }
 

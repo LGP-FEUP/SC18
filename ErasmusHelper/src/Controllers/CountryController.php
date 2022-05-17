@@ -16,10 +16,17 @@ class CountryController extends CountryModsBackOfficeController {
      * @throws DatabaseException
      */
     public function displayAll() {
-        $this->render("countries.list", ["countries" => Country::getAll()]);
+        $country = App::getInstance()->auth->getCountry();
+        if($country == null) {
+            $this->requirePrivileges(ADMIN_PRIVILEGES);
+            $this->render("countries.list", ["countries" => Country::getAll()]);
+        } else {
+            $this->render("countries.list", ["country" => $country]);
+        }
     }
 
     public function create() {
+        $this->requirePrivileges(ADMIN_PRIVILEGES);
         $this->render("countries.create");
     }
 
@@ -27,6 +34,7 @@ class CountryController extends CountryModsBackOfficeController {
      * @throws Exception
      */
     #[NoReturn] public function createPost() {
+        $this->requirePrivileges(ADMIN_PRIVILEGES);
         $country = new Country();
         if(Request::valuePost("name")) {
             $country->id = App::UUIDGenerator();
@@ -49,6 +57,7 @@ class CountryController extends CountryModsBackOfficeController {
      * @throws DatabaseException
      */
     #[NoReturn] public function editPost($id) {
+        $this->requirePrivileges(ADMIN_PRIVILEGES);
         $country = Country::select(["id" => $id]);
         if(Request::valuePost("name") && $country && $country->exists()) {
             $country->name = Request::valuePost("name");

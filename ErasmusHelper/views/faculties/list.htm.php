@@ -18,7 +18,7 @@ use ErasmusHelper\Models\Faculty;
                         <th>Identifier</th>
                         <th>Name</th>
                         <th>City</th>
-                        <th><?php if(App::getInstance()->auth->getPrivilegeLevel() == ADMIN_PRIVILEGES) { ?><a class="button" href="<?= Router::route('faculty.create.page') ?>" ><i class="fas fa-plus r"></i>Add a faculty</a><?php } ?></th>
+                        <th><?php if(App::getInstance()->auth->getPrivilegeLevel() <= CITYMODERATORS_PRIVILEGES) { ?><a class="button" href="<?= Router::route('faculty.create.page') ?>" ><i class="fas fa-plus r"></i>Add a faculty</a><?php } ?></th>
                     </tr>
                     <?php
                     if(!empty($faculties)) {

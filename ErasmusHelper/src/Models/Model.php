@@ -127,13 +127,12 @@ abstract class Model {
     public static function getAll(array $where = null): ?array {
         $all = App::getInstance()->firebase->database->getReference(static::STORAGE)->getValue();
         $toReturn = array();
-        Dbg::info("Fetch get all " . static::STORAGE); //TODO remove debug
         if($all > 0) {
             if ($where != null) {
                 foreach ($all as $id => $row) {
                     foreach ($where as $request => $reqValue) {
                         if ($row[$request] == $reqValue) {
-                            $toReturn[] = $row; //TODO improve
+                            $toReturn[] = $row;
                         }
                     }
                 }
@@ -159,14 +158,13 @@ abstract class Model {
      */
     public static function select(array $where): mixed {
         $all = App::getInstance()->firebase->database->getReference(static::STORAGE)->getValue();
-        Dbg::info("Fetch select " . static::STORAGE); //TODO remove debug
         if($all > 0) {
             if ($where != null) {
                 foreach ($all as $id => $row) {
                     $return = true;
                     foreach ($where as $request => $reqValue) {
                         if ($row[$request] != $reqValue) {
-                            $return = false; //TODO improve
+                            $return = false;
                         }
                     }
                     if($return) {

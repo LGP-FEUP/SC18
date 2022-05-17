@@ -23,19 +23,57 @@ class StaffController extends CityModsBackOfficeController {
      * @throws FirebaseException
      */
     public function displayAll() {
-        $this->render("staffs.list", ["countryMods" => CountryModerator::getAll(), "cityMods" => CityModerator::getAll(), "uniMods" => UniModerator::getAll()]);
+        $city = App::getInstance()->auth->getCity();
+        $country = App::getInstance()->auth->getCountry();
+        $cityMods = CityModerator::getAll();
+        $cityModsFiltered = array();
+        $uniMods = UniModerator::getAll();
+        $uniModsFiltered = array();
+        if($city != null) {
+            foreach ($uniMods as $mod) {
+                if(Faculty::select(["id" =>$mod->faculty_id])->getCity() == $city){
+                    $uniModsFiltered[] = $mod;
+                }
+            }
+            $this->render("staffs.list", ["uniMods" => $uniModsFiltered]);
+        } elseif ($country != null) {
+            $this->requirePrivileges(COUNTRYMODERATORS_PRIVILEGES);
+            foreach ($uniMods as $fmod) {
+                if(Faculty::select(["id" => $fmod->faculty_id])->getCity()->getCountry() == $country) {
+                    $uniModsFiltered[] = $fmod;
+                }
+            }
+            foreach ($cityMods as $cmod) {
+                if(City::select(["id" => $cmod->city_id])->getCountry() == $country) {
+                    $cityModsFiltered[] = $cmod;
+                }
+            }
+            $this->render("staffs.list", ["uniMods" => $uniModsFiltered, "cityMods" => $cityModsFiltered]);
+        } else {
+            $this->requirePrivileges(ADMIN_PRIVILEGES);
+            $this->render("staffs.list", ["countryMods" => CountryModerator::getAll(), "cityMods" => $cityMods, "uniMods" => $uniMods]);
+        }
     }
 
     /**
      * @throws DatabaseException
      */
     public function create() {
-        $this->render("staffs.create", ["faculties" => Faculty::getAll(), "cities" => City::getAll(), "countries" => Country::getAll()]);
+        $city = App::getInstance()->auth->getCity();
+        $country = App::getInstance()->auth->getCountry();
+        if($city != null) {
+            $this->render("staffs.create", ["faculties" => Faculty::getAll(["city_id" => $city->id])]);
+        } elseif ($country != null) {
+            $this->requirePrivileges(COUNTRYMODERATORS_PRIVILEGES);
+            $this->render("staffs.create", ["faculties" => Faculty::getAllByCountry($country), "cities" => City::getAll(["country_id" => $country->id])]);
+        } else {
+            $this->requirePrivileges(ADMIN_PRIVILEGES);
+            $this->render("staffs.create", ["faculties" => Faculty::getAll(), "cities" => City::getAll(), "countries" => Country::getAll()]);
+        }
     }
 
     #[NoReturn]
     public function createUniPost() {
-        $this->requirePrivileges();
         if(Request::valuePost("email")
             && Request::valuePost("password")
             && Request::valuePost("faculty_id")) {
@@ -109,7 +147,17 @@ class StaffController extends CityModsBackOfficeController {
      * @throws DatabaseException
      */
     public function edit($id) {
-        $this->render("staffs.details", ["id" => $id, "faculties" => Faculty::getAll(),  "cities" => City::getAll(), "countries" => Country::getAll()]);
+        $city = App::getInstance()->auth->getCity();
+        $country = App::getInstance()->auth->getCountry();
+        if($city != null) {
+            $this->render("staffs.details", ["id" => $id, "faculties" => Faculty::getAll(["city_id" => $city->id])]);
+        } elseif ($country != null) {
+            $this->requirePrivileges(COUNTRYMODERATORS_PRIVILEGES);
+            $this->render("staffs.details", ["id" => $id, "faculties" => Faculty::getAllByCountry($country),  "cities" => City::getAll(["country_id" => $country->id])]);
+        } else {
+            $this->requirePrivileges(ADMIN_PRIVILEGES);
+            $this->render("staffs.details", ["id" => $id, "faculties" => Faculty::getAll(),  "cities" => City::getAll(), "countries" => Country::getAll()]);
+        }
     }
 
     /**
@@ -195,7 +243,6 @@ class StaffController extends CityModsBackOfficeController {
         $countryMod = CountryModerator::getById($id);
 
         if($uniMod != null) {
-            $this->requirePrivileges();
             $staff = $uniMod;
         } elseif($cityMod != null) {
             $this->requirePrivileges(COUNTRYMODERATORS_PRIVILEGES);

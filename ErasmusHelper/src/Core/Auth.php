@@ -84,9 +84,11 @@ class Auth {
      * Disconnects the admin
      */
     public function logout(): void {
-        $_SESSION["user_uid"] = null;
-        $_SESSION["privilege_level"] = null;
-        $_SESSION["faculty_id"] = null;
+        $_SESSION["user_uid"] = "";
+        $_SESSION["privilege_level"] = "";
+        $_SESSION["city_id"] = "";
+        $_SESSION["country_id"] = "";
+        $_SESSION["faculty_id"] = "";
     }
 
     /**

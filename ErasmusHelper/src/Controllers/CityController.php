@@ -17,20 +17,38 @@ class CityController extends CityModsBackOfficeController {
      * @throws DatabaseException
      */
     public function displayAll() {
-        $this->render("cities.list", ["cities" => City::getAll()]);
+        $city = App::getInstance()->auth->getCity();
+        $country = App::getInstance()->auth->getCountry();
+        if($city != null) {
+            $this->render("cities.list", ["city" => $city]);
+        } elseif($country != null) {
+            $this->requirePrivileges(COUNTRYMODERATORS_PRIVILEGES);
+            $this->render("cities.list", ["cities" => City::getAll(["country_id" => $country->id])]);
+        } else {
+            $this->requirePrivileges(ADMIN_PRIVILEGES);
+            $this->render("cities.list", ["cities" => City::getAll()]);
+        }
     }
 
     /**
      * @throws DatabaseException
      */
     public function create() {
-        $this->render("cities.create", ["countries" => Country::getAll()]);
+        $country = App::getInstance()->auth->getCountry();
+        if($country == null) {
+            $this->requirePrivileges(ADMIN_PRIVILEGES);
+            $this->render("cities.create", ["countries" => Country::getAll()]);
+        } else {
+            $this->requirePrivileges(COUNTRYMODERATORS_PRIVILEGES);
+            $this->render("cities.create", ["country" => $country]);
+        }
     }
 
     /**
      * @throws Exception
      */
     #[NoReturn] public function createPost() {
+        $this->requirePrivileges(COUNTRYMODERATORS_PRIVILEGES);
         $city = new City();
         if(Request::valuePost("name") && Request::valuePost("country_id")) {
             $city->id = App::UUIDGenerator();
@@ -54,6 +72,7 @@ class CityController extends CityModsBackOfficeController {
      * @throws DatabaseException
      */
     #[NoReturn] public function editPost($id) {
+        $this->requirePrivileges(ADMIN_PRIVILEGES);
         $city = City::select(["id" => $id]);
         if(Request::valuePost("name") && Request::valuePost("country_id") && $city && $city->exists()) {
             $city->name = Request::valuePost("name");
@@ -69,6 +88,7 @@ class CityController extends CityModsBackOfficeController {
      * @throws DatabaseException
      */
     #[NoReturn] public function delete($id) {
+        $this->requirePrivileges(COUNTRYMODERATORS_PRIVILEGES);
         $city = City::select(["id" => $id]);
         if($city != null && $city->exists() && empty($city->getAssociatedFaculties())) {
             if($city->delete()) {

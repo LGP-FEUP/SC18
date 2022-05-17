@@ -1,6 +1,7 @@
 <?php
 /**
- *  @var City[] $cities
+ * @var City[] $cities
+ * @var City $city
  */
 
 use ErasmusHelper\Controllers\Router;
@@ -22,9 +23,13 @@ use ErasmusHelper\Models\City;
                     <div class="label">City</div>
                     <select name="city_id" class="value">
                         <option selected disabled>Select a city</option>
-                        <?php foreach ($cities as $city): ?>
+                        <?php if(!empty($cities)) {
+                            foreach ($cities as $city): ?>
+                                <option value="<?= $city->id; ?>"><?= $city->name; ?></option>
+                            <?php endforeach;
+                        } else { ?>
                             <option value="<?= $city->id; ?>"><?= $city->name; ?></option>
-                        <?php endforeach; ?>
+                        <?php } ?>
                     </select>
                 </div>
             </div>

@@ -1,6 +1,10 @@
 <?php
-/** @var Country[] $countries */
+/**
+ * @var Country[] $countries
+ * @var Country $country
+ */
 
+use ErasmusHelper\App;
 use ErasmusHelper\Controllers\Router;
 use ErasmusHelper\Models\Country;
 
@@ -14,7 +18,7 @@ use ErasmusHelper\Models\Country;
                     <tr>
                         <th>Identifier</th>
                         <th>Name</th>
-                        <th><a class="button" href="<?= Router::route('country.create.page') ?>" ><i class="fas fa-plus r"></i>Add a country</a></th>
+                        <th><?php if(App::getInstance()->auth->getPrivilegeLevel() == ADMIN_PRIVILEGES) { ?><a class="button" href="<?= Router::route('country.create.page') ?>" ><i class="fas fa-plus r"></i>Add a country</a><?php } ?></th>
                     </tr>
                     <?php
                     if(!empty($countries)) {
@@ -25,7 +29,13 @@ use ErasmusHelper\Models\Country;
                                 <td><a class="button" href="<?= Router::route('country', ["id" => $country->id]) ?>"><i class="far fa-eye r"></i>Details</a></td>
                             </tr>
                         <?php endforeach;
-                    } ?>
+                    } else { ?>
+                        <tr>
+                            <td><?= $country->id; ?></td>
+                            <td><?= $country->name; ?></td>
+                            <td><a class="button" href="<?= Router::route('country', ["id" => $country->id]) ?>"><i class="far fa-eye r"></i>Details</a></td>
+                        </tr>
+                    <?php } ?>
                 </table>
             </div>
         </div>

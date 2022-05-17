@@ -18,10 +18,19 @@ class FacultyController extends UniModsBackOfficeController {
      */
     public function displayAll() {
         $faculty = App::getInstance()->auth->getFaculty();
-        if($faculty == null) {
-            $this->render("faculties.list", ["faculties" => Faculty::getAll()]);
-        } else {
+        $city = App::getInstance()->auth->getCity();
+        $country = App::getInstance()->auth->getCountry();
+        if($faculty != null) {
             $this->render("faculties.list", ["faculty" => $faculty]);
+        } elseif ($city != null) {
+            $this->requirePrivileges(CITYMODERATORS_PRIVILEGES);
+            $this->render("faculties.list", ["faculties" => Faculty::getAll(["city_id" => $city->id])]);
+        } elseif ($country != null) {
+            $this->requirePrivileges(COUNTRYMODERATORS_PRIVILEGES);
+            $this->render("faculties.list", ["faculties" => Faculty::getAllByCountry($country)]);
+        } else {
+            $this->requirePrivileges(ADMIN_PRIVILEGES);
+            $this->render("faculties.list", ["faculties" => Faculty::getAll()]);
         }
     }
 
@@ -29,15 +38,25 @@ class FacultyController extends UniModsBackOfficeController {
      * @throws DatabaseException
      */
     public function create() {
-        $this->requirePrivileges(ADMIN_PRIVILEGES);
-        $this->render("faculties.create", ["cities" => City::getAll()]);
+        $country = App::getInstance()->auth->getCountry();
+        $city = App::getInstance()->auth->getCity();
+        if($city != null) {
+            $this->requirePrivileges(CITYMODERATORS_PRIVILEGES);
+            $this->render("faculties.create", ["city" => $city]);
+        } elseif ($country != null) {
+            $this->requirePrivileges(COUNTRYMODERATORS_PRIVILEGES);
+            $this->render("faculties.create", ["cities" => City::getAll(["country_id" => $country->id])]);
+        } else {
+            $this->requirePrivileges(ADMIN_PRIVILEGES);
+            $this->render("faculties.create", ["cities" => City::getAll()]);
+        }
     }
 
     /**
      * @throws Exception
      */
     #[NoReturn] public function createPost() {
-        $this->requirePrivileges(ADMIN_PRIVILEGES);
+        $this->requirePrivileges(CITYMODERATORS_PRIVILEGES);
         $faculty = new Faculty();
         if(Request::valuePost("name") && Request::valuePost("city_id")) {
             $faculty->id = App::UUIDGenerator();
@@ -54,13 +73,14 @@ class FacultyController extends UniModsBackOfficeController {
      * @throws DatabaseException
      */
     public function edit($id) {
-        $this->render("faculties.details", ["id" => $id, "cities" => City::getAll(), "students" => User::getAll(["faculty_arriving_id" => $id])]);
+        $this->render("faculties.details", ["id" => $id, "cities" => City::getAll(), "students_incoming" => User::getAll(["faculty_arriving_id" => $id]), "students_outgoing" => User::getAll(["faculty_origin_id" => $id])]);
     }
 
     /**
      * @throws DatabaseException
      */
     #[NoReturn] public function editPost($id) {
+        $this->requirePrivileges(ADMIN_PRIVILEGES);
         $faculty = Faculty::select(["id" => $id]);
         if(Request::valuePost("name") && Request::valuePost("city_id") && $faculty && $faculty->exists()) {
             $faculty->name = Request::valuePost("name");
@@ -76,7 +96,7 @@ class FacultyController extends UniModsBackOfficeController {
      * @throws DatabaseException
      */
     #[NoReturn] public function delete($id) {
-        $this->requirePrivileges(ADMIN_PRIVILEGES);
+        $this->requirePrivileges(CITYMODERATORS_PRIVILEGES);
         $faculty = Faculty::select(["id" => $id]);
         if($faculty != null && $faculty->exists() && empty($faculty->getAssociatedStudents())) {
             if($faculty->delete()) {

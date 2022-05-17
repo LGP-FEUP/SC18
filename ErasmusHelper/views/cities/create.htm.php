@@ -1,5 +1,8 @@
 <?php
-/** @var Country[] $countries */
+/**
+ * @var Country[] $countries
+ * @var Country $country
+ */
 
 use ErasmusHelper\Controllers\Router;
 use ErasmusHelper\Models\Country;
@@ -20,9 +23,13 @@ use ErasmusHelper\Models\Country;
                     <div class="label">Country</div>
                     <select name="country_id" class="value">
                         <option selected disabled>Select a country</option>
-                        <?php foreach ($countries as $country): ?>
-                        <option value="<?= $country->id; ?>"><?= $country->name; ?></option>
-                        <?php endforeach; ?>
+                        <?php if(!empty($countries)) {
+                            foreach ($countries as $country): ?>
+                            <option value="<?= $country->id; ?>"><?= $country->name; ?></option>
+                            <?php endforeach;
+                        } else { ?>
+                            <option value="<?= $country->id; ?>"><?= $country->name; ?></option>
+                        <?php } ?>
                     </select>
                 </div>
             </div>

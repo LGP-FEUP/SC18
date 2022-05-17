@@ -4,6 +4,7 @@
  * @var ?Faculty[] $faculties
  */
 
+use ErasmusHelper\App;
 use ErasmusHelper\Controllers\Router;
 use ErasmusHelper\Models\City;
 use ErasmusHelper\Models\Country;
@@ -41,7 +42,7 @@ use ErasmusHelper\Models\Faculty;
             <div class="box-footer">
                 <div class="button-group">
                     <a href="<?= Router::route('cities') ?>" class="button">Cancel</a>
-                    <?php if(empty($faculties)) { ?>
+                    <?php if(empty($faculties) && App::getInstance()->auth->getPrivilegeLevel() <= COUNTRYMODERATORS_PRIVILEGES) { ?>
                     <a onclick="confirm('Confirm the deletion of the city ?') ? window.location = '<?= Router::route('city.delete', ["id" => $city->id]) ?>' : void(0)" class="button red">Delete</a>
                     <?php } ?>
                     <button type="submit" class="button cta">Submit</button>

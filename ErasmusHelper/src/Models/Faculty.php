@@ -14,7 +14,7 @@ class Faculty extends Model {
     public $city_id;
 
     /**
-     * Returns the country associated to the city.
+     * Returns the city associated to the faculty.
      *
      * @return City
      * @throws DatabaseException
@@ -33,4 +33,22 @@ class Faculty extends Model {
         return User::getAll(["faculty_id" => $this->id]);
     }
 
+    /**
+     * Returns the list of faculties for a country.
+     *
+     * @param Country $country
+     * @return array
+     * @throws DatabaseException
+     */
+    public static function getAllByCountry(Country $country): array {
+        $toReturn = array();
+        $faculties = Faculty::getAll();
+        foreach($faculties as $faculty) {
+            $countryFac = $faculty->getCity()->getCountry();
+            if($countryFac == $country) {
+                $toReturn[] = $faculty;
+            }
+        }
+        return $toReturn;
+    }
 }
