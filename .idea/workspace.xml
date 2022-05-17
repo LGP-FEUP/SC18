@@ -2,9 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01e72773-c757-477b-a21c-12eb42dec2f7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ErasmusHelper/views/home/main.htm.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/ModalController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ErasmusHelper/views/layouts/empty.htm.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ErasmusHelper/views/users/search.htm.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/public/assets/scripts/classes/Modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/public/assets/scripts/classes/Modal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/public/assets/scripts/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/public/assets/scripts/common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/Router.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/Router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/layouts/backoffice.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/layouts/backoffice.htm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/layouts/master.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/layouts/master.htm.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/users/list.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/users/list.htm.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -166,6 +173,7 @@
       <workItem from="1652775403069" duration="2839000" />
       <workItem from="1652783111486" duration="4464000" />
       <workItem from="1652792750377" duration="4666000" />
+      <workItem from="1652825183013" duration="5781000" />
     </task>
     <task id="LOCAL-00001" summary="Updated staff ids &amp; user information.">
       <created>1652453710224</created>

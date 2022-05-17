@@ -1,6 +1,6 @@
 
 /**
- * Gère l'envoi de requête AJAX
+ * AJAX handling
  *
  * @param url
  * @param method

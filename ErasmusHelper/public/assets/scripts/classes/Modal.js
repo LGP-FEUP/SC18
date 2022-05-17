@@ -1,16 +1,15 @@
 /**
  * Modal class
  *
- * Un modal permet d'afficher une vue par dessus la vue courante dans une fenêtre modale
  */
 class Modal {
 
     /**
      * Modal constructor
      *
-     * @param view_url URL de la vue correspondante
-     * @param view_data Paramètres a passer à la vue
-     * @param title Titre optionnel du modal
+     * @param view_url URL of the corresponding view
+     * @param view_data data to give to the view
+     * @param title Optional title for this modal
      */
     constructor({ view_url, view_data, title }) {
         this.viewUrl = view_url;
@@ -20,7 +19,7 @@ class Modal {
     }
 
     /**
-     * Construit le corps du Modal
+     * Builds the modal
      *
      * @return {Promise<void>}
      */
@@ -43,19 +42,19 @@ class Modal {
         }
 
         if (this.viewUrl) {
-            return ajx(this.viewUrl, "GET", this.viewData ?? []).then(data => {
+            return ajx(this.viewUrl, "POST", this.viewData ?? []).then(data => {
                 body.innerHTML += data;
             });
         }
     }
 
     /**
-     * Affiche le modal
+     * Shows the modal
      */
     show() { this.container.classList.add("visible"); }
 
     /**
-     * Cache le modal
+     * Hides the modal
      */
     hide() { this.container.classList.remove("visible"); }
 

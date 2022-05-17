@@ -11,8 +11,6 @@ use Kreait\Firebase\Exception\DatabaseException;
 
 class UserController extends UniModsBackOfficeController {
 
-    //TODO Searchbar in view and handle it here
-
     /**
      * @throws DatabaseException
      */

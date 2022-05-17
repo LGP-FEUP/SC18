@@ -47,7 +47,9 @@ use ErasmusHelper\Models\User;
     </div>
 </div>
 
-<script>
+<script type="text/javascript">
+    document.getElementById("searchBar").addEventListener('change', updateList);
+    let data = <?php echo json_encode($users, JSON_HEX_TAG); ?>;
     function updateList() {
         let toReturn = [];
         for(let i = 0; i < data.length; i++) {
@@ -55,10 +57,8 @@ use ErasmusHelper\Models\User;
                 toReturn.push(data[i]);
             }
         }
-        console.log(toReturn);
-        //TODO pop modal ? Update list ? to see with Ruben
+        let searchModal = new Modal({view_url: '<?= Router::route("users.search")?>', view_data: toReturn, title: 'Search Result'});
+        searchModal.build();
+        searchModal.show();
     }
-
-    document.getElementById("searchBar").addEventListener('change', updateList);
-    let data = <?php echo json_encode($users, JSON_HEX_TAG); ?>;
 </script>

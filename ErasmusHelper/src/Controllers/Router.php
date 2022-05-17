@@ -41,6 +41,7 @@ class Router extends AbstractRouter
             'staff.edit.country'            => ["POST", "/staff/edit/country/{id}", [StaffController::class, "editCountryPost"]],
             'staff'                         => ["GET", "/staff/{id}", [StaffController::class, "edit"]],
             'users'                         => ["GET", "/users", [UserController::class, "displayAll"]],
+            'users.search'                  => ["POST", "/users/search", [ModalController::class, "searchUsers"]],
             'user.ability'                  => ["GET", "/user/ability/{id}", [UserController::class, "changeAbility"]],
             'user.edit'                     => ["POST", "/user/edit/{id}", [UserController::class, "editPost"]],
             'user'                          => ["GET", "/user/{id}", [UserController::class, "edit"]],
