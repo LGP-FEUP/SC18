@@ -59,6 +59,6 @@ use ErasmusHelper\Models\User;
         //TODO pop modal ? Update list ? to see with Ruben
     }
 
-    let sb = document.getElementById("searchBar").addEventListener('change', updateList);
+    document.getElementById("searchBar").addEventListener('change', updateList);
     let data = <?php echo json_encode($users, JSON_HEX_TAG); ?>;
 </script>
