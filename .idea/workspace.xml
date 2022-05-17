@@ -2,22 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01e72773-c757-477b-a21c-12eb42dec2f7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ErasmusHelper/views/home/main.htm.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/CityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/CityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/CountryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/CountryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/FacultyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/FacultyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/StaffController.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/StaffController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Core/Auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Core/Auth.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Models/Faculty.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Models/Faculty.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/cities/create.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/cities/create.htm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/cities/details.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/cities/details.htm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/cities/list.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/cities/list.htm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/countries/details.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/countries/details.htm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/countries/list.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/countries/list.htm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/faculties/create.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/faculties/create.htm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/faculties/details.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/faculties/details.htm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/faculties/list.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/faculties/list.htm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/users/list.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/users/list.htm.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +35,7 @@
                 <list>
                   <RecentBranch>
                     <option name="branchName" value="backoffice-staff" />
-                    <option name="lastUsedInstant" value="1652702532" />
+                    <option name="lastUsedInstant" value="1652799219" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="backoffice-dev" />
