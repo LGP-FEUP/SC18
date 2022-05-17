@@ -1,5 +1,9 @@
+import 'package:erasmus_helper/views/account_page.dart';
+import 'package:erasmus_helper/views/app_drawer.dart';
+import 'package:erasmus_helper/views/help_page.dart';
 import 'package:erasmus_helper/views/home/home_page.dart';
 import 'package:erasmus_helper/views/school/school_page.dart';
+import 'package:erasmus_helper/views/settings_page.dart';
 import 'package:erasmus_helper/views/social/social_page.dart';
 
 import 'package:flutter/material.dart';
@@ -14,29 +18,25 @@ class AppLayout extends StatefulWidget {
 
 }
 class _AppScaffold extends State<AppLayout> {
-  int _selectedPageIndex = 0;
+  int _selectedNavBarPageIndex = 0;
 
-  final pages = [
+  final navbarPages = [
     const SchoolPage(),
     const HomePage(),
     const SocialPage()
   ];
 
-  void _changePage(int index) {
+  void _changeNavBarPage(int index) {
     setState(() {
-      _selectedPageIndex = index;
+      _selectedNavBarPageIndex = index;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          // TODO : replace with the appbar widget
-          title: const Text("Erasmus Helper"),
-        ),
         body: Center(
-            child: pages[_selectedPageIndex]
+            child: navbarPages[_selectedNavBarPageIndex]
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
@@ -44,9 +44,9 @@ class _AppScaffold extends State<AppLayout> {
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(icon: Icon(Icons.group), label: "Social")
           ],
-          currentIndex: _selectedPageIndex,
-          onTap: _changePage,
+          currentIndex: _selectedNavBarPageIndex,
+          onTap: _changeNavBarPage,
         )
-    );// This trailing comma makes auto-formatting nicer for build methods.
+    );
   }
 }

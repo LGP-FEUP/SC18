@@ -1,3 +1,4 @@
+import 'package:erasmus_helper/views/app_topbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,8 +8,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [Text('Home Page'),],
+    return AppTopBar(
+      body: Column(
+        children: const [Text("Home Page")],
+      ),
     );
   }
 }
