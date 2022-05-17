@@ -13,7 +13,7 @@ use Kreait\Firebase\Exception\FirebaseException;
 
 abstract class StaffModel {
 
-    public const PRIVILEGE_LEVEL = NO_PRIVILEGES;
+    public const PRIVILEGE_LEVEL = 0;
 
     const CLAIMS = [];
 

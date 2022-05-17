@@ -36,7 +36,11 @@ class App {
         if($privilege == ADMIN_PRIVILEGES) {
             return "Admin";
         } else if ($privilege == UNIMODERATORS_PRIVILEGES) {
-            return  "Uni Moderator";
+            return "Uni Moderator";
+        } else if ($privilege == CITYMODERATORS_PRIVILEGES) {
+            return "City Moderator";
+        } else if ($privilege == COUNTRYMODERATORS_PRIVILEGES) {
+            return "Country Moderator";
         } else {
             return "None";
         }

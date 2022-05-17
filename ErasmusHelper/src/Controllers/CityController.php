@@ -11,7 +11,7 @@ use Exception;
 use JetBrains\PhpStorm\NoReturn;
 use Kreait\Firebase\Exception\DatabaseException;
 
-class CityController extends AdminBackOfficeController {
+class CityController extends CityModsBackOfficeController {
 
     /**
      * @throws DatabaseException

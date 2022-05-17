@@ -17,7 +17,7 @@ abstract class BackOfficeController extends Controller {
      */
     protected function requirePrivileges(int $privilegeLevel = -1): void {
         if($privilegeLevel == -1) $privilegeLevel = $this->requirePrivilege;
-        if($this->requirePrivilege > NO_PRIVILEGES) {
+        if($this->requirePrivilege > 0) {
             if(App::getInstance()->auth->getPrivilegeLevel() > $privilegeLevel) {
                 $this->redirect(Router::route("configuration"), ["error" => "You are not allowed to do this."]);
             }

@@ -3,6 +3,8 @@
 namespace ErasmusHelper\Core;
 
 use ErasmusHelper\App;
+use ErasmusHelper\Models\City;
+use ErasmusHelper\Models\Country;
 use ErasmusHelper\Models\Faculty;
 use JetBrains\PhpStorm\Pure;
 use Kreait\Firebase\Auth\UserRecord;
@@ -41,6 +43,28 @@ class Auth {
     #[Pure] public function getPrivilegeLevel(): ?string {
         if($this->isAuth()) {
             return $_SESSION["privilege_level"];
+        }
+        return null;
+    }
+
+    /**
+     * @return Country|null
+     * @throws DatabaseException
+     */
+    public function getCountry(): ?Country {
+        if($this->isAuth() && $_SESSION["country_id"] != "") {
+            return Country::select(["id" => $_SESSION["country_id"]]);
+        }
+        return null;
+    }
+
+    /**
+     * @return City|null
+     * @throws DatabaseException
+     */
+    public function getCity(): ?City {
+        if($this->isAuth() && $_SESSION["city_id"] != "") {
+            return City::select(["id" => $_SESSION["city_id"]]);
         }
         return null;
     }
@@ -93,8 +117,14 @@ class Auth {
         $_SESSION["user_uid"] = $user->uid;
         $_SESSION["privilege_level"] = $user->customClaims["privilege_level"];
         $_SESSION["faculty_id"] = "";
+        $_SESSION["city_id"] = "";
+        $_SESSION["country_id"] = "";
         if($_SESSION["privilege_level"] == UNIMODERATORS_PRIVILEGES) {
             $_SESSION["faculty_id"] = $user->customClaims["faculty_id"];
+        } else if($_SESSION["privilege_level"] == CITYMODERATORS_PRIVILEGES) {
+            $_SESSION["city_id"] = $user->customClaims["city_id"];
+        } else if($_SESSION["privilege_level"] == COUNTRYMODERATORS_PRIVILEGES) {
+            $_SESSION["country_id"] = $user->customClaims["country_id"];
         }
     }
 
