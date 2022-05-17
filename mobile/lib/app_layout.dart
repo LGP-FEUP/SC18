@@ -1,9 +1,9 @@
-import 'package:erasmus_helper/views/account_page.dart';
+import 'package:erasmus_helper/views/settings/account_page.dart';
 import 'package:erasmus_helper/views/app_drawer.dart';
-import 'package:erasmus_helper/views/help_page.dart';
+import 'package:erasmus_helper/views/settings/help_page.dart';
 import 'package:erasmus_helper/views/home/home_page.dart';
 import 'package:erasmus_helper/views/school/school_page.dart';
-import 'package:erasmus_helper/views/settings_page.dart';
+import 'package:erasmus_helper/views/settings/settings_page.dart';
 import 'package:erasmus_helper/views/social/social_page.dart';
 
 import 'package:flutter/material.dart';

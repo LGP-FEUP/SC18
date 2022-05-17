@@ -1,4 +1,6 @@
 import 'package:erasmus_helper/views/app_topbar.dart';
+import 'package:erasmus_helper/views/school/administration_tab.dart';
+import 'package:erasmus_helper/views/school/university_tab.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,10 +10,23 @@ class SchoolPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppTopBar(
-        body: Column(
-          children: const [Text('School Page'),],
-        ),
+    return const DefaultTabController(
+        length: 2,
+        child: AppTopBar(
+          body: TabBarView(
+            children: [
+              AdministrationTab(),
+              UniversityTab()
+            ],
+          ),
+          title: "School",
+          bottom: TabBar(
+              tabs: [
+                Tab(text: "Administration",),
+                Tab(text: "University",)
+              ]
+          ),
+        )
     );
   }
 }
