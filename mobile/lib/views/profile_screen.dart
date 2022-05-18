@@ -20,25 +20,28 @@ class ProfileScreen extends StatelessWidget {
         child:
             BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
           if (state is ProfileFetchedState) {
-            String? faculty = state.profile.erasmusFaculty;
-            String? phone = state.profile.phone;
-            String? whatsapp = state.profile.whatsapp;
-            String? facebook = state.profile.facebook;
+            String fname = state.profile.fName ?? "";
+            String lname = state.profile.lName ?? "";
+            String country = state.profile.countryCode ?? "";
+            String description = state.profile.description ?? "";
+            String faculty = state.profile.erasmusFaculty ?? "";
+            String phone = state.profile.phone ?? "";
+            String whatsapp = state.profile.whatsapp ?? "";
+            String facebook = state.profile.facebook ?? "";
             return Container(
               padding: const EdgeInsets.all(15.0),
               child: Column(
                 children: [
-                  _buildProfileBanner(),
+                  _buildProfileBanner(fname, lname, country, description),
                   const SizedBox(
                     height: 40.0,
                   ),
                   Column(
                     children: [
-                      _buildInfoListTile(Icons.school_rounded, faculty ?? ""),
-                      _buildInfoListTile(Icons.phone, phone ?? ""),
-                      _buildInfoListTile(
-                          Icons.whatsapp_rounded, whatsapp ?? ""),
-                      _buildInfoListTile(Icons.facebook_rounded, facebook ?? "")
+                      _buildInfoListTile(Icons.school_rounded, faculty),
+                      _buildInfoListTile(Icons.phone, phone),
+                      _buildInfoListTile(Icons.whatsapp_rounded, whatsapp),
+                      _buildInfoListTile(Icons.facebook_rounded, facebook)
                     ],
                   ),
                   const SizedBox(
@@ -69,7 +72,8 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Row _buildProfileBanner() {
+  Row _buildProfileBanner(
+      String fname, String lname, String country, String description) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -89,27 +93,34 @@ class ProfileScreen extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "Sarah Schaab",
+                      "$fname $lname",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 18.0),
                     ),
                     SizedBox(
                       width: 10.0,
                     ),
-                    Image.asset(
-                      "assets/flags/de.png",
-                      height: 15.0,
-                    )
+                    _getFlag(country)
                   ],
                 ),
                 SizedBox(
                   height: 10.0,
                 ),
-                Text("Discovering new people and new things"),
+                Text(description),
               ],
             ))
       ],
     );
+  }
+
+  Image _getFlag(String countryCode) {
+    return Image.asset("assets/flags/$countryCode.png", height: 15.0,
+        errorBuilder: (context, error, stackTrace) {
+      return Image.asset(
+        "assets/flags/eu.png",
+        height: 25.0,
+      );
+    });
   }
 
   Widget _buildChipList(List<String> labels) {
