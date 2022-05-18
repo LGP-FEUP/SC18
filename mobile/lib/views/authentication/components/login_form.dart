@@ -1,8 +1,9 @@
+import 'package:erasmus_helper/services/authentication_service.dart';
 import 'package:erasmus_helper/views/authentication/components/utils.dart';
 import 'package:erasmus_helper/views/authentication/register.dart';
-import 'package:erasmus_helper/services/authentication_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'form_input.dart';
 
 class LoginForm extends StatefulWidget {
@@ -45,12 +46,12 @@ class _LoginFormState extends State<LoginForm> {
       PasswordInput(controller: passwordController),
     ]
         .map((e) => Row(children: [
-              Expanded(
-                  child: Padding(
-                      padding:
-                          const EdgeInsets.only(top: 10, left: 12, right: 12),
-                      child: e))
-            ]))
+      Expanded(
+          child: Padding(
+              padding:
+              const EdgeInsets.only(top: 10, left: 12, right: 12),
+              child: e))
+    ]))
         .toList();
   }
 
@@ -65,7 +66,13 @@ class _LoginFormState extends State<LoginForm> {
           .signIn(
             email: emailController.text.trim(),
             password: passwordController.text.trim(),
-          );
+          )
+          .then((value) {
+        // On success
+        if (value?.compareTo("Signed in") == 0) {
+          Utils.navigateToHomePage(context);
+        }
+      });
     }
   }
 

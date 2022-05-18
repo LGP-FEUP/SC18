@@ -1,46 +1,72 @@
+import 'package:erasmus_helper/blocs/profile_bloc/profile_bloc.dart';
+import 'package:erasmus_helper/blocs/profile_bloc/profile_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../blocs/profile_bloc/profile_state.dart';
 
 class ProfileScreen extends StatelessWidget {
+  final ProfileBloc _profileBloc = ProfileBloc();
+
   @override
   Widget build(BuildContext context) {
+    _profileBloc.add(FetchProfileEvent());
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Profile"),
-        ),
-        body: Container(
-          padding: EdgeInsets.all(15.0),
-          child: Column(
-            children: [
-              _buildProfileBanner(),
-              SizedBox(
-                height: 40.0,
-              ),
-              Column(
+      appBar: AppBar(
+        title: const Text("Profile"),
+      ),
+      body: BlocProvider(
+        create: (_) => _profileBloc,
+        child:
+            BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
+          if (state is ProfileFetchedState) {
+            String? faculty = state.profile.erasmusFaculty;
+            String? phone = state.profile.phone;
+            String? whatsapp = state.profile.whatsapp;
+            String? facebook = state.profile.facebook;
+            return Container(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
                 children: [
-                  _buildInfoListTile(Icons.school_rounded, "FEUP"),
-                  _buildInfoListTile(Icons.phone, "+49176123919392"),
-                  _buildInfoListTile(Icons.whatsapp_rounded, "+49176123919392"),
-                  _buildInfoListTile(Icons.facebook_rounded, "/sarahschaab")
+                  _buildProfileBanner(),
+                  const SizedBox(
+                    height: 40.0,
+                  ),
+                  Column(
+                    children: [
+                      _buildInfoListTile(Icons.school_rounded, faculty ?? ""),
+                      _buildInfoListTile(Icons.phone, phone ?? ""),
+                      _buildInfoListTile(
+                          Icons.whatsapp_rounded, whatsapp ?? ""),
+                      _buildInfoListTile(Icons.facebook_rounded, facebook ?? "")
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  _buildChipList([
+                    "hiking",
+                    "music",
+                    "sport",
+                    "games",
+                    "party",
+                    "cooking",
+                    "surfing",
+                    "basketball",
+                    "soccer",
+                    "karaoke"
+                  ])
                 ],
               ),
-              SizedBox(
-                height: 20.0,
-              ),
-              _buildChipList([
-                "hiking",
-                "music",
-                "sport",
-                "games",
-                "party",
-                "cooking",
-                "surfing",
-                "basketball",
-                "soccer",
-                "karaoke"
-              ])
-            ],
-          ),
-        ));
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        }),
+      ),
+    );
   }
 
   Row _buildProfileBanner() {
