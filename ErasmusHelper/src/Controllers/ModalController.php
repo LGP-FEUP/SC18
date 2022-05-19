@@ -3,13 +3,14 @@
 namespace ErasmusHelper\Controllers;
 
 use AgileBundle\Utils\Dbg;
+use ErasmusHelper\Models\StaffModel;
 use ErasmusHelper\Models\User;
 use Kreait\Firebase\Exception\AuthException;
 use Kreait\Firebase\Exception\FirebaseException;
 
 class ModalController extends UniModsBackOfficeController {
 
-    protected string $layout = "empty";
+    protected bool $async = true;
 
     /**
      * @throws FirebaseException
@@ -21,5 +22,17 @@ class ModalController extends UniModsBackOfficeController {
             $users[] = new User(json_decode($user, true));
         }
         $this->render("users.search", ["users" => $users]);
+    }
+
+    /**
+     * @throws FirebaseException
+     * @throws AuthException
+     */
+    public function searchStaffs() {
+        $staffs = array();
+        foreach ($_POST as $staff) {
+            $staffs[] = StaffModel::instantiateFromJSON($staff);
+        }
+        $this->render("staffs.search", ["staffs" => $staffs]);
     }
 }

@@ -31,6 +31,7 @@ class Router extends AbstractRouter
             'auth'                          => ["POST", "/auth", [AuthController::class, "auth"]],
             'configuration'                 => ["GET", "/menu", [ConfigurationController::class, "home"]],
             'staffs'                        => ["GET", "/staffs", [StaffController::class, "displayAll"]],
+            'staffs.search'                 => ["POST", "/staffs/search", [ModalController::class, "searchStaffs"]],
             'staff.create.page'             => ["GET", "/staff/create", [StaffController::class, "create"]],
             'staff.create.uni'              => ["POST", "/staff/new/uni", [StaffController::class, "createUniPost"]],
             'staff.create.city'             => ["POST", "/staff/new/city", [StaffController::class, "createCityPost"]],

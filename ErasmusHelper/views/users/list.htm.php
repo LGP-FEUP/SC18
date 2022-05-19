@@ -8,7 +8,7 @@ use ErasmusHelper\Models\User;
 <div class="flex-column">
     <div class="row no-padding col-6">
         <div class="box-content">
-            <label class="label" for="searchBar">Enter a student's lastname:</label>
+            <label class="m-1" for="searchBar">Enter a student's lastname:</label>
             <input id="searchBar" type="text" class="input m-auto" />
         </div>
     </div>
@@ -46,14 +46,14 @@ use ErasmusHelper\Models\User;
         </div>
     </div>
 </div>
-
 <script type="text/javascript">
     document.getElementById("searchBar").addEventListener('change', updateList);
     let data = <?php echo json_encode($users, JSON_HEX_TAG); ?>;
+
     function updateList() {
         let toReturn = [];
         for(let i = 0; i < data.length; i++) {
-            if(data[i]["lastname"].toLowerCase().startsWith(this.value.toLowerCase())) {
+            if(data[i]["lastname"].toLowerCase().includes(this.value.toLowerCase())) {
                 toReturn.push(data[i]);
             }
         }
