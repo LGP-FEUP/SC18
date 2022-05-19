@@ -63,8 +63,9 @@ class _RegisterFormState extends State<RegisterForm> {
                   Utils.genLogo(MediaQuery.of(context).size.height),
                   Utils.genTitle("Sign in"),
                   ..._genInputs(context, faculties!),
-                  Utils.genSubmitButton("Sign in", onSubmit),
-                  Utils.genLink("Already have an account?", navigateToLoginPage)
+                  Utils.genSubmitButton("Sign in", _onSubmit),
+                  Utils.genLink(
+                      "Already have an account?", _navigateToLoginPage)
                 ]));
           }
         }
@@ -74,8 +75,8 @@ class _RegisterFormState extends State<RegisterForm> {
               Utils.genLogo(MediaQuery.of(context).size.height),
               Utils.genTitle("Sign in"),
               ..._genInputs(context, []),
-              Utils.genSubmitButton("Sign in", onSubmit),
-              Utils.genLink("Already have an account?", navigateToLoginPage)
+              Utils.genSubmitButton("Sign in", _onSubmit),
+              Utils.genLink("Already have an account?", _navigateToLoginPage)
             ]));
       },
     );
@@ -123,7 +124,7 @@ class _RegisterFormState extends State<RegisterForm> {
     return List<Widget>.from(inputs) + [facultyInput];
   }
 
-  void onSubmit() {
+  void _onSubmit() {
     // if form is valid
     if (_formKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -137,7 +138,7 @@ class _RegisterFormState extends State<RegisterForm> {
           lNameController.text.trim(),
           facultyOrigin,
           facultyArriving,
-          dateController.text.trim());
+          dateController.text.trim(), []);
 
       context.read<AuthenticationService>().signUp(user: user).then((value) {
         // On success
@@ -148,7 +149,7 @@ class _RegisterFormState extends State<RegisterForm> {
     }
   }
 
-  void navigateToLoginPage() {
+  void _navigateToLoginPage() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const LoginPage()));
   }

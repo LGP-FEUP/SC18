@@ -1,8 +1,9 @@
+import 'package:erasmus_helper/services/authentication_service.dart';
 import 'package:erasmus_helper/views/authentication/components/utils.dart';
 import 'package:erasmus_helper/views/authentication/register.dart';
-import 'package:erasmus_helper/services/authentication_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'form_input.dart';
 
 class LoginForm extends StatefulWidget {
@@ -60,9 +61,7 @@ class _LoginFormState extends State<LoginForm> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Logging in')),
       );
-      context
-          .read<AuthenticationService>()
-          .signIn(
+      context.read<AuthenticationService>().signIn(
             email: emailController.text.trim(),
             password: passwordController.text.trim(),
           );

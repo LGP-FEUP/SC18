@@ -80,17 +80,17 @@ class PasswordInput extends FormInput {
 class NewPasswordInput extends FormInput {
   NewPasswordInput({Key? key, required TextEditingController controller})
       : super(
-      key: key,
-      keyboard: TextInputType.text,
-      icon: const Icon(Icons.key),
-      hintText: "Password",
-      validator: MultiValidator([
-        RequiredValidator(errorText: 'Password is required.'),
-        MinLengthValidator(8,
-            errorText: 'Password must be at least 8 digits long.'),
-      ]),
-      controller: controller,
-      hidable: true);
+            key: key,
+            keyboard: TextInputType.text,
+            icon: const Icon(Icons.key),
+            hintText: "Password",
+            validator: MultiValidator([
+              RequiredValidator(errorText: 'Password is required.'),
+              MinLengthValidator(8,
+                  errorText: 'Password must be at least 8 digits long.'),
+            ]),
+            controller: controller,
+            hidable: true);
 }
 
 class ConfirmPasswordInput extends FormInput {
@@ -132,24 +132,22 @@ class NameInput extends FormInput {
             icon: const Icon(Icons.account_circle_rounded),
             hintText: name,
             validator: MultiValidator([
-              RequiredValidator(errorText: name + " is required."),
+              RequiredValidator(errorText: "$name is required."),
               MaxLengthValidator(32, errorText: "Max characters reached.")
             ]),
             controller: controller);
 }
 
 class DateInput extends FormInput {
-  DateInput(
-      {Key? key,
-        required TextEditingController controller})
+  DateInput({Key? key, required TextEditingController controller})
       : super(
-      key: key,
-      keyboard: TextInputType.text,
-      icon: const Icon(Icons.account_circle_rounded),
-      hintText: "Birthdate (dd/mm/yyyy)",
-      validator: MultiValidator([
-        RequiredValidator(errorText: "Birthdate is required."),
-        DateValidator("dd/mm/yyyy", errorText: "Invalid date.")
-      ]),
-      controller: controller);
+            key: key,
+            keyboard: TextInputType.text,
+            icon: const Icon(Icons.account_circle_rounded),
+            hintText: "Birthdate (dd/mm/yyyy)",
+            validator: MultiValidator([
+              RequiredValidator(errorText: "Birthdate is required."),
+              DateValidator("dd/mm/yyyy", errorText: "Invalid date.")
+            ]),
+            controller: controller);
 }
