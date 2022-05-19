@@ -2,13 +2,11 @@ import 'package:erasmus_helper/models/task.dart';
 import 'package:erasmus_helper/services/user_service.dart';
 import 'package:erasmus_helper/services/utils_service.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/foundation.dart';
 
 class TasksService {
   // static String collectionName = "tasks/";
 
   static Future<List<TaskModel>> getTasks(String facultyId) async {
-
     List<TaskModel> tasks = [];
     final DataSnapshot snap = await FirebaseDatabase.instance
         .ref("faculties/$facultyId/tasks/")

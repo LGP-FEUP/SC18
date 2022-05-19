@@ -2,7 +2,6 @@ import 'package:erasmus_helper/services/faculty_service.dart';
 import 'package:erasmus_helper/services/tasks_service.dart';
 import 'package:erasmus_helper/views/checklist/components/task_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../../models/task.dart';
 
@@ -135,7 +134,6 @@ class _ChecklistState extends State<Checklist> {
   }
 
   List<TaskModel> _sortTasks(List<TaskModel> tasks) {
-
     tasks.sort((a, b) {
       DateTime aDate = a.dueDate, bDate = b.dueDate;
       return aDate.compareTo(bDate);

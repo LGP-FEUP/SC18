@@ -31,7 +31,8 @@ class _TaskTileState extends State<TaskTile> {
             fontWeight: FontWeight.w500,
             fontSize: 20,
           )),
-      subtitle: Text("Due date: ${DateFormat("dd/MM/yyyy").format(task.dueDate)}",
+      subtitle: Text(
+          "Due date: ${DateFormat("dd/MM/yyyy").format(task.dueDate)}",
           style: const TextStyle(fontSize: 16)),
       leading: GestureDetector(
         onTap: () => _changeTaskState(task),

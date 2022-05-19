@@ -1,13 +1,14 @@
-import '../services/utils_service.dart';
+
 
 class TaskModel {
-  final String uid, description,  title;
+  final String uid, description, title;
   final DateTime dueDate;
   final String when;
   bool done;
   List<StepModel> steps = [];
 
-  TaskModel(this.uid, this.title, this.description, this.dueDate, this.done, this.when);
+  TaskModel(this.uid, this.title, this.description, this.dueDate, this.done,
+      this.when);
 
   TaskModel.fromJson(this.uid, Map<String, dynamic> json)
       : title = json['title'],
