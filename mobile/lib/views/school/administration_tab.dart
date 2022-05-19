@@ -1,3 +1,4 @@
+import 'package:erasmus_helper/views/school/checklist/checklist.dart';
 import 'package:flutter/cupertino.dart';
 
 class AdministrationTab extends StatelessWidget {
@@ -5,8 +6,6 @@ class AdministrationTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [Text("Checklist")],
-    );
+    return const Checklist();
   }
 }
