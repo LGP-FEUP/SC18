@@ -88,9 +88,9 @@ class _ChecklistState extends State<Checklist> {
 
     for (var t in tasksTiles) {
       var when = t.task.when;
-      if (when == 0) {
+      if (when == "before") {
         before.add(t);
-      } else if (when == 1) {
+      } else if (when == "during") {
         during.add(t);
       } else {
         after.add(t);
@@ -135,9 +135,9 @@ class _ChecklistState extends State<Checklist> {
   }
 
   List<TaskModel> _sortTasks(List<TaskModel> tasks) {
-    DateFormat format = DateFormat("dd/MM/yyyy");
+
     tasks.sort((a, b) {
-      DateTime aDate = format.parse(a.dueDate), bDate = format.parse(b.dueDate);
+      DateTime aDate = a.dueDate, bDate = b.dueDate;
       return aDate.compareTo(bDate);
     });
 
