@@ -124,7 +124,7 @@ class _RegisterFormState extends State<RegisterForm> {
     return List<Widget>.from(inputs) + [facultyInput];
   }
 
-  void onSubmit() {
+  void _onSubmit() {
     // if form is valid
     if (_formKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -138,7 +138,7 @@ class _RegisterFormState extends State<RegisterForm> {
           lNameController.text.trim(),
           facultyOrigin,
           facultyArriving,
-          dateController.text.trim());
+          dateController.text.trim(), []);
 
       context.read<AuthenticationService>().signUp(user: user).then((value) {
         // On success
@@ -149,7 +149,7 @@ class _RegisterFormState extends State<RegisterForm> {
     }
   }
 
-  void navigateToLoginPage() {
+  void _navigateToLoginPage() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const LoginPage()));
   }

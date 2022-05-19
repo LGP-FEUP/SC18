@@ -1,8 +1,9 @@
+import 'package:erasmus_helper/services/authentication_service.dart';
 import 'package:erasmus_helper/views/authentication/components/utils.dart';
 import 'package:erasmus_helper/views/authentication/register.dart';
-import 'package:erasmus_helper/services/authentication_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'form_input.dart';
 
 class LoginForm extends StatefulWidget {

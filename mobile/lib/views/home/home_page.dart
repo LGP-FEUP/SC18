@@ -8,7 +8,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [Text('Home Page'),],
+      children: const [
+        Text('Home Page'),
+      ],
     );
   }
 }
