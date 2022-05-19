@@ -29,6 +29,13 @@ class AppTopBar extends StatelessWidget {
             automaticallyImplyLeading: true,
             title: Text(title),
             bottom: bottom,
+
+            actions: [
+              // TODO : change icon with avatar of the account
+              const Icon(Icons.account_box_rounded, size: 40,),
+              // TODO : add notification system
+              IconButton(onPressed: (){}, icon: const Icon(Icons.notifications))
+            ],
           ),
           drawer: drawer,
           body: body,
