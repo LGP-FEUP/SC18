@@ -1,7 +1,6 @@
 import 'package:erasmus_helper/views/settings/account_page.dart';
 import 'package:erasmus_helper/views/settings/help_page.dart';
 import 'package:erasmus_helper/views/settings/settings_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 /// App generic drawer, to show the application settings

@@ -1,7 +1,6 @@
 import 'package:erasmus_helper/views/app_topbar.dart';
 import 'package:erasmus_helper/views/school/administration_tab.dart';
 import 'package:erasmus_helper/views/school/university_tab.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // TODO : replace this page with the good content
