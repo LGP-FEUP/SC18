@@ -13,6 +13,7 @@ class HelpPage extends StatelessWidget {
           children: const [Text('Help Page'),],
         ),
       activateBackButton: true,
+      title: "Help",
     );
   }
 }

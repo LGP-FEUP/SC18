@@ -12,6 +12,7 @@ class HomePage extends StatelessWidget {
       body: Column(
         children: const [Text("Home Page")],
       ),
+      title: "Home",
     );
   }
 }

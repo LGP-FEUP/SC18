@@ -11,7 +11,8 @@ class SocialPage extends StatelessWidget {
     return AppTopBar(
         body: Column(
           children: const [Text('Social Page'),],
-        )
+        ),
+      title: "Social",
     );
   }
 }

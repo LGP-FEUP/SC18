@@ -13,6 +13,7 @@ class AccountPage extends StatelessWidget {
           children: const [Text('Account Page'),],
         ),
       activateBackButton: true,
+      title: "Account Settings",
     );
   }
 }
