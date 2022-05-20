@@ -30,9 +30,12 @@ RUN mkdir -p /home/$user/.composer && \
 
 RUN chown -R www-data:www-data /var/www
 
+
 RUN mkdir /var/www/data
 
 RUN mkdir /var/www/data/logs
 
-RUN chmod -R 0777 /var/www/data
-RUN chmod -R 0777 /var/www/data/logs
+RUN chmod -R 0666 /var/www/data
+RUN chmod -R 0666 /var/www/data/logs
+
+USER $user
