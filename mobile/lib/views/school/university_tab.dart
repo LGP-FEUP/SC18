@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class UniversityTab extends StatelessWidget {
   const UniversityTab({Key? key}) : super(key: key);
