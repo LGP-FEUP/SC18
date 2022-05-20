@@ -1,3 +1,4 @@
+import 'package:erasmus_helper/views/social/groups/groups_browse_page.dart';
 import 'package:flutter/material.dart';
 
 class ForumsTab extends StatelessWidget {
@@ -5,6 +6,6 @@ class ForumsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text("Forums");
+    return const GroupBrowserPage();
   }
 }
