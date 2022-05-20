@@ -138,7 +138,7 @@ class _ChecklistState extends State<Checklist> {
   List<TaskModel> _sortTasks(List<TaskModel> tasks) {
     DateFormat format = DateFormat("dd/MM/yyyy");
     tasks.sort((a, b) {
-      DateTime aDate = format.parse(a.dueDate), bDate = format.parse(b.dueDate);
+      DateTime aDate = a.dueDate, bDate = b.dueDate;
       return aDate.compareTo(bDate);
     });
 
