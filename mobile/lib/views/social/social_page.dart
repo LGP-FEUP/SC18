@@ -1,3 +1,4 @@
+import 'package:erasmus_helper/views/cultural/cultural_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,10 +8,26 @@ class SocialPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
-        Text('Social Page'),
-      ],
+    return MaterialApp(
+      home: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            title: const TabBar(
+              tabs: [
+                Tab(icon: Text("Forums")),
+                Tab(icon: Text("Cultural")),
+              ],
+            ),
+          ),
+          body: const TabBarView(
+            children: [
+              Icon(Icons.directions_car),
+              CulturalPage(),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

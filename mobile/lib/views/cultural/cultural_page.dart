@@ -6,10 +6,31 @@ class CulturalPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
-        Text('Cultural Page'),
-      ],
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                    child: Row(
+                      children: <Widget>[
+                        Text("BOOOOOOOAS"),
+                        Spacer(),
+                        Icon(Icons.person_outline),
+                      ],
+                    )),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("HELLLOOOOOOOOOOOO"),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
