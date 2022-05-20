@@ -18,7 +18,7 @@ class _UniversityTabState extends State<UniversityTab> {
         builder: (context, response) {
           if (response.connectionState == ConnectionState.done) {
             if (response.data != null) {
-              return _FAQList(context, response.data as List<FAQModel>);
+              return _faqList(context, response.data as List<FAQModel>);
             }
             return const Center(
                 child: Text('No available FAQs for this University'));
@@ -28,7 +28,7 @@ class _UniversityTabState extends State<UniversityTab> {
   }
 }
 
-Widget _FAQList(BuildContext context, List<FAQModel> faqs) {
+Widget _faqList(BuildContext context, List<FAQModel> faqs) {
   return Padding(
       padding: const EdgeInsets.all(10),
       child: ListView.separated(
