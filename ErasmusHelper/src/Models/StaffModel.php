@@ -19,6 +19,7 @@ abstract class StaffModel {
 
     public string $id = "";
     public string $email = "";
+    public int $privilege_level = 0;
     public bool $disabled = false;
     public bool $dbStored = false;
 
@@ -48,6 +49,7 @@ abstract class StaffModel {
         foreach (static::CLAIMS as $claim) {
             $this->$claim = $user->customClaims[$claim];
         }
+        $this->privilege_level = $user->customClaims["privilege_level"];
     }
 
     /**
@@ -144,4 +146,38 @@ abstract class StaffModel {
         }
     }
 
+    public static function instantiateFromJSON(string $jsonString): CityModerator|UniModerator|CountryModerator|null {
+        $jsonObj = json_decode($jsonString, true);
+        switch ($jsonObj["privilege_level"]){
+            case 2:
+                $toReturn = new CountryModerator();
+                $toReturn->id = $jsonObj["id"];
+                $toReturn->dbStored = $jsonObj["dbStored"];
+                $toReturn->disabled = $jsonObj["disabled"];
+                $toReturn->privilege_level = $jsonObj["privilege_level"];
+                $toReturn->email = $jsonObj["email"];
+                $toReturn->country_id = $jsonObj["country_id"];
+                return $toReturn;
+            case 3:
+                $toReturn = new CityModerator();
+                $toReturn->id = $jsonObj["id"];
+                $toReturn->dbStored = $jsonObj["dbStored"];
+                $toReturn->disabled = $jsonObj["disabled"];
+                $toReturn->privilege_level = $jsonObj["privilege_level"];
+                $toReturn->email = $jsonObj["email"];
+                $toReturn->city_id = $jsonObj["city_id"];
+                return $toReturn;
+            case 4:
+                $toReturn = new UniModerator();
+                $toReturn->id = $jsonObj["id"];
+                $toReturn->dbStored = $jsonObj["dbStored"];
+                $toReturn->disabled = $jsonObj["disabled"];
+                $toReturn->privilege_level = $jsonObj["privilege_level"];
+                $toReturn->email = $jsonObj["email"];
+                $toReturn->faculty_id = $jsonObj["faculty_id"];
+                return $toReturn;
+            default:
+                return null;
+        }
+    }
 }

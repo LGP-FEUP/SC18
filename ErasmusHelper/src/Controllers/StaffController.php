@@ -26,32 +26,41 @@ class StaffController extends CityModsBackOfficeController {
         $city = App::getInstance()->auth->getCity();
         $country = App::getInstance()->auth->getCountry();
         $cityMods = CityModerator::getAll();
-        $cityModsFiltered = array();
+        $staffs = array();
         $uniMods = UniModerator::getAll();
-        $uniModsFiltered = array();
         if($city != null) {
             foreach ($uniMods as $mod) {
                 if(Faculty::select(["id" =>$mod->faculty_id])->getCity() == $city){
-                    $uniModsFiltered[] = $mod;
+                    $staffs[] = $mod;
                 }
             }
-            $this->render("staffs.list", ["uniMods" => $uniModsFiltered]);
+            $this->render("staffs.list", ["staffs" => $staffs]);
         } elseif ($country != null) {
             $this->requirePrivileges(COUNTRYMODERATORS_PRIVILEGES);
             foreach ($uniMods as $fmod) {
                 if(Faculty::select(["id" => $fmod->faculty_id])->getCity()->getCountry() == $country) {
-                    $uniModsFiltered[] = $fmod;
+                    $staffs[] = $fmod;
                 }
             }
             foreach ($cityMods as $cmod) {
                 if(City::select(["id" => $cmod->city_id])->getCountry() == $country) {
-                    $cityModsFiltered[] = $cmod;
+                    $staffs[] = $cmod;
                 }
             }
-            $this->render("staffs.list", ["uniMods" => $uniModsFiltered, "cityMods" => $cityModsFiltered]);
+            $this->render("staffs.list", ["staffs" => $staffs]);
         } else {
             $this->requirePrivileges(ADMIN_PRIVILEGES);
-            $this->render("staffs.list", ["countryMods" => CountryModerator::getAll(), "cityMods" => $cityMods, "uniMods" => $uniMods]);
+            $countryMods = CountryModerator::getAll();
+            foreach ($countryMods as $comod) {
+                $staffs[] = $comod;
+            }
+            foreach ($cityMods as $cmod) {
+                $staffs[] = $cmod;
+            }
+            foreach ($uniMods as $umod) {
+                $staffs[] = $umod;
+            }
+            $this->render("staffs.list", ["staffs" => $staffs]);
         }
     }
 

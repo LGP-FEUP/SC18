@@ -42,6 +42,7 @@ use ErasmusHelper\Controllers\Router;
         </div>
         <div id="notification-container"></div>
         <script src="<?= Router::resource("scripts", "common.js") ?>"></script>
+        <script src="<?= Router::resource("scripts/classes", "Modal.js") ?>"></script>
         <script src="<?= Router::resource("scripts/classes", "Ui.js") ?>"></script>
         <?php if(isset($alert)): ?>
             <script type="text/javascript">
