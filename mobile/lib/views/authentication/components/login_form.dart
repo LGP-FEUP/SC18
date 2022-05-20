@@ -32,10 +32,10 @@ class _LoginFormState extends State<LoginForm> {
         child: Column(
           children: <Widget>[
             Utils.genLogo(MediaQuery.of(context).size.height),
-            Utils.genTitle("Sign up"),
+            Utils.genTitle("Sign in"),
             ..._genInputs(context),
             Utils.genSubmitButton("Login", onSubmit),
-            Utils.genLink("Create account.", navigateToRegisterPage)
+            Utils.genLink("Create an account!", navigateToRegisterPage)
           ],
         ));
   }

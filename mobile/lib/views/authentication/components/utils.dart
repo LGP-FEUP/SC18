@@ -13,7 +13,7 @@ class Utils {
                   height: ht * 0.15,
                   decoration: const BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage("assets/logo.png"))),
+                          image: AssetImage("assets/logo_complex.png"))),
                 ))),
       ],
     );

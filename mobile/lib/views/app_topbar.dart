@@ -9,12 +9,13 @@ class AppTopBar extends StatelessWidget {
   final PreferredSizeWidget? bottom;
   final String title;
   final bool activateBackButton;
-  const AppTopBar({Key? key,
-    required this.body,
-    this.title = "Erasmus Helper",
-    this.bottom,
-    this.activateBackButton = false
-  }) : super(key: key);
+  const AppTopBar(
+      {Key? key,
+      required this.body,
+      this.title = "Erasmus Helper",
+      this.bottom,
+      this.activateBackButton = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,21 +25,24 @@ class AppTopBar extends StatelessWidget {
     }
     return SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: true,
-            title: Text(title),
-            bottom: bottom,
-
-            actions: [
-              // TODO : change icon with avatar of the account
-              const Icon(Icons.account_box_rounded, size: 40,),
-              // TODO : add notification system
-              IconButton(onPressed: (){}, icon: const Icon(Icons.notifications))
-            ],
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        foregroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Colors.white,
+        title: Text(title),
+        bottom: bottom,
+        actions: [
+          // TODO : change icon with avatar of the account
+          const Icon(
+            Icons.account_box_rounded,
+            size: 40,
           ),
-          drawer: drawer,
-          body: body,
-        )
-    );
+          // TODO : add notification system
+          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))
+        ],
+      ),
+      drawer: drawer,
+      body: body,
+    ));
   }
 }
