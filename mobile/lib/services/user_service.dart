@@ -7,8 +7,17 @@ class UserService {
   static String collectionName = "users/";
 
   static void addUser(UserModel user) async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("users/" + user.uid);
+    DatabaseReference ref =
+        FirebaseDatabase.instance.ref(collectionName + user.uid);
 
+    await ref.set(user.toJson());
+  }
+
+  static DatabaseReference getUserRef() {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    return FirebaseDatabase.instance
+        .ref(collectionName)
+        .child(auth.currentUser!.uid);
     await ref.set(user.toJson());
   }
 

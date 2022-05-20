@@ -22,6 +22,7 @@ class _RegisterFormState extends State<RegisterForm> {
   TextEditingController confirmController = TextEditingController();
   TextEditingController fNameController = TextEditingController();
   TextEditingController lNameController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
 
   // ignore: prefer_typing_uninitialized_variables
   var facultyOrigin, facultyArriving;
@@ -33,6 +34,7 @@ class _RegisterFormState extends State<RegisterForm> {
     confirmController.dispose();
     fNameController.dispose();
     lNameController.dispose();
+    dateController.dispose();
     super.dispose();
   }
 
@@ -61,8 +63,9 @@ class _RegisterFormState extends State<RegisterForm> {
                   Utils.genLogo(MediaQuery.of(context).size.height),
                   Utils.genTitle("Sign in"),
                   ..._genInputs(context, faculties!),
-                  Utils.genSubmitButton("Sign in", onSubmit),
-                  Utils.genLink("Already have an account?", navigateToLoginPage)
+                  Utils.genSubmitButton("Sign in", _onSubmit),
+                  Utils.genLink(
+                      "Already have an account?", _navigateToLoginPage)
                 ]));
           }
         }
@@ -72,8 +75,8 @@ class _RegisterFormState extends State<RegisterForm> {
               Utils.genLogo(MediaQuery.of(context).size.height),
               Utils.genTitle("Sign in"),
               ..._genInputs(context, []),
-              Utils.genSubmitButton("Sign in", onSubmit),
-              Utils.genLink("Already have an account?", navigateToLoginPage)
+              Utils.genSubmitButton("Sign in", _onSubmit),
+              Utils.genLink("Already have an account?", _navigateToLoginPage)
             ]));
       },
     );
@@ -106,7 +109,8 @@ class _RegisterFormState extends State<RegisterForm> {
           controller: confirmController,
           passwordController: passwordController),
       NameInput(controller: fNameController, name: "First name"),
-      NameInput(controller: lNameController, name: "Last name")
+      NameInput(controller: lNameController, name: "Last name"),
+      DateInput(controller: dateController)
     ]
         .map((e) => Row(children: [
               Expanded(
@@ -120,7 +124,7 @@ class _RegisterFormState extends State<RegisterForm> {
     return List<Widget>.from(inputs) + [facultyInput];
   }
 
-  void onSubmit() {
+  void _onSubmit() {
     // if form is valid
     if (_formKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -133,20 +137,19 @@ class _RegisterFormState extends State<RegisterForm> {
           fNameController.text.trim(),
           lNameController.text.trim(),
           facultyOrigin,
-          facultyArriving);
+          facultyArriving,
+          dateController.text.trim(), []);
 
-      context
-          .read<AuthenticationService>()
-          .signUp(user: user)
-          .then((value) { // On success
-                if (value?.compareTo("Signed up") == 0) {
-                  Utils.navigateToHomePage(context);
-                }
-              });
+      context.read<AuthenticationService>().signUp(user: user).then((value) {
+        // On success
+        if (value?.compareTo("Signed up") == 0) {
+          Utils.navigateToHomePage(context);
+        }
+      });
     }
   }
 
-  void navigateToLoginPage() {
+  void _navigateToLoginPage() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const LoginPage()));
   }

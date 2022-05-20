@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
+import 'app_layout.dart';
 import 'firebase_options.dart';
-import 'homepage.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
             create: (_) => AuthenticationService(FirebaseAuth.instance)),
         StreamProvider(
           create: (context) =>
-          context.read<AuthenticationService>().currentUser, initialData: null,
+              context.read<AuthenticationService>().currentUser,
+          initialData: null,
         )
       ],
       child: MaterialApp(
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity),
-        home: AuthenticationWrapper(),
+        home: const AuthenticationWrapper(),
       ),
     );
   }
@@ -65,7 +66,7 @@ class AuthenticationWrapper extends StatelessWidget {
     final firebaseUser = context.watch<User?>();
 
     if (firebaseUser != null) {
-      return const HomePage(title: "Homepage");
+      return const AppLayout();
     }
 
     return const LoginPage();

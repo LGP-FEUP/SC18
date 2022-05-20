@@ -61,9 +61,7 @@ class _LoginFormState extends State<LoginForm> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Logging in')),
       );
-      context
-          .read<AuthenticationService>()
-          .signIn(
+      context.read<AuthenticationService>().signIn(
             email: emailController.text.trim(),
             password: passwordController.text.trim(),
           )

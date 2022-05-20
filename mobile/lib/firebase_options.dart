@@ -45,7 +45,8 @@ class DefaultFirebaseOptions {
     appId: '1:720342091332:android:76e115152a8251b27e5e11',
     messagingSenderId: '720342091332',
     projectId: 'erasmus-helper',
-    databaseURL: 'https://erasmus-helper-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://erasmus-helper-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'erasmus-helper.appspot.com',
   );
 
@@ -54,9 +55,11 @@ class DefaultFirebaseOptions {
     appId: '1:720342091332:ios:2dbec9c7219506227e5e11',
     messagingSenderId: '720342091332',
     projectId: 'erasmus-helper',
-    databaseURL: 'https://erasmus-helper-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://erasmus-helper-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'erasmus-helper.appspot.com',
-    iosClientId: '720342091332-1ufvnvccnsgindjvnp7cgjdc7e0j9gkn.apps.googleusercontent.com',
+    iosClientId:
+        '720342091332-1ufvnvccnsgindjvnp7cgjdc7e0j9gkn.apps.googleusercontent.com',
     iosBundleId: 'com.sumsera.erasmusHelper',
   );
 }
