@@ -14,27 +14,29 @@ class AppDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue
-            ),
             child: Text("Erasmus Helper"),
           ),
           ListTile(
-            title: const Text("Account"),
+            title: const Text("Profile"),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const AccountPage()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const AccountPage()));
             },
           ),
           ListTile(
             title: const Text("Settings"),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsPage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SettingsPage()));
             },
           ),
           ListTile(
             title: const Text("Help"),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const HelpPage()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const HelpPage()));
             },
           )
         ],

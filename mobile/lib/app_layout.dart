@@ -31,9 +31,7 @@ class _AppScaffold extends State<AppLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-            child: navbarPages[_selectedNavBarPageIndex]
-        ),
+        body: Center(child: navbarPages[_selectedNavBarPageIndex]),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(icon: Icon(Icons.school), label: "School"),
@@ -42,7 +40,6 @@ class _AppScaffold extends State<AppLayout> {
           ],
           currentIndex: _selectedNavBarPageIndex,
           onTap: _changeNavBarPage,
-        )
-    );
+        ));
   }
 }

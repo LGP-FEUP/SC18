@@ -9,23 +9,24 @@ class SchoolPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DefaultTabController(
+    return DefaultTabController(
         length: 2,
         child: AppTopBar(
-          body: TabBarView(
-            children: [
-              AdministrationTab(),
-              UniversityTab()
-            ],
+          body: const TabBarView(
+            children: [AdministrationTab(), UniversityTab()],
           ),
           title: "School",
           bottom: TabBar(
-              tabs: [
-                Tab(text: "Administration",),
-                Tab(text: "University",)
-              ]
-          ),
-        )
-    );
+              indicatorColor: Theme.of(context).primaryColor,
+              labelColor: Theme.of(context).primaryColor,
+              tabs: const [
+                Tab(
+                  text: "Administration",
+                ),
+                Tab(
+                  text: "University",
+                )
+              ]),
+        ));
   }
 }
