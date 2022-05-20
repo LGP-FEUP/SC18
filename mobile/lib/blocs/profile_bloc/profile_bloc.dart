@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc() : super(ProfileInitialState()) {
     on<FetchProfileEvent>(_mapFetchProfileEventToState);
+    on<EditProfileEvent>((event, emit) => emit(ProfileEditingState()));
   }
 
   @override
