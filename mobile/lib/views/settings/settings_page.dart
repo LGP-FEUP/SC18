@@ -3,16 +3,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // TODO : replace this page with the good content
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppTopBar(
       body: Column(
-        children: const [Text("Home Page")],
+        children: const [Text('Account Page'),],
       ),
-      title: "Home",
+      activateBackButton: true,
+      title: "Application Settings",
     );
   }
 }

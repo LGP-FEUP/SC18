@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity),
-        home: const AuthenticationWrapper(),
+        home: const SafeArea(child: AuthenticationWrapper()),
       ),
     );
   }

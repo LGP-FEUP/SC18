@@ -1,7 +1,8 @@
 import 'package:erasmus_helper/models/task.dart';
-import 'package:erasmus_helper/views/checklist/components/step_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import 'components/step_tile.dart';
 
 class TaskPage extends StatefulWidget {
   const TaskPage({Key? key, required this.task}) : super(key: key);
