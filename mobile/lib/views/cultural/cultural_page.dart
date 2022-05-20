@@ -1,3 +1,5 @@
+import 'package:erasmus_helper/models/cultureCategory.dart';
+import 'package:erasmus_helper/views/cultural/components/categoryWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +15,7 @@ class CulturalPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Padding(
+                /*Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 32.0),
                     child: Row(
                       children: <Widget>[
@@ -25,6 +27,15 @@ class CulturalPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text("HELLLOOOOOOOOOOOO"),
+                ),*/
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: <Widget>[
+                      for (final category in cultureCategories)
+                        CategoryWidget(category: category)
+                    ],
+                  ),
                 )
               ],
             ),
