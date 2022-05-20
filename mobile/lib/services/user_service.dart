@@ -18,16 +18,12 @@ class UserService {
     return FirebaseDatabase.instance
         .ref(collectionName)
         .child(auth.currentUser!.uid);
-    await ref.set(user.toJson());
   }
 
   Future<UserModel?> getUserProfile() async {
-    var user = FirebaseAuth.instance.currentUser;
-    DatabaseReference ref = FirebaseDatabase.instance.ref();
-    final snapshot = await ref.child("users/${user!.uid}").get();
-    print(snapshot.value);
+    final snapshot = await getUserRef().get();
     if (snapshot.exists) {
-      return UserModel.fromJson(snapshot.value as Map<dynamic, dynamic>);
+      return UserModel.fromProfileJson(snapshot.value as Map<String, dynamic>);
     } else {
       return null;
     }

@@ -3,12 +3,11 @@ import 'package:erasmus_helper/models/date.dart';
 class UserModel {
   final String fName, lName, facultyOrigin, erasmusFaculty;
   late DateModel birthdate;
-  String? email, password, fName, lName, facultyOrigin, erasmusFaculty;
+  String? email, password;
   String? description, countryCode, phone, whatsapp, facebook;
   List<String?>? interests = [];
   String uid = "";
-  String? email, password;
-  List<String> doneTasks;
+  List<String>? doneTasks;
 
   UserModel(
       this.email,
@@ -21,20 +20,18 @@ class UserModel {
       this.doneTasks) {
     this.birthdate = DateModel(birthdate);
   }
-  UserModel(
-    this.email,
-    this.password,
-    this.fName,
-    this.lName,
-    this.facultyOrigin,
-    this.erasmusFaculty, {
-    this.description,
-    this.countryCode,
-    this.phone,
-    this.whatsapp,
-    this.facebook,
-    this.interests,
-  });
+
+  UserModel.profile(
+      this.fName,
+      this.lName,
+      this.facultyOrigin,
+      this.erasmusFaculty,
+      this.description,
+      this.countryCode,
+      this.phone,
+      this.whatsapp,
+      this.facebook,
+      this.interests);
 
   UserModel.fromJson(Map<String, dynamic> json)
       : fName = json['firstname'],
@@ -57,19 +54,8 @@ class UserModel {
         "date_of_birth": birthdate.toJson(),
         "validation_level": "1"
       };
-  UserModel.profile(
-      this.fName,
-      this.lName,
-      this.facultyOrigin,
-      this.erasmusFaculty,
-      this.description,
-      this.countryCode,
-      this.phone,
-      this.whatsapp,
-      this.facebook,
-      this.interests);
 
-  Map<dynamic, dynamic> toJson() => <dynamic, dynamic>{
+  Map<String, dynamic> toProfileJson() => <String, dynamic>{
         "firstName": fName,
         "lastName": lName,
         "faculty_origin_id": facultyOrigin,
@@ -82,7 +68,7 @@ class UserModel {
         "interests": interests,
       };
 
-  UserModel.fromJson(Map<dynamic, dynamic> json)
+  UserModel.fromProfileJson(Map<dynamic, dynamic> json)
       : fName = json["firstName"],
         lName = json["lastName"],
         facultyOrigin = json["faculty_origin_id"],
