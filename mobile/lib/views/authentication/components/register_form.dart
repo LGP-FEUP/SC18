@@ -63,8 +63,9 @@ class _RegisterFormState extends State<RegisterForm> {
                   Utils.genLogo(MediaQuery.of(context).size.height),
                   Utils.genTitle("Sign up"),
                   ..._genInputs(context, faculties!),
-                  Utils.genSubmitButton("Sign up", onSubmit),
-                  Utils.genLink("Already have an account?", navigateToLoginPage)
+                  Utils.genSubmitButton("Sign up", _onSubmit),
+                  Utils.genLink(
+                      "Already have an account?", _navigateToLoginPage)
                 ]));
           }
         }
@@ -74,9 +75,9 @@ class _RegisterFormState extends State<RegisterForm> {
               Utils.genLogo(MediaQuery.of(context).size.height),
               Utils.genTitle("Sign in"),
               ..._genInputs(context, []),
-              Utils.genSubmitButton("Sign in", onSubmit),
+              Utils.genSubmitButton("Sign in", _onSubmit),
               Utils.genLink(
-                  "Already have an account? Sign in!", navigateToLoginPage)
+                  "Already have an account? Sign in!", _navigateToLoginPage)
             ]));
       },
     );

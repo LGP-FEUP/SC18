@@ -56,6 +56,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: createMaterialColor(_bluePrimary),
             primaryColor: _bluePrimary,
+            scaffoldBackgroundColor: const Color(0xFFF1F1F1),
             visualDensity: VisualDensity.adaptivePlatformDensity),
         home: const AuthenticationWrapper(),
       ),

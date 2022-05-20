@@ -1,5 +1,5 @@
-import 'package:erasmus_helper/views/checklist/checklist.dart';
 import 'package:erasmus_helper/views/home/home_page.dart';
+import 'package:erasmus_helper/views/school/faq_page.dart';
 import 'package:erasmus_helper/views/social/social_page.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +15,7 @@ class AppLayout extends StatefulWidget {
 class _AppScaffold extends State<AppLayout> {
   int _selectedPageIndex = 0;
 
-  final pages = [const Checklist(), const HomePage(), const SocialPage()];
+  final pages = [const FAQPage(), const HomePage(), const SocialPage()];
 
   void _changePage(int index) {
     setState(() {
