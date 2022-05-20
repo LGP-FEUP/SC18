@@ -1,5 +1,6 @@
 import 'package:erasmus_helper/models/task.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'components/step_tile.dart';
 
@@ -35,7 +36,7 @@ class _TaskPageState extends State<TaskPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Due date: ${task.dueDate}",
+            "Due date: ${DateFormat("dd/MM/yyyy").format(task.dueDate)}",
             style: const TextStyle(fontSize: 20),
           ),
           Text(
