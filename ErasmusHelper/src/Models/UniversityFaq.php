@@ -7,10 +7,11 @@ use Kreait\Firebase\Exception\DatabaseException;
 
 class UniversityFaq extends Model
 {
-    const COLUMNS = ["id", "question", "reply"];
+    const COLUMNS = ["id", "question", "reply", "order"];
 
     public $question;
     public $reply;
+    public $order;
 
     /**
      * @throws DatabaseException
