@@ -1,8 +1,9 @@
 <?php
 
-#/** @var Country[] $countries */
+/** @var UniversityFaq[] $university_faqs */
 
 use ErasmusHelper\Controllers\Router;
+use ErasmusHelper\Models\UniversityFaq;
 
 ?>
 <div class="row">
@@ -14,13 +15,21 @@ use ErasmusHelper\Controllers\Router;
             <div class="box-content">
                 <div class="field">
                     <div class="label">Question</div>
-                    <input name="question" class="value" type="text" value=""/>
+                    <input name="question" class="value" type="text"/>
                 </div>
             </div>
             <div class="box-content">
                 <div class="field">
                     <div class="label">Reply</div>
                     <textarea name="reply" class="value" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="box-content">
+                <div class="field">
+                    <div class="label">Order</div>
+                    <input name="order" class="value" type="number" min="1"
+                           max="<?= isset($university_faqs) ? count($university_faqs) + 1 : 1 ?>"
+                           value="<?= isset($university_faqs) ? count($university_faqs) + 1 : 1 ?>">
                 </div>
             </div>
             <div class="box-footer">
