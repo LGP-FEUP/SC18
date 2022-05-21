@@ -64,7 +64,16 @@ class _LoginFormState extends State<LoginForm> {
       context.read<AuthenticationService>().signIn(
             email: emailController.text.trim(),
             password: passwordController.text.trim(),
-          );
+          ).then((value) {
+            if (value?.compareTo("Signed in") != 0) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(value!),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            }
+      });
     }
   }
 
