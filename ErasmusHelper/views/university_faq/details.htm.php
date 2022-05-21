@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var UniversityFaq[] $university_faqs ;
  * @var UniversityFaq $university_faq ;
  */
 
@@ -21,6 +22,14 @@ use ErasmusHelper\Models\UniversityFaq;
                 <div class="field">
                     <div class="label">Reply</div>
                     <textarea name="reply" class="value" rows="5"><?= $university_faq->reply ?></textarea>
+                </div>
+                <div class="box-content">
+                    <div class="field">
+                        <div class="label">Order</div>
+                        <input name="order" class="value" type="number" min="1"
+                               max="<?= isset($university_faqs) ? count($university_faqs) + 1 : 1 ?>"
+                               value="<?= $university_faq->order ?>">
+                    </div>
                 </div>
             </div>
             <div class="box-footer">

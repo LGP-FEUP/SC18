@@ -135,7 +135,7 @@ abstract class Model
     {
         $all = App::getInstance()->firebase->database->getReference(static::getStorage())->getValue();
         $toReturn = array();
-        if($all > 0) {
+        if ($all > 0) {
             if ($where != null) {
                 foreach ($all as $id => $row) {
                     foreach ($where as $request => $reqValue) {
@@ -164,9 +164,10 @@ abstract class Model
      * @return mixed
      * @throws DatabaseException
      */
-    public static function select(array $where): mixed {
-        $all = App::getInstance()->firebase->database->getReference(static::STORAGE)->getValue();
-        if($all > 0) {
+    public static function select(array $where): mixed
+    {
+        $all = App::getInstance()->firebase->database->getReference(static::getStorage())->getValue();
+        if ($all > 0) {
             if ($where != null) {
                 foreach ($all as $id => $row) {
                     $return = true;

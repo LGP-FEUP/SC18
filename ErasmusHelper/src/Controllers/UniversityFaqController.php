@@ -74,12 +74,18 @@ class UniversityFaqController extends UniModsBackOfficeController
     #[NoReturn] public function editFaq($id)
     {
         $faq = UniversityFaq::select(["id" => $id]);
-        if (Request::valuePost("question") && Request::valuePost("reply") && $faq && $faq->exists()) {
+        if (Request::valuePost("question") && Request::valuePost("reply") && Request::valuePost('order') && $faq && $faq->exists()) {
             $faq->name = Request::valuePost("name");
             $faq->country_id = Request::valuePost("country_id");
-            if ($faq->save()) {
+
+            if ($faq->order != Request::valuePost('order'))
+                $this->updateOrderValues($faq->order, Request::valuePost('order'));
+
+            $faq->order = Request::valuePost('order');
+
+            if ($faq->save())
                 $this->redirect(Router::route("university_faqs"), ["success" => "Faq edited."]);
-            }
+
         }
         $this->redirect(Router::route("university_faqs"), ["error" => "Unable to edit the faq."]);
 
@@ -90,7 +96,7 @@ class UniversityFaqController extends UniModsBackOfficeController
      */
     public function edit($id)
     {
-        $this->render('university_faq.details', ['university_faq' => UniversityFaq::select(["id" => $id])]);
+        $this->render('university_faq.details', ['university_faq' => UniversityFaq::select(["id" => $id]), 'university_faqs' => UniversityFaq::getAll()]);
     }
 
 
@@ -124,9 +130,41 @@ class UniversityFaqController extends UniModsBackOfficeController
             return;
 
         foreach (UniversityFaq::getAll() as $item) {
-            if ($item->order < $deletedValue) {
+            if ($item->order > $deletedValue) {
                 $item->order--;
                 $item->save();
+            }
+        }
+
+    }
+
+    /**
+     * @throws DatabaseException
+     */
+    private function updateOrderValues($originalValue, $newValue)
+    {
+        #There is a reduction
+
+        $items = UniversityFaq::getAll();
+
+        if (!isset($items))
+            return;
+
+        if ($originalValue > $newValue) {
+
+            foreach ($items as $item) {
+                if ($item->order >= $newValue && $item->order < $originalValue) {
+                    $item->order++;
+                    $item->save();
+                }
+            }
+        } else {
+            #There is an increase
+            foreach ($items as $item) {
+                if ($item->order <= $newValue && $item->order > $originalValue) {
+                    $item->order--;
+                    $item->save();
+                }
             }
         }
 
