@@ -2,6 +2,10 @@ import 'package:erasmus_helper/views/settings/account_page.dart';
 import 'package:erasmus_helper/views/settings/help_page.dart';
 import 'package:erasmus_helper/views/settings/settings_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../services/authentication_service.dart';
+import 'authentication/login.dart';
 
 /// App generic drawer, to show the application settings
 class AppDrawer extends StatelessWidget {
@@ -18,6 +22,7 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             title: const Text("Profile"),
+            leading: const Icon(Icons.person),
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const AccountPage()));
@@ -25,6 +30,7 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             title: const Text("Settings"),
+            leading: const Icon(Icons.settings),
             onTap: () {
               Navigator.push(
                   context,
@@ -34,13 +40,24 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             title: const Text("Help"),
+            leading: const Icon(Icons.help),
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const HelpPage()));
             },
-          )
+          ),
+          ListTile(
+              title: const Text("Logout"),
+              onTap: () => signOut(context),
+              leading: const Icon(Icons.logout))
         ],
       ),
     );
+  }
+
+  void signOut(BuildContext context) {
+    context.read<AuthenticationService>().signOut().then((value) =>
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const LoginPage())));
   }
 }

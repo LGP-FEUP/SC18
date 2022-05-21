@@ -61,18 +61,23 @@ class _LoginFormState extends State<LoginForm> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Logging in')),
       );
-      context.read<AuthenticationService>().signIn(
+      context
+          .read<AuthenticationService>()
+          .signIn(
             email: emailController.text.trim(),
             password: passwordController.text.trim(),
-          ).then((value) {
-            if (value?.compareTo("Signed in") != 0) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(value!),
-                  backgroundColor: Colors.red,
-                ),
-              );
-            }
+          )
+          .then((value) {
+        if (value?.compareTo("Signed in") == 0) {
+          Utils.navigateToHomePage(context);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(value!),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
       });
     }
   }
