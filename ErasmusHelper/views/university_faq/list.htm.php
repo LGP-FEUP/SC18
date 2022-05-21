@@ -14,6 +14,7 @@ use ErasmusHelper\Models\UniversityFaq;
                     <tr>
                         <th>Identifier</th>
                         <th>Question</th>
+                        <th>Order</th>
                         <th><a class="button" href="<?= Router::route('university_faq.create.page') ?>"><i
                                         class="fas fa-plus r"></i>Add a FAQ Item</a></th>
                     </tr>
@@ -21,8 +22,9 @@ use ErasmusHelper\Models\UniversityFaq;
                     if (!empty($university_faqs)) {
                         foreach ($university_faqs as $faq): ?>
                             <tr>
-                                <td><?= $faq->question; ?></td>
-                                <td><?= $faq->reply; ?></td>
+                                <td><?= $faq->question ?></td>
+                                <td><?= $faq->reply ?></td>
+                                <td><?= $faq->order ?></td>
                                 <td><a class="button" href="<?= Router::route('university_faq', ["id" => $faq->id]) ?>"><i
                                                 class="far fa-eye r"></i>Details</a></td>
                             </tr>
