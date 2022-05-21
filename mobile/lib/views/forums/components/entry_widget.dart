@@ -1,10 +1,10 @@
-import 'package:erasmus_helper/models/cultureEntry.dart';
+import 'package:erasmus_helper/models/forumEntry.dart';
 import 'package:flutter/material.dart';
 
-class EntryWidget extends StatelessWidget {
-  final CultureEntry entry;
+class ForumWidget extends StatelessWidget {
+  final ForumEntry entry;
 
-  const EntryWidget({Key? key, required this.entry}) : super(key: key);
+  const ForumWidget({Key? key, required this.entry}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

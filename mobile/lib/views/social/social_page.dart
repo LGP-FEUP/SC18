@@ -1,4 +1,5 @@
 import 'package:erasmus_helper/views/cultural/cultural_page.dart';
+import 'package:erasmus_helper/views/forums/forums_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,7 @@ class SocialPage extends StatelessWidget {
           ),
           body: const TabBarView(
             children: [
-              Icon(Icons.directions_car),
+              ForumsPage(),
               CulturalPage(),
             ],
           ),
