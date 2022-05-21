@@ -1,5 +1,6 @@
 import 'package:erasmus_helper/views/home/home_page.dart';
 import 'package:erasmus_helper/views/school/school_page.dart';
+import 'package:erasmus_helper/views/social/forum_page.dart';
 import 'package:erasmus_helper/views/social/social_page.dart';
 
 import 'package:flutter/material.dart';
@@ -14,12 +15,12 @@ class AppLayout extends StatefulWidget {
 }
 
 class _AppScaffold extends State<AppLayout> {
-  int _selectedNavBarPageIndex = 0;
+  int _selectedNavBarPageIndex = 2;
 
   final navbarPages = [
     const SchoolPage(),
     const HomePage(),
-    const SocialPage()
+    const ForumPage()
   ];
 
   void _changeNavBarPage(int index) {
