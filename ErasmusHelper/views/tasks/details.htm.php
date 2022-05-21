@@ -98,9 +98,9 @@ use ErasmusHelper\Models\Task;
                             <?php foreach ($task->steps as $step) { ?>
                                 <tr>
                                     <td><?= $step['id'] ?></td>
-                                    <td><?= $step['title'] ?></td>
+                                    <td><?= $step['name'] ?></td>
                                     <td><a class="button"
-                                           href="<?= Router::route('step', ["id" => $step['id']]) ?>"><i
+                                           href="<?= Router::route('step', ["task_id" => $id, "step_id" => $step['id']]) ?>"><i
                                                     class="far fa-eye r"></i>Details</a></td>
                                 </tr>
                             <?php } ?>

@@ -4,8 +4,8 @@ namespace ErasmusHelper\Models;
 
 class Step extends Model
 {
-    const COLUMNS = ["id", "title"];
+    const COLUMNS = ["id", "name"];
 
-    public $title;
+    public $name;
 
 }

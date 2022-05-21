@@ -27,7 +27,7 @@ class StepController extends Controller
                 $step = new Step();
 
                 $step->id = App::UUIDGenerator();
-                $step->title = Request::valuePost('step-name');
+                $step->name = Request::valuePost('step-name');
 
                 $task->steps[] = $step;
 
@@ -43,19 +43,66 @@ class StepController extends Controller
     /**
      * @throws DatabaseException
      */
-    public function editStep($taskId, $stepId)
+    public function edit($task_id, $step_id)
     {
-        $task = Task::select($taskId);
-
-
-        if ($task != null && $task->exists() && Request::valuePost('task-name')) {
-            foreach ($task->step as $step) {
-                if ($step->id == $stepId) {
-                    $step->title = Request::valuePost('step-name');
-                    break;
-                }
+        $task = Task::select(["id" => $task_id]);
+        foreach ($task->steps as $item) {
+            if ($item['id'] == $step_id) {
+                $step = $item;
+                break;
             }
         }
+        $this->render("steps.details", ["task_id" => $task->id, "step" => $step]);
+    }
+
+    /**
+     * @throws DatabaseException
+     */
+    #[NoReturn] public function editStep($task_id, $step_id)
+    {
+        $task = Task::select(["id" => $task_id]);
+        $new_steps = [];
+
+        if ($task != null && $task->exists() && Request::valuePost('step-name')) {
+            foreach ($task->steps as $step) {
+                if ($step['id'] == $step_id)
+                    $step['name'] = Request::valuePost('step-name');
+
+                $new_steps[] = $step;
+            }
+
+            $task->steps = $new_steps;
+
+            if ($task->save())
+                $this->redirect(Router::route("task", ["id" => $task->id]), ["success" => "Step edited successfully."]);
+        }
+
+        $this->redirect(Router::route("tasks"), ["error" => "Unable to edit the Step item."]);
+    }
+
+    /**
+     * @throws DatabaseException
+     */
+    #[NoReturn] public function delete($task_id, $step_id)
+    {
+        $task = Task::select(["id" => $task_id]);
+        $new_steps = [];
+
+        if ($task != null && $task->exists()) {
+            foreach ($task->steps as $step) {
+                if ($step['id'] == $step_id)
+                    continue;
+
+                $new_steps[] = $step;
+            }
+
+            $task->steps = $new_steps;
+
+            if ($task->save())
+                $this->redirect(Router::route("task", ["id" => $task->id]), ["success" => "Step edited successfully."]);
+
+        }
+        $this->redirect(Router::route("tasks"), ["error" => "Unable to edit the Step item."]);
     }
 
 }

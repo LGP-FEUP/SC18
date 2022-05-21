@@ -79,9 +79,9 @@ class TaskController extends UniModsBackOfficeController
             if (Request::valuePost("due_date"))
                 $task->due_date = new DateTime(Request::valuePost('due_date'));
 
-            if ($task->save()) {
+            if ($task->save())
                 $this->redirect(Router::route("task", ["id" => $task->id]), ["success" => "Task edited successfully."]);
-            }
+
         }
         $this->redirect(Router::route("tasks"), ["error" => "Unable to edit the Task item."]);
     }
