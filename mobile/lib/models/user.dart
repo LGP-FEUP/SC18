@@ -1,7 +1,7 @@
 import 'package:erasmus_helper/models/date.dart';
 
 class UserModel {
-  final String fName, lName, facultyOrigin, erasmusFaculty;
+  String fName, lName, facultyOrigin, erasmusFaculty;
   late DateModel birthdate;
   String? email, password;
   String? description, countryCode, phone, whatsapp, facebook;
@@ -33,7 +33,7 @@ class UserModel {
       this.facebook,
       this.interests);
 
-  UserModel.fromJson(Map<String, dynamic> json)
+  UserModel.fromJson(Map<dynamic, dynamic> json)
       : fName = json['firstname'],
         lName = json['lastname'],
         facultyOrigin = json['faculty_origin_id'],
@@ -55,9 +55,10 @@ class UserModel {
         "validation_level": "1"
       };
 
-  Map<String, dynamic> toProfileJson() => <String, dynamic>{
-        "firstName": fName,
-        "lastName": lName,
+  Map<String, dynamic> toProfileJson() =>
+      <String, dynamic>{
+        "firstname": fName,
+        "lastname": lName,
         "faculty_origin_id": facultyOrigin,
         "faculty_arriving_id": erasmusFaculty,
         "description": description,
@@ -69,8 +70,8 @@ class UserModel {
       };
 
   UserModel.fromProfileJson(Map<dynamic, dynamic> json)
-      : fName = json["firstName"],
-        lName = json["lastName"],
+      : fName = json["firstname"],
+        lName = json["lastname"],
         facultyOrigin = json["faculty_origin_id"],
         erasmusFaculty = json["faculty_arriving_id"],
         description = json["description"],

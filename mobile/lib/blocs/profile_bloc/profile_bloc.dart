@@ -8,6 +8,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc() : super(ProfileInitialState()) {
     on<FetchProfileEvent>(_mapFetchProfileEventToState);
     on<EditProfileEvent>((event, emit) => emit(ProfileEditingState()));
+    on<SubmitProfileEvent>(_mapSubmitProfileEventToState);
   }
 
   @override
@@ -25,5 +26,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     } else {
       emit(ProfileErrorState());
     }
+  }
+
+  Future<void> _mapSubmitProfileEventToState(
+      SubmitProfileEvent event, Emitter<ProfileState> emit) async {
+    UserService.updateUserProfile(event.profile);
+    emit(ProfileFetchedState(event.profile));
   }
 }

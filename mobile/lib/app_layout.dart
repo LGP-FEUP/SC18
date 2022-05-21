@@ -1,6 +1,6 @@
 import 'package:erasmus_helper/views/checklist/checklist.dart';
 import 'package:erasmus_helper/views/home/home_page.dart';
-import 'package:erasmus_helper/views/social/social_page.dart';
+import 'package:erasmus_helper/views/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 /// Mother widget of all the 3 pages (Home, School, Social), contain the bottom
@@ -15,7 +15,7 @@ class AppLayout extends StatefulWidget {
 class _AppScaffold extends State<AppLayout> {
   int _selectedPageIndex = 0;
 
-  final pages = [const Checklist(), const HomePage(), const SocialPage()];
+  final pages = [const Checklist(), const HomePage(), ProfileScreen()];
 
   void _changePage(int index) {
     setState(() {
