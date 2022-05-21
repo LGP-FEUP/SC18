@@ -27,16 +27,7 @@ use ErasmusHelper\Models\Task;
                                 <td><?= $task->id; ?></td>
                                 <td><?= $task->when; ?></td>
                                 <td><?= $task->when; ?></td>
-                                <td><?php
-                                    if (isset($task->duetimestamp)) {
-                                        try {
-                                            $datetime = new DateTime("@$task->duetimestamp");
-                                            echo $datetime->format('Y-m-d');
-                                        } catch (Exception $e) {
-                                        }
-                                    } else {
-                                        echo "No Deadline Defined";
-                                    } ?></td>
+                                <td><?= $task->due_date ? date("Y-m-d", strtotime($task->due_date['date'])) : "" ?></td>
                                 <td><?= isset($task->steps) ? count($task->steps) : "Without steps" ?></td>
                                 <td><a class="button"
                                        href="<?= Router::route('task', ["id" => $task->id]) ?>"><i
