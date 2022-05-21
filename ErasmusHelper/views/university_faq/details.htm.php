@@ -27,7 +27,7 @@ use ErasmusHelper\Models\UniversityFaq;
                     <div class="field">
                         <div class="label">Order</div>
                         <input name="order" class="value" type="number" min="1"
-                               max="<?= isset($university_faqs) ? count($university_faqs) + 1 : 1 ?>"
+                               max="<?= isset($university_faqs) ? count($university_faqs) : 1 ?>"
                                value="<?= $university_faq->order ?>">
                     </div>
                 </div>
