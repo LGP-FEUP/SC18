@@ -64,16 +64,20 @@ class Router extends AbstractRouter
             'faculty.delete'                => ["GET", "/faculty/delete/{id}", [FacultyController::class, "delete"]],
             'faculty.edit'                  => ["POST", "/faculty/edit/{id}", [FacultyController::class, "editPost"]],
             'faculty'                       => ["GET", "/faculty/{id}", [FacultyController::class, "edit"]],
+            'step.edit'                     => ["POST", "/step/edit/{id}", [StepController::class, "editStep"]],
+            'step.create'                   => ["POST", "/step/new", [StepController::class, "createStep"]],
+            'tasks'                         => ["GET", "/tasks", [TaskController::class, "displayAll"]],
+            'task.edit'                     => ["POST", "/task/edit/{id}", [TaskController::class, "editTask"]],
+            'task.create'                   => ["POST", "/task/new", [TaskController::class, "createTask"]],
+            'task.delete'                   => ["GET", "/task/delete/{id}", [TaskController::class, "delete"]],
+            'task.create.page'              => ["GET", "/task/create", [TaskController::class, "create"]],
+            'task'                          => ["GET", "/task/{id}", [TaskController::class, "edit"]],
             'university_faqs'               => ["GET", "/university_faqs", [UniversityFaqController::class, "displayAll"]],
-            'university_faq.create.page'    => ["GET", "/university_faq/create", [UniversityFaqController::class, "create"]],
-            'university_faq.create'         => ["POST", "/university_faq/new", [UniversityFaqController::class, "createFaq"]],
-            'university_faq.delete'         => ["GET", "/university_faq/delete/{id}", [UniversityFaqController::class, "delete"]],
             'university_faq.edit'           => ["POST", "/university_faq/edit/{id}", [UniversityFaqController::class, "editFaq"]],
+            'university_faq.delete'         => ["GET", "/university_faq/delete/{id}", [UniversityFaqController::class, "delete"]],
+            'university_faq.create'         => ["POST", "/university_faq/new", [UniversityFaqController::class, "createFaq"]],
+            'university_faq.create.page'    => ["GET", "/university_faq/create", [UniversityFaqController::class, "create"]],
             'university_faq'                => ["GET", "/university_faq/{id}", [UniversityFaqController::class, "edit"]],
-            'bureaucracies'                 => ["GET", "/bureaucracies", [BureaucracyController::class, "displayAll"]],
-            'bureaucracy.create.page'       => ["GET", "/bureaucracy/create", [BureaucracyController::class, "create"]],
-            'bureaucracy.create'            => ["POST", "/bureaucracy/new", [BureaucracyController::class, "createBureaucracy"]],
-            'bureaucracy'                   => ["GET", "/bureaucracy/{id}", [BureaucracyController::class, "edit"]]
         ];
     }
 }
