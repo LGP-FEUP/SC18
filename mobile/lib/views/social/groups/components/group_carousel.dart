@@ -24,18 +24,25 @@ class GroupCarousel extends StatelessWidget {
             String title = data[1].toString();
 
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: const TextStyle(fontSize: 30),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, top: 10),
+                  child: Text(
+                    title,
+                    style: const TextStyle(fontSize: 30),
+                  ),
                 ),
                 SizedBox(
-                  height: 300,
+                  height: 250,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: groupIds.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return GroupCard(groupId: groupIds[index]);
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: GroupCard(groupId: groupIds[index]),
+                      );
                     },
                   ),
                 ),

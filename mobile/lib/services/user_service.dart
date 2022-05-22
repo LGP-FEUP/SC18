@@ -19,4 +19,11 @@ class UserService {
         .ref(collectionName)
         .child(auth.currentUser!.uid);
   }
+
+  static Future<List<String>> getInterestUIDs() async {
+    DatabaseReference userRef = UserService.getUserRef();
+    DataSnapshot data = await userRef.child("interests").get();
+
+    return (data.value as Map).keys.map((e) => e as String).toList();
+  }
 }

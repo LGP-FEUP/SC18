@@ -6,6 +6,7 @@ class UserModel {
   String uid = "";
   String? email, password;
   List<String> doneTasks;
+  late List<String> interestUIDs;
 
   UserModel(
       this.email,
@@ -15,7 +16,8 @@ class UserModel {
       this.facultyOrigin,
       this.erasmusFaculty,
       String birthdate,
-      this.doneTasks) {
+      this.doneTasks,
+      this.interestUIDs) {
     this.birthdate = DateModel(birthdate);
   }
 
@@ -29,6 +31,9 @@ class UserModel {
         (json["date_of_birth"] as Map<dynamic, dynamic>)
             .map((key, value) => MapEntry(key.toString(), value));
     birthdate = DateModel.fromJson(map);
+
+    interestUIDs =
+        (json["interests"] as Map).keys.map((e) => e as String).toList();
   }
 
   Map<String, dynamic> toJson() => {
@@ -38,6 +43,6 @@ class UserModel {
         'faculty_origin_id': facultyOrigin,
         'faculty_arriving_id': erasmusFaculty,
         "date_of_birth": birthdate.toJson(),
-        "validation_level": "1"
+        "validation_level": "1",
       };
 }
