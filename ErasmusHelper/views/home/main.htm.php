@@ -30,7 +30,7 @@ use ErasmusHelper\Controllers\Router;
         <div class="col background-white ultra-small-rounded py-5">
             <div class="row h-100">
                 <div class="col-6 border-divisor-right">
-                    <h3 class="fancy-font mb-5">About Us</h3>
+                    <h3 class="fancy-font mb-4">About Us</h3>
                     <p>A group of 10 students from LGP Course</p>
                 </div>
                 <div class="col-6">
@@ -66,7 +66,7 @@ use ErasmusHelper\Controllers\Router;
         <div class="col background-white ultra-small-rounded py-5">
             <div class="row h-100">
                 <div class="col-6 border-divisor-right">
-                    <h3 class="fancy-font mb-5">What is Erasmus Helper</h3>
+                    <h3 class="fancy-font mb-4">What is Erasmus Helper</h3>
                     <p>The product we present you is Erasmus Helper</p>
                 </div>
                 <div class="col-6">
@@ -102,7 +102,7 @@ use ErasmusHelper\Controllers\Router;
         <div class="col background-white ultra-small-rounded py-5">
             <div class="row h-100">
                 <div class="col-6 border-divisor-right">
-                    <h3 class="fancy-font mb-5">FEUP & LGP</h3>
+                    <h3 class="fancy-font mb-4">FEUP & LGP</h3>
                     <p></p>
                 </div>
                 <div class="col-6">
