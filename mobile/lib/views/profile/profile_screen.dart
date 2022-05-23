@@ -2,6 +2,7 @@ import 'package:erasmus_helper/blocs/profile_bloc/profile_bloc.dart';
 import 'package:erasmus_helper/blocs/profile_bloc/profile_event.dart';
 import 'package:erasmus_helper/blocs/tag_bloc/tag_cubit.dart';
 import 'package:erasmus_helper/models/user.dart';
+import 'package:erasmus_helper/views/app_topbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,104 +49,110 @@ class _ProfileScreenState extends State {
           ),
           BlocProvider<TagCubit>(create: (_) => TagCubit(<Tag>[])),
         ],
-        child: BlocBuilder<ProfileBloc, ProfileState>(
-            builder: (blocContext, state) {
-          if (state is ProfileFetchedState) {
-            _profile = state.profile;
-          }
-          if (state is ProfileEditingState) {
-            _tags = state.tags;
-            blocContext.read<TagCubit>().addAll(_profile!.interests);
-          }
-          if (state is ProfileFetchedState || state is ProfileEditingState) {
-            return Container(
-                padding: const EdgeInsets.all(15.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildProfileBanner(
-                          state is ProfileEditingState,
-                          _profile?.fName ?? "",
-                          _profile?.lName ?? "",
-                          _profile?.countryCode ?? "",
-                          _profile?.description ?? ""),
-                      const SizedBox(
-                        height: 40.0,
-                      ),
-                      state is ProfileFetchedState
+        child: AppTopBar(
+            title: "Profile",
+            body: BlocBuilder<ProfileBloc, ProfileState>(
+                builder: (blocContext, state) {
+              if (state is ProfileFetchedState) {
+                _profile = state.profile;
+              }
+              if (state is ProfileEditingState) {
+                _tags = state.tags;
+                blocContext.read<TagCubit>().addAll(_profile!.interests);
+              }
+              if (state is ProfileFetchedState ||
+                  state is ProfileEditingState) {
+                return Container(
+                    padding: const EdgeInsets.all(15.0),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildProfileBanner(
+                              state is ProfileEditingState,
+                              _profile?.fName ?? "",
+                              _profile?.lName ?? "",
+                              _profile?.countryCode ?? "",
+                              _profile?.description ?? ""),
+                          const SizedBox(
+                            height: 40.0,
+                          ),
+                          state is ProfileFetchedState
                               ? Column(
-                            children: [
-                                _buildInfoListTile(Icons.school_rounded,
-                                    _profile?.facultyOriginName ?? ""),
-                                _buildInfoListTile(
-                                    Icons.phone, _profile?.phone ?? ""),
-                                _buildInfoListTile(Icons.whatsapp_rounded,
-                                    _profile?.whatsapp ?? ""),
-                                _buildInfoListTile(Icons.facebook_rounded,
-                                    _profile?.facebook ?? "")
-                              ],
-                          )
+                                  children: [
+                                    _buildInfoListTile(Icons.school_rounded,
+                                        _profile?.facultyOriginName ?? ""),
+                                    _buildInfoListTile(
+                                        Icons.phone, _profile?.phone ?? ""),
+                                    _buildInfoListTile(Icons.whatsapp_rounded,
+                                        _profile?.whatsapp ?? ""),
+                                    _buildInfoListTile(Icons.facebook_rounded,
+                                        _profile?.facebook ?? "")
+                                  ],
+                                )
                               : Column(
-                            children: [
-                              _buildEditListTile(_profile?.fName,
-                                  _fNameController, "FirstName"),
-                              _buildEditListTile(_profile?.lName,
-                                  _lNameController, "Last Name"),
-                              _buildEditListTile(_profile?.countryCode,
-                                  _countryController, "Country"),
-                              _buildEditListTile(_profile?.description,
-                                  _descriptionController, "Description"),
-                              _buildEditListTile(
-                                    _profile?.phone, _phoneController, "Phone"),
-                                _buildEditListTile(_profile?.whatsapp,
-                                    _whatsappController, "Whatsapp"),
-                                _buildEditListTile(_profile?.facebook,
-                                    _facebookController, "Facebook")
-                              ],
-                            ),
-                      const SizedBox(
-                        height: 20.0,
+                                  children: [
+                                    _buildEditListTile(_profile?.fName,
+                                        _fNameController, "FirstName"),
+                                    _buildEditListTile(_profile?.lName,
+                                        _lNameController, "Last Name"),
+                                    _buildEditListTile(_profile?.countryCode,
+                                        _countryController, "Country"),
+                                    _buildEditListTile(_profile?.description,
+                                        _descriptionController, "Description"),
+                                    _buildEditListTile(_profile?.phone,
+                                        _phoneController, "Phone"),
+                                    _buildEditListTile(_profile?.whatsapp,
+                                        _whatsappController, "Whatsapp"),
+                                    _buildEditListTile(_profile?.facebook,
+                                        _facebookController, "Facebook")
+                                  ],
+                                ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          _buildChipList(
+                              blocContext,
+                              state is ProfileEditingState,
+                              _tags,
+                              _profile!.interests),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          Center(
+                              child: state is ProfileEditingState
+                                  ? ElevatedButton(
+                                      onPressed: () {
+                                        _profile!.fName = _fNameController.text;
+                                        _profile!.lName = _lNameController.text;
+                                        _profile!.countryCode =
+                                            _countryController.text;
+                                        _profile!.description =
+                                            _descriptionController.text;
+                                        _profile!.phone = _phoneController.text;
+                                        _profile!.whatsapp =
+                                            _whatsappController.text;
+                                        _profile!.facebook =
+                                            _facebookController.text;
+                                        _profile!.interests =
+                                            blocContext.read<TagCubit>().state;
+                                        _profileBloc
+                                            .add(SubmitProfileEvent(_profile!));
+                                      },
+                                      child: Text("Submit"))
+                                  : ElevatedButton(
+                                      onPressed: () =>
+                                          _profileBloc.add(EditProfileEvent()),
+                                      child: Text("Edit")))
+                        ],
                       ),
-                      _buildChipList(blocContext, state is ProfileEditingState,
-                          _tags, _profile!.interests),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      Center(
-                          child: state is ProfileEditingState
-                              ? ElevatedButton(
-                                  onPressed: () {
-                                    _profile!.fName = _fNameController.text;
-                                    _profile!.lName = _lNameController.text;
-                                    _profile!.countryCode =
-                                        _countryController.text;
-                                    _profile!.description =
-                                        _descriptionController.text;
-                                    _profile!.phone = _phoneController.text;
-                                    _profile!.whatsapp =
-                                        _whatsappController.text;
-                                    _profile!.facebook =
-                                        _facebookController.text;
-                                    _profile!.interests =
-                                        blocContext.read<TagCubit>().state;
-                                    _profileBloc
-                                        .add(SubmitProfileEvent(_profile!));
-                                  },
-                                  child: Text("Submit"))
-                              : ElevatedButton(
-                                  onPressed: () =>
-                                      _profileBloc.add(EditProfileEvent()),
-                                  child: Text("Edit")))
-                    ],
-                  ),
-                ));
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        }));
+                    ));
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            })));
   }
 
   Widget _buildProfileBanner(bool editing, String fname, String lname,
