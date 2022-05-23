@@ -11,11 +11,11 @@ class GroupCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Future.wait(// wait for user info
+      future: Future.wait( // wait for user info
           [
-        GroupService.getGroupsWithTag(tagId),
-        TagService.getTagTitle(tagId)
-      ]),
+            GroupService.getGroupsWithTag(tagId),
+            TagService.getTagTitle(tagId)
+          ]),
       builder: (context, response) {
         if (response.connectionState == ConnectionState.done) {
           if (response.data != null) {
@@ -23,35 +23,39 @@ class GroupCarousel extends StatelessWidget {
             List groupIds = data[0] as List;
             String title = data[1].toString();
 
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, top: 10),
-                  child: Text(
-                    title,
-                    style: const TextStyle(fontSize: 30),
-                  ),
-                ),
-                SizedBox(
-                  height: 250,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: groupIds.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: GroupCard(groupId: groupIds[index]),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            );
+            return genCarrousel(title, groupIds);
           }
         }
         return Container();
       },
     );
+  }
+
+  Widget genCarrousel(String title, List groupIds) {
+    return Card(
+        elevation: 0,
+
+        child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+          child: Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 23),
+          ),
+        ),
+        SizedBox(
+          height: 208,
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: groupIds.length,
+              itemBuilder: (BuildContext context, int index) {
+                return GroupCard(groupId: groupIds[index]);
+              }
+          ),
+        ),
+      ],
+    ));
   }
 }
