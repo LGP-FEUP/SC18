@@ -100,10 +100,10 @@ class UserModel {
   }
 
   Map<String, bool> _interestsToJson() {
-    Map<String, bool> map = Map();
-    interests.forEach((element) {
+    Map<String, bool> map = {};
+    for (var element in interests) {
       map.addAll(element.toJson());
-    });
+    }
     return map;
   }
 }

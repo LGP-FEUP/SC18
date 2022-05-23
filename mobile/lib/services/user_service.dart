@@ -22,7 +22,6 @@ class UserService {
 
   Future<UserModel?> getUserProfile() async {
     final snapshot = await getUserRef().get();
-    print(snapshot.value);
     if (snapshot.exists) {
       return UserModel.fromProfileJson(snapshot.value as Map<dynamic, dynamic>);
     } else {

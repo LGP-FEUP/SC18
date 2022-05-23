@@ -8,7 +8,6 @@ class TagService {
     DatabaseReference ref = FirebaseDatabase.instance.ref(collectionName);
 
     final snapshot = await ref.get();
-    print(snapshot.value);
     List<Tag> tags = [];
     if (snapshot.exists) {
       Map<dynamic, dynamic> data = snapshot.value as Map<dynamic, dynamic>;
