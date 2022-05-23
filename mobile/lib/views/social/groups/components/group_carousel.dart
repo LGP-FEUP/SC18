@@ -23,6 +23,7 @@ class GroupCarousel extends StatelessWidget {
             List groupIds = data[0] as List;
             String title = data[1].toString();
 
+            if (groupIds.isEmpty) return Container();
             return genCarrousel(title, groupIds);
           }
         }

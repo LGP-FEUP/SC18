@@ -16,7 +16,8 @@ class GroupService {
 
   static Future<List<String>> getGroupsWithTag(String tagId) async {
     DataSnapshot data =
-        await FirebaseDatabase.instance.ref("tags/$tagId/groups").get();
+        await FirebaseDatabase.instance.ref("interests/$tagId/groups").get();
+    if (data.value == null) return [];
     return (data.value as Map).keys.map((e) => e as String).toList();
   }
 }

@@ -42,7 +42,6 @@ dependencies:
   flutter_dotenv: ^5.0.2
   expansion_tile_card: ^2.0.0
   firebase_storage: ^10.2.16
-  cached_network_image: ^3.2.1
 
 dev_dependencies:
   flutter_test:
