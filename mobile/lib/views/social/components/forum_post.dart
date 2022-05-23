@@ -1,20 +1,37 @@
+import 'package:erasmus_helper/services/user_service.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/post.dart';
+
 class ForumPost extends StatelessWidget {
-  const ForumPost({Key? key}) : super(key: key);
+  final PostModel post;
+
+  const ForumPost({Key? key, required this.post}) : super(key: key);
+
+  final userPic =
+      "https://newsofmillcreek.com/sites/default/files/field/image/patches-cat-of-the-week_0.jpg";
+  final pic =
+      "https://static.vecteezy.com/system/resources/previews/000/671/117/original/triangle-polygon-background-vector.jpg";
 
   @override
   Widget build(BuildContext context) {
-    const pic =
-        "https://static.vecteezy.com/system/resources/previews/000/671/117/original/triangle-polygon-background-vector.jpg";
-    return Padding(
-        padding: const EdgeInsets.all(10),
-        child: _genPost(
-            userPic: pic,
-            name: "Ananachos",
-            text: "This is a post",
-            time: "4h ago",
-            postImage: pic));
+    return FutureBuilder(
+        future: UserService.getUserName(post.author),
+        builder: (context, response) {
+          if (response.connectionState == ConnectionState.done) {
+            if (response.data != null) {
+              return Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: _genPost(
+                      userPic: userPic,
+                      name: response.data.toString(),
+                      text: post.body != null ? post.body! : '',
+                      time: "4h ago"));
+            }
+            return Container();
+          }
+          return Container();
+        });
   }
 
   Widget _genPost(
