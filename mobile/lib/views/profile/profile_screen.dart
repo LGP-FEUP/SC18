@@ -1,14 +1,22 @@
 import 'package:erasmus_helper/blocs/profile_bloc/profile_bloc.dart';
 import 'package:erasmus_helper/blocs/profile_bloc/profile_event.dart';
+import 'package:erasmus_helper/blocs/tag_bloc/tag_cubit.dart';
 import 'package:erasmus_helper/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../blocs/profile_bloc/profile_state.dart';
+import '../../models/tag.dart';
 
-class ProfileScreen extends StatelessWidget {
-  final ProfileBloc _profileBloc = ProfileBloc();
+class ProfileScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State {
+  late ProfileBloc _profileBloc;
   UserModel? _profile;
+  List<Tag> _tags = [];
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _fNameController = TextEditingController();
   final TextEditingController _lNameController = TextEditingController();
@@ -19,20 +27,42 @@ class ProfileScreen extends StatelessWidget {
   final TextEditingController _facebookController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    _profileBloc = ProfileBloc();
     _profileBloc.add(FetchProfileEvent());
-    return BlocProvider(
-        create: (_) => _profileBloc,
-        child:
-            BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
+  }
+
+  @override
+  void dispose() {
+    _profileBloc.close();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<ProfileBloc>(
+            create: (_) => _profileBloc,
+          ),
+          BlocProvider<TagCubit>(create: (_) => TagCubit(<Tag>[])),
+        ],
+        child: BlocBuilder<ProfileBloc, ProfileState>(
+            builder: (blocContext, state) {
           if (state is ProfileFetchedState) {
             _profile = state.profile;
+          }
+          if (state is ProfileEditingState) {
+            _tags = state.tags;
+            blocContext.read<TagCubit>().addAll(_profile!.interests);
           }
           if (state is ProfileFetchedState || state is ProfileEditingState) {
             return Container(
                 padding: const EdgeInsets.all(15.0),
                 child: SingleChildScrollView(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _buildProfileBanner(
                           state is ProfileEditingState,
@@ -44,31 +74,29 @@ class ProfileScreen extends StatelessWidget {
                         height: 40.0,
                       ),
                       state is ProfileFetchedState
-                          ? Column(
-                              children: [
-                                _buildInfoListTile(Icons.school_rounded,
-                                    _profile?.erasmusFaculty ?? ""),
-                                _buildInfoListTile(
-                                    Icons.phone, _profile?.phone ?? ""),
-                                _buildInfoListTile(Icons.whatsapp_rounded,
-                                    _profile?.whatsapp ?? ""),
-                                _buildInfoListTile(Icons.facebook_rounded,
-                                    _profile?.facebook ?? "")
-                              ],
-                            )
-                          : Column(
-                              children: [
-                                _buildEditListTile(_profile?.fName,
-                                    _fNameController, "FirstName"),
-                                _buildEditListTile(_profile?.lName,
-                                    _lNameController, "Last Name"),
-                                _buildEditListTile(_profile?.countryCode,
-                                    _countryController, "Country"),
-                                _buildEditListTile(_profile?.description,
-                                    _descriptionController, "Description"),
-                                _buildEditListTile(_profile?.erasmusFaculty,
-                                    _facultyController, "Faculty"),
-                                _buildEditListTile(
+                              ? Column(
+                            children: [
+                              _buildInfoListTile(Icons.school_rounded,
+                                  _profile?.erasmusFaculty ?? ""),
+                              _buildInfoListTile(
+                                  Icons.phone, _profile?.phone ?? ""),
+                              _buildInfoListTile(Icons.whatsapp_rounded,
+                                  _profile?.whatsapp ?? ""),
+                              _buildInfoListTile(Icons.facebook_rounded,
+                                  _profile?.facebook ?? "")
+                            ],
+                          )
+                              : Column(
+                            children: [
+                              _buildEditListTile(_profile?.fName,
+                                  _fNameController, "FirstName"),
+                              _buildEditListTile(_profile?.lName,
+                                  _lNameController, "Last Name"),
+                              _buildEditListTile(_profile?.countryCode,
+                                  _countryController, "Country"),
+                              _buildEditListTile(_profile?.description,
+                                  _descriptionController, "Description"),
+                              _buildEditListTile(
                                     _profile?.phone, _phoneController, "Phone"),
                                 _buildEditListTile(_profile?.whatsapp,
                                     _whatsappController, "Whatsapp"),
@@ -79,36 +107,36 @@ class ProfileScreen extends StatelessWidget {
                       const SizedBox(
                         height: 20.0,
                       ),
-                      _buildChipList([
-                        "hiking",
-                        "music",
-                        "sport",
-                        "games",
-                        "party",
-                        "cooking",
-                        "surfing",
-                        "basketball",
-                        "soccer",
-                        "karaoke"
-                      ]),
-                      state is ProfileEditingState
-                          ? ElevatedButton(
-                              onPressed: () {
-                                _profile!.fName = _fNameController.text;
-                                _profile!.lName = _lNameController.text;
-                                _profile!.countryCode = _countryController.text;
-                                _profile!.description =
-                                    _descriptionController.text;
-                                _profile!.phone = _phoneController.text;
-                                _profile!.whatsapp = _whatsappController.text;
-                                _profile!.facebook = _facebookController.text;
-                                _profileBloc.add(SubmitProfileEvent(_profile!));
-                              },
-                              child: Text("Submit"))
-                          : ElevatedButton(
-                              onPressed: () =>
-                                  _profileBloc.add(EditProfileEvent()),
-                              child: Text("Edit"))
+                      _buildChipList(blocContext, state is ProfileEditingState,
+                          _tags, _profile!.interests),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      Center(
+                          child: state is ProfileEditingState
+                              ? ElevatedButton(
+                                  onPressed: () {
+                                    _profile!.fName = _fNameController.text;
+                                    _profile!.lName = _lNameController.text;
+                                    _profile!.countryCode =
+                                        _countryController.text;
+                                    _profile!.description =
+                                        _descriptionController.text;
+                                    _profile!.phone = _phoneController.text;
+                                    _profile!.whatsapp =
+                                        _whatsappController.text;
+                                    _profile!.facebook =
+                                        _facebookController.text;
+                                    _profile!.interests =
+                                        blocContext.read<TagCubit>().state;
+                                    _profileBloc
+                                        .add(SubmitProfileEvent(_profile!));
+                                  },
+                                  child: Text("Submit"))
+                              : ElevatedButton(
+                                  onPressed: () =>
+                                      _profileBloc.add(EditProfileEvent()),
+                                  child: Text("Edit")))
                     ],
                   ),
                 ));
@@ -164,10 +192,11 @@ class ProfileScreen extends StatelessWidget {
               ),
             ],
           )
-        : const CircleAvatar(
+        : const Center(
+            child: CircleAvatar(
             backgroundImage: AssetImage("assets/avatar.jpg"),
             radius: 60,
-          );
+          ));
   }
 
   Image _getFlag(String countryCode) {
@@ -180,7 +209,8 @@ class ProfileScreen extends StatelessWidget {
     });
   }
 
-  Widget _buildChipList(List<String> labels) {
+  Widget _buildChipList(BuildContext context, bool edit, List<Tag> labels,
+      List<Tag> userInterests) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -197,7 +227,9 @@ class ProfileScreen extends StatelessWidget {
         Wrap(
           spacing: 6.0,
           runSpacing: 6.0,
-          children: labels.map((label) => _buildChip(label)).toList(),
+          children: !edit
+              ? userInterests.map((tag) => _buildChip(tag.title)).toList()
+              : _tags.map((tag) => _buildActionChip(context, tag)).toList(),
         ),
       ],
     );
@@ -214,6 +246,41 @@ class ProfileScreen extends StatelessWidget {
       backgroundColor: Colors.blueGrey.shade600,
       padding: const EdgeInsets.all(8.0),
     );
+  }
+
+  Widget _buildActionChip(BuildContext context, Tag tag) {
+    return BlocBuilder<TagCubit, List<Tag>>(builder: (context, tagList) {
+      bool _selected = _containsTag(tag, tagList);
+      return ActionChip(
+        label: Text(
+          tag.title,
+          style: _selected
+              ? const TextStyle(color: Colors.white)
+              : TextStyle(color: Colors.blueGrey.shade600),
+        ),
+        elevation: 2.0,
+        shadowColor: Colors.grey[60],
+        backgroundColor: _selected ? Colors.blueGrey.shade600 : Colors.white,
+        padding: const EdgeInsets.all(8.0),
+        onPressed: () {
+          if (_selected) {
+            context.read<TagCubit>().remove(tag);
+          } else {
+            context.read<TagCubit>().add(tag);
+          }
+        },
+      );
+    });
+  }
+
+  bool _containsTag(Tag compare, List<Tag> tagList) {
+    bool contains = false;
+    for (var element in tagList) {
+      if (element.title == compare.title) {
+        contains = true;
+      }
+    }
+    return contains;
   }
 
   Widget _buildInfoListTile(IconData icon, String content) {

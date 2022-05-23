@@ -24,7 +24,7 @@ class UserService {
     final snapshot = await getUserRef().get();
     print(snapshot.value);
     if (snapshot.exists) {
-      return UserModel.fromJson(snapshot.value as Map<dynamic, dynamic>);
+      return UserModel.fromProfileJson(snapshot.value as Map<dynamic, dynamic>);
     } else {
       return null;
     }

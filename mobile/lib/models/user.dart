@@ -1,11 +1,12 @@
 import 'package:erasmus_helper/models/date.dart';
+import 'package:erasmus_helper/models/tag.dart';
 
 class UserModel {
   String fName, lName, facultyOrigin, erasmusFaculty;
   late DateModel birthdate;
   String? email, password;
   String? description, countryCode, phone, whatsapp, facebook;
-  List<String?>? interests = [];
+  List<Tag> interests = [];
   String uid = "";
   List<String>? doneTasks;
 
@@ -55,8 +56,7 @@ class UserModel {
         "validation_level": "1"
       };
 
-  Map<String, dynamic> toProfileJson() =>
-      <String, dynamic>{
+  Map<String, dynamic> toProfileJson() => <String, dynamic>{
         "firstname": fName,
         "lastname": lName,
         "faculty_origin_id": facultyOrigin,
@@ -66,7 +66,7 @@ class UserModel {
         "phone": phone,
         "whatsapp": whatsapp,
         "facebook": facebook,
-        "interests": interests,
+        "interests": _interestsToJson()
       };
 
   UserModel.fromProfileJson(Map<dynamic, dynamic> json)
@@ -78,6 +78,27 @@ class UserModel {
         countryCode = json["country_code"],
         phone = json["phone"],
         whatsapp = json["whatsapp"],
-        facebook = json["facebook"],
-        interests = json["interests"];
+        facebook = json["facebook"] {
+    if (json['interests'] != null) {
+      interests = _interestsFromJson(json["interests"]);
+    }
+  }
+
+  List<Tag> _interestsFromJson(Map<dynamic, dynamic> json) {
+    List<Tag> tags = [];
+    json.forEach((key, value) {
+      if (value) {
+        tags.add(Tag.fromString(key));
+      }
+    });
+    return tags;
+  }
+
+  Map<String, bool> _interestsToJson() {
+    Map<String, bool> map = Map();
+    interests.forEach((element) {
+      map.addAll(element.toJson());
+    });
+    return map;
+  }
 }
