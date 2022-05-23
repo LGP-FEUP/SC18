@@ -5,7 +5,12 @@ class UserModel {
   String fName, lName, facultyOrigin, erasmusFaculty;
   late DateModel birthdate;
   String? email, password;
-  String? description, countryCode, phone, whatsapp, facebook;
+  String? description,
+      countryCode,
+      phone,
+      whatsapp,
+      facebook,
+      facultyOriginName;
   List<Tag> interests = [];
   String uid = "";
   List<String>? doneTasks;

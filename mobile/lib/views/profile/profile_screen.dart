@@ -76,15 +76,15 @@ class _ProfileScreenState extends State {
                       state is ProfileFetchedState
                               ? Column(
                             children: [
-                              _buildInfoListTile(Icons.school_rounded,
-                                  _profile?.erasmusFaculty ?? ""),
-                              _buildInfoListTile(
-                                  Icons.phone, _profile?.phone ?? ""),
-                              _buildInfoListTile(Icons.whatsapp_rounded,
-                                  _profile?.whatsapp ?? ""),
-                              _buildInfoListTile(Icons.facebook_rounded,
-                                  _profile?.facebook ?? "")
-                            ],
+                                _buildInfoListTile(Icons.school_rounded,
+                                    _profile?.facultyOriginName ?? ""),
+                                _buildInfoListTile(
+                                    Icons.phone, _profile?.phone ?? ""),
+                                _buildInfoListTile(Icons.whatsapp_rounded,
+                                    _profile?.whatsapp ?? ""),
+                                _buildInfoListTile(Icons.facebook_rounded,
+                                    _profile?.facebook ?? "")
+                              ],
                           )
                               : Column(
                             children: [
