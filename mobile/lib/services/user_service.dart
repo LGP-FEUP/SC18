@@ -26,4 +26,19 @@ class UserService {
 
     return (data.value as Map).keys.map((e) => e as String).toList();
   }
+
+  Future<UserModel?> getUserProfile() async {
+    final snapshot = await getUserRef().get();
+    print(snapshot.value);
+    if (snapshot.exists) {
+      return UserModel.fromProfileJson(snapshot.value as Map<dynamic, dynamic>);
+    } else {
+      return null;
+    }
+  }
+
+  static void updateUserProfile(UserModel profile) async {
+    var ref = getUserRef();
+    await ref.update(profile.toProfileJson());
+  }
 }
