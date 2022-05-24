@@ -10,6 +10,8 @@ import '../../blocs/profile_bloc/profile_state.dart';
 import '../../models/tag.dart';
 
 class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _ProfileScreenState();
 }
@@ -22,7 +24,6 @@ class _ProfileScreenState extends State {
   final TextEditingController _fNameController = TextEditingController();
   final TextEditingController _lNameController = TextEditingController();
   final TextEditingController _countryController = TextEditingController();
-  final TextEditingController _facultyController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _whatsappController = TextEditingController();
   final TextEditingController _facebookController = TextEditingController();
@@ -51,6 +52,7 @@ class _ProfileScreenState extends State {
         ],
         child: AppTopBar(
             title: "Profile",
+            activateBackButton: true,
             body: BlocBuilder<ProfileBloc, ProfileState>(
                 builder: (blocContext, state) {
               if (state is ProfileFetchedState) {
@@ -139,11 +141,11 @@ class _ProfileScreenState extends State {
                                         _profileBloc
                                             .add(SubmitProfileEvent(_profile!));
                                       },
-                                      child: Text("Submit"))
+                                      child: const Text("Submit"))
                                   : ElevatedButton(
                                       onPressed: () =>
                                           _profileBloc.add(EditProfileEvent()),
-                                      child: Text("Edit")))
+                                      child: const Text("Edit")))
                         ],
                       ),
                     ));

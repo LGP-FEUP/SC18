@@ -39,7 +39,7 @@ class AppTopBar extends StatelessWidget {
                 backgroundImage: AssetImage("assets/avatar.jpg"),
               ),
               onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProfileScreen()))),
+                  MaterialPageRoute(builder: (context) => const ProfileScreen()))),
           // TODO : add notification system
           IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))
         ],
