@@ -1,6 +1,7 @@
 import 'package:erasmus_helper/models/cultureCategory.dart';
 import 'package:erasmus_helper/models/cultureEntry.dart';
 import 'package:erasmus_helper/views/cultural/components/category_widget.dart';
+import 'package:erasmus_helper/views/cultural/culture_details.dart';
 import 'package:erasmus_helper/views/cultural/culture_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -45,8 +46,18 @@ class CulturalPage extends StatelessWidget {
                         children: <Widget>[
                           for (final entry in entries.where((e) => e.categoryIds
                               .contains(cultureState.selectedCategoryId)))
-                            EntryWidget(
-                              entry: entry,
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) => CultureDetails(
+                                            entry,
+                                          )),
+                                );
+                              },
+                              child: EntryWidget(
+                                entry: entry,
+                              ),
                             )
                         ],
                       ),
