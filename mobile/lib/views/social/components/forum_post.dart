@@ -1,5 +1,6 @@
 import 'package:erasmus_helper/services/user_service.dart';
 import 'package:flutter/material.dart';
+import 'package:jiffy/jiffy.dart';
 
 import '../../../models/post.dart';
 
@@ -26,7 +27,7 @@ class ForumPost extends StatelessWidget {
                       userPic: userPic,
                       name: response.data.toString(),
                       text: post.body != null ? post.body! : '',
-                      time: "4h ago"));
+                      time: post.time));
             }
             return Container();
           }
@@ -38,8 +39,10 @@ class ForumPost extends StatelessWidget {
       {required String userPic,
       required String name,
       required String text,
-      required String time,
+      required int time,
       String postImage = ''}) {
+    String timeAgo = Jiffy(DateTime.fromMillisecondsSinceEpoch(time)).fromNow();
+
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       child: Column(
@@ -47,7 +50,7 @@ class ForumPost extends StatelessWidget {
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[_genUserInfo(name, userPic, time)],
+            children: <Widget>[_genUserInfo(name, userPic, timeAgo)],
           ),
           const SizedBox(
             height: 20,
