@@ -3,6 +3,8 @@ import 'package:erasmus_helper/views/cultural/components/culture_details_backgro
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'components/culture_content.dart';
+
 class CultureDetails extends StatelessWidget {
   final CultureEntry entry;
 
@@ -14,9 +16,10 @@ class CultureDetails extends StatelessWidget {
       body: Provider<CultureEntry>.value(
         value: entry,
         child: Stack(
+          fit: StackFit.expand,
           children: <Widget>[
             CultureDetailsBackground(),
-            //CultureDetailsContent(entry),
+            CultureContent(),
           ],
         ),
       ),

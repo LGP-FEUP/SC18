@@ -9,7 +9,7 @@ class ForumWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 20),
+      margin: const EdgeInsets.only(top: 8),
       elevation: 4,
       color: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
@@ -48,6 +48,10 @@ class ForumWidget extends StatelessWidget {
                           )
                         ],
                       ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Icon(Icons.more_horiz_rounded),
                     ),
                   ],
                 )

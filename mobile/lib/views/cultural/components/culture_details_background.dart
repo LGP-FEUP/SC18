@@ -9,11 +9,11 @@ class CultureDetailsBackground extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     final entry = Provider.of<CultureEntry>(context);
 
-    return ClipPath(
-      clipper: ImageClipper(),
+    return Align(
+      alignment: Alignment.topCenter,
       child: Image.asset(
         entry.imagePath,
-        fit: BoxFit.cover,
+        fit: BoxFit.fitWidth,
         width: screenWidth,
         height: screenHeight * 0.5,
       ),

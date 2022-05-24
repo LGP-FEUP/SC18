@@ -18,12 +18,15 @@ class EntryWidget extends StatelessWidget {
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: Image.asset(
-                    entry.imagePath,
-                    height: 150,
-                    fit: BoxFit.fitWidth,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(30),
+                    child: Image.asset(
+                      entry.imagePath,
+                      height: 150,
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
                 ),
                 Row(
@@ -35,7 +38,7 @@ class EntryWidget extends StatelessWidget {
                         children: <Widget>[
                           Text(entry.title),
                           SizedBox(
-                            height: 10,
+                            height: 15,
                           ),
                           Row(
                             children: <Widget>[
@@ -43,11 +46,18 @@ class EntryWidget extends StatelessWidget {
                               SizedBox(
                                 width: 5,
                               ),
-                              Text(entry.location),
+                              Text(
+                                entry.location,
+                                textAlign: TextAlign.left,
+                              ),
                             ],
                           )
                         ],
                       ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Icon(Icons.more_horiz_rounded),
                     ),
                   ],
                 )
