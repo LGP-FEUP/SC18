@@ -1,4 +1,4 @@
-import 'package:erasmus_helper/views/settings/account_page.dart';
+import 'package:erasmus_helper/views/profile/profile_screen.dart';
 import 'package:erasmus_helper/views/settings/help_page.dart';
 import 'package:erasmus_helper/views/settings/settings_page.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@ class AppDrawer extends StatelessWidget {
             leading: const Icon(Icons.person),
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const AccountPage()));
+                  MaterialPageRoute(builder: (context) => const ProfileScreen()));
             },
           ),
           ListTile(

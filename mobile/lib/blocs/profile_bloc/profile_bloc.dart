@@ -18,7 +18,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   @override
   void onTransition(Transition<ProfileEvent, ProfileState> transition) {
-    print(transition);
     super.onTransition(transition);
   }
 
