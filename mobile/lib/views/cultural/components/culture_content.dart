@@ -12,22 +12,22 @@ class CultureContent extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(children: <Widget>[
         SizedBox(
-          height: screenHeight * 0.5,
+          height: screenHeight * 0.48,
         ),
         Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
             child: Text(
               entry.title,
             ),
           ),
         ),
         SizedBox(
-          height: 20,
+          height: 10,
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
           child: Row(
             children: <Widget>[
               Icon(
@@ -42,7 +42,22 @@ class CultureContent extends StatelessWidget {
               ),
             ],
           ),
-        )
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+          child: SizedBox(
+            height: 140,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(children: <Widget>[
+                Text(entry.description),
+              ]),
+            ),
+          ),
+        ),
       ]),
     );
   }

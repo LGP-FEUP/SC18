@@ -26,18 +26,19 @@ final artCat = CultureCategory(
 
 final sportsCat = CultureCategory(3, "Sports", Icons.sports);
 
-final religionCat = CultureCategory(4, "Religion", Icons.church);
+final religionCat = CultureCategory(4, "Explore", Icons.nordic_walking);
 
-final architectureCat = CultureCategory(
+final studyCat = CultureCategory(
   5,
-  "Architecture",
-  Icons.architecture,
+  "study",
+  Icons.book,
 );
 
 final cultureCategories = [
   allCat,
   foodCat,
+  artCat,
   sportsCat,
   religionCat,
-  architectureCat
+  studyCat
 ];

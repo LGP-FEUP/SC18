@@ -9,7 +9,7 @@ class ForumWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.only(top: 8),
+      margin: const EdgeInsets.symmetric(vertical: 20),
       elevation: 4,
       color: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
@@ -18,12 +18,15 @@ class ForumWidget extends StatelessWidget {
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: Image.asset(
-                    entry.imagePath,
-                    height: 150,
-                    fit: BoxFit.fitWidth,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(30),
+                    child: Image.asset(
+                      entry.imagePath,
+                      height: 150,
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
                 ),
                 Row(
@@ -35,17 +38,20 @@ class ForumWidget extends StatelessWidget {
                         children: <Widget>[
                           Text(entry.title),
                           SizedBox(
-                            height: 10,
+                            height: 15,
                           ),
-                          Row(
+                          /*Row(
                             children: <Widget>[
                               Icon(Icons.location_on),
                               SizedBox(
                                 width: 5,
                               ),
-                              Text(entry.location),
+                              Text(
+                                entry.location,
+                                textAlign: TextAlign.left,
+                              ),
                             ],
-                          )
+                          )*/
                         ],
                       ),
                     ),

@@ -1,4 +1,4 @@
-import 'package:erasmus_helper/models/forumCategory.dart';
+import 'package:erasmus_helper/models/cultureCategory.dart';
 import 'package:erasmus_helper/models/forumEntry.dart';
 import 'package:erasmus_helper/views/forums/components/category_widget.dart';
 import 'package:erasmus_helper/views/forums/forums_state.dart';
@@ -31,7 +31,7 @@ class ForumsPage extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: <Widget>[
-                            for (final category in forumCategories)
+                            for (final category in cultureCategories)
                               CategoryWidget(category: category),
                           ],
                         ),

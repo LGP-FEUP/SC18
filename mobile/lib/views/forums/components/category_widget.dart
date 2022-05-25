@@ -1,11 +1,11 @@
-import 'package:erasmus_helper/models/forumCategory.dart';
+import 'package:erasmus_helper/models/cultureCategory.dart';
 import 'package:erasmus_helper/views/forums/forums_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CategoryWidget extends StatelessWidget {
-  final ForumCategory category;
+  final CultureCategory category;
 
   const CategoryWidget({Key? key, required this.category}) : super(key: key);
 
