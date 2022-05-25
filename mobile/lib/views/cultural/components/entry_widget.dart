@@ -12,7 +12,7 @@ class EntryWidget extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 20),
       elevation: 4,
       color: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
@@ -21,7 +21,7 @@ class EntryWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(4),
                     child: Image.asset(
                       entry.imagePath,
                       height: 150,

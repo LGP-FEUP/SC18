@@ -32,10 +32,10 @@ class _LoginFormState extends State<LoginForm> {
         child: Column(
           children: <Widget>[
             Utils.genLogo(MediaQuery.of(context).size.height),
-            Utils.genTitle("Sign up"),
+            Utils.genTitle("Sign in"),
             ..._genInputs(context),
             Utils.genSubmitButton("Login", onSubmit),
-            Utils.genLink("Create account.", navigateToRegisterPage)
+            Utils.genLink("Create an account!", navigateToRegisterPage)
           ],
         ));
   }
@@ -61,10 +61,24 @@ class _LoginFormState extends State<LoginForm> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Logging in')),
       );
-      context.read<AuthenticationService>().signIn(
+      context
+          .read<AuthenticationService>()
+          .signIn(
             email: emailController.text.trim(),
             password: passwordController.text.trim(),
+          )
+          .then((value) {
+        if (value?.compareTo("Signed in") == 0) {
+          Utils.navigateToHomePage(context);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(value!),
+              backgroundColor: Colors.red,
+            ),
           );
+        }
+      });
     }
   }
 

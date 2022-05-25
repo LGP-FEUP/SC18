@@ -4,14 +4,12 @@ import 'package:erasmus_helper/services/utils_service.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class TasksService {
-  static String collectionName = "tasks/";
+  // static String collectionName = "tasks/";
 
   static Future<List<TaskModel>> getTasks(String facultyId) async {
     List<TaskModel> tasks = [];
     final DataSnapshot snap = await FirebaseDatabase.instance
-        .ref(collectionName)
-        .orderByChild("faculty_id")
-        .equalTo(facultyId)
+        .ref("faculties/$facultyId/tasks/")
         .get();
 
     if (snap.exists) {
@@ -19,7 +17,6 @@ class TasksService {
         tasks.add(TaskModel.fromJson(element.key, element.value));
       }
     }
-
     return tasks;
   }
 
@@ -41,10 +38,8 @@ class TasksService {
   }
 
   static Future<void> deleteUserDoneTask(String id) async {
-    final DataSnapshot snap = await getUserDoneTasksRef()
-        .orderByChild("task_id")
-        .equalTo(id)
-        .get();
+    final DataSnapshot snap =
+        await getUserDoneTasksRef().orderByChild("task_id").equalTo(id).get();
 
     if (snap.exists) {
       for (var element in snap.children) {

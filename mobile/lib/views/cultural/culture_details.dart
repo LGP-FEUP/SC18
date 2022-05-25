@@ -13,6 +13,9 @@ class CultureDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(entry.title),
+      ),
       body: Provider<CultureEntry>.value(
         value: entry,
         child: Stack(

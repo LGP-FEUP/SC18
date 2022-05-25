@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sumsera.erasmus_helper">
    <application
-        android:label="erasmus_helper"
+        android:label="Erasmus Helper"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

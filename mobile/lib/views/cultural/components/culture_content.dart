@@ -49,7 +49,7 @@ class CultureContent extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
           child: SizedBox(
-            height: 140,
+            height: 190,
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(children: <Widget>[

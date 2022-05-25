@@ -19,4 +19,11 @@ class FacultyService {
 
     return snap.value.toString();
   }
+
+  static Future<String> getFacultyById(String id) async {
+    final DataSnapshot snap =
+        await FirebaseDatabase.instance.ref(collectionName + id).get();
+    final Map map = snap.value as Map<dynamic, dynamic>;
+    return map["name"];
+  }
 }
