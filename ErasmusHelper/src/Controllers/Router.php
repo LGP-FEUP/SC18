@@ -29,7 +29,7 @@ class Router extends AbstractRouter
             'login'                         => ["GET", "/login", [AuthController::class, "login"]],
             'logout'                        => ["GET", "/logout", [AuthController::class, "logout"]],
             'auth'                          => ["POST", "/auth", [AuthController::class, "auth"]],
-            'configuration'                 => ["GET", "/menu", [ConfigurationController::class, "home"]],
+            'menu'                          => ["GET", "/menu", [MenuController::class, "displayAll"]],
             'staffs'                        => ["GET", "/staffs", [StaffController::class, "displayAll"]],
             'staffs.search'                 => ["POST", "/staffs/search", [ModalController::class, "searchStaffs"]],
             'staff.create.page'             => ["GET", "/staff/create", [StaffController::class, "create"]],

@@ -38,7 +38,7 @@ class AuthController extends Controller {
         if($password != null && $email != null){
             if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 if(App::getInstance()->auth->login($email, $password)) {
-                    $this->redirect(Router::route("configuration"), ["success" => "Connection successful"]);
+                    $this->redirect(Router::route("menu"), ["success" => "Connection successful"]);
                 } else $error = "Unknown user or invalid password";
             } else $error = "Invalid email";
         }

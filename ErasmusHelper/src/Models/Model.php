@@ -190,4 +190,10 @@ abstract class Model
         return static::STORAGE;
     }
 
+    /**
+     * @throws DatabaseException
+     */
+    public static function getCount(array $where = null): int {
+        return sizeof(static::getAll($where));
+    }
 }

@@ -2,16 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01e72773-c757-477b-a21c-12eb42dec2f7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ErasmusHelper/views/staffs/search.htm.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/MenuController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ErasmusHelper/views/menu/list.htm.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ErasmusHelper/views/menu/requests/create.htm.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ErasmusHelper/views/menu/requests/details.htm.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ErasmusHelper/views/menu/requests/list.htm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/SC18.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SC18.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/ModalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/ModalController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/ConfigurationController.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/Router.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/Router.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/StaffController.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/StaffController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Models/Model.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Models/Model.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Models/StaffModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Models/StaffModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/layouts/empty.htm.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/staffs/list.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/staffs/list.htm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/users/list.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/users/list.htm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/users/search.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/users/search.htm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/configuration/container.htm.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/configuration/deviceTypes/details.htm.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/configuration/deviceTypes/list.htm.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/configuration/zones/city.htm.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/configuration/zones/department.htm.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/configuration/zones/list.htm.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/configuration/zones/region.htm.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/layouts/backoffice.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/layouts/backoffice.htm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/layouts/master.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/layouts/master.htm.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,11 +54,11 @@
                 <list>
                   <RecentBranch>
                     <option name="branchName" value="backoffice-staff" />
-                    <option name="lastUsedInstant" value="1652799219" />
+                    <option name="lastUsedInstant" value="1653382765" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="backoffice-dev" />
-                    <option name="lastUsedInstant" value="1652702079" />
+                    <option name="lastUsedInstant" value="1653382749" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="main" />
@@ -61,12 +74,14 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/ErasmusHelper/conf.inc.example.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ErasmusHelper/conf.inc.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ErasmusHelper/src/Controllers/CityController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ErasmusHelper/src/Controllers/FacultyController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ErasmusHelper/src/Controllers/Router.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ErasmusHelper/src/Controllers/UserController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ErasmusHelper/src/Core/Auth.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ErasmusHelper/src/Models/Model.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ErasmusHelper/src/Models/StaffModel.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ErasmusHelper/views/cities/create.htm.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ErasmusHelper/views/faculties/create.htm.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
@@ -119,18 +134,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/var/www/SC18/ErasmusHelper/views/staffs",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "watcher.settings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/var/www/SC18/ErasmusHelper/views/staffs&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;watcher.settings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ErasmusHelper/views/staffs" />
@@ -176,6 +191,10 @@
       <workItem from="1652792750377" duration="4666000" />
       <workItem from="1652825183013" duration="6170000" />
       <workItem from="1652973369031" duration="2770000" />
+      <workItem from="1653382729326" duration="1680000" />
+      <workItem from="1653385065658" duration="3551000" />
+      <workItem from="1653418714911" duration="1420000" />
+      <workItem from="1653484084108" duration="8996000" />
     </task>
     <task id="LOCAL-00001" summary="Updated staff ids &amp; user information.">
       <created>1652453710224</created>

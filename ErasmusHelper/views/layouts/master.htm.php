@@ -26,7 +26,7 @@ use ErasmusHelper\Controllers\Router;
                     <?php
                     if(App::getInstance()->auth->isAuth()) {
                     ?>
-                    <a class="link" href="<?= Router::route("configuration") ?>"><i class="fas fa-user r"></i>BackOffice</a>
+                    <a class="link" href="<?= Router::route("menu") ?>"><i class="fas fa-user r"></i>BackOffice</a>
                     <?php
                     } else {
                     ?>

@@ -51,6 +51,7 @@ class StaffController extends CityModsBackOfficeController {
         } else {
             $this->requirePrivileges(ADMIN_PRIVILEGES);
             $countryMods = CountryModerator::getAll();
+            Dbg::critical(sizeof($countryMods));
             foreach ($countryMods as $comod) {
                 $staffs[] = $comod;
             }

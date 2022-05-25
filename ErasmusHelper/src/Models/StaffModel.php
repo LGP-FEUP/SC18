@@ -180,4 +180,12 @@ abstract class StaffModel {
                 return null;
         }
     }
+
+    /**
+     * @throws FirebaseException
+     * @throws AuthException
+     */
+    public static function getCount(): int {
+        return sizeof(static::getAll());
+    }
 }
