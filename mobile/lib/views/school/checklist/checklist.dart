@@ -120,14 +120,14 @@ class _ChecklistState extends State<Checklist> {
       Padding(
         padding: const EdgeInsets.all(12),
         child: ExpansionTile(
-          title: _genListTitle("During Arrival"),
+          title: _genListTitle("During Stay"),
           children: during,
         ),
       ),
       Padding(
         padding: const EdgeInsets.all(12),
         child: ExpansionTile(
-          title: _genListTitle("After Arrival"),
+          title: _genListTitle("Before Departure"),
           children: after,
         ),
       ),
