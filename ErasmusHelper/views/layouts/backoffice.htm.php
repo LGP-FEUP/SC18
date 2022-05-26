@@ -47,7 +47,7 @@ use ErasmusHelper\Controllers\Router;
                         href="<?= Router::route("university_faqs") ?>"><i class="fas fa-sticky-note r"></i>FAQ</a>
             <?php } ?>
             <a <?= strpos($_SERVER["REQUEST_URI"], "users") ? "class='active'" : "" ?>
-                    href="<?= Router::route("users") ?>"><i class="fas fa-list-ul r"></i>Users</a>
+                    href="<?= Router::route("users") ?>"><i class="fas fa-users r"></i>Users</a>
             <?php if (App::getInstance()->auth->getPrivilegeLevel() <= CITYMODERATORS_PRIVILEGES) { ?>
                 <a <?= strpos($_SERVER["REQUEST_URI"], "staffs") ? "class='active'" : "" ?>
                         href="<?= Router::route("staffs") ?>"><i class="fas fa-address-book r"></i>Staff Management</a>
