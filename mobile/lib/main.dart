@@ -1,4 +1,5 @@
 import 'package:erasmus_helper/services/authentication_service.dart';
+import 'package:erasmus_helper/services/tag_service.dart';
 import 'package:erasmus_helper/views/authentication/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -1,6 +1,7 @@
+import 'package:erasmus_helper/models/model.dart';
 import 'package:intl/intl.dart';
 
-class DateModel {
+class DateModel extends model{
   late int day, month, year;
 
   DateModel(String date) {
