@@ -10,7 +10,7 @@ if(!empty($staffs)) { ?>
         <div class="box no-padding col-12">
             <div class="box-content">
                 <div class="table-wrapper">
-                    <table class="table <?= empty($staffs) ? 'empty' : '' ?>">
+                    <table class="table">
                         <tr>
                             <th>Identifier</th>
                             <th>Email Address</th>

@@ -2,14 +2,17 @@
 
 namespace ErasmusHelper\Controllers;
 
+use AgileBundle\Utils\Request;
+use DateTime;
 use ErasmusHelper\App;
-use ErasmusHelper\Models\City;
+use ErasmusHelper\Models\BackOfficeRequest;
 use ErasmusHelper\Models\CityModerator;
-use ErasmusHelper\Models\Country;
 use ErasmusHelper\Models\CountryModerator;
 use ErasmusHelper\Models\Faculty;
 use ErasmusHelper\Models\UniModerator;
 use ErasmusHelper\Models\User;
+use Exception;
+use JetBrains\PhpStorm\NoReturn;
 use Kreait\Firebase\Exception\AuthException;
 use Kreait\Firebase\Exception\DatabaseException;
 use Kreait\Firebase\Exception\FirebaseException;
@@ -76,9 +79,57 @@ class MenuController extends UniModsBackOfficeController {
                 "usersCount" => User::getCount(),
                 "uniModsCount" => UniModerator::getCount(),
                 "cityModsCount" => CityModerator::getCount(),
-                "countryModsCount" => CountryModerator::getCount()
+                "countryModsCount" => CountryModerator::getCount(),
+                "requests" => BackOfficeRequest::getAll(["status" => 0])
             ]);
         }
     }
 
+    /**
+     * @throws AuthException
+     * @throws FirebaseException
+     * @throws Exception
+     */
+    #[NoReturn] public function requestCreate() {
+        if(Request::valuePost("title") && Request::valuePost("content")) {
+            $request = new BackOfficeRequest();
+            $request->id = App::UUIDGenerator();
+            $request->date = new DateTime();
+            $request->content = Request::valuePost("content");
+            $request->title = Request::valuePost("title");
+            $request->status = 0;
+            $request->author = App::getInstance()->firebase->auth->getUser(App::getInstance()->auth->getAdminUID())->email;
+            $request->save();
+            $this->redirect(Router::route("menu"), ["success", "Request sent successfully."]);
+        }
+        $this->redirect(Router::route("menu"), ["error", "Unable to create a new request."]);
+    }
+
+    /**
+     * @throws DatabaseException
+     */
+    #[NoReturn] public function requestReject(string $id) {
+        $this->requirePrivileges(ADMIN_PRIVILEGES);
+        $request = BackOfficeRequest::select(["id" => $id]);
+        if($request != null && $request->exists()) {
+            $request->status = 2;
+            $request->save();
+            $this->redirect(Router::route("menu"), ["success", "Request rejected."]);
+        }
+        $this->redirect(Router::route("menu"), ["error", "Unable to change the request status."]);
+    }
+
+    /**
+     * @throws DatabaseException
+     */
+    #[NoReturn] public function requestValidate(string $id) {
+        $this->requirePrivileges(ADMIN_PRIVILEGES);
+        $request = BackOfficeRequest::select(["id" => $id]);
+        if($request != null && $request->exists()) {
+            $request->status = 1;
+            $request->save();
+            $this->redirect(Router::route("menu"), ["success", "Request validated."]);
+        }
+        $this->redirect(Router::route("menu"), ["error", "Unable to change the request status."]);
+    }
 }

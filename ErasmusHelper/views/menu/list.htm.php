@@ -7,7 +7,11 @@
  * @var int $usersIncoming
  * @var int $usersOutgoing
  * @var string $type
+ * @var BackOfficeRequest[] $requests
  */
+
+use ErasmusHelper\App;
+use ErasmusHelper\Models\BackOfficeRequest;
 
 ?>
 <div class="row">
@@ -102,16 +106,12 @@
         ?>
     </div>
     <div class="row col-12 col-md-8 wr">
-        <div class="col-12 wr">
-            <div class="row justify-content-center">
-                <div class="box col-12">
-                    <div class="box-header">
-                        <h1 style="text-align: center" class="box-title">Erasmus Helper</h1>
-                    </div>
-                    <div class="box-content">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>                    </div>
-                </div>
-            </div>
-        </div>
+        <?php
+        if(App::getInstance()->auth->getPrivilegeLevel() == ADMIN_PRIVILEGES) {
+            include "requests/list.htm.php";
+        } else {
+            include "requests/create.htm.php";
+        }
+        ?>
     </div>
 </div>
