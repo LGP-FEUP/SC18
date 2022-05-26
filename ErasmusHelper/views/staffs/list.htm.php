@@ -50,14 +50,20 @@ use ErasmusHelper\Models\UniModerator;
     let data = <?php echo json_encode($staffs, JSON_HEX_TAG); ?>;
 
     function updateList() {
-        let toReturn = [];
-        for(let i = 0; i < data.length; i++) {
-            if(data[i]["email"].toLowerCase().includes(this.value.toLowerCase())) {
-                toReturn.push(data[i]);
+        if(!(this.value === "")) {
+            let toReturn = [];
+            for (let i = 0; i < data.length; i++) {
+                if (data[i]["email"].toLowerCase().includes(this.value.toLowerCase())) {
+                    toReturn.push(data[i]);
+                }
             }
+            let searchModal = new Modal({
+                view_url: '<?= Router::route("staffs.search")?>',
+                view_data: toReturn,
+                title: 'Search Result'
+            });
+            searchModal.build();
+            searchModal.show();
         }
-        let searchModal = new Modal({view_url: '<?= Router::route("staffs.search")?>', view_data: toReturn, title: 'Search Result'});
-        searchModal.build();
-        searchModal.show();
     }
 </script>

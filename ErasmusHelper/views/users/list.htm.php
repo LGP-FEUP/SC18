@@ -51,23 +51,25 @@ use ErasmusHelper\Models\User;
     let data = <?php echo json_encode($users, JSON_HEX_TAG); ?>;
 
     function updateList() {
-        let random = Math.floor(Math.random() * 1000);
-        if(random === 0) {
-            window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley");
-        } else {
-            let toReturn = [];
-            for (let i = 0; i < data.length; i++) {
-                if (data[i]["lastname"].toLowerCase().includes(this.value.toLowerCase())) {
-                    toReturn.push(data[i]);
+        if(!(this.value === "")) {
+            let random = Math.floor(Math.random() * 1000);
+            if (random === 0) {
+                window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley");
+            } else {
+                let toReturn = [];
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i]["lastname"].toLowerCase().includes(this.value.toLowerCase())) {
+                        toReturn.push(data[i]);
+                    }
                 }
+                let searchModal = new Modal({
+                    view_url: '<?= Router::route("users.search")?>',
+                    view_data: toReturn,
+                    title: 'Search Result'
+                });
+                searchModal.build();
+                searchModal.show();
             }
-            let searchModal = new Modal({
-                view_url: '<?= Router::route("users.search")?>',
-                view_data: toReturn,
-                title: 'Search Result'
-            });
-            searchModal.build();
-            searchModal.show();
         }
     }
 </script>
