@@ -7,6 +7,7 @@ use ErasmusHelper\App;
 use JetBrains\PhpStorm\NoReturn;
 use Kreait\Firebase\Exception\AuthException;
 use Kreait\Firebase\Exception\FirebaseException;
+use Lcobucci\JWT\Exception;
 
 class AuthController extends Controller {
 
@@ -27,17 +28,14 @@ class AuthController extends Controller {
 
     /**
      * Form to try to connect an admin
-     *
-     * @throws AuthException
-     * @throws FirebaseException
      */
     #[NoReturn] public function auth() {
         $email = Request::valuePost("mail");
         $password = Request::valuePost("password");
         $error = "Error, please fill in password and email.";
-        if($password != null && $email != null){
-            if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                if(App::getInstance()->auth->login($email, $password)) {
+        if ($password != null && $email != null) {
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                if (App::getInstance()->auth->login($email, $password)) {
                     $this->redirect(Router::route("menu"), ["success" => "Connection successful"]);
                 } else $error = "Unknown user or invalid password";
             } else $error = "Invalid email";

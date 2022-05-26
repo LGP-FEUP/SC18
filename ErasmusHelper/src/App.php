@@ -2,6 +2,7 @@
 
 namespace ErasmusHelper;
 
+use AgileBundle\Utils\Dbg;
 use ErasmusHelper\Controllers\AuthController;
 use ErasmusHelper\Core\Auth;
 use ErasmusHelper\Core\DBConf;
@@ -26,10 +27,14 @@ class App {
      * Generates a v4 UUID.
      *
      * @return string
-     * @throws Exception
      */
     public static function UUIDGenerator(): string {
-        return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex(random_bytes(16)), 4));
+        try {
+            return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex(random_bytes(16)), 4));
+        } catch (Exception $e) {
+            Dbg::error($e);
+            return "";
+        }
     }
 
     public static function getPrivilegeName(int $privilege): string {

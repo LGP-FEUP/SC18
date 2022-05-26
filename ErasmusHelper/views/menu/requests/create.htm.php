@@ -14,7 +14,7 @@ use ErasmusHelper\Controllers\Router;
         </div>
         <div class="field">
             <div class="label">Content</div>
-            <input maxlength="512" name="content" class="value" type="text" value=""/>
+            <textarea maxlength="512" name="content" class="value" type="text"></textarea>
         </div>
         <div class="box-footer">
             <div class="button-group">

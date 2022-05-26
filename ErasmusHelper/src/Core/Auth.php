@@ -2,6 +2,7 @@
 
 namespace ErasmusHelper\Core;
 
+use AgileBundle\Utils\Dbg;
 use ErasmusHelper\App;
 use ErasmusHelper\Models\City;
 use ErasmusHelper\Models\Country;
@@ -49,10 +50,9 @@ class Auth {
 
     /**
      * @return Country|null
-     * @throws DatabaseException
      */
     public function getCountry(): ?Country {
-        if($this->isAuth() && $_SESSION["country_id"] != "") {
+        if ($this->isAuth() && $_SESSION["country_id"] != "") {
             return Country::select(["id" => $_SESSION["country_id"]]);
         }
         return null;
@@ -60,10 +60,9 @@ class Auth {
 
     /**
      * @return City|null
-     * @throws DatabaseException
      */
     public function getCity(): ?City {
-        if($this->isAuth() && $_SESSION["city_id"] != "") {
+        if ($this->isAuth() && $_SESSION["city_id"] != "") {
             return City::select(["id" => $_SESSION["city_id"]]);
         }
         return null;
@@ -71,10 +70,9 @@ class Auth {
 
     /**
      * @return Faculty|null
-     * @throws DatabaseException
      */
     public function getFaculty(): ?Faculty {
-        if($this->isAuth() && $_SESSION["faculty_id"] != "") {
+        if ($this->isAuth() && $_SESSION["faculty_id"] != "") {
             return Faculty::select(["id" => $_SESSION["faculty_id"]]);
         }
         return null;
@@ -97,15 +95,17 @@ class Auth {
      * @param $mail string Mail of the admin
      * @param $password string Password of the admin
      * @return bool True if connection successful, false otherwise
-     * @throws AuthException
-     * @throws FirebaseException
      */
     public function login(string $mail, string $password): bool {
-        $loginResult = App::getInstance()->firebase->auth->signInWithEmailAndPassword($mail, $password);
-        $user = App::getInstance()->firebase->auth->getUser($loginResult->firebaseUserId());
-        if(!empty($user->customClaims) && $user->customClaims["privilege_level"] >= ADMIN_PRIVILEGES) {
-            $this->auth($user);
-            return true;
+        try {
+            $loginResult = App::getInstance()->firebase->auth->signInWithEmailAndPassword($mail, $password);
+            $user = App::getInstance()->firebase->auth->getUser($loginResult->firebaseUserId());
+            if (!empty($user->customClaims) && $user->customClaims["privilege_level"] >= ADMIN_PRIVILEGES) {
+                $this->auth($user);
+                return true;
+            }
+        } catch (AuthException|FirebaseException $e) {
+            Dbg::error($e);
         }
         return false;
     }

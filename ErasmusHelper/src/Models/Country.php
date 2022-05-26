@@ -2,6 +2,7 @@
 
 namespace ErasmusHelper\Models;
 
+use AgileBundle\Utils\Dbg;
 use Kreait\Firebase\Exception\DatabaseException;
 
 class Country extends Model {
@@ -15,10 +16,9 @@ class Country extends Model {
     /**
      * Returns the list of cities associated to this country.
      *
-     * @return array
-     * @throws DatabaseException
+     * @return ?array
      */
-    public function getAssociatedCities(): array {
+    public function getAssociatedCities(): ?array {
         return City::getAll(["country_id" => $this->id]);
     }
 }

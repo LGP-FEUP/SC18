@@ -18,60 +18,55 @@ use Kreait\Firebase\Exception\FirebaseException;
 
 class StaffController extends CityModsBackOfficeController {
 
-    /**
-     * @throws AuthException
-     * @throws FirebaseException
-     */
     public function displayAll() {
-        $city = App::getInstance()->auth->getCity();
-        $country = App::getInstance()->auth->getCountry();
-        $cityMods = CityModerator::getAll();
-        $staffs = array();
-        $uniMods = UniModerator::getAll();
-        if($city != null) {
-            foreach ($uniMods as $mod) {
-                if(Faculty::select(["id" =>$mod->faculty_id])->getCity() == $city){
-                    $staffs[] = $mod;
+        try {
+            $city = App::getInstance()->auth->getCity();
+            $country = App::getInstance()->auth->getCountry();
+            $cityMods = CityModerator::getAll();
+            $staffs = array();
+            $uniMods = UniModerator::getAll();
+            if ($city != null) {
+                foreach ($uniMods as $mod) {
+                    if (Faculty::select(["id" => $mod->faculty_id])->getCity() == $city) {
+                        $staffs[] = $mod;
+                    }
                 }
-            }
-            $this->render("staffs.list", ["staffs" => $staffs]);
-        } elseif ($country != null) {
-            $this->requirePrivileges(COUNTRYMODERATORS_PRIVILEGES);
-            foreach ($uniMods as $fmod) {
-                if(Faculty::select(["id" => $fmod->faculty_id])->getCity()->getCountry() == $country) {
-                    $staffs[] = $fmod;
+            } elseif ($country != null) {
+                $this->requirePrivileges(COUNTRYMODERATORS_PRIVILEGES);
+                foreach ($uniMods as $fmod) {
+                    if (Faculty::select(["id" => $fmod->faculty_id])->getCity()->getCountry() == $country) {
+                        $staffs[] = $fmod;
+                    }
                 }
-            }
-            foreach ($cityMods as $cmod) {
-                if(City::select(["id" => $cmod->city_id])->getCountry() == $country) {
+                foreach ($cityMods as $cmod) {
+                    if (City::select(["id" => $cmod->city_id])->getCountry() == $country) {
+                        $staffs[] = $cmod;
+                    }
+                }
+            } else {
+                $this->requirePrivileges(ADMIN_PRIVILEGES);
+                $countryMods = CountryModerator::getAll();
+                Dbg::critical(sizeof($countryMods));
+                foreach ($countryMods as $comod) {
+                    $staffs[] = $comod;
+                }
+                foreach ($cityMods as $cmod) {
                     $staffs[] = $cmod;
                 }
+                foreach ($uniMods as $umod) {
+                    $staffs[] = $umod;
+                }
             }
             $this->render("staffs.list", ["staffs" => $staffs]);
-        } else {
-            $this->requirePrivileges(ADMIN_PRIVILEGES);
-            $countryMods = CountryModerator::getAll();
-            Dbg::critical(sizeof($countryMods));
-            foreach ($countryMods as $comod) {
-                $staffs[] = $comod;
-            }
-            foreach ($cityMods as $cmod) {
-                $staffs[] = $cmod;
-            }
-            foreach ($uniMods as $umod) {
-                $staffs[] = $umod;
-            }
-            $this->render("staffs.list", ["staffs" => $staffs]);
+        } catch (DatabaseException|AuthException|FirebaseException $e) {
+            $this->redirect(Router::route("/"), ["error" => $e]);
         }
     }
 
-    /**
-     * @throws DatabaseException
-     */
     public function create() {
         $city = App::getInstance()->auth->getCity();
         $country = App::getInstance()->auth->getCountry();
-        if($city != null) {
+        if ($city != null) {
             $this->render("staffs.create", ["faculties" => Faculty::getAll(["city_id" => $city->id])]);
         } elseif ($country != null) {
             $this->requirePrivileges(COUNTRYMODERATORS_PRIVILEGES);
@@ -153,120 +148,113 @@ class StaffController extends CityModsBackOfficeController {
         $this->redirect(Router::route("staffs"), ["error" => "Unable to create the Country Moderator."]);
     }
 
-    /**
-     * @throws DatabaseException
-     */
     public function edit($id) {
         $city = App::getInstance()->auth->getCity();
         $country = App::getInstance()->auth->getCountry();
-        if($city != null) {
+        if ($city != null) {
             $this->render("staffs.details", ["id" => $id, "faculties" => Faculty::getAll(["city_id" => $city->id])]);
         } elseif ($country != null) {
             $this->requirePrivileges(COUNTRYMODERATORS_PRIVILEGES);
-            $this->render("staffs.details", ["id" => $id, "faculties" => Faculty::getAllByCountry($country),  "cities" => City::getAll(["country_id" => $country->id])]);
+            $this->render("staffs.details", ["id" => $id, "faculties" => Faculty::getAllByCountry($country), "cities" => City::getAll(["country_id" => $country->id])]);
         } else {
             $this->requirePrivileges(ADMIN_PRIVILEGES);
-            $this->render("staffs.details", ["id" => $id, "faculties" => Faculty::getAll(),  "cities" => City::getAll(), "countries" => Country::getAll()]);
+            $this->render("staffs.details", ["id" => $id, "faculties" => Faculty::getAll(), "cities" => City::getAll(), "countries" => Country::getAll()]);
         }
     }
 
-    /**
-     * @param $id
-     * @throws AuthException
-     * @throws FirebaseException
-     */
     #[NoReturn] public function editUniPost($id) {
-        $this->requirePrivileges();
-        $staff = UniModerator::getById($id);
-        if(Request::valuePost("faculty_id")
-            && Request::valuePost("email")
-            && $staff && $staff->exists() == 1) {
-            $staff->faculty_id = Request::valuePost("faculty_id");
-            $staff->email = Request::valuePost("email");
-            App::getInstance()->firebase->auth->setCustomUserClaims($staff->id, [
-                "faculty_id" => Request::valuePost("faculty_id"),
-                "privilege_level" => UniModerator::PRIVILEGE_LEVEL
-            ]);
-            if($staff->save()) {
-                $this->redirect(Router::route("staffs"), ["success" => "Uni Moderator edited."]);
+        try {
+            $this->requirePrivileges();
+            $staff = UniModerator::getById($id);
+            if (Request::valuePost("faculty_id")
+                && Request::valuePost("email")
+                && $staff && $staff->exists() == 1) {
+                $staff->faculty_id = Request::valuePost("faculty_id");
+                $staff->email = Request::valuePost("email");
+                App::getInstance()->firebase->auth->setCustomUserClaims($staff->id, [
+                    "faculty_id" => Request::valuePost("faculty_id"),
+                    "privilege_level" => UniModerator::PRIVILEGE_LEVEL
+                ]);
+                if ($staff->save()) {
+                    $this->redirect(Router::route("staffs"), ["success" => "Uni Moderator edited."]);
+                }
             }
+            $this->redirect(Router::route("staffs"), ["error" => "Unable to edit the Uni Moderator."]);
+        } catch (AuthException|FirebaseException $e) {
+            $this->redirect(Router::route("/"), ["error" => $e]);
         }
-        $this->redirect(Router::route("staffs"), ["error" => "Unable to edit the Uni Moderator."]);
     }
 
-    /**
-     * @param $id
-     * @throws AuthException
-     * @throws FirebaseException
-     */
     #[NoReturn] public function editCityPost($id) {
-        $this->requirePrivileges(COUNTRYMODERATORS_PRIVILEGES);
-        $staff = CityModerator::getById($id);
-        if(Request::valuePost("city_id")
-            && Request::valuePost("email")
-            && $staff && $staff->exists() == 1) {
-            $staff->city_id = Request::valuePost("city_id");
-            $staff->email = Request::valuePost("email");
-            App::getInstance()->firebase->auth->setCustomUserClaims($staff->id, [
-                "city_id" => Request::valuePost("city_id"),
-                "privilege_level" => CityModerator::PRIVILEGE_LEVEL
-            ]);
-            if($staff->save()) {
-                $this->redirect(Router::route("staffs"), ["success" => "City Moderator edited."]);
-            }
-        }
-        $this->redirect(Router::route("staffs"), ["error" => "Unable to edit the City Moderator."]);
-    }
-
-    /**
-     * @param $id
-     * @throws AuthException
-     * @throws FirebaseException
-     */
-    #[NoReturn] public function editCountryPost($id) {
-        $this->requirePrivileges(ADMIN_PRIVILEGES);
-        $staff = CountryModerator::getById($id);
-        if(Request::valuePost("country_id")
-            && Request::valuePost("email")
-            && $staff && $staff->exists() == 1) {
-            $staff->country_id = Request::valuePost("country_id");
-            $staff->email = Request::valuePost("email");
-            App::getInstance()->firebase->auth->setCustomUserClaims($staff->id, [
-                "country_id" => Request::valuePost("country_id"),
-                "privilege_level" => CountryModerator::PRIVILEGE_LEVEL
-            ]);
-            if($staff->save()) {
-                $this->redirect(Router::route("staffs"), ["success" => "Country Moderator edited."]);
-            }
-        }
-        $this->redirect(Router::route("staffs"), ["error" => "Unable to edit the Country Moderator."]);
-    }
-
-    /**
-     * @param $id
-     * @throws AuthException
-     * @throws FirebaseException
-     */
-    #[NoReturn] public function changeAbility($id) {
-        $uniMod = UniModerator::getById($id);
-        $cityMod = CityModerator::getById($id);
-        $countryMod = CountryModerator::getById($id);
-
-        if($uniMod != null) {
-            $staff = $uniMod;
-        } elseif($cityMod != null) {
+        try {
             $this->requirePrivileges(COUNTRYMODERATORS_PRIVILEGES);
-            $staff = $cityMod;
-        } else {
-            $this->requirePrivileges(ADMIN_PRIVILEGES);
-            $staff = $countryMod;
-        }
-        if($staff != null && $staff->exists()) {
-            if($staff->changeAbility()) {
-                $this->redirect(Router::route("staffs"), ["success" => "Staff member ability updated."]);
+            $staff = CityModerator::getById($id);
+            if (Request::valuePost("city_id")
+                && Request::valuePost("email")
+                && $staff && $staff->exists() == 1) {
+                $staff->city_id = Request::valuePost("city_id");
+                $staff->email = Request::valuePost("email");
+                App::getInstance()->firebase->auth->setCustomUserClaims($staff->id, [
+                    "city_id" => Request::valuePost("city_id"),
+                    "privilege_level" => CityModerator::PRIVILEGE_LEVEL
+                ]);
+                if ($staff->save()) {
+                    $this->redirect(Router::route("staffs"), ["success" => "City Moderator edited."]);
+                }
             }
+            $this->redirect(Router::route("staffs"), ["error" => "Unable to edit the City Moderator."]);
+        } catch (AuthException|FirebaseException $e) {
+            $this->redirect(Router::route("/"), ["error" => $e]);
         }
-        $this->redirect(Router::route("staffs"), ["error" => "Failed to update the staff member ability."]);
+    }
+
+    #[NoReturn] public function editCountryPost($id) {
+        try {
+            $this->requirePrivileges(ADMIN_PRIVILEGES);
+            $staff = CountryModerator::getById($id);
+            if (Request::valuePost("country_id")
+                && Request::valuePost("email")
+                && $staff && $staff->exists() == 1) {
+                $staff->country_id = Request::valuePost("country_id");
+                $staff->email = Request::valuePost("email");
+                App::getInstance()->firebase->auth->setCustomUserClaims($staff->id, [
+                    "country_id" => Request::valuePost("country_id"),
+                    "privilege_level" => CountryModerator::PRIVILEGE_LEVEL
+                ]);
+                if ($staff->save()) {
+                    $this->redirect(Router::route("staffs"), ["success" => "Country Moderator edited."]);
+                }
+            }
+            $this->redirect(Router::route("staffs"), ["error" => "Unable to edit the Country Moderator."]);
+        } catch (AuthException|FirebaseException $e) {
+            $this->redirect(Router::route("/"), ["error" => $e]);
+        }
+    }
+
+    #[NoReturn] public function changeAbility($id) {
+        try {
+            $uniMod = UniModerator::getById($id);
+            $cityMod = CityModerator::getById($id);
+            $countryMod = CountryModerator::getById($id);
+
+            if ($uniMod != null) {
+                $staff = $uniMod;
+            } elseif ($cityMod != null) {
+                $this->requirePrivileges(COUNTRYMODERATORS_PRIVILEGES);
+                $staff = $cityMod;
+            } else {
+                $this->requirePrivileges(ADMIN_PRIVILEGES);
+                $staff = $countryMod;
+            }
+            if ($staff != null && $staff->exists()) {
+                if ($staff->changeAbility()) {
+                    $this->redirect(Router::route("staffs"), ["success" => "Staff member ability updated."]);
+                }
+            }
+            $this->redirect(Router::route("staffs"), ["error" => "Failed to update the staff member ability."]);
+        } catch (AuthException|FirebaseException $e) {
+            $this->redirect(Router::route("/"), ["error" => $e]);
+        }
     }
 
 }

@@ -1,5 +1,4 @@
 <?php
-/** @var $redirect */
 
 use ErasmusHelper\Controllers\Router;
 

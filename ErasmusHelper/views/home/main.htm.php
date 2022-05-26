@@ -11,7 +11,7 @@ use ErasmusHelper\Controllers\Router;
     </div>
     <div class="row justify-content-center">
         <div class="col-6 text-center">
-            <img src="<?= Router::resource("images", "EH_simplificado_positivo.jpg") ?>" class="rounded-img" alt="">
+            <img src="<?= Router::resource("images", "logo.png") ?>" class="rounded-img" alt="">
         </div>
     </div>
     <div class="row justify-content-center">

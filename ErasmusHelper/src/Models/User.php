@@ -23,15 +23,14 @@ class User extends Model {
     public $date_of_birth;
     private $authUser = null;
 
-    /**
-     * @throws FirebaseException
-     * @throws AuthException
-     * @throws Exception
-     */
     public function __construct(array $data = null) {
         parent::__construct($data);
-        if($this->exists()) {
-            $this->authUser = App::getInstance()->firebase->auth->getUser($this->id);
+        try {
+            if ($this->exists()) {
+                $this->authUser = App::getInstance()->firebase->auth->getUser($this->id);
+            }
+        } catch (AuthException|FirebaseException $e) {
+            Dbg::error($e);
         }
     }
 
@@ -75,18 +74,17 @@ class User extends Model {
      *
      * @param bool $arriving true for faculty of arriving, false for faculty of origin
      * @return Faculty|null
-     * @throws DatabaseException
      */
     public function getFaculty(bool $arriving = true): ?Faculty {
-        if($arriving) {
-            if($this->faculty_arriving_id) {
+        if ($arriving) {
+            if ($this->faculty_arriving_id) {
                 return Faculty::select(["id" => $this->faculty_arriving_id]);
             } else {
                 Dbg::error("Unable to find faculty arriving for such user.");
                 return null;
             }
         } else {
-            if($this->faculty_origin_id) {
+            if ($this->faculty_origin_id) {
                 return Faculty::select(["id" => $this->faculty_origin_id]);
             } else {
                 Dbg::error("Unable to find faculty of origin for such user.");
@@ -99,25 +97,28 @@ class User extends Model {
      * Disable the current user if it was enabled / Enable the current user if it was disabled.
      *
      * @return bool
-     * @throws AuthException
-     * @throws FirebaseException
      */
     public function changeAbility(): bool {
-        if($this->authUser) {
-            if($this->isDisabled()) {
-                $properties = array(
-                    "disabled" => false
-                );
+        try {
+            if ($this->authUser) {
+                if ($this->isDisabled()) {
+                    $properties = array(
+                        "disabled" => false
+                    );
+                } else {
+                    $properties = array(
+                        "disabled" => true
+                    );
+                }
+                App::getInstance()->firebase->auth->updateUser($this->id, $properties);
+                $this->authUser = App::getInstance()->firebase->auth->getUser($this->id);
+                return true;
             } else {
-                $properties = array(
-                    "disabled" => true
-                );
+                Dbg::error("Unable to update the user ability.");
+                return false;
             }
-            App::getInstance()->firebase->auth->updateUser($this->id, $properties);
-            $this->authUser = App::getInstance()->firebase->auth->getUser($this->id);
-            return true;
-        } else {
-            Dbg::error("Unable to update the user ability.");
+        } catch (AuthException|FirebaseException $e) {
+            Dbg::error($e);
             return false;
         }
     }

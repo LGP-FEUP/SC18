@@ -15,9 +15,6 @@ class Task extends Model
     public $steps;
     public $due_date;
 
-    /**
-     * @throws DatabaseException
-     */
     static function getStorage(): string
     {
         return "faculties/" . App::getInstance()->auth->getFaculty()->id . "/tasks";

@@ -5,7 +5,6 @@ namespace ErasmusHelper\Models;
 use AgileBundle\Utils\Dbg;
 use ErasmusHelper\App;
 use ErasmusHelper\Core\DBConf;
-use Exception;
 use JetBrains\PhpStorm\ArrayShape;
 use Kreait\Firebase\Auth\UserRecord;
 use Kreait\Firebase\Exception\AuthException;
@@ -26,8 +25,6 @@ abstract class StaffModel {
     /**
      * Constructs an object. If it comes from database (= $date is nul null), hydrates it.
      * Otherwise, generates a new UUID for this object.
-     *
-     * @throws Exception
      */
     public function __construct(UserRecord $user = null) {
         if($user != null) {
@@ -114,34 +111,35 @@ abstract class StaffModel {
      *
      * @param string $id UID of an auth user.
      * @return mixed
-     * @throws AuthException
-     * @throws FirebaseException
      */
     public static function getById(string $id): mixed {
-        $userRecord = App::getInstance()->firebase->auth->getUser($id);
-        if($userRecord->customClaims["privilege_level"] == static::PRIVILEGE_LEVEL) {
-            return DBConf::instantiateAuth(static::class, $userRecord);
+        try {
+            $userRecord = App::getInstance()->firebase->auth->getUser($id);
+            if ($userRecord->customClaims["privilege_level"] == static::PRIVILEGE_LEVEL) {
+                return DBConf::instantiateAuth(static::class, $userRecord);
+            }
+        } catch (AuthException|FirebaseException $e) {
+            Dbg::error($e);
         }
         return null;
     }
 
-    /**
-     *
-     *
-     * @throws FirebaseException
-     * @throws AuthException
-     */
     public static function getAll(): ?array {
-        $all = App::getInstance()->firebase->auth->listUsers();
-        $toReturn = array();
-        foreach ($all as $user) {
-            if(!empty($user->customClaims) && $user->customClaims["privilege_level"] == static::PRIVILEGE_LEVEL) {
-                $toReturn[] = $user;
+        try {
+            $all = App::getInstance()->firebase->auth->listUsers();
+            $toReturn = array();
+            foreach ($all as $user) {
+                if (!empty($user->customClaims) && $user->customClaims["privilege_level"] == static::PRIVILEGE_LEVEL) {
+                    $toReturn[] = $user;
+                }
             }
-        }
-        if(sizeof($toReturn) > 0) {
-            return DBConf::instantiateAll(static::class, $toReturn);
-        } else {
+            if (sizeof($toReturn) > 0) {
+                return DBConf::instantiateAll(static::class, $toReturn);
+            } else {
+                return null;
+            }
+        } catch (AuthException|FirebaseException $e) {
+            Dbg::error($e);
             return null;
         }
     }
@@ -181,10 +179,6 @@ abstract class StaffModel {
         }
     }
 
-    /**
-     * @throws FirebaseException
-     * @throws AuthException
-     */
     public static function getCount(): int {
         return sizeof(static::getAll());
     }

@@ -5,7 +5,6 @@ namespace ErasmusHelper\Models;
 use AgileBundle\Utils\Dbg;
 use ErasmusHelper\App;
 use ErasmusHelper\Core\DBConf;
-use Exception;
 use Kreait\Firebase\Exception\DatabaseException;
 
 abstract class Model
@@ -29,8 +28,6 @@ abstract class Model
     /**
      * Constructs an object. If it comes from database (= $date is nul null), hydrates it.
      * Otherwise, generates a new UUID for this object.
-     *
-     * @throws Exception
      */
     public function __construct(array $data = null)
     {
@@ -129,31 +126,35 @@ abstract class Model
      * Returns an array of instantiated objects.
      *
      * @param array|null $where If not null, will only return objects according to the conditions in the array.
-     * @throws DatabaseException
      */
     public static function getAll(array $where = null): ?array
     {
-        $all = App::getInstance()->firebase->database->getReference(static::getStorage())->getValue();
-        $toReturn = array();
-        if ($all > 0) {
-            if ($where != null) {
-                foreach ($all as $id => $row) {
-                    foreach ($where as $request => $reqValue) {
-                        if ($row[$request] == $reqValue) {
-                            $toReturn[] = $row;
+        try {
+            $all = App::getInstance()->firebase->database->getReference(static::getStorage())->getValue();
+            $toReturn = array();
+            if ($all > 0) {
+                if ($where != null) {
+                    foreach ($all as $id => $row) {
+                        foreach ($where as $request => $reqValue) {
+                            if ($row[$request] == $reqValue) {
+                                $toReturn[] = $row;
+                            }
                         }
                     }
-                }
-            } else {
-                foreach ($all as $id => $row) {
-                    $toReturn[] = $row;
+                } else {
+                    foreach ($all as $id => $row) {
+                        $toReturn[] = $row;
+                    }
                 }
             }
-        }
-        if (sizeof($toReturn) == 0) {
+            if (sizeof($toReturn) == 0) {
+                return null;
+            } else {
+                return DBConf::instantiateAll(static::class, $toReturn);
+            }
+        } catch (DatabaseException $e) {
+            Dbg::error($e);
             return null;
-        } else {
-            return DBConf::instantiateAll(static::class, $toReturn);
         }
     }
 
@@ -162,25 +163,28 @@ abstract class Model
      *
      * @param array $where
      * @return mixed
-     * @throws DatabaseException
      */
     public static function select(array $where): mixed
     {
-        $all = App::getInstance()->firebase->database->getReference(static::getStorage())->getValue();
-        if ($all > 0) {
-            if ($where != null) {
-                foreach ($all as $id => $row) {
-                    $return = true;
-                    foreach ($where as $request => $reqValue) {
-                        if ($row[$request] != $reqValue) {
-                            $return = false;
+        try {
+            $all = App::getInstance()->firebase->database->getReference(static::getStorage())->getValue();
+            if ($all > 0) {
+                if ($where != null) {
+                    foreach ($all as $id => $row) {
+                        $return = true;
+                        foreach ($where as $request => $reqValue) {
+                            if ($row[$request] != $reqValue) {
+                                $return = false;
+                            }
                         }
-                    }
-                    if ($return) {
-                        return DBConf::instantiate(static::class, $row);
+                        if ($return) {
+                            return DBConf::instantiate(static::class, $row);
+                        }
                     }
                 }
             }
+        } catch (DatabaseException $e) {
+            Dbg::error($e);
         }
         return null;
     }
@@ -190,9 +194,6 @@ abstract class Model
         return static::STORAGE;
     }
 
-    /**
-     * @throws DatabaseException
-     */
     public static function getCount(array $where = null): int {
         return sizeof(static::getAll($where));
     }

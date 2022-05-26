@@ -6,43 +6,38 @@ use AgileBundle\Utils\Request;
 use ErasmusHelper\App;
 use ErasmusHelper\Models\Task;
 use ErasmusHelper\Models\Step;
-use Exception;
 use JetBrains\PhpStorm\NoReturn;
 use Kreait\Firebase\Exception\DatabaseException;
 
 class StepController extends Controller
 {
 
-    /**
-     * @throws DatabaseException
-     * @throws Exception
-     */
     #[NoReturn] public function createStep()
     {
-        if (Request::valuePost('taskId') && Request::valuePost('step-name')) {
+        try {
+            if (Request::valuePost('taskId') && Request::valuePost('step-name')) {
 
-            $task = Task::select(["id" => Request::valuePost('taskId')]);
+                $task = Task::select(["id" => Request::valuePost('taskId')]);
 
-            if ($task != null) {
-                $step = new Step();
+                if ($task != null) {
+                    $step = new Step();
 
-                $step->id = App::UUIDGenerator();
-                $step->name = Request::valuePost('step-name');
+                    $step->id = App::UUIDGenerator();
+                    $step->name = Request::valuePost('step-name');
 
-                $task->steps[] = $step;
+                    $task->steps[] = $step;
 
-                if ($task->save())
-                    $this->redirect(Router::route("task", ["id" => Request::valuePost('taskId')]), ["success" => "Step added successfully."]);
+                    if ($task->save())
+                        $this->redirect(Router::route("task", ["id" => Request::valuePost('taskId')]), ["success" => "Step added successfully."]);
+                }
             }
+            $this->redirect(Router::route("task", ["id" => Request::valuePost('taskId')]), ["error" => "Unable to add the Task item."]);
+        } catch (DatabaseException $e) {
+            $this->redirect(Router::route("/"), ["error" => $e]);
         }
-
-        $this->redirect(Router::route("task", ["id" => Request::valuePost('taskId')]), ["error" => "Unable to add the Task item."]);
 
     }
 
-    /**
-     * @throws DatabaseException
-     */
     public function edit($task_id, $step_id)
     {
         $task = Task::select(["id" => $task_id]);
@@ -55,54 +50,57 @@ class StepController extends Controller
         $this->render("steps.details", ["task_id" => $task->id, "step" => $step]);
     }
 
-    /**
-     * @throws DatabaseException
-     */
     #[NoReturn] public function editStep($task_id, $step_id)
     {
-        $task = Task::select(["id" => $task_id]);
-        $new_steps = [];
+        try {
+            $task = Task::select(["id" => $task_id]);
+            $new_steps = [];
 
-        if ($task != null && $task->exists() && Request::valuePost('step-name')) {
-            foreach ($task->steps as $step) {
-                if ($step['id'] == $step_id)
-                    $step['name'] = Request::valuePost('step-name');
+            if ($task != null && $task->exists() && Request::valuePost('step-name')) {
+                foreach ($task->steps as $step) {
+                    if ($step['id'] == $step_id)
+                        $step['name'] = Request::valuePost('step-name');
 
-                $new_steps[] = $step;
+                    $new_steps[] = $step;
+                }
+
+                $task->steps = $new_steps;
+
+                if ($task->save())
+                    $this->redirect(Router::route("task", ["id" => $task->id]), ["success" => "Step edited successfully."]);
             }
 
-            $task->steps = $new_steps;
+            $this->redirect(Router::route("tasks"), ["error" => "Unable to edit the Step item."]);
+        } catch (DatabaseException $e) {
+            $this->redirect(Router::route("/"), ["error" => $e]);
 
-            if ($task->save())
-                $this->redirect(Router::route("task", ["id" => $task->id]), ["success" => "Step edited successfully."]);
         }
-
-        $this->redirect(Router::route("tasks"), ["error" => "Unable to edit the Step item."]);
     }
 
-    /**
-     * @throws DatabaseException
-     */
     #[NoReturn] public function delete($task_id, $step_id)
     {
-        $task = Task::select(["id" => $task_id]);
-        $new_steps = [];
+        try {
+            $task = Task::select(["id" => $task_id]);
+            $new_steps = [];
 
-        if ($task != null && $task->exists()) {
-            foreach ($task->steps as $step) {
-                if ($step['id'] == $step_id)
-                    continue;
+            if ($task != null && $task->exists()) {
+                foreach ($task->steps as $step) {
+                    if ($step['id'] == $step_id)
+                        continue;
 
-                $new_steps[] = $step;
+                    $new_steps[] = $step;
+                }
+
+                $task->steps = $new_steps;
+
+                if ($task->save())
+                    $this->redirect(Router::route("task", ["id" => $task->id]), ["success" => "Step edited successfully."]);
+
             }
-
-            $task->steps = $new_steps;
-
-            if ($task->save())
-                $this->redirect(Router::route("task", ["id" => $task->id]), ["success" => "Step edited successfully."]);
-
+            $this->redirect(Router::route("tasks"), ["error" => "Unable to edit the Step item."]);
+        } catch (DatabaseException $e) {
+            $this->redirect(Router::route("/"), ["error" => $e]);
         }
-        $this->redirect(Router::route("tasks"), ["error" => "Unable to edit the Step item."]);
     }
 
 }
