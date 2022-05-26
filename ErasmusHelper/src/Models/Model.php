@@ -153,7 +153,7 @@ abstract class Model
                 return DBConf::instantiateAll(static::class, $toReturn);
             }
         } catch (DatabaseException $e) {
-            Dbg::error($e);
+            Dbg::error($e->getMessage());
             return null;
         }
     }
@@ -184,7 +184,7 @@ abstract class Model
                 }
             }
         } catch (DatabaseException $e) {
-            Dbg::error($e);
+            Dbg::error($e->getMessage());
         }
         return null;
     }

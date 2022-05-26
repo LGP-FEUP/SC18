@@ -119,7 +119,7 @@ abstract class StaffModel {
                 return DBConf::instantiateAuth(static::class, $userRecord);
             }
         } catch (AuthException|FirebaseException $e) {
-            Dbg::error($e);
+            Dbg::error($e->getMessage());
         }
         return null;
     }
@@ -139,7 +139,7 @@ abstract class StaffModel {
                 return null;
             }
         } catch (AuthException|FirebaseException $e) {
-            Dbg::error($e);
+            Dbg::error($e->getMessage());
             return null;
         }
     }

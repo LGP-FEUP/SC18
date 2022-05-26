@@ -105,7 +105,7 @@ class Auth {
                 return true;
             }
         } catch (AuthException|FirebaseException $e) {
-            Dbg::error($e);
+            Dbg::error($e->getMessage());
         }
         return false;
     }

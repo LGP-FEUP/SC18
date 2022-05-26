@@ -30,7 +30,7 @@ class User extends Model {
                 $this->authUser = App::getInstance()->firebase->auth->getUser($this->id);
             }
         } catch (AuthException|FirebaseException $e) {
-            Dbg::error($e);
+            Dbg::error($e->getMessage());
         }
     }
 
@@ -118,7 +118,7 @@ class User extends Model {
                 return false;
             }
         } catch (AuthException|FirebaseException $e) {
-            Dbg::error($e);
+            Dbg::error($e->getMessage());
             return false;
         }
     }

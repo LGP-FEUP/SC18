@@ -54,7 +54,7 @@ class Faculty extends Model
             }
             return $toReturn;
         } catch (DatabaseException $e) {
-            Dbg::error($e);
+            Dbg::error($e->getMessage());
             return null;
         }
     }

@@ -32,7 +32,7 @@ class App {
         try {
             return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex(random_bytes(16)), 4));
         } catch (Exception $e) {
-            Dbg::error($e);
+            Dbg::error($e->getMessage());
             return "";
         }
     }
