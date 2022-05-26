@@ -34,12 +34,22 @@ abstract class AbstractFrontController extends AbstractController {
     protected bool $async = false;
 
     /**
+     * Sets the title for this controller.
+     *
+     * @var string
+     */
+    protected string $title = "";
+
+    /**
      * Render the given view in the controller layout with the given vars
      *
      * @param $view
      * @param array $vars
      */
     protected function render(string $view, array $vars = []) {
+        if(!empty($this->title)) {
+            $vars["title"] = $this->title;
+        }
         $content = $this->getContent($view, $vars);
         if ($this->async || is_null($this->layout)) {
             echo $content;

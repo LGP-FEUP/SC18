@@ -11,6 +11,8 @@ use Kreait\Firebase\Exception\DatabaseException;
 
 class CountryController extends CountryModsBackOfficeController {
 
+    protected string $title = "Countries";
+
     public function displayAll() {
         $country = App::getInstance()->auth->getCountry();
         if ($country == null) {

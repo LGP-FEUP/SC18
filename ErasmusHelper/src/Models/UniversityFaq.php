@@ -13,8 +13,7 @@ class UniversityFaq extends Model
     public $reply;
     public $order;
 
-    static function getStorage(): string
-    {
+    static function getStorage(): string {
         return "faculties/" . App::getInstance()->auth->getFaculty()->id . "/faqs";
     }
 

@@ -12,6 +12,8 @@ use Kreait\Firebase\Exception\DatabaseException;
 
 class CityController extends CityModsBackOfficeController {
 
+    protected string $title = "Cities";
+
     public function displayAll() {
         $city = App::getInstance()->auth->getCity();
         $country = App::getInstance()->auth->getCountry();

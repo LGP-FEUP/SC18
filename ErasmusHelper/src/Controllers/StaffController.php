@@ -18,6 +18,8 @@ use Kreait\Firebase\Exception\FirebaseException;
 
 class StaffController extends CityModsBackOfficeController {
 
+    protected string $title = "Staffs";
+
     public function displayAll() {
         try {
             $city = App::getInstance()->auth->getCity();

@@ -9,8 +9,9 @@ use ErasmusHelper\Models\Step;
 use JetBrains\PhpStorm\NoReturn;
 use Kreait\Firebase\Exception\DatabaseException;
 
-class StepController extends Controller
-{
+class StepController extends UniModsBackOfficeController {
+
+    protected string $title = "Steps";
 
     #[NoReturn] public function createStep()
     {

@@ -8,8 +8,10 @@ use ErasmusHelper\Models\UniversityFaq;
 use JetBrains\PhpStorm\NoReturn;
 use Kreait\Firebase\Exception\DatabaseException;
 
-class UniversityFaqController extends UniModsBackOfficeController
-{
+class UniversityFaqController extends UniModsBackOfficeController {
+
+    protected string $title = "FAQs";
+
     public function displayAll()
     {
         $this->render("university_faq.list", ["university_faqs" => UniversityFaq::getAll()]);

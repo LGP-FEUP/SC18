@@ -11,6 +11,8 @@ use Kreait\Firebase\Exception\DatabaseException;
 
 class UserController extends UniModsBackOfficeController {
 
+    protected string $title = "Users";
+
     public function displayAll() {
         try {
             $faculty = App::getInstance()->auth->getFaculty();

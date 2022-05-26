@@ -19,6 +19,8 @@ use Kreait\Firebase\Exception\FirebaseException;
 
 class MenuController extends UniModsBackOfficeController {
 
+    protected string $title = "Menu";
+
     public function displayAll() {
         try {
             $faculty = App::getInstance()->auth->getFaculty();

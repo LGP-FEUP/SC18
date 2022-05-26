@@ -8,7 +8,8 @@ use ErasmusHelper\Controllers\Router;
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>ErasmusHelper</title>
+    <title>Login - ErasmusHelper</title>
+    <link rel="icon" type="image/png" href="<?= Router::resource("images", "title.png"); ?>">
     <link rel="stylesheet" href="<?= Router::resource("style/css", "main.css")?>" />
 </head>
 <body>

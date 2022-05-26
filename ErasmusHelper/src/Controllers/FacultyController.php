@@ -13,6 +13,8 @@ use Kreait\Firebase\Exception\DatabaseException;
 
 class FacultyController extends UniModsBackOfficeController {
 
+    protected string $title = "Faculties";
+
     public function displayAll() {
         $faculty = App::getInstance()->auth->getFaculty();
         $city = App::getInstance()->auth->getCity();

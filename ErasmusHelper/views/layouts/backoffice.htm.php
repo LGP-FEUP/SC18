@@ -1,5 +1,8 @@
 <?php
-/** @var $content */
+/**
+ * @var $content
+ * @var $title
+ */
 
 use ErasmusHelper\App;
 use ErasmusHelper\Controllers\Router;
@@ -8,8 +11,8 @@ use ErasmusHelper\Controllers\Router;
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>ErasmusHelper</title>
-    <link rel="stylesheet" href="<?= APPLICATION_PATH ?> /public/res/stylesheets/css/main.css"/>
+    <title><?php if(isset($title)) { echo  $title." - ErasmusHelper"; } else { echo "BackOffice - ErasmusHelper"; } ?></title>
+    <link rel="icon" type="image/png" href="<?= Router::resource("images", "title.png"); ?>">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">

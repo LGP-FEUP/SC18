@@ -10,8 +10,10 @@ use Exception;
 use JetBrains\PhpStorm\NoReturn;
 use Kreait\Firebase\Exception\DatabaseException;
 
-class TaskController extends UniModsBackOfficeController
-{
+class TaskController extends UniModsBackOfficeController {
+
+    protected string $title = "Tasks";
+
     public function displayAll()
     {
         $this->render("tasks.list", ["tasks" => Task::getAll()]);
