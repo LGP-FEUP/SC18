@@ -1,5 +1,4 @@
 import 'package:erasmus_helper/services/group_service.dart';
-import 'package:erasmus_helper/services/tag_service.dart';
 import 'package:erasmus_helper/views/social/groups/components/group_card.dart';
 import 'package:flutter/material.dart';
 
@@ -11,17 +10,12 @@ class GroupCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Future.wait( // wait for user info
-          [
-            GroupService.getGroupsWithTag(tagId),
-            TagService.getTagTitle(tagId)
-          ]),
+      future: GroupService.getGroupsWithTag(tagId),
       builder: (context, response) {
         if (response.connectionState == ConnectionState.done) {
           if (response.data != null) {
-            List data = response.data as List;
-            List groupIds = data[0] as List;
-            String title = data[1].toString();
+            String title = tagId;
+            List groupIds = response.data as List<String>;
 
             if (groupIds.isEmpty) return Container();
             return genCarrousel(title, groupIds);
@@ -35,28 +29,27 @@ class GroupCarousel extends StatelessWidget {
   Widget genCarrousel(String title, List groupIds) {
     return Card(
         elevation: 0,
-
         child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
-          child: Text(
-            title,
-            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 23),
-          ),
-        ),
-        SizedBox(
-          height: 208,
-          child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: groupIds.length,
-              itemBuilder: (BuildContext context, int index) {
-                return GroupCard(groupId: groupIds[index]);
-              }
-          ),
-        ),
-      ],
-    ));
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+              child: Text(
+                title,
+                style:
+                    const TextStyle(fontWeight: FontWeight.w500, fontSize: 23),
+              ),
+            ),
+            SizedBox(
+              height: 208,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: groupIds.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GroupCard(groupId: groupIds[index]);
+                  }),
+            ),
+          ],
+        ));
   }
 }
