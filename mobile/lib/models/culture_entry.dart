@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-
 class CultureEntry {
   final String imagePath, title, description, location;
   final List categoryIds;

@@ -1,4 +1,4 @@
-import 'package:erasmus_helper/models/cultureEntry.dart';
+import 'package:erasmus_helper/models/culture_entry.dart';
 import 'package:flutter/material.dart';
 
 class EntryWidget extends StatelessWidget {
@@ -37,13 +37,13 @@ class EntryWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(entry.title),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           Row(
                             children: <Widget>[
-                              Icon(Icons.location_on),
-                              SizedBox(
+                              const Icon(Icons.location_on),
+                              const SizedBox(
                                 width: 5,
                               ),
                               Text(
@@ -55,7 +55,7 @@ class EntryWidget extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Expanded(
+                    const Expanded(
                       flex: 1,
                       child: Icon(Icons.more_horiz_rounded),
                     ),

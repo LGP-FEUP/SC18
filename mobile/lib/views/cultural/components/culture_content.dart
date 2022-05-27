@@ -1,8 +1,10 @@
-import 'package:erasmus_helper/models/cultureEntry.dart';
+import 'package:erasmus_helper/models/culture_entry.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CultureContent extends StatelessWidget {
+  const CultureContent({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final entry = Provider.of<CultureEntry>(context);
@@ -23,18 +25,18 @@ class CultureContent extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
           child: Row(
             children: <Widget>[
-              Icon(
+              const Icon(
                 Icons.location_on,
                 color: Colors.blue,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Text(
@@ -43,7 +45,7 @@ class CultureContent extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Padding(

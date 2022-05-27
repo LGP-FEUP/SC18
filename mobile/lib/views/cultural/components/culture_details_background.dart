@@ -1,8 +1,10 @@
-import 'package:erasmus_helper/models/cultureEntry.dart';
+import 'package:erasmus_helper/models/culture_entry.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CultureDetailsBackground extends StatelessWidget {
+  const CultureDetailsBackground({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;

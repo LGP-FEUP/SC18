@@ -1,4 +1,4 @@
-import 'package:erasmus_helper/models/cultureCategory.dart';
+import 'package:erasmus_helper/models/culture_category.dart';
 import 'package:erasmus_helper/views/cultural/culture_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,10 +26,10 @@ class CategoryWidget extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(
               color:
-                  isSelected ? Colors.white : Color.fromARGB(255, 18, 71, 187),
+                  isSelected ? Colors.white : const Color.fromARGB(255, 18, 71, 187),
               width: 3),
-          borderRadius: BorderRadius.all(Radius.circular(16)),
-          color: isSelected ? Color.fromARGB(255, 18, 71, 187) : Colors.white,
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
+          color: isSelected ? const Color.fromARGB(255, 18, 71, 187) : Colors.white,
         ),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -38,10 +38,10 @@ class CategoryWidget extends StatelessWidget {
                 category.icon,
                 color: isSelected
                     ? Colors.white
-                    : Color.fromARGB(255, 18, 71, 187),
+                    : const Color.fromARGB(255, 18, 71, 187),
                 size: 40,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(category.name),
