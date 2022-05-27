@@ -18,4 +18,10 @@ class GroupService {
     }
     return posts;
   }
+
+  static Query queryGroupPosts(String groupId) {
+    return FirebaseDatabase.instance
+        .ref("$postsCollection$groupId")
+        .orderByChild("time");
+  }
 }

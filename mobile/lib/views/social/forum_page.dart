@@ -1,5 +1,8 @@
+import 'package:erasmus_helper/services/utils_service.dart';
 import 'package:erasmus_helper/views/social/components/forum_post.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/database.dart';
 
 import '../../models/post.dart';
 import '../../services/group_service.dart';
@@ -27,13 +30,9 @@ class _ForumPageState extends State<ForumPage> {
               posts = response.data as List<PostModel>;
               return AppTopBar(
                   title: "Forum",
-                  body: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      _genCover(),
-                      _genPostsList()
-                    ],
-                  ));
+                  body: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [_genCover(), _genPostsList()]));
             }
             return _genCover();
           }
@@ -83,21 +82,18 @@ class _ForumPageState extends State<ForumPage> {
   }
 
   Widget _genPostsList() {
-    return DraggableScrollableSheet(
-      initialChildSize: 0.75,
-      minChildSize: 0.75,
-      builder: (BuildContext context, ScrollController scrollController) {
-        return Container(
-          color: Colors.white,
-          child: ListView.builder(
-            controller: scrollController,
-            itemCount: posts.length,
-            itemBuilder: (BuildContext context, int index) {
-              return ForumPost(post: posts[index]);
-            },
-          ),
-        );
+    return FirebaseDatabaseListView(
+      query: GroupService.queryGroupPosts("karting"),
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemBuilder: (context, snapshot) {
+        Map<String, dynamic> value = (snapshot.value as Map<dynamic, dynamic>)
+            .map((key, value) => MapEntry(key.toString(), value));
+        PostModel post = PostModel.fromJson(snapshot.key.toString(), value);
+        return ForumPost(post: post);
       },
     );
   }
 }
+
+// ForumPost(post: posts[index])

@@ -43,6 +43,7 @@ dependencies:
   expansion_tile_card: ^2.0.0
   jiffy: ^5.0.0
   flutter_bloc: ^8.0.1
+  flutterfire_ui: ^0.4.1+2
 
 dev_dependencies:
   flutter_test:
