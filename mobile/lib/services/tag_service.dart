@@ -1,5 +1,5 @@
-import 'package:erasmus_helper/models/tag.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:erasmus_helper/models/tag.dart';
 
 class TagService {
   static String collectionName = "interests/";
@@ -16,5 +16,11 @@ class TagService {
       });
     }
     return tags;
+  }
+
+  static Future<String> getTagTitle(String tagId) async {
+    DataSnapshot data =
+        await FirebaseDatabase.instance.ref("$collectionName$tagId/title").get();
+    return data.value.toString();
   }
 }

@@ -20,7 +20,7 @@ class _AppScaffold extends State<AppLayout> {
   final navbarPages = [
     const SchoolPage(),
     const HomePage(),
-    const ForumPage()
+    const SocialPage()
   ];
 
   void _changeNavBarPage(int index) {

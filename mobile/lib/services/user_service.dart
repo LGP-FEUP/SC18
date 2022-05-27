@@ -24,7 +24,7 @@ class UserService {
     String name = '';
 
     DatabaseReference user =
-        FirebaseDatabase.instance.ref("$collectionName$uid");
+    FirebaseDatabase.instance.ref("$collectionName$uid");
     DataSnapshot firstName = await user.child("firstname").get(),
         lastName = await user.child("lastname").get();
 
@@ -39,6 +39,13 @@ class UserService {
     return name;
   }
 
+  static Future<List<String>> getInterestUIDs() async {
+    DatabaseReference userRef = UserService.getUserRef();
+    DataSnapshot data = await userRef.child("interests").get();
+
+    return (data.value as Map).keys.map((e) => e as String).toList();
+  }
+
   Future<UserModel?> getUserProfile() async {
     final snapshot = await getUserRef().get();
     if (snapshot.exists) {
@@ -48,7 +55,7 @@ class UserService {
     }
   }
 
-  static void updateUserProfile(UserModel profile) async {
+  static Future<void> updateUserProfile(UserModel profile) async {
     var ref = getUserRef();
     await ref.update(profile.toProfileJson());
   }
