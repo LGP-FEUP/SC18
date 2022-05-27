@@ -1,4 +1,5 @@
 import 'package:erasmus_helper/views/app_drawer.dart';
+import 'package:erasmus_helper/views/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 /// A application generic TopBar widget, from which you can change the title,
@@ -32,11 +33,13 @@ class AppTopBar extends StatelessWidget {
         title: Text(title),
         bottom: bottom,
         actions: [
-          // TODO : change icon with avatar of the account
-          const Icon(
-            Icons.account_box_rounded,
-            size: 40,
-          ),
+          // TODO : change with avatar of the account
+          GestureDetector(
+              child: const CircleAvatar(
+                backgroundImage: AssetImage("assets/avatar.jpg"),
+              ),
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ProfileScreen()))),
           // TODO : add notification system
           IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))
         ],

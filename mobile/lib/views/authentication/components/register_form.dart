@@ -145,6 +145,13 @@ class _RegisterFormState extends State<RegisterForm> {
         // On success
         if (value?.compareTo("Signed up") == 0) {
           Utils.navigateToHomePage(context);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(value!),
+              backgroundColor: Colors.red,
+            ),
+          );
         }
       });
     }
