@@ -31,15 +31,18 @@ class GroupCard extends StatelessWidget {
   Widget genCard(BuildContext context, String image, String title) {
     return GestureDetector(
         onTap: () => _navigateToGroupPage(context),
-        child: Stack(
-          alignment: Alignment.topCenter,
-          children: [
-            Row(
-              children: [genGroupImage(image)],
-            ),
-            Positioned(top: 150, child: Row(children: [genGroupInfo(title)]))
-          ],
-        ));
+        child: Card(
+            elevation: 5,
+            child: Stack(
+              alignment: Alignment.topCenter,
+              children: [
+                Row(
+                  children: [genGroupImage(image)],
+                ),
+                Positioned(
+                    top: 150, child: Row(children: [genGroupInfo(title)]))
+              ],
+            )));
   }
 
   Widget genGroupImage(String image) {
