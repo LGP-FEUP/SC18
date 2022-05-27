@@ -19,4 +19,10 @@ class TagService {
     }
     return tags;
   }
+
+  static Future<String> getTagTitle(String tagId) async {
+    DataSnapshot data =
+        await FirebaseDatabase.instance.ref("$collectionName$tagId/title").get();
+    return data.value.toString();
+  }
 }

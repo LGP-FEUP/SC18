@@ -1,4 +1,5 @@
 import 'package:erasmus_helper/models/task.dart';
+import 'package:erasmus_helper/views/app_topbar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -18,15 +19,13 @@ class _TaskPageState extends State<TaskPage> {
   Widget build(BuildContext context) {
     TaskModel task = widget.task;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(task.title),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [_showTaskInfo(task), _showSteps(task.steps)],
-      ),
-    );
+    return AppTopBar(
+        title: task.title,
+        activateBackButton: true,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [_showTaskInfo(task), _showSteps(task.steps)],
+        ));
   }
 
   Widget _showTaskInfo(TaskModel task) {

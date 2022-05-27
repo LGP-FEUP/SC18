@@ -1,7 +1,7 @@
-import 'package:erasmus_helper/models/tag.dart';
-import 'package:erasmus_helper/models/user.dart';
-import 'package:erasmus_helper/services/user_interests_service.dart';
 import 'package:flutter/material.dart';
+
+import '../../services/user_service.dart';
+import 'groups/components/group_carousel.dart';
 
 class ForumsTab extends StatelessWidget {
   const ForumsTab({Key? key}) : super(key: key);
@@ -9,18 +9,22 @@ class ForumsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Future.wait([
-        UserInterestsService.getUsersWithTags([Tag("Music")])
-      ]),
-        builder: (context, response) {
-          if (response.connectionState == ConnectionState.done) {
-            if (response.data != null) {
-              final rep = response.data as List<dynamic>;
-              print(rep[0] as List<UserModel>);
-            }
+      future: UserService.getInterestUIDs(),
+      builder: (context, response) {
+        if (response.connectionState == ConnectionState.done) {
+          if (response.data != null) {
+            List<String> interests = response.data as List<String>;
+
+            return ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: interests.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return GroupCarousel(tagId: interests[index]);
+                });
           }
-          return const Text("Forums");
-    });
-    // List<UserModel>? userList = await UserInterestsService.getUsersWithTags([Tag("Music")]);
+        }
+        return Container();
+      },
+    );
   }
 }

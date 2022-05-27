@@ -5,8 +5,7 @@ import 'package:erasmus_helper/models/tag.dart';
 class UserModel extends model{
   String fName, lName, facultyOrigin, erasmusFaculty;
   late DateModel birthdate;
-  String? email, password;
-  String? description,
+  String? email, password,description,
       countryCode,
       phone,
       whatsapp,
@@ -24,7 +23,8 @@ class UserModel extends model{
       this.facultyOrigin,
       this.erasmusFaculty,
       String birthdate,
-      this.doneTasks) {
+      this.doneTasks,
+      this.interests) {
     this.birthdate = DateModel(birthdate);
   }
 
@@ -59,7 +59,7 @@ class UserModel extends model{
         'faculty_origin_id': facultyOrigin,
         'faculty_arriving_id': erasmusFaculty,
         "date_of_birth": birthdate.toJson(),
-        "validation_level": "1"
+        "validation_level": "1",
       };
 
   Map<String, dynamic> toProfileJson() => <String, dynamic>{

@@ -21,6 +21,13 @@ class UserService {
         .child(auth.currentUser!.uid);
   }
 
+  static Future<List<String>> getInterestUIDs() async {
+    DatabaseReference userRef = UserService.getUserRef();
+    DataSnapshot data = await userRef.child("interests").get();
+
+    return (data.value as Map).keys.map((e) => e as String).toList();
+  }
+
   Future<UserModel?> getUserProfile() async {
     final snapshot = await getUserRef().get();
     if (snapshot.exists) {
