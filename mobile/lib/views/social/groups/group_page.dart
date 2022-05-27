@@ -1,23 +1,22 @@
-import 'package:erasmus_helper/services/utils_service.dart';
 import 'package:erasmus_helper/views/social/components/forum_post.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/database.dart';
 
-import '../../models/post.dart';
-import '../../services/group_service.dart';
-import '../app_topbar.dart';
+import '../../../models/post.dart';
+import '../../../services/group_service.dart';
+import '../../app_topbar.dart';
 
-class ForumPage extends StatefulWidget {
-  const ForumPage({Key? key}) : super(key: key);
+class GroupPage extends StatefulWidget {
+  final String groupId;
+  const GroupPage({Key? key, required this.groupId}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _ForumPageState();
+    return _GroupPageState();
   }
 }
 
-class _ForumPageState extends State<ForumPage> {
+class _GroupPageState extends State<GroupPage> {
   List<PostModel> posts = [];
 
   @override
@@ -29,6 +28,7 @@ class _ForumPageState extends State<ForumPage> {
             if (response.data != null) {
               posts = response.data as List<PostModel>;
               return AppTopBar(
+                  activateBackButton: true,
                   title: "Forum",
                   body: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

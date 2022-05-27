@@ -1,4 +1,5 @@
 import 'package:erasmus_helper/services/group_service.dart';
+import 'package:erasmus_helper/views/social/groups/group_page.dart';
 import 'package:flutter/material.dart';
 
 class GroupCard extends StatelessWidget {
@@ -19,7 +20,7 @@ class GroupCard extends StatelessWidget {
             List data = response.data as List;
             String image = data[0].toString();
             String title = data[1].toString();
-            return genCard(image, title);
+            return genCard(context, image, title);
           }
         }
         return Container();
@@ -27,19 +28,18 @@ class GroupCard extends StatelessWidget {
     );
   }
 
-  Widget genCard(String image, String title) {
-    return Card(
-      elevation: 5,
-      child: Stack(
-        alignment: Alignment.topCenter,
-        children: [
-          Row(
-            children: [genGroupImage(image)],
-          ),
-          Positioned(top: 150, child: Row(children: [genGroupInfo(title)]))
-        ],
-      ),
-    );
+  Widget genCard(BuildContext context, String image, String title) {
+    return GestureDetector(
+        onTap: () => _navigateToGroupPage(context),
+        child: Stack(
+          alignment: Alignment.topCenter,
+          children: [
+            Row(
+              children: [genGroupImage(image)],
+            ),
+            Positioned(top: 150, child: Row(children: [genGroupInfo(title)]))
+          ],
+        ));
   }
 
   Widget genGroupImage(String image) {
@@ -72,5 +72,10 @@ class GroupCard extends StatelessWidget {
               style:
                   const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
         ));
+  }
+
+  void _navigateToGroupPage(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => GroupPage(groupId: groupId)));
   }
 }
