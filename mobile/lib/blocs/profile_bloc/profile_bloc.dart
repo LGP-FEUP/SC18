@@ -35,7 +35,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   Future<void> _mapSubmitProfileEventToState(SubmitProfileEvent event, Emitter<ProfileState> emit) async {
-    UserService.updateUserProfile(event.profile);
+    await UserService.updateUserProfile(event.profile);
     await _mapFetchProfileEventToState(event, emit);
   }
 }

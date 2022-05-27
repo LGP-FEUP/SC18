@@ -36,7 +36,7 @@ class UserService {
     }
   }
 
-  static void updateUserProfile(UserModel profile) async {
+  static Future<void> updateUserProfile(UserModel profile) async {
     var ref = getUserRef();
     await ref.update(profile.toProfileJson());
   }
