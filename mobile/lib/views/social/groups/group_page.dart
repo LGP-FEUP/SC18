@@ -17,44 +17,49 @@ class GroupPage extends StatefulWidget {
 }
 
 class _GroupPageState extends State<GroupPage> {
-  List<PostModel> posts = [];
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: GroupService.getGroupPosts("karting"),
+        future: Future.wait([
+          GroupService.getGroupImage(widget.groupId),
+          GroupService.getGroupTitle(widget.groupId)
+        ]),
         builder: (context, response) {
           if (response.connectionState == ConnectionState.done) {
             if (response.data != null) {
-              posts = response.data as List<PostModel>;
+              List data = response.data as List;
+              String image = data[0].toString();
+              String title = data[1].toString();
+
               return AppTopBar(
                   activateBackButton: true,
                   title: "Forum",
                   body: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [_genCover(), _genPostsList()]));
+                      children: [_genCover(image, title), _genPostsList()]));
             }
-            return _genCover();
+            return Container();
           }
-          return _genCover();
+          return Container();
         });
   }
 
-  Widget _genCover() {
+  Widget _genCover(String image, String title) {
     return Stack(children: <Widget>[
       Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
             image: DecorationImage(
                 image: NetworkImage(
-                    "https://static.vecteezy.com/system/resources/previews/000/671/117/original/triangle-polygon-background-vector.jpg"),
+                    image),
                 fit: BoxFit.cover)),
         height: 170.0,
       ),
-      _genTitle(),
+      _genTitle(title),
     ]);
   }
 
-  Widget _genTitle() {
+  Widget _genTitle(String title) {
     final gradient = BoxDecoration(
       gradient: LinearGradient(
         begin: Alignment.topCenter,
@@ -71,11 +76,11 @@ class _GroupPageState extends State<GroupPage> {
       height: 170,
       alignment: Alignment.bottomLeft,
       decoration: gradient,
-      child: const Padding(
-        padding: EdgeInsets.all(5),
+      child: Padding(
+        padding: const EdgeInsets.all(5),
         child: Text(
-          'Karting',
-          style: TextStyle(color: Colors.white, fontSize: 20.0),
+          title,
+          style: const TextStyle(color: Colors.white, fontSize: 20.0),
         ),
       ),
     );
@@ -83,7 +88,7 @@ class _GroupPageState extends State<GroupPage> {
 
   Widget _genPostsList() {
     return FirebaseDatabaseListView(
-      query: GroupService.queryGroupPosts("karting"),
+      query: GroupService.queryGroupPosts(widget.groupId),
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       itemBuilder: (context, snapshot) {
