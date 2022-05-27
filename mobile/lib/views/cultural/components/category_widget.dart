@@ -1,6 +1,5 @@
 import 'package:erasmus_helper/models/cultureCategory.dart';
 import 'package:erasmus_helper/views/cultural/culture_state.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
