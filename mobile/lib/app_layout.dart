@@ -1,6 +1,5 @@
 import 'package:erasmus_helper/views/home/home_page.dart';
 import 'package:erasmus_helper/views/school/school_page.dart';
-import 'package:erasmus_helper/views/social/groups/group_page.dart';
 import 'package:erasmus_helper/views/social/social_page.dart';
 
 import 'package:flutter/material.dart';
