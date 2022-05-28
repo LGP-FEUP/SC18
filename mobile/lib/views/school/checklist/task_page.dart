@@ -24,7 +24,7 @@ class _TaskPageState extends State<TaskPage> {
         activateBackButton: true,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [_showTaskInfo(task), _showSteps(task.steps)],
+          children: [_showTaskInfo(task), ..._showSteps(task.steps)],
         ));
   }
 
@@ -38,6 +38,7 @@ class _TaskPageState extends State<TaskPage> {
             "Due date: ${DateFormat("dd/MM/yyyy").format(task.dueDate)}",
             style: const TextStyle(fontSize: 20),
           ),
+          const SizedBox(height: 10),
           Text(
             task.description,
             style: const TextStyle(fontSize: 15),
@@ -47,14 +48,25 @@ class _TaskPageState extends State<TaskPage> {
     );
   }
 
-  ListView _showSteps(List<StepModel> steps) {
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemCount: steps.length,
-      itemBuilder: (BuildContext context, int index) {
-        return StepTile(step: steps[index]);
-      },
-    );
+  List<Widget> _showSteps(List<StepModel> steps) {
+    if (steps.isNotEmpty) {
+      return [
+        const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: Text(
+              "Steps:",
+              style: TextStyle(fontSize: 18),
+            )),
+        ListView.builder(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemCount: steps.length,
+          itemBuilder: (BuildContext context, int index) {
+            return StepTile(step: steps[index]);
+          },
+        )
+      ];
+    }
+    return [];
   }
 }
