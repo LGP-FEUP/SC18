@@ -8,59 +8,45 @@ class CultureContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final entry = Provider.of<CultureEntry>(context);
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
 
-    return SingleChildScrollView(
-      child: Column(children: <Widget>[
-        SizedBox(
-          height: screenHeight * 0.48,
+    return Column(children: <Widget>[
+      const SizedBox(height: 10),
+      Align(
+        alignment: Alignment.centerLeft,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
+            entry.title,
+            style: const TextStyle(fontSize: 18),
+          ),
         ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-            child: Text(
-              entry.title,
+      ),
+      const SizedBox(
+        height: 10,
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        child: Row(
+          children: <Widget>[
+            const Icon(
+              Icons.location_on,
+              color: Colors.blue,
             ),
-          ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-          child: Row(
-            children: <Widget>[
-              const Icon(
-                Icons.location_on,
-                color: Colors.blue,
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              Text(
-                entry.location,
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
-          child: SizedBox(
-            height: 190,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(children: <Widget>[
-                Text(entry.description),
-              ]),
+            const SizedBox(
+              width: 2,
             ),
-          ),
+            Text(
+              entry.location,
+            ),
+          ],
         ),
-      ]),
-    );
+      ),
+      const SizedBox(
+        height: 10,
+      ),
+      Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Text(entry.description))
+    ]);
   }
 }

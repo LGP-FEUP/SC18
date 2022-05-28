@@ -1,5 +1,4 @@
 import 'package:erasmus_helper/models/culture_entry.dart';
-import 'package:erasmus_helper/views/social/cultural/components/culture_details_background.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,17 +12,31 @@ class CultureDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return AppTopBar(
         title: entry.title,
         activateBackButton: true,
         body: Provider<CultureEntry>.value(
           value: entry,
-          child: Stack(
-            fit: StackFit.expand,
-            children: const <Widget>[
-              CultureDetailsBackground(),
-              CultureContent(),
-            ],
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  child: Image.asset(
+                    entry.imagePath,
+                    fit: BoxFit.cover,
+                    height: screenHeight * 0.6,
+                    width: screenWidth,
+                  ),
+                  height: 240.0,
+                ),
+                const CultureContent(),
+              ],
+            ),
           ),
         ));
   }

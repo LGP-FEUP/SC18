@@ -42,9 +42,7 @@ class CategoryWidget extends StatelessWidget {
               ),
               Text(category.name,
                   style: TextStyle(
-                      color: isSelected
-                          ? Colors.white
-                          : Colors.black)),
+                      color: isSelected ? Colors.white : Colors.black)),
             ]),
       ),
     );
