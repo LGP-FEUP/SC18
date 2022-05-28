@@ -2,7 +2,6 @@ import 'package:erasmus_helper/services/utils_service.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-
 import '../models/post.dart';
 
 class GroupService {
@@ -11,7 +10,7 @@ class GroupService {
   static Future<List<PostModel>> getGroupPosts(String groupId) async {
     List<PostModel> posts = [];
     final DataSnapshot snap =
-          await FirebaseDatabase.instance.ref("$postsCollection$groupId").get();
+        await FirebaseDatabase.instance.ref("$postsCollection$groupId").get();
 
     if (snap.exists) {
       for (var element in UtilsService.snapToMapOfMap(snap).entries) {

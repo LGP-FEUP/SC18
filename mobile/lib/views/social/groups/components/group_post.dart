@@ -127,7 +127,7 @@ class GroupPost extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        _genButton(text: "Like", icon: Icons.favorite, isActive: true),
+        _genButton(text: "Like", icon: Icons.favorite),
         _genButton(text: "Comment", icon: Icons.chat)
       ],
     );
