@@ -1,5 +1,5 @@
 import 'package:erasmus_helper/views/home/home_page.dart';
-import 'package:erasmus_helper/views/school/school_page.dart';
+import 'package:erasmus_helper/views/guides/guides_page.dart';
 import 'package:erasmus_helper/views/social/social_page.dart';
 
 import 'package:flutter/material.dart';
@@ -17,8 +17,8 @@ class _AppScaffold extends State<AppLayout> {
   int _selectedNavBarPageIndex = 2;
 
   final navbarPages = [
-    const SchoolPage(),
     const HomePage(),
+    const GuidesPage(),
     const SocialPage()
   ];
 
@@ -34,10 +34,13 @@ class _AppScaffold extends State<AppLayout> {
         body: Center(child: navbarPages[_selectedNavBarPageIndex]),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.school), label: "School"),
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(icon: Icon(Icons.school), label: "Guides"),
             BottomNavigationBarItem(icon: Icon(Icons.group), label: "Social")
           ],
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          selectedIconTheme: IconThemeData(size: 28),
           currentIndex: _selectedNavBarPageIndex,
           onTap: _changeNavBarPage,
         ));

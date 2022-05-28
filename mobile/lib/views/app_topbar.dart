@@ -30,7 +30,10 @@ class AppTopBar extends StatelessWidget {
         automaticallyImplyLeading: true,
         foregroundColor: Theme.of(context).primaryColor,
         backgroundColor: Colors.white,
-        title: Text(title),
+        title: Text(
+          title,
+          style: const TextStyle(fontSize: 23, fontWeight: FontWeight.w600),
+        ),
         bottom: bottom,
         actions: [
           // TODO : change with avatar of the account
@@ -38,8 +41,10 @@ class AppTopBar extends StatelessWidget {
               child: const CircleAvatar(
                 backgroundImage: AssetImage("assets/avatar.jpg"),
               ),
-              onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const ProfileScreen()))),
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ProfileScreen()))),
           // TODO : add notification system
           IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))
         ],

@@ -17,7 +17,9 @@ class SocialPage extends StatelessWidget {
           title: "Social",
           bottom: TabBar(
               indicatorColor: Theme.of(context).primaryColor,
+              indicatorWeight: 2.5,
               labelColor: Theme.of(context).primaryColor,
+              labelStyle: const TextStyle(fontSize: 16),
               tabs: const [
                 Tab(
                   text: "Forums",
