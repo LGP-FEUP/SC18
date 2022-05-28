@@ -40,4 +40,16 @@ class UserService {
     var ref = getUserRef();
     await ref.update(profile.toProfileJson());
   }
+
+  static Future<List<UserModel>> getUsersWithSameInterests() async {
+    //TODO: fetch Users with same interests
+    final snapshot = await getUserRef().get();
+    if (snapshot.exists) {
+      UserModel user =
+          UserModel.fromProfileJson(snapshot.value as Map<dynamic, dynamic>);
+      return [user, user, user];
+    } else {
+      return [];
+    }
+  }
 }
