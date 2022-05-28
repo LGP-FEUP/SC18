@@ -40,7 +40,7 @@ class _AppScaffold extends State<AppLayout> {
           ],
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          selectedIconTheme: IconThemeData(size: 28),
+          selectedIconTheme: const IconThemeData(size: 28),
           currentIndex: _selectedNavBarPageIndex,
           onTap: _changeNavBarPage,
         ));
