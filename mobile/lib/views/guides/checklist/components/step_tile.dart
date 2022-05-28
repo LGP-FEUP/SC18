@@ -2,7 +2,6 @@ import 'package:erasmus_helper/models/task.dart';
 import 'package:erasmus_helper/services/tasks_service.dart';
 import 'package:flutter/material.dart';
 
-
 class StepTile extends StatefulWidget {
   final StepModel step;
 
@@ -14,7 +13,7 @@ class StepTile extends StatefulWidget {
 
 class _StepTileState extends State<StepTile> {
   late Icon _icon;
-  final doneIcon = const Icon(Icons.check_circle, color: Colors.black),
+  final doneIcon = const Icon(Icons.check_circle, color: Color(0xFF0038FF)),
       notDoneIcon = const Icon(Icons.circle_outlined, color: Colors.black);
 
   @override

@@ -10,10 +10,12 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppTopBar(
       body: Column(
-        children: const [Text('Account Page'),],
+        children: const [
+          Text('Account Page'),
+        ],
       ),
       activateBackButton: true,
-      title: "Application Settings",
+      title: "Settings",
     );
   }
 }

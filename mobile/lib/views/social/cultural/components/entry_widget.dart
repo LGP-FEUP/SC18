@@ -35,13 +35,19 @@ class EntryWidget extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(entry.title),
+                          Text(
+                            entry.title,
+                            style: const TextStyle(fontSize: 18),
+                          ),
                           const SizedBox(
                             height: 15,
                           ),
                           Row(
                             children: <Widget>[
-                              const Icon(Icons.location_on),
+                              const Icon(
+                                Icons.location_on,
+                                color: Colors.red,
+                              ),
                               const SizedBox(
                                 width: 5,
                               ),
@@ -53,11 +59,7 @@ class EntryWidget extends StatelessWidget {
                           )
                         ],
                       ),
-                    ),
-                    const Expanded(
-                      flex: 1,
-                      child: Icon(Icons.more_horiz_rounded),
-                    ),
+                    )
                   ],
                 )
               ])),

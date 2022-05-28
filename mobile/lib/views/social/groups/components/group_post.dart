@@ -16,7 +16,7 @@ class GroupPost extends StatelessWidget {
         builder: (context, response) {
           if (response.connectionState == ConnectionState.done) {
             if (response.data != null) {
-              return _genPost(
+              return _genPost(context,
                   name: response.data.toString(),
                   text: post.body != null ? post.body! : '',
                   time: post.time);
@@ -27,7 +27,7 @@ class GroupPost extends StatelessWidget {
         });
   }
 
-  Widget _genPost(
+  Widget _genPost(BuildContext context,
       {required String name,
       required String text,
       required int time,
@@ -36,13 +36,13 @@ class GroupPost extends StatelessWidget {
 
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all( 10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[_genUserInfo(name, timeAgo)],
+              children: <Widget>[_genUserInfo(context, name, timeAgo)],
             ),
             const SizedBox(
               height: 20,
@@ -62,7 +62,7 @@ class GroupPost extends StatelessWidget {
     );
   }
 
-  Row _genUserInfo(String name, String time) {
+  Row _genUserInfo(BuildContext context, String name, String time) {
     return Row(
       children: <Widget>[
         const CircleAvatar(
@@ -75,13 +75,16 @@ class GroupPost extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              name,
-              style: TextStyle(
-                  color: Colors.grey[900],
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.75,
+              child: Text(
+                name,
+                maxLines: 1,
+                overflow: TextOverflow.clip,
+                softWrap: false,
+                style: TextStyle(
+                    color: Colors.grey[900], fontSize: 18, letterSpacing: 1),
+              ),
             ),
             const SizedBox(
               height: 3,
@@ -124,7 +127,7 @@ class GroupPost extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        _genButton(text: "Like", icon: Icons.favorite, isActive: true),
+        _genButton(text: "Like", icon: Icons.favorite),
         _genButton(text: "Comment", icon: Icons.chat)
       ],
     );

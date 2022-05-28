@@ -22,23 +22,31 @@ class _TaskPageState extends State<TaskPage> {
     return AppTopBar(
         title: task.title,
         activateBackButton: true,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [_showTaskInfo(task), ..._showSteps(task.steps)],
-        ));
+        body: Padding(
+            padding: const EdgeInsets.all(14),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [_showTaskInfo(task), ..._showSteps(task.steps)],
+              ),
+            )));
   }
 
   Widget _showTaskInfo(TaskModel task) {
     return Padding(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             "Due date: ${DateFormat("dd/MM/yyyy").format(task.dueDate)}",
-            style: const TextStyle(fontSize: 20),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 12),
           Text(
             task.description,
             style: const TextStyle(fontSize: 15),
@@ -55,7 +63,7 @@ class _TaskPageState extends State<TaskPage> {
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: Text(
               "Steps:",
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             )),
         ListView.builder(
           scrollDirection: Axis.vertical,

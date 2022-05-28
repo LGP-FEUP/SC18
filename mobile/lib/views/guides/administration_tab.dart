@@ -1,4 +1,4 @@
-import 'package:erasmus_helper/views/school/checklist/checklist.dart';
+import 'package:erasmus_helper/views/guides/checklist/checklist.dart';
 import 'package:flutter/material.dart';
 
 class AdministrationTab extends StatelessWidget {

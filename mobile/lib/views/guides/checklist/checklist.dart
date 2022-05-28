@@ -1,10 +1,10 @@
 import 'package:erasmus_helper/models/task.dart';
 import 'package:erasmus_helper/services/faculty_service.dart';
 import 'package:erasmus_helper/services/tasks_service.dart';
+import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 
 import 'components/task_tile.dart';
-
 
 class Checklist extends StatefulWidget {
   const Checklist({Key? key}) : super(key: key);
@@ -78,10 +78,6 @@ class _ChecklistState extends State<Checklist> {
   }
 
   List<Widget> _genListItems(List<TaskTile> tasksTiles) {
-    // List<Widget> before = [_genListTitle("Before Arrival")];
-    // List<Widget> during = [_genListTitle("During Arrival")];
-    // List<Widget> after = [_genListTitle("After Arrival")];
-
     List<Widget> before = [];
     List<Widget> during = [];
     List<Widget> after = [];
@@ -92,7 +88,7 @@ class _ChecklistState extends State<Checklist> {
         before.add(t);
       } else if (when == "during_stay") {
         during.add(t);
-      } else if (when == "before_departure"){
+      } else if (when == "before_departure") {
         after.add(t);
       }
     }
@@ -112,26 +108,30 @@ class _ChecklistState extends State<Checklist> {
     return [
       Padding(
         padding: const EdgeInsets.all(12),
-        child: ExpansionTile(
-          title: _genListTitle("Before Arrival"),
-          children: before,
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(12),
-        child: ExpansionTile(
-          title: _genListTitle("During Stay"),
-          children: during,
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(12),
-        child: ExpansionTile(
-          title: _genListTitle("Before Departure"),
-          children: after,
+        child: Column(
+          children: [
+            _genTileCard("Before Arrival", before),
+            const SizedBox(height: 14),
+            _genTileCard("During Stay", during),
+            const SizedBox(height: 14),
+            _genTileCard("Before Departure", after),
+            const SizedBox(height: 14),
+          ],
         ),
       ),
     ];
+  }
+
+  ExpansionTileCard _genTileCard(String title, List<Widget> taskTiles) {
+    return (ExpansionTileCard(
+      title: _genListTitle(title),
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(15, 15, 15, 20),
+          child: Column(children: taskTiles),
+        ),
+      ],
+    ));
   }
 
   List<TaskModel> _sortTasks(List<TaskModel> tasks) {
@@ -143,16 +143,10 @@ class _ChecklistState extends State<Checklist> {
     return tasks;
   }
 
-  Row _genListTitle(String title) {
-    return Row(
-      children: [
-        Padding(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              title,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            ))
-      ],
+  Text _genListTitle(String title) {
+    return Text(
+      title,
+      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
     );
   }
 

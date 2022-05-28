@@ -10,7 +10,7 @@ class GroupService {
   static Future<List<PostModel>> getGroupPosts(String groupId) async {
     List<PostModel> posts = [];
     final DataSnapshot snap =
-          await FirebaseDatabase.instance.ref("$postsCollection$groupId").get();
+        await FirebaseDatabase.instance.ref("$postsCollection$groupId").get();
 
     if (snap.exists) {
       for (var element in UtilsService.snapToMapOfMap(snap).entries) {
