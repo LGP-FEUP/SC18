@@ -14,7 +14,7 @@ class AppLayout extends StatefulWidget {
 }
 
 class _AppScaffold extends State<AppLayout> {
-  int _selectedNavBarPageIndex = 0;
+  int _selectedNavBarPageIndex = 2;
 
   final navbarPages = [
     const SchoolPage(),

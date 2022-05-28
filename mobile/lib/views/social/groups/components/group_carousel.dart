@@ -18,7 +18,7 @@ class GroupCarousel extends StatelessWidget {
             List groupIds = response.data as List<String>;
 
             if (groupIds.isEmpty) return Container();
-            return genCarrousel(title, groupIds);
+            return _genCarrousel(title, groupIds);
           }
         }
         return Container();
@@ -26,7 +26,7 @@ class GroupCarousel extends StatelessWidget {
     );
   }
 
-  Widget genCarrousel(String title, List groupIds) {
+  Widget _genCarrousel(String title, List groupIds) {
     return Card(
         elevation: 0,
         child: Column(
