@@ -21,7 +21,7 @@ class _UniversityTabState extends State<UniversityTab> {
               return _faqList(context, response.data as List<FAQModel>);
             }
             return const Center(
-                child: Text('No available FAQs for this University'));
+                child: Text('No available FAQs for this University.'));
           }
           return const Center(
             child: CircularProgressIndicator(),

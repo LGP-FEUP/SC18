@@ -42,9 +42,13 @@ class _GroupPageState extends State<GroupPage> {
                     ],
                   ));
             }
-            return Container();
+            return const Center(
+              child: Text('No data for group'),
+            );
           }
-          return Container();
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         });
   }
 
@@ -107,7 +111,7 @@ class _GroupPageState extends State<GroupPage> {
 
         return snapshot.docs.isNotEmpty
             ? ListView.builder(
-                padding: const EdgeInsets.only(top: 5),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 itemCount: snapshot.docs.length,

@@ -21,8 +21,8 @@ class CategoryWidget extends StatelessWidget {
       },
       child: Container(
         margin: const EdgeInsets.only(left: 5, top: 10, bottom: 10),
-        width: 90,
-        height: 90,
+        width: 70,
+        height: 70,
         decoration: BoxDecoration(
           border: Border.all(color: Theme.of(context).primaryColor, width: 2),
           borderRadius: const BorderRadius.all(Radius.circular(16)),
@@ -35,7 +35,7 @@ class CategoryWidget extends StatelessWidget {
                 category.icon,
                 color:
                     isSelected ? Colors.white : Theme.of(context).primaryColor,
-                size: 40,
+                size: 30,
               ),
               const SizedBox(
                 height: 10,

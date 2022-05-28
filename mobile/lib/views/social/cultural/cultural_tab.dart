@@ -19,43 +19,46 @@ class CulturalTab extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Consumer<CultureState>(
-                    builder: (context, cultureState, _) =>
-                        SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Consumer<CultureState>(
+                      builder: (context, cultureState, _) =>
+                          SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: <Widget>[
+                            for (final category in cultureCategories)
+                              CategoryWidget(category: category),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Consumer<CultureState>(
+                      builder: (context, cultureState, _) => Column(
                         children: <Widget>[
-                          for (final category in cultureCategories)
-                            CategoryWidget(category: category),
+                          for (final entry in entries.where((e) => e.categoryIds
+                              .contains(cultureState.selectedCategoryId)))
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) => CultureDetails(
+                                            entry,
+                                          )),
+                                );
+                              },
+                              child: EntryWidget(
+                                entry: entry,
+                              ),
+                            )
                         ],
                       ),
                     ),
-                  ),
-                  Consumer<CultureState>(
-                    builder: (context, cultureState, _) => Column(
-                      children: <Widget>[
-                        for (final entry in entries.where((e) => e.categoryIds
-                            .contains(cultureState.selectedCategoryId)))
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) => CultureDetails(
-                                          entry,
-                                        )),
-                              );
-                            },
-                            child: EntryWidget(
-                              entry: entry,
-                            ),
-                          )
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],

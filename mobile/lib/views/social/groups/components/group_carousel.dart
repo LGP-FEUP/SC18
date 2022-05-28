@@ -37,7 +37,7 @@ class GroupCarousel extends StatelessWidget {
               child: Text(
                 title,
                 style:
-                    const TextStyle(fontWeight: FontWeight.w500, fontSize: 23),
+                    const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
               ),
             ),
             SizedBox(

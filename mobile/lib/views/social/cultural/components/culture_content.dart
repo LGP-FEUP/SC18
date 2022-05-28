@@ -17,7 +17,7 @@ class CultureContent extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Text(
             entry.title,
-            style: const TextStyle(fontSize: 18),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -30,7 +30,7 @@ class CultureContent extends StatelessWidget {
           children: <Widget>[
             const Icon(
               Icons.location_on,
-              color: Colors.blue,
+              color: Colors.red,
             ),
             const SizedBox(
               width: 2,

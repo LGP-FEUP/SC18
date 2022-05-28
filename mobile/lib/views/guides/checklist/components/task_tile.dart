@@ -36,7 +36,10 @@ class _TaskTileState extends State<TaskTile> {
         onTap: () => _changeTaskState(task),
         child: _icon,
       ),
-      trailing: const Icon(Icons.arrow_forward_ios),
+      trailing: const Icon(
+        Icons.arrow_forward_ios,
+        size: 15,
+      ),
     );
   }
 
