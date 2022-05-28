@@ -24,27 +24,27 @@ class CategoryWidget extends StatelessWidget {
         width: 90,
         height: 90,
         decoration: BoxDecoration(
-          border: Border.all(
-              color:
-                  isSelected ? Colors.white : const Color.fromARGB(255, 18, 71, 187),
-              width: 3),
+          border: Border.all(color: Theme.of(context).primaryColor, width: 2),
           borderRadius: const BorderRadius.all(Radius.circular(16)),
-          color: isSelected ? const Color.fromARGB(255, 18, 71, 187) : Colors.white,
+          color: isSelected ? Theme.of(context).primaryColor : Colors.white,
         ),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Icon(
                 category.icon,
-                color: isSelected
-                    ? Colors.white
-                    : const Color.fromARGB(255, 18, 71, 187),
+                color:
+                    isSelected ? Colors.white : Theme.of(context).primaryColor,
                 size: 40,
               ),
               const SizedBox(
                 height: 10,
               ),
-              Text(category.name),
+              Text(category.name,
+                  style: TextStyle(
+                      color: isSelected
+                          ? Colors.white
+                          : Colors.black)),
             ]),
       ),
     );
