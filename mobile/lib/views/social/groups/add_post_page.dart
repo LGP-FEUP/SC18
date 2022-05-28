@@ -1,10 +1,15 @@
+import 'package:erasmus_helper/models/post.dart';
+import 'package:erasmus_helper/services/group_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 import '../../app_topbar.dart';
 
 class AddPostPage extends StatefulWidget {
-  const AddPostPage({Key? key}) : super(key: key);
+  final String groupId;
+
+  const AddPostPage({Key? key, required this.groupId}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -59,8 +64,25 @@ class _AddPostPageState extends State<AddPostPage> {
   Widget _genButton() {
     return Center(
         child: ElevatedButton(
-      onPressed: () {},
-      child: Text("Submit"),
+      onPressed: _onSubmit,
+      child: const Text("Submit"),
     ));
+  }
+
+  void _onSubmit() {
+    if (_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Submitting post')),
+      );
+
+      String user = FirebaseAuth.instance.currentUser!.uid;
+      String text = postController.text.trim();
+      int time = DateTime.now().millisecondsSinceEpoch * -1;
+
+      PostModel post = PostModel(user, time, text);
+
+      GroupService.addPost(widget.groupId, post)
+          .then((value) => Navigator.pop(context, true));
+    }
   }
 }

@@ -137,7 +137,7 @@ class _GroupPageState extends State<GroupPage> {
 
   void _navigateToAddPostPage() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const AddPostPage()));
+        context, MaterialPageRoute(builder: (context) => AddPostPage(groupId: widget.groupId)));
   }
 }
 
