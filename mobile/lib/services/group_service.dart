@@ -44,4 +44,11 @@ class GroupService {
     if (data.value == null) return [];
     return (data.value as Map).keys.map((e) => e as String).toList();
   }
+
+  static Future addPost(String groupId, PostModel post) {
+    return FirebaseDatabase.instance
+        .ref(postsCollection)
+        .child(groupId).push().set(post.toJson());
+  }
+
 }

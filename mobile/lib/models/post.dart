@@ -1,9 +1,9 @@
 class PostModel {
-  String uid, author;
-  String? image, body;
+  String author;
+  String? uid, image, body;
   int time;
 
-  PostModel(this.uid, this.author, this.time, this.body, this.image);
+  PostModel(this.author, this.time, this.body);
 
   PostModel.fromJson(this.uid, Map<String, dynamic> json)
       : author = json['author'],
@@ -15,4 +15,10 @@ class PostModel {
       body = json['body'];
     }
   }
+
+  Map<String, dynamic> toJson() => {
+    'author': author,
+    'time': time,
+    'body': body
+  };
 }
