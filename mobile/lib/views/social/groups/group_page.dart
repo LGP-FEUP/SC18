@@ -36,8 +36,11 @@ class _GroupPageState extends State<GroupPage> {
                   activateBackButton: true,
                   title: "$title Group",
                   body: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [_genCover(image, title), _genPostsList()]));
+                    children: [
+                      _genCover(image, title),
+                      Expanded(child: _genPostsList())
+                    ],
+                  ));
             }
             return Container();
           }
