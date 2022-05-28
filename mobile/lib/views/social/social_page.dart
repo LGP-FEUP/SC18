@@ -1,9 +1,8 @@
 import 'package:erasmus_helper/views/app_topbar.dart';
-import 'package:erasmus_helper/views/social/cultural_tab.dart';
+import 'package:erasmus_helper/views/social/cultural/cultural_tab.dart';
 import 'package:erasmus_helper/views/social/groups/forums_tab.dart';
 import 'package:flutter/material.dart';
 
-// TODO : replace this page with the good content
 class SocialPage extends StatelessWidget {
   const SocialPage({Key? key}) : super(key: key);
 
