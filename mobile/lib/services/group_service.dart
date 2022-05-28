@@ -2,7 +2,6 @@ import 'package:erasmus_helper/services/utils_service.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-
 import '../models/post.dart';
 
 class GroupService {
@@ -45,4 +44,11 @@ class GroupService {
     if (data.value == null) return [];
     return (data.value as Map).keys.map((e) => e as String).toList();
   }
+
+  static Future addPost(String groupId, PostModel post) {
+    return FirebaseDatabase.instance
+        .ref(postsCollection)
+        .child(groupId).push().set(post.toJson());
+  }
+
 }

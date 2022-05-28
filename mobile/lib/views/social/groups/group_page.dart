@@ -5,6 +5,7 @@ import 'package:flutterfire_ui/database.dart';
 import '../../../models/post.dart';
 import '../../../services/group_service.dart';
 import '../../app_topbar.dart';
+import 'add_post_page.dart';
 
 class GroupPage extends StatefulWidget {
   final String groupId;
@@ -33,6 +34,9 @@ class _GroupPageState extends State<GroupPage> {
               String title = data[1].toString();
 
               return AppTopBar(
+                  floatingButton: FloatingActionButton(
+                      onPressed: _navigateToAddPostPage,
+                      child: const Icon(Icons.add)),
                   activateBackButton: true,
                   title: "$title Group",
                   body: Column(
@@ -129,6 +133,11 @@ class _GroupPageState extends State<GroupPage> {
               );
       },
     );
+  }
+
+  void _navigateToAddPostPage() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AddPostPage(groupId: widget.groupId)));
   }
 }
 
