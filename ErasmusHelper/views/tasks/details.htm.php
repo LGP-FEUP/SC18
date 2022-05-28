@@ -31,17 +31,17 @@ use ErasmusHelper\Models\Task;
                 <div class="field">
                     <div class="label">Before Arrival</div>
                     <input name="when" class="value" type="radio"
-                           value="before" <?= $task->when === "before" ? "checked" : "" ?>/>
+                           value="before_arrival" <?= $task->when === "before_arrival" ? "checked" : "" ?>/>
                 </div>
                 <div class="field">
                     <div class="label">During Stay</div>
                     <input name="when" class="value" type="radio"
-                           value="during"<?= $task->when === "during" ? "checked" : "" ?>/>
+                           value="during_stay"<?= $task->when === "during_stay" ? "checked" : "" ?>/>
                 </div>
                 <div class="field">
-                    <div class="label">After Departure</div>
+                    <div class="label">Before Departure</div>
                     <input name="when" class="value" type="radio"
-                           value="after" <?= $task->when === "after" ? "checked" : "" ?>/>
+                           value="before_departure" <?= $task->when === "before_departure" ? "checked" : "" ?>/>
                 </div>
                 <div class="field">
                     <div class="label">Deadline</div>
