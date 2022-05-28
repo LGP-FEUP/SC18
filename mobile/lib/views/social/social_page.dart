@@ -1,6 +1,6 @@
 import 'package:erasmus_helper/views/app_topbar.dart';
 import 'package:erasmus_helper/views/social/cultural/cultural_tab.dart';
-import 'package:erasmus_helper/views/social/forums_tab.dart';
+import 'package:erasmus_helper/views/social/groups/forums_tab.dart';
 import 'package:flutter/material.dart';
 
 class SocialPage extends StatelessWidget {

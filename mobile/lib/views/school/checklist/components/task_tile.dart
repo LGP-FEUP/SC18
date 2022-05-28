@@ -28,7 +28,6 @@ class _TaskTileState extends State<TaskTile> {
       dense: true,
       title: Text(task.title,
           style: const TextStyle(
-            fontWeight: FontWeight.w500,
             fontSize: 20,
           )),
       subtitle: Text("Due date: ${DateFormat("dd/MM/yyyy").format(task.dueDate)}",
@@ -38,8 +37,7 @@ class _TaskTileState extends State<TaskTile> {
         child: _icon,
       ),
       trailing: const Icon(
-        Icons.arrow_forward_ios,
-        color: Colors.black,
+        Icons.arrow_forward_ios
       ),
     );
   }

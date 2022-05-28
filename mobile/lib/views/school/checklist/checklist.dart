@@ -88,11 +88,11 @@ class _ChecklistState extends State<Checklist> {
 
     for (var t in tasksTiles) {
       var when = t.task.when;
-      if (when == "before") {
+      if (when == "before_arrival") {
         before.add(t);
-      } else if (when == "during") {
+      } else if (when == "during_stay") {
         during.add(t);
-      } else {
+      } else if (when == "before_departure"){
         after.add(t);
       }
     }
