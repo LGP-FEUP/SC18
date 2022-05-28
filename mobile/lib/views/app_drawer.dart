@@ -17,47 +17,47 @@ class AppDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            child: Text("Erasmus Helper"),
+          const SizedBox(
+            height: 100,
+            child: DrawerHeader(
+                child: Image(image: AssetImage('assets/logo_complex.png'))),
           ),
-          ListTile(
-            title: const Text("Profile"),
-            leading: const Icon(Icons.person),
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const ProfileScreen()));
-            },
-          ),
-          ListTile(
-            title: const Text("Settings"),
-            leading: const Icon(Icons.settings),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SettingsPage()));
-            },
-          ),
-          ListTile(
-            title: const Text("Help"),
-            leading: const Icon(Icons.help),
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const HelpPage()));
-            },
-          ),
-          ListTile(
-              title: const Text("Logout"),
-              onTap: () => signOut(context),
-              leading: const Icon(Icons.logout))
+          _genDrawerTile("Profile", Icons.person, () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ProfileScreen()));
+          }),
+          _genDrawerTile("Settings", Icons.settings, () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const SettingsPage()));
+          }),
+          _genDrawerTile("Help", Icons.help, () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HelpPage()));
+          }),
+          _genDrawerTile("Logout", Icons.logout, () => signOut(context)),
         ],
       ),
     );
   }
+}
 
-  void signOut(BuildContext context) {
-    context.read<AuthenticationService>().signOut().then((value) =>
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const LoginPage())));
-  }
+ListTile _genDrawerTile(String title, IconData icon, VoidCallback onTap) {
+  return ListTile(
+    iconColor: const Color(0xFF0038FF),
+    title: Text(
+      title,
+      style: const TextStyle(fontSize: 16),
+    ),
+    leading: Icon(
+      icon,
+      size: 28,
+    ),
+    onTap: onTap,
+  );
+}
+
+void signOut(BuildContext context) {
+  context.read<AuthenticationService>().signOut().then((value) =>
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const LoginPage())));
 }
