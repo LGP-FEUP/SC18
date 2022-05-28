@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../services/user_service.dart';
-import 'groups/components/group_carousel.dart';
+import '../../../services/user_service.dart';
+import 'components/group_carousel.dart';
 
 class ForumsTab extends StatelessWidget {
   const ForumsTab({Key? key}) : super(key: key);
@@ -16,6 +16,7 @@ class ForumsTab extends StatelessWidget {
             List<String> interests = response.data as List<String>;
 
             return ListView.builder(
+                padding: const EdgeInsets.only(top: 10),
                 scrollDirection: Axis.vertical,
                 itemCount: interests.length,
                 itemBuilder: (BuildContext context, int index) {

@@ -20,7 +20,7 @@ class GroupCard extends StatelessWidget {
             List data = response.data as List;
             String image = data[0].toString();
             String title = data[1].toString();
-            return genCard(context, image, title);
+            return _genCard(context, image, title);
           }
         }
         return Container();
@@ -28,7 +28,7 @@ class GroupCard extends StatelessWidget {
     );
   }
 
-  Widget genCard(BuildContext context, String image, String title) {
+  Widget _genCard(BuildContext context, String image, String title) {
     return GestureDetector(
         onTap: () => _navigateToGroupPage(context),
         child: Card(
@@ -37,15 +37,15 @@ class GroupCard extends StatelessWidget {
               alignment: Alignment.topCenter,
               children: [
                 Row(
-                  children: [genGroupImage(image)],
+                  children: [_genGroupImage(image)],
                 ),
                 Positioned(
-                    top: 150, child: Row(children: [genGroupInfo(title)]))
+                    top: 150, child: Row(children: [_genGroupInfo(title)]))
               ],
             )));
   }
 
-  Widget genGroupImage(String image) {
+  Widget _genGroupImage(String image) {
     return Container(
       height: 170,
       width: 252,
@@ -61,7 +61,7 @@ class GroupCard extends StatelessWidget {
     );
   }
 
-  Widget genGroupInfo(String title) {
+  Widget _genGroupInfo(String title) {
     return Container(
         width: 252,
         height: 50,

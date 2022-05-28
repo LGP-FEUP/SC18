@@ -1,4 +1,4 @@
-import 'package:erasmus_helper/views/social/components/forum_post.dart';
+import 'package:erasmus_helper/views/social/groups/components/group_post.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/database.dart';
 
@@ -8,6 +8,7 @@ import '../../app_topbar.dart';
 
 class GroupPage extends StatefulWidget {
   final String groupId;
+
   const GroupPage({Key? key, required this.groupId}) : super(key: key);
 
   @override
@@ -17,7 +18,6 @@ class GroupPage extends StatefulWidget {
 }
 
 class _GroupPageState extends State<GroupPage> {
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -34,7 +34,7 @@ class _GroupPageState extends State<GroupPage> {
 
               return AppTopBar(
                   activateBackButton: true,
-                  title: "Forum",
+                  title: "$title Group",
                   body: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [_genCover(image, title), _genPostsList()]));
@@ -49,10 +49,8 @@ class _GroupPageState extends State<GroupPage> {
     return Stack(children: <Widget>[
       Container(
         decoration: BoxDecoration(
-            image: DecorationImage(
-                image: NetworkImage(
-                    image),
-                fit: BoxFit.cover)),
+            image:
+                DecorationImage(image: NetworkImage(image), fit: BoxFit.cover)),
         height: 170.0,
       ),
       _genTitle(title),
@@ -87,15 +85,48 @@ class _GroupPageState extends State<GroupPage> {
   }
 
   Widget _genPostsList() {
-    return FirebaseDatabaseListView(
+    return FirebaseDatabaseQueryBuilder(
       query: GroupService.queryGroupPosts(widget.groupId),
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemBuilder: (context, snapshot) {
-        Map<String, dynamic> value = (snapshot.value as Map<dynamic, dynamic>)
-            .map((key, value) => MapEntry(key.toString(), value));
-        PostModel post = PostModel.fromJson(snapshot.key.toString(), value);
-        return ForumPost(post: post);
+      builder: (context, snapshot, _) {
+        if (snapshot.isFetching) {
+          return const Center(
+            child: CircularProgressIndicator(),
+            heightFactor: 10,
+          );
+        }
+
+        if (snapshot.hasError) {
+          return Center(
+            child: Text('Something went wrong! ${snapshot.error}'),
+            heightFactor: 10,
+          );
+        }
+
+        return snapshot.docs.isNotEmpty
+            ? ListView.builder(
+                padding: const EdgeInsets.only(top: 5),
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: snapshot.docs.length,
+                itemBuilder: (context, index) {
+                  // obtain more items
+                  if (snapshot.hasMore && index + 1 == snapshot.docs.length) {
+                    snapshot.fetchMore();
+                  }
+
+                  Map<String, dynamic> value =
+                      (snapshot.docs[index].value as Map<dynamic, dynamic>)
+                          .map((key, value) => MapEntry(key.toString(), value));
+                  PostModel post = PostModel.fromJson(
+                      snapshot.docs[index].key.toString(), value);
+
+                  return GroupPost(post: post);
+                },
+              )
+            : const Center(
+                child: Text("This group has no activity yet."),
+                heightFactor: 10,
+              );
       },
     );
   }
