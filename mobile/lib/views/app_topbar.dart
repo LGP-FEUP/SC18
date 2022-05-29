@@ -10,11 +10,14 @@ class AppTopBar extends StatelessWidget {
   final PreferredSizeWidget? bottom;
   final String title;
   final bool activateBackButton;
+  final FloatingActionButton? floatingButton;
+
   const AppTopBar(
       {Key? key,
       required this.body,
       this.title = "Erasmus Helper",
       this.bottom,
+      this.floatingButton,
       this.activateBackButton = false})
       : super(key: key);
 
@@ -26,11 +29,15 @@ class AppTopBar extends StatelessWidget {
     }
     return SafeArea(
         child: Scaffold(
+      floatingActionButton: floatingButton,
       appBar: AppBar(
         automaticallyImplyLeading: true,
         foregroundColor: Theme.of(context).primaryColor,
         backgroundColor: Colors.white,
-        title: Text(title),
+        title: Text(
+          title,
+          style: const TextStyle(fontSize: 23, fontWeight: FontWeight.w600),
+        ),
         bottom: bottom,
         actions: [
           // TODO : change with avatar of the account
@@ -38,8 +45,10 @@ class AppTopBar extends StatelessWidget {
               child: const CircleAvatar(
                 backgroundImage: AssetImage("assets/avatar.jpg"),
               ),
-              onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const ProfileScreen()))),
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ProfileScreen()))),
           // TODO : add notification system
           IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))
         ],

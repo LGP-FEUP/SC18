@@ -54,6 +54,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Erasmus Helper',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
             primarySwatch: createMaterialColor(_bluePrimary),
             primaryColor: _bluePrimary,
