@@ -195,6 +195,11 @@ abstract class Model
     }
 
     public static function getCount(array $where = null): int {
-        return sizeof(static::getAll($where));
+        $tmp = static::getAll($where);
+        if($tmp != null) {
+            return sizeof($tmp);
+        } else {
+            return 0;
+        }
     }
 }

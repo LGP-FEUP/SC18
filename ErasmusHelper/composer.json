@@ -12,7 +12,9 @@
     "require": {
         "kreait/firebase-php": "^6.2.0",
         "guzzlehttp/guzzle": "~7.4.0",
-        "nikic/fast-route": "^1.3"
+        "nikic/fast-route": "^1.3",
+        "phpoffice/phpspreadsheet": "dev-master",
+        "phpmailer/phpmailer": "dev-master"
     },
     "autoload": {
         "psr-4": {

@@ -48,6 +48,8 @@ class Router extends AbstractRouter
             'staff'                         => ["GET", "/staff/{id}", [StaffController::class, "edit"]],
             'users'                         => ["GET", "/users", [UserController::class, "displayAll"]],
             'users.search'                  => ["POST", "/users/search", [ModalController::class, "searchUsers"]],
+            'users.excel'                   => ["POST", "/users/excel", [ModalController::class, "importExcel"]],
+            'users.excel.create'            => ["POST", "/users/excel/create", [ModalController::class, "importExcelPost"]],
             'user.ability'                  => ["GET", "/user/ability/{id}", [UserController::class, "changeAbility"]],
             'user.edit'                     => ["POST", "/user/edit/{id}", [UserController::class, "editPost"]],
             'user'                          => ["GET", "/user/{id}", [UserController::class, "edit"]],

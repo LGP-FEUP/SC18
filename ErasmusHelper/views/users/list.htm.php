@@ -24,7 +24,7 @@ use ErasmusHelper\Models\User;
                             <th>BirthDate</th>
                             <th>Faculty of Origin</th>
                             <th>Faculty of Arrival</th>
-                            <th></th>
+                            <th><a class="button" onclick="excelModal.show();"><i class="far fa-eye r"></i>Excel Import</a></th>
                         </tr>
                         <?php
                         if(!empty($users)) {
@@ -47,6 +47,13 @@ use ErasmusHelper\Models\User;
     </div>
 </div>
 <script type="text/javascript">
+    let excelModal;
+
+    window.addEventListener("load", () => {
+        excelModal = new Modal({view_url: '<?= Router::route("users.excel")?>', title: 'Import Excel file.'});
+        excelModal.build();
+    });
+
     document.getElementById("searchBar").addEventListener('change', updateList);
     let data = <?php echo json_encode($users, JSON_HEX_TAG); ?>;
 

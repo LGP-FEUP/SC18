@@ -180,6 +180,11 @@ abstract class StaffModel {
     }
 
     public static function getCount(): int {
-        return sizeof(static::getAll());
+        $tmp = static::getAll();
+        if($tmp != null) {
+            return sizeof($tmp);
+        } else {
+            return 0;
+        }
     }
 }

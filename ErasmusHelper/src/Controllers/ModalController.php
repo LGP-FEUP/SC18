@@ -2,10 +2,13 @@
 
 namespace ErasmusHelper\Controllers;
 
+use AgileBundle\Utils\Dbg;
+use AgileBundle\Utils\Request;
 use ErasmusHelper\Models\BackOfficeRequest;
 use ErasmusHelper\Models\StaffModel;
 use ErasmusHelper\Models\User;
 use Exception;
+use JetBrains\PhpStorm\NoReturn;
 use Kreait\Firebase\Exception\AuthException;
 use Kreait\Firebase\Exception\DatabaseException;
 use Kreait\Firebase\Exception\FirebaseException;
@@ -23,6 +26,18 @@ class ModalController extends UniModsBackOfficeController {
             $this->render("users.search", ["users" => $users]);
         } catch (Exception $e) {
             $this->redirect(Router::route("/"), ["error" => $e]);
+        }
+    }
+
+    public function importExcel() {
+        $this->render("users.excel");
+    }
+
+    #[NoReturn] public function importExcelPost() {
+        if(ExcelController::sendEmails($_FILES['excel']['tmp_name'])) {
+            $this->redirect(Router::route("users"), ["success" => "Excel uploaded, sent emails to corresponding addresses."]);
+        } else {
+            $this->redirect(Router::route("users"), ["error" => "Invalid file or unable to send mails."]);
         }
     }
 
@@ -50,4 +65,5 @@ class ModalController extends UniModsBackOfficeController {
         $this->requirePrivileges(ADMIN_PRIVILEGES);
         $this->render("menu.requests.history", ["requests" => BackOfficeRequest::getAll()]);
     }
+
 }
