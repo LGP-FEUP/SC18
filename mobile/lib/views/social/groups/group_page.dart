@@ -1,10 +1,9 @@
+import 'package:erasmus_helper/models/post.dart';
+import 'package:erasmus_helper/services/group_service.dart';
+import 'package:erasmus_helper/views/app_topbar.dart';
 import 'package:erasmus_helper/views/social/groups/components/group_post.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/database.dart';
-
-import '../../../models/post.dart';
-import '../../../services/group_service.dart';
-import '../../app_topbar.dart';
 import 'add_post_page.dart';
 
 class GroupPage extends StatefulWidget {

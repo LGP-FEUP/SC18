@@ -1,6 +1,3 @@
-import 'package:erasmus_helper/models/tag.dart';
-import 'package:erasmus_helper/services/user_interests_service.dart';
-import 'package:erasmus_helper/services/user_service.dart';
 import 'package:erasmus_helper/views/app_topbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

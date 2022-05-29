@@ -1,6 +1,5 @@
+import 'package:erasmus_helper/services/user_service.dart';
 import 'package:flutter/material.dart';
-
-import '../../../services/user_service.dart';
 import 'components/group_carousel.dart';
 
 class ForumsTab extends StatelessWidget {

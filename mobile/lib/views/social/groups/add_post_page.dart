@@ -1,10 +1,10 @@
 import 'package:erasmus_helper/models/post.dart';
 import 'package:erasmus_helper/services/group_service.dart';
+import 'package:erasmus_helper/views/app_topbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-import '../../app_topbar.dart';
 
 class AddPostPage extends StatefulWidget {
   final String groupId;
