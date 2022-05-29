@@ -52,6 +52,7 @@ class UserModel extends FirebaseModel{
     birthdate = DateModel.fromJson(map);
   }
 
+  @override
   Map<String, dynamic> toJson() => {
         'id': uid,
         'firstname': fName,

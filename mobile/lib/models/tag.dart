@@ -7,6 +7,7 @@ class Tag extends FirebaseModel {
 
   Tag.fromJson(Map<dynamic, dynamic> json) : title = json["title"];
 
+  @override
   Map<String, bool> toJson() => <String, bool>{title: true};
 
   Tag.fromString(String string) : title = string;
