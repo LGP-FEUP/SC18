@@ -10,8 +10,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class ExcelController
-{
+class ExcelController {
+
+    public static string $default_message = 'Discover this app'; //TODO Edit this
 
     /**
      * Parse the current sheet and returns all emails found
@@ -41,7 +42,7 @@ class ExcelController
         return null;
     }
 
-    public static function sendEmails(string $path): bool {
+    public static function sendEmails(string $path, string $body): bool {
         try {
             $addresses = ExcelController::parseEmails($path);
             if ($addresses != null) {
@@ -77,8 +78,7 @@ class ExcelController
                 } else {
                     $mail->Subject = 'Erasmus Helper Application - Discover a new Erasmus experience and Meet new Friends !';
                 }
-                $mail->Body = 'Discover this app'; //TODO message and subject
-
+                $mail->Body = $body;
                 if($mail->send()) {
                     return true;
                 } else {

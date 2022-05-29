@@ -34,7 +34,7 @@ class ModalController extends UniModsBackOfficeController {
     }
 
     #[NoReturn] public function importExcelPost() {
-        if(ExcelController::sendEmails($_FILES['excel']['tmp_name'])) {
+        if(ExcelController::sendEmails($_FILES['excel']['tmp_name'], Request::valuePost("body"))) {
             $this->redirect(Router::route("users"), ["success" => "Excel uploaded, sent emails to corresponding addresses."]);
         } else {
             $this->redirect(Router::route("users"), ["error" => "Invalid file or unable to send mails."]);
