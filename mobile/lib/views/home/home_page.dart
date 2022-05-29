@@ -11,23 +11,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*
     return AppTopBar(
       body: Column(
         children: const [Text("Home Page")],
       ),
       title: "Home",
-    );*/
-    return FutureBuilder(
-        future: Future.wait([UserInterestsService.getUsersWithTags([Tag("Music")])]),
-        builder: (context, response) {
-          if (response.connectionState == ConnectionState.done) {
-            if (response.data != null) {
-              print(response.data);
-            }
-          }
-          return const Text("Home Page");
-        }
     );
   }
 }

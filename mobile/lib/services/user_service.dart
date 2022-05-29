@@ -59,34 +59,9 @@ class UserService {
 
   static Future<UserModel?> getProfileFromId(String userId) async {
     DatabaseReference ref = FirebaseDatabase.instance.ref(collectionName + userId);
-    DataSnapshot firstname = await ref.child("firstname").get(),
-        lastname = await ref.child("lastname").get(),
-        interests = await ref.child("interests").get(),
-        faculty_origin_id = await ref.child("faculty_origin_id").get(),
-        faculty_arriving_id = await ref.child("faculty_arriving_id").get(),
-        description = await ref.child("description").get(),
-        country_code = await ref.child("country_code").get(),
-        phone = await ref.child("phone").get(),
-        whatsapp = await ref.child("whatsapp").get(),
-        facebook = await ref.child("facebook").get();
-    Map<dynamic, dynamic> map = {
-      firstname.key: firstname.value,
-      lastname.key: lastname.value,
-      interests.key: interests.value,
-      faculty_origin_id.key: lastname.value,
-      faculty_arriving_id.key: lastname.value,
-      description.key: description.value,
-      country_code.key: country_code.value,
-      phone.key: phone.value,
-      whatsapp.key: whatsapp.value,
-      facebook.key: facebook.value,
-    };
-    /*
-    if (snapshot.exists) {
-      return UserModel.fromProfileJson(map);
-    } else {
-      return null;
-    }*/
+    Map<String, dynamic> map = await UtilsService.mapOfRefChildren(ref, ["firstname",
+      "lastname", "interests", "faculty_origin_id", "faculty_arriving_id",
+      "description", "country_code", "phone", "whatsapp", "facebook"]);
     return UserModel.fromProfileJson(map);
   }
 
