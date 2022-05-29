@@ -20,6 +20,7 @@ class PostModel extends FirebaseModel {
     }
   }
 
+  @override
   Map<String, dynamic> toJson() => {
     'author': author,
     'time': time,

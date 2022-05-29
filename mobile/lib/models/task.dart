@@ -26,6 +26,7 @@ class TaskModel extends FirebaseModel{
     steps = stepsList;
   }
 
+  @override
   Map<String, dynamic> toJson() {
     // TODO: implement toJson
     throw UnimplementedError();

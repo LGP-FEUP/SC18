@@ -12,6 +12,7 @@ class DateModel extends FirebaseModel{
     year = dt.year;
   }
 
+  @override
   Map<String, dynamic> toJson() => {'day': day, 'month': month, 'year': year};
 
   DateModel.fromJson(Map<String, dynamic> json)

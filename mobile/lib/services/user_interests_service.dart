@@ -46,30 +46,29 @@ class UserInterestsService {
     if (snap.exists) {
       Map<dynamic, dynamic> map = UtilsService.snapToMap(snap);
       // For each user id (key)
-      map.forEach((userId, value) async {
+      for (String userId in map.keys) {
         List<Tag>? tagsUser = await getTagsOfUser(userId);
         // If something want wrong with the previous request
         if (tagsUser == null) {
-          return;
+          break;
         }
         bool isValid = true;
         // For each required tags
-        tagList.forEach((tag) {
+        for (var tag in tagList) {
           // If the user doesn't have one, he is no longer valid (not added to the list of user)
           if (!tagsUser.contains(tag)) {
             isValid = false;
           }
-        });
+        }
         if (isValid) {
           UserModel? user = await UserService.getProfileFromId(userId);
           if (user != null) {
-            print("Useradded" + userId.toString());
             userList.add(user);
           } else {
-            return;
+            break;
           }
         }
-      });
+      }
       return userList;
     } else {
       return null;
