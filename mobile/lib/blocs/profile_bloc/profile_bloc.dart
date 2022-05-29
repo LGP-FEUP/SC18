@@ -23,7 +23,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   Future<void> _mapFetchProfileEventToState(ProfileEvent event, Emitter<ProfileState> emit) async {
     emit(ProfileFetchingState());
-    UserModel? profile = await UserService().getUserProfile();
+    UserModel? profile = await UserService.getUserProfile();
     if (profile != null) {
       profile.facultyOriginName =
           await FacultyService.getFacultyById(profile.facultyOrigin);

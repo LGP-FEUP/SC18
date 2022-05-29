@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/user.dart';
 import '../../services/group_service.dart';
+import '../../services/user_interests_service.dart';
 import '../social/groups/components/group_card.dart';
 import 'components/event_card.dart';
 
@@ -147,7 +148,7 @@ class HomePage extends StatelessWidget {
 
   Widget _buildPersonList() {
     return FutureBuilder(
-        future: UserService.getUsersWithSameInterests(),
+        future: _getUsersWithSameInterests(),
         builder: (context, response) {
           if (response.connectionState == ConnectionState.done) {
             if (response.data != null) {
@@ -198,5 +199,16 @@ class HomePage extends StatelessWidget {
           }
           return Container();
         });
+  }
+
+  Future<List<UserModel>> _getUsersWithSameInterests() async {
+    UserModel? currentUser = await UserService.getUserProfile();
+    if (currentUser != null) {
+      List<UserModel> users =
+          await UserInterestsService.getUsersWithTags(currentUser.interests) ??
+              [];
+      return users;
+    }
+    return [];
   }
 }
