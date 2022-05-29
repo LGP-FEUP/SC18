@@ -16,17 +16,14 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppTopBar(
-        title: "Home",
-        body: SingleChildScrollView(
-          //padding: const EdgeInsets.all(15.0),
-          child: Column(
-            children: [
-              _buildEventList(),
-              _buildGroupList(),
-              _buildPersonList()
-            ],
-          ),
-        ));
+      title: "Home",
+      body: SingleChildScrollView(
+        //padding: const EdgeInsets.all(15.0),
+        child: Column(
+          children: [_buildGroupList(), _buildPersonList(), _buildEventList()],
+        ),
+      ),
+    );
   }
 
   Widget _buildEventList() {
@@ -51,15 +48,12 @@ class HomePage extends StatelessWidget {
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
+                            children: const [
+                              Text(
                                 "Upcoming Events",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w500, fontSize: 18),
                               ),
-                              IconButton(
-                                  onPressed: () => {},
-                                  icon: const Icon(Icons.arrow_forward))
                             ],
                           ),
                           const SizedBox(
@@ -104,15 +98,12 @@ class HomePage extends StatelessWidget {
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
+                            children: const [
+                              Text(
                                 "Suggested for You",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w500, fontSize: 18),
                               ),
-                              IconButton(
-                                  onPressed: () => {},
-                                  icon: const Icon(Icons.arrow_forward))
                             ],
                           ),
                           const SizedBox(
@@ -167,15 +158,12 @@ class HomePage extends StatelessWidget {
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
+                            children: const [
+                              Text(
                                 "Meet new People",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w500, fontSize: 18),
                               ),
-                              IconButton(
-                                  onPressed: () => {},
-                                  icon: const Icon(Icons.arrow_forward))
                             ],
                           ),
                           const SizedBox(

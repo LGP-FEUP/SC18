@@ -20,34 +20,42 @@ class PersonCard extends StatelessWidget {
             Column(
               children: [
                 SizedBox(
-                  height: 70,
+                  height: 90,
                   child: SvgPicture.asset(
                     "assets/flag_images/${user.countryCode ?? "de"}.svg",
                     fit: BoxFit.fill,
                   ),
                 ),
                 const SizedBox(
-                  height: 35,
+                  height: 15,
                 ),
                 Container(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "${user.fName} ${user.lName}",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(
-                            height: 5.0,
-                          ),
-                          Text(user.description ?? "No description",
-                              textAlign: TextAlign.center)
-                        ]))
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "${user.fName} ${user.lName}",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        textAlign: TextAlign.center,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(
+                        height: 5.0,
+                      ),
+                      Text(
+                        user.description ?? "No description",
+                        textAlign: TextAlign.center,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
             const Positioned(
