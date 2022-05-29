@@ -1,7 +1,6 @@
 import 'package:erasmus_helper/services/user_service.dart';
 import 'package:erasmus_helper/views/app_topbar.dart';
 import 'package:erasmus_helper/views/home/components/person_card.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/user.dart';
@@ -10,7 +9,7 @@ import 'components/event_card.dart';
 import 'components/group_card.dart';
 
 class HomePage extends StatelessWidget {
-  List<String> tagIds = [];
+  final List<String> tagIds = [];
 
   HomePage({Key? key}) : super(key: key);
 
@@ -139,7 +138,8 @@ class HomePage extends StatelessWidget {
 
   Future<List<String>> _fetchGroups() async {
     List<String> groups = [];
-    tagIds = await UserService.getInterestUIDs();
+    tagIds.clear();
+    tagIds.addAll(await UserService.getInterestUIDs());
     for (var tagId in tagIds) {
       groups.addAll(await GroupService.getGroupsWithTag(tagId));
     }
