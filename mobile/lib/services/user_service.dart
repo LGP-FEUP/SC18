@@ -20,6 +20,25 @@ class UserService {
         .child(auth.currentUser!.uid);
   }
 
+  static Future<String> getUserName(String uid) async {
+    String name = '';
+
+    DatabaseReference user =
+    FirebaseDatabase.instance.ref("$collectionName$uid");
+    DataSnapshot firstName = await user.child("firstname").get(),
+        lastName = await user.child("lastname").get();
+
+    if (firstName.exists) {
+      name += firstName.value.toString();
+    }
+
+    if (lastName.exists) {
+      name += " " + lastName.value.toString();
+    }
+
+    return name;
+  }
+
   static Future<List<String>> getInterestUIDs() async {
     DatabaseReference userRef = UserService.getUserRef();
     DataSnapshot data = await userRef.child("interests").get();
@@ -36,7 +55,7 @@ class UserService {
     }
   }
 
-  static void updateUserProfile(UserModel profile) async {
+  static Future<void> updateUserProfile(UserModel profile) async {
     var ref = getUserRef();
     await ref.update(profile.toProfileJson());
   }

@@ -178,11 +178,12 @@ class _ProfileScreenState extends State {
                   children: [
                     Row(
                       children: [
-                        Text(
+                        Expanded(
+                            child: Text(
                           "$fname $lname",
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18),
-                        ),
+                        )),
                         const SizedBox(
                           width: 10.0,
                         ),
