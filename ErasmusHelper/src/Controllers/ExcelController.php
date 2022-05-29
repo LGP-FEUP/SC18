@@ -3,6 +3,7 @@
 namespace ErasmusHelper\Controllers;
 
 use AgileBundle\Utils\Dbg;
+use ErasmusHelper\App;
 use PHPMailer\PHPMailer\PHPMailer;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -40,26 +41,44 @@ class ExcelController
         return null;
     }
 
-    public static function sendEmails(string $path, bool $authedSMTP = true): bool {
+    public static function sendEmails(string $path): bool {
         try {
             $addresses = ExcelController::parseEmails($path);
             if ($addresses != null) {
                 $mail = new PHPMailer();
                 $mail->IsSMTP();
-                $mail->Host = 'smtp.sendgrid.net';
+
+                $mail->Host = 'smtp.gmail.com';
                 $mail->Port = 587;
-                $mail->SMTPAuth = $authedSMTP;
-                $mail->WordWrap   = 50;
-                $mail->IsHTML(false);
-                if ($mail->SMTPAuth) {
-                    $mail->Username = 'apikey';
-                    $mail->Password = 'password'; //TODO api key
-                }
+                $mail->Username = MAIL_SMTP;
+                $mail->Password = MAIL_SMTP_PASS;
+
+                $mail->SMTPDebug = 2;
+                $mail->SetFrom(MAIL_SMTP, "SumsEra");
+                $mail->SMTPAuth = true;
+                $mail->SMTPSecure = 'tls';
+                $mail->SMTPAutoTLS = false;
+
                 foreach ($addresses as $address) {
                     $mail->AddAddress($address);
                 }
-                $mail->Subject = 'Erasmus Helper Application - Discover FEUP and Meet new Friends !';
+
+                $mail->WordWrap = 50;
+                $mail->IsHTML(false);
+                $faculty = App::getInstance()->auth->getFaculty();
+                $city = App::getInstance()->auth->getCity();
+                $country = App::getInstance()->auth->getCountry();
+                if($faculty != null) {
+                    $mail->Subject = 'Erasmus Helper Application - Discover ' . $faculty->name . ' and Meet new Friends !';
+                } elseif ($city != null) {
+                    $mail->Subject = 'Erasmus Helper Application - Discover ' . $city->name . ' and Meet new Friends !';
+                } elseif ($country != null) {
+                    $mail->Subject = 'Erasmus Helper Application - Discover ' . $country->name . ' and Meet new Friends !';
+                } else {
+                    $mail->Subject = 'Erasmus Helper Application - Discover a new Erasmus experience and Meet new Friends !';
+                }
                 $mail->Body = 'Discover this app'; //TODO message and subject
+
                 if($mail->send()) {
                     return true;
                 } else {

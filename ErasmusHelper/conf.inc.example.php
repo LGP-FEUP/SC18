@@ -1,5 +1,7 @@
 <?php
 define('IS_DEV', true);
+define('MAIL_SMTP', "sumsera.lgp@gmail.com");
+define('MAIL_SMTP_PASS', "");
 define('ADMIN_PRIVILEGES', 1);
 define('COUNTRYMODERATORS_PRIVILEGES', 2);
 define('CITYMODERATORS_PRIVILEGES', 3);
