@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 
 import '../../models/user.dart';
 import '../../services/group_service.dart';
+import '../social/groups/components/group_card.dart';
 import 'components/event_card.dart';
-import 'components/group_card.dart';
 
 class HomePage extends StatelessWidget {
   final List<String> tagIds = [];
@@ -49,10 +49,14 @@ class HomePage extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: const [
-                              Text(
-                                "Upcoming Events",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 18),
+                              Padding(
+                                padding: EdgeInsets.all(5),
+                                child: Text(
+                                  "Upcoming Events",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18),
+                                ),
                               ),
                             ],
                           ),
@@ -99,10 +103,14 @@ class HomePage extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: const [
-                              Text(
-                                "Suggested for You",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 18),
+                              Padding(
+                                padding: EdgeInsets.all(5),
+                                child: Text(
+                                  "Suggested for You",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18),
+                                ),
                               ),
                             ],
                           ),
@@ -147,40 +155,45 @@ class HomePage extends StatelessWidget {
 
               if (users.isEmpty) return Container();
               return Card(
-                  //color: Colors.white,
-                  elevation: 0,
-                  child: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 10, top: 10, bottom: 15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text(
-                                "Meet new People",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 18),
-                              ),
-                            ],
+                //color: Colors.white,
+                elevation: 0,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10, top: 10, bottom: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Text(
+                              "Meet new People",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 18),
+                            ),
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          SizedBox(
-                              height: 208,
-                              child: ListView.builder(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: users.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return PersonCard(users[index]);
-                                  })),
                         ],
-                      )));
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      SizedBox(
+                        height: 208,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: users.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return PersonCard(users[index]);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
             }
           }
           return Container();
