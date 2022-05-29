@@ -1,4 +1,6 @@
-class PostModel {
+import 'package:erasmus_helper/models/model.dart';
+
+class PostModel extends FirebaseModel {
   String author;
   String? uid, image, body;
   int time;

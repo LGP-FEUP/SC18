@@ -1,4 +1,5 @@
 import 'package:erasmus_helper/services/user_interests_service.dart';
+import 'package:erasmus_helper/services/utils_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -58,15 +59,38 @@ class UserService {
 
   static Future<UserModel?> getProfileFromId(String userId) async {
     DatabaseReference ref = FirebaseDatabase.instance.ref(collectionName + userId);
-    DataSnapshot snapshot = await ref.get();
+    DataSnapshot firstname = await ref.child("firstname").get(),
+        lastname = await ref.child("lastname").get(),
+        interests = await ref.child("interests").get(),
+        faculty_origin_id = await ref.child("faculty_origin_id").get(),
+        faculty_arriving_id = await ref.child("faculty_arriving_id").get(),
+        description = await ref.child("description").get(),
+        country_code = await ref.child("country_code").get(),
+        phone = await ref.child("phone").get(),
+        whatsapp = await ref.child("whatsapp").get(),
+        facebook = await ref.child("facebook").get();
+    Map<dynamic, dynamic> map = {
+      firstname.key: firstname.value,
+      lastname.key: lastname.value,
+      interests.key: interests.value,
+      faculty_origin_id.key: lastname.value,
+      faculty_arriving_id.key: lastname.value,
+      description.key: description.value,
+      country_code.key: country_code.value,
+      phone.key: phone.value,
+      whatsapp.key: whatsapp.value,
+      facebook.key: facebook.value,
+    };
+    /*
     if (snapshot.exists) {
-      return UserModel.fromProfileJson(snapshot.value as Map<dynamic, dynamic>);
+      return UserModel.fromProfileJson(map);
     } else {
       return null;
-    }
+    }*/
+    return UserModel.fromProfileJson(map);
   }
 
-  static void updateUserProfile(UserModel profile) async {
+  static Future<void> updateUserProfile(UserModel profile) async {
     var ref = getUserRef();
     await ref.update(profile.toProfileJson());
     await UserInterestsService.updateTagsToUser(profile.interests, profile);

@@ -2,7 +2,7 @@ import 'package:erasmus_helper/models/date.dart';
 import 'package:erasmus_helper/models/model.dart';
 import 'package:erasmus_helper/models/tag.dart';
 
-class UserModel extends model{
+class UserModel extends FirebaseModel{
   String fName, lName, facultyOrigin, erasmusFaculty;
   late DateModel birthdate;
   String? email, password,description,

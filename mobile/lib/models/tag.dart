@@ -1,6 +1,6 @@
 import 'package:erasmus_helper/models/model.dart';
 
-class Tag extends model {
+class Tag extends FirebaseModel {
   String title;
 
   Tag(this.title);

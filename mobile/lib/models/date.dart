@@ -1,7 +1,7 @@
 import 'package:erasmus_helper/models/model.dart';
 import 'package:intl/intl.dart';
 
-class DateModel extends model{
+class DateModel extends FirebaseModel{
   late int day, month, year;
 
   DateModel(String date) {

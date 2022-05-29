@@ -1,6 +1,6 @@
 import 'package:erasmus_helper/models/model.dart';
 
-class TaskModel extends model{
+class TaskModel extends FirebaseModel{
   final String uid, description, title;
   final DateTime dueDate;
   final String when;
@@ -32,7 +32,7 @@ class TaskModel extends model{
   }
 }
 
-class StepModel extends model{
+class StepModel extends FirebaseModel{
   final String title, uid;
   bool done;
 

@@ -55,12 +55,8 @@ class UserInterestsService {
         bool isValid = true;
         // For each required tags
         tagList.forEach((tag) {
-          print(tag.title);
           // If the user doesn't have one, he is no longer valid (not added to the list of user)
           if (!tagsUser.contains(tag)) {
-            print("not valid ${tagsUser.contains(tag)}");
-            print(tagList.toString());
-            print(tagsUser.toString());
             isValid = false;
           }
         });

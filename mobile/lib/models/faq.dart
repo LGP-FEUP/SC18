@@ -1,6 +1,6 @@
 import 'package:erasmus_helper/models/model.dart';
 
-class FAQModel extends model{
+class FAQModel extends FirebaseModel{
   final String uid, question, reply;
 
   FAQModel(this.uid, this.question, this.reply);
