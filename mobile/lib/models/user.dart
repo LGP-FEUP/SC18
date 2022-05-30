@@ -1,9 +1,10 @@
 import 'package:erasmus_helper/models/date.dart';
+import 'package:erasmus_helper/models/model.dart';
 import 'package:erasmus_helper/models/tag.dart';
 
-class UserModel {
+class UserModel extends FirebaseModel{
   String fName, lName, facultyOrigin, erasmusFaculty;
-  late DateModel birthdate;
+  DateModel birthdate = DateModel("00/00/0000");
   String? email, password,description,
       countryCode,
       phone,
@@ -51,6 +52,7 @@ class UserModel {
     birthdate = DateModel.fromJson(map);
   }
 
+  @override
   Map<String, dynamic> toJson() => {
         'id': uid,
         'firstname': fName,
@@ -71,7 +73,7 @@ class UserModel {
         "phone": phone,
         "whatsapp": whatsapp,
         "facebook": facebook,
-        "interests": _interestsToJson()
+        "interests": Tag.interestsToJson(interests)
       };
 
   UserModel.fromProfileJson(Map<dynamic, dynamic> json)
@@ -85,25 +87,7 @@ class UserModel {
         whatsapp = json["whatsapp"],
         facebook = json["facebook"] {
     if (json['interests'] != null) {
-      interests = _interestsFromJson(json["interests"]);
+      interests = Tag.interestsFromJson(json["interests"]);
     }
-  }
-
-  List<Tag> _interestsFromJson(Map<dynamic, dynamic> json) {
-    List<Tag> tags = [];
-    json.forEach((key, value) {
-      if (value) {
-        tags.add(Tag.fromString(key));
-      }
-    });
-    return tags;
-  }
-
-  Map<String, bool> _interestsToJson() {
-    Map<String, bool> map = {};
-    for (var element in interests) {
-      map.addAll(element.toJson());
-    }
-    return map;
   }
 }

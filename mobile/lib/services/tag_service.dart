@@ -1,5 +1,5 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:erasmus_helper/models/tag.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class TagService {
   static String collectionName = "interests/";

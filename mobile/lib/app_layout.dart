@@ -1,7 +1,6 @@
 import 'package:erasmus_helper/views/home/home_page.dart';
 import 'package:erasmus_helper/views/guides/guides_page.dart';
 import 'package:erasmus_helper/views/social/social_page.dart';
-
 import 'package:flutter/material.dart';
 
 /// Mother widget of all the 3 pages (Home, School, Social), contain the bottom
@@ -17,7 +16,7 @@ class _AppScaffold extends State<AppLayout> {
   int _selectedNavBarPageIndex = 2;
 
   final navbarPages = [
-    const HomePage(),
+    HomePage(),
     const GuidesPage(),
     const SocialPage()
   ];

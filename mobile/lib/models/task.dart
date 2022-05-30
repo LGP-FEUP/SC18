@@ -1,6 +1,6 @@
+import 'package:erasmus_helper/models/model.dart';
 
-
-class TaskModel {
+class TaskModel extends FirebaseModel{
   final String uid, description, title;
   final DateTime dueDate;
   final String when;
@@ -25,9 +25,15 @@ class TaskModel {
     }
     steps = stepsList;
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    // TODO: implement toJson
+    throw UnimplementedError();
+  }
 }
 
-class StepModel {
+class StepModel extends FirebaseModel{
   final String title, uid;
   bool done;
 
@@ -36,4 +42,10 @@ class StepModel {
   StepModel.fromJson(this.uid, Map json)
       : title = json['name'],
         done = false;
+
+  @override
+  Map<String, dynamic> toJson() {
+    // TODO: implement toJson
+    throw UnimplementedError();
+  }
 }

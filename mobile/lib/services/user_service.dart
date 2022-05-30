@@ -1,3 +1,5 @@
+import 'package:erasmus_helper/services/user_interests_service.dart';
+import 'package:erasmus_helper/services/utils_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -46,7 +48,7 @@ class UserService {
     return (data.value as Map).keys.map((e) => e as String).toList();
   }
 
-  Future<UserModel?> getUserProfile() async {
+  static Future<UserModel?> getUserProfile() async {
     final snapshot = await getUserRef().get();
     if (snapshot.exists) {
       return UserModel.fromProfileJson(snapshot.value as Map<dynamic, dynamic>);
@@ -55,8 +57,17 @@ class UserService {
     }
   }
 
+  static Future<UserModel?> getProfileFromId(String userId) async {
+    DatabaseReference ref = FirebaseDatabase.instance.ref(collectionName + userId);
+    Map<String, dynamic> map = await UtilsService.mapOfRefChildren(ref, ["firstname",
+      "lastname", "interests", "faculty_origin_id", "faculty_arriving_id",
+      "description", "country_code", "phone", "whatsapp", "facebook"]);
+    return UserModel.fromProfileJson(map);
+  }
+
   static Future<void> updateUserProfile(UserModel profile) async {
     var ref = getUserRef();
     await ref.update(profile.toProfileJson());
+    await UserInterestsService.updateTagsToUser(profile.interests, profile);
   }
 }
