@@ -1,5 +1,6 @@
 import 'package:erasmus_helper/models/user.dart';
 import 'package:erasmus_helper/services/faculty_service.dart';
+import 'package:erasmus_helper/views/app_utils.dart';
 import 'package:erasmus_helper/views/authentication/components/utils.dart';
 import 'package:erasmus_helper/views/authentication/login.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class _RegisterFormState extends State<RegisterForm> {
   TextEditingController dateController = TextEditingController();
 
   // ignore: prefer_typing_uninitialized_variables
-  var facultyOrigin, facultyArriving;
+  var facultyOrigin, facultyArriving, nationality;
 
   @override
   void dispose() {
@@ -40,21 +41,30 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Map<String, String>>(
-      future: FacultyService.getFacultiesNames(),
+    return FutureBuilder(
+      future:
+          Future.wait([FacultyService.getFacultiesNames(), AppUtils.getCountries()]),
       builder: (context, response) {
         if (response.connectionState == ConnectionState.done) {
           if (response.data != null) {
+            List data = response.data as List;
+            Map<String, String> facultiesData = data[0] as Map<String, String>;
+            List<String> countriesList = data[1] as List<String>;
+
             // arriving faculty is always FEUP
-            facultyArriving = response.data!["FEUP"];
+            facultyArriving = facultiesData["FEUP"];
 
             // remove FEUP from origin possibilities
-            final erasmusFaculties = response.data;
-            erasmusFaculties?.remove("FEUP");
+            final erasmusFaculties = facultiesData;
+            erasmusFaculties.remove("FEUP");
 
-            var faculties = erasmusFaculties?.entries
+            List<DropdownMenuItem<String>> faculties = erasmusFaculties.entries
                 .map((e) => DropdownMenuItem<String>(
                     child: Text(e.key), value: e.value))
+                .toList();
+
+            List<DropdownMenuItem<String>> countries = countriesList
+                .map((e) => DropdownMenuItem<String>(child: Text(e), value: e))
                 .toList();
 
             return Form(
@@ -62,7 +72,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 child: Column(children: [
                   Utils.genLogo(MediaQuery.of(context).size.height),
                   Utils.genTitle("Sign up"),
-                  ..._genInputs(context, faculties!),
+                  ..._genInputs(context, faculties, countries),
                   Utils.genSubmitButton("Sign up", _onSubmit),
                   Utils.genLink(
                       "Already have an account?", _navigateToLoginPage)
@@ -74,7 +84,7 @@ class _RegisterFormState extends State<RegisterForm> {
             child: Column(children: [
               Utils.genLogo(MediaQuery.of(context).size.height),
               Utils.genTitle("Sign in"),
-              ..._genInputs(context, []),
+              ..._genInputs(context, [], []),
               Utils.genSubmitButton("Sign in", _onSubmit),
               Utils.genLink(
                   "Already have an account? Sign in!", _navigateToLoginPage)
@@ -85,7 +95,10 @@ class _RegisterFormState extends State<RegisterForm> {
 
   // Generates styled text inputs for the register form
   List<Widget> _genInputs(
-      BuildContext context, List<DropdownMenuItem<String>> faculties) {
+      BuildContext context,
+      List<DropdownMenuItem<String>> faculties,
+      List<DropdownMenuItem<String>> countries) {
+
     final facultyInput = Padding(
         padding: const EdgeInsets.only(top: 10),
         child: DropdownButtonFormField<String>(
@@ -99,6 +112,23 @@ class _RegisterFormState extends State<RegisterForm> {
           items: faculties,
           onChanged: (selected) {
             facultyOrigin = selected;
+          },
+          validator: (value) => value == null ? 'Mandatory field.' : null,
+        ));
+
+    final nationalityInput = Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: DropdownButtonFormField<String>(
+          value: nationality,
+          icon: const Padding(
+            padding: EdgeInsets.only(right: 22),
+            child: Icon(Icons.arrow_drop_down),
+          ),
+          decoration: const InputDecoration(prefixIcon: Icon(Icons.flag)),
+          hint: const Text('Nationality'),
+          items: countries,
+          onChanged: (selected) {
+            nationality = selected;
           },
           validator: (value) => value == null ? 'Mandatory field.' : null,
         ));
@@ -122,7 +152,7 @@ class _RegisterFormState extends State<RegisterForm> {
             ]))
         .toList();
 
-    return List<Widget>.from(inputs) + [facultyInput];
+    return List<Widget>.from(inputs) + [facultyInput, nationalityInput];
   }
 
   void _onSubmit() {

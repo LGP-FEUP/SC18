@@ -25,14 +25,14 @@ class AppDrawer extends StatelessWidget {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const ProfileScreen()));
           }),
-          _genDrawerTile("Settings", Icons.settings, () {
+          /*_genDrawerTile("Settings", Icons.settings, () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const SettingsPage()));
           }),
           _genDrawerTile("Help", Icons.help, () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const HelpPage()));
-          }),
+          }),*/
           _genDrawerTile("Logout", Icons.logout, () => signOut(context)),
         ],
       ),

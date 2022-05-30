@@ -143,7 +143,7 @@ class DateInput extends FormInput {
       : super(
             key: key,
             keyboard: TextInputType.text,
-            icon: const Icon(Icons.account_circle_rounded),
+            icon: const Icon(Icons.calendar_month),
             hintText: "Birthdate (dd/mm/yyyy)",
             validator: MultiValidator([
               RequiredValidator(errorText: "Birthdate is required."),

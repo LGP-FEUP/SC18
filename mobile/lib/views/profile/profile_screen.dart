@@ -24,7 +24,6 @@ class _ProfileScreenState extends State {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _fNameController = TextEditingController();
   final TextEditingController _lNameController = TextEditingController();
-  final TextEditingController _countryController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _whatsappController = TextEditingController();
   final TextEditingController _facebookController = TextEditingController();
@@ -99,8 +98,6 @@ class _ProfileScreenState extends State {
                                         _fNameController, "FirstName"),
                                     _buildEditListTile(_profile?.lName,
                                         _lNameController, "Last Name"),
-                                    _buildEditListTile(_profile?.countryCode,
-                                        _countryController, "Country"),
                                     _buildEditListTile(_profile?.description,
                                         _descriptionController, "Description"),
                                     _buildEditListTile(_profile?.phone,
@@ -128,8 +125,6 @@ class _ProfileScreenState extends State {
                                       onPressed: () {
                                         _profile!.fName = _fNameController.text;
                                         _profile!.lName = _lNameController.text;
-                                        _profile!.countryCode =
-                                            _countryController.text;
                                         _profile!.description =
                                             _descriptionController.text;
                                         _profile!.phone = _phoneController.text;
