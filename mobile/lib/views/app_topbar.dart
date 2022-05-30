@@ -43,7 +43,7 @@ class AppTopBar extends StatelessWidget {
           // TODO : change with avatar of the account
           GestureDetector(
               child: const CircleAvatar(
-                backgroundImage: AssetImage("assets/avatar.jpg"),
+                backgroundImage: AssetImage("assets/avatar.png"),
               ),
               onTap: () => Navigator.push(
                   context,

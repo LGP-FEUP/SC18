@@ -5,6 +5,7 @@ import 'package:erasmus_helper/models/user.dart';
 import 'package:erasmus_helper/views/app_topbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../blocs/profile_bloc/profile_state.dart';
 import '../../models/tag.dart';
@@ -164,7 +165,7 @@ class _ProfileScreenState extends State {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const CircleAvatar(
-                backgroundImage: AssetImage("assets/avatar.jpg"),
+                backgroundImage: AssetImage("assets/avatar.png"),
                 radius: 60,
               ),
               const SizedBox(
@@ -204,19 +205,20 @@ class _ProfileScreenState extends State {
           )
         : const Center(
             child: CircleAvatar(
-            backgroundImage: AssetImage("assets/avatar.jpg"),
+            backgroundImage: AssetImage("assets/avatar.png"),
             radius: 60,
           ));
   }
 
-  Image _getFlag(String countryCode) {
-    return Image.asset("assets/flags/$countryCode.png", height: 15.0,
-        errorBuilder: (context, error, stackTrace) {
-      return Image.asset(
-        "assets/flags/eu.png",
-        height: 25.0,
-      );
-    });
+  SizedBox _getFlag(String countryCode) {
+    return SizedBox(
+      width: 30,
+      height: 25,
+      child: SvgPicture.asset(
+        "assets/flags/${countryCode == "" ? "eu" : countryCode}.svg",
+        fit: BoxFit.fill,
+      ),
+    );
   }
 
   Widget _buildChipList(BuildContext context, bool edit, List<Tag> labels,

@@ -22,7 +22,7 @@ class PersonCard extends StatelessWidget {
                 SizedBox(
                   height: 90,
                   child: SvgPicture.asset(
-                    "assets/flag_images/${user.countryCode ?? "de"}.svg",
+                    "assets/flags/${user.countryCode ?? "eu"}.svg",
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -66,7 +66,7 @@ class PersonCard extends StatelessWidget {
                     radius: 45,
                     child: CircleAvatar(
                       radius: 40,
-                      backgroundImage: AssetImage("assets/avatar.jpg"),
+                      backgroundImage: AssetImage("assets/avatar.png"),
                     )))
           ],
         ),

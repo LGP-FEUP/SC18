@@ -32,7 +32,8 @@ class GroupPost extends StatelessWidget {
       required String text,
       required int time,
       String postImage = ''}) {
-    String timeAgo = Jiffy(DateTime.fromMillisecondsSinceEpoch(time * -1)).fromNow();
+    String timeAgo =
+        Jiffy(DateTime.fromMillisecondsSinceEpoch(time * -1)).fromNow();
 
     return Card(
       child: Padding(
@@ -66,7 +67,7 @@ class GroupPost extends StatelessWidget {
     return Row(
       children: <Widget>[
         const CircleAvatar(
-          backgroundImage: AssetImage("assets/avatar.jpg"),
+          backgroundImage: AssetImage("assets/avatar.png"),
           radius: 25,
         ),
         const SizedBox(
