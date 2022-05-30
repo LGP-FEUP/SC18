@@ -1,7 +1,5 @@
 import 'package:erasmus_helper/services/authentication_service.dart';
 import 'package:erasmus_helper/views/profile/profile_screen.dart';
-import 'package:erasmus_helper/views/settings/help_page.dart';
-import 'package:erasmus_helper/views/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'authentication/login.dart';
@@ -25,14 +23,14 @@ class AppDrawer extends StatelessWidget {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const ProfileScreen()));
           }),
-          _genDrawerTile("Settings", Icons.settings, () {
+          /*_genDrawerTile("Settings", Icons.settings, () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const SettingsPage()));
           }),
           _genDrawerTile("Help", Icons.help, () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const HelpPage()));
-          }),
+          }),*/
           _genDrawerTile("Logout", Icons.logout, () => signOut(context)),
         ],
       ),
