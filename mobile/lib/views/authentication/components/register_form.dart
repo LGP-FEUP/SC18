@@ -167,6 +167,7 @@ class _RegisterFormState extends State<RegisterForm> {
           passwordController.text.trim(),
           fNameController.text.trim(),
           lNameController.text.trim(),
+          nationality,
           facultyOrigin,
           facultyArriving,
           dateController.text.trim(), [], []);
