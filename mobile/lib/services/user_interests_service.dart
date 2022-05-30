@@ -38,38 +38,43 @@ class UserInterestsService {
     }
   }
 
-  // Return the list of users (profiles) with the same interests as tagList
+  // Return the list of users (profiles) with the same interests as some of tagList
   static Future<List<UserModel>?> getUsersWithTags(List<Tag> tagList) async {
     DatabaseReference ref = FirebaseDatabase.instance.ref(collectionName);
     DataSnapshot snap = await ref.get();
-    List<UserModel> userList = [];
+    Map<UserModel, int> userList = {};
     if (snap.exists) {
       Map<dynamic, dynamic> map = UtilsService.snapToMap(snap);
       // For each user id (key)
       for (String userId in map.keys) {
+        // Doesn't return the current user
+        if (userId == FirebaseAuth.instance.currentUser!.uid) {
+          continue;
+        }
         List<Tag>? tagsUser = await getTagsOfUser(userId);
         // If something want wrong with the previous request
         if (tagsUser == null) {
-          break;
+          continue;
         }
-        bool isValid = true;
+        int nbSameTag = 0;
         // For each required tags
         for (var tag in tagList) {
           // If the user doesn't have one, he is no longer valid (not added to the list of user)
-          if (!tagsUser.contains(tag)) {
-            isValid = false;
+          if (tagsUser.contains(tag)) {
+            nbSameTag++;
           }
         }
-        if (isValid) {
+        if (nbSameTag > 0) {
           UserModel? user = await UserService.getProfileFromId(userId);
           if (user != null) {
-            userList.add(user);
+            userList.addAll({user: nbSameTag});
           } else {
-            break;
+            continue;
           }
         }
       }
-      return userList;
+      userList = Map.fromEntries(userList.entries.toList()..sort((e1, e2) => e1.value.compareTo(e2.value)));
+      return userList.keys.toList().reversed.toList();
     } else {
       return null;
     }
