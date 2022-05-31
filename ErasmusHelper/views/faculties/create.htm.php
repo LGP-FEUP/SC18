@@ -20,6 +20,10 @@ use ErasmusHelper\Models\City;
                     <input name="name" class="value" type="text" value=""/>
                 </div>
                 <div class="field">
+                    <div class="label">Code of the faculty</div>
+                    <input name="code" class="value" type="text" value=""/>
+                </div>
+                <div class="field">
                     <div class="label">City</div>
                     <select name="city_id" class="value">
                         <option selected disabled>Select a city</option>

@@ -90,6 +90,10 @@ use ErasmusHelper\Models\User;
                                 <input name="id" class="value" type="text" value="<?= $faculty->id; ?>"disabled/>
                             </div>
                             <div class="field">
+                                <div class="label">Code</div>
+                                <input name="code" class="value" type="text" value="<?= $faculty->code; ?>"disabled/>
+                            </div>
+                            <div class="field">
                                 <div class="label">Name of the faculty</div>
                                 <input name="name" class="value" type="text" value="<?= $faculty->name; ?>"/>
                             </div>

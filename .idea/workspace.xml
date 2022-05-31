@@ -3,8 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="01e72773-c757-477b-a21c-12eb42dec2f7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/App.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/App.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/ExcelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/ExcelController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/ModalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/ModalController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/FacultyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/FacultyController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Models/Faculty.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Models/Faculty.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/cities/details.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/cities/details.htm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/faculties/create.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/faculties/create.htm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/faculties/details.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/faculties/details.htm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/faculties/list.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/faculties/list.htm.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/users/excel.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/users/excel.htm.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,7 +42,7 @@
                 <list>
                   <RecentBranch>
                     <option name="branchName" value="backoffice-staff" />
-                    <option name="lastUsedInstant" value="1653826654" />
+                    <option name="lastUsedInstant" value="1653827594" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="backoffice-dev" />
@@ -58,6 +65,7 @@
     <setting file="file://$PROJECT_DIR$/ErasmusHelper/bundle/src/Controllers/AbstractRouter.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ErasmusHelper/conf.inc.example.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ErasmusHelper/conf.inc.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ErasmusHelper/data/logs/2022/05/31.log" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/ErasmusHelper/src/Controllers/CityController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ErasmusHelper/src/Controllers/ExcelController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ErasmusHelper/src/Controllers/FacultyController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
@@ -121,19 +129,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/var/www/SC18/ErasmusHelper/views/staffs&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;watcher.settings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/var/www/SC18/ErasmusHelper/views/staffs",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ErasmusHelper/views/staffs" />
@@ -191,6 +199,7 @@
       <workItem from="1653667351936" duration="3478000" />
       <workItem from="1653816216206" duration="5674000" />
       <workItem from="1653825817307" duration="727000" />
+      <workItem from="1654014354979" duration="13708000" />
     </task>
     <task id="LOCAL-00001" summary="Updated staff ids &amp; user information.">
       <created>1652453710224</created>
@@ -262,11 +271,21 @@
       <option name="project" value="LOCAL" />
       <updated>1653581090191</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Improved the Excel modal so the body can be edited.">
+      <created>1653827570601</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1653827570601</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.log" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -280,7 +299,8 @@
     <MESSAGE value="Titles and Icon updated." />
     <MESSAGE value="fas" />
     <MESSAGE value="Fix." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix." />
+    <MESSAGE value="Improved the Excel modal so the body can be edited." />
+    <option name="LAST_COMMIT_MESSAGE" value="Improved the Excel modal so the body can be edited." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -60,12 +60,14 @@ use ErasmusHelper\Models\Faculty;
                 <table class="table">
                     <tr>
                         <th>Identifier</th>
+                        <th>Code</th>
                         <th>Name</th>
                         <th></th>
                     </tr>
                     <?php foreach ($faculties as $faculty){ ?>
                         <tr>
                             <td><?= $faculty->id; ?></td>
+                            <td><?= $faculty->code; ?></td>
                             <td><?= $faculty->name; ?></td>
                             <td><a class="button" href="<?= Router::route('faculty', ["id" => $faculty->id]) ?>"><i class="far fa-eye r"></i>Details</a></td>
                         </tr>

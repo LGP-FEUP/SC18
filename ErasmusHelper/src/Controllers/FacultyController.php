@@ -51,8 +51,9 @@ class FacultyController extends UniModsBackOfficeController {
     #[NoReturn] public function createPost() {
         $this->requirePrivileges(CITYMODERATORS_PRIVILEGES);
         $faculty = new Faculty();
-        if (Request::valuePost("name") && Request::valuePost("city_id")) {
+        if (Request::valuePost("name") && Request::valuePost("city_id") && Request::valuePost("code")) {
             $faculty->id = App::UUIDGenerator();
+            $faculty->code = Request::valuePost("code");
             $faculty->name = Request::valuePost("name");
             $faculty->city_id = Request::valuePost("city_id");
             if ($faculty->save()) {

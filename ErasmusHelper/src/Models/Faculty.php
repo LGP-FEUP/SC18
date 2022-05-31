@@ -10,11 +10,12 @@ class Faculty extends Model
 
     const STORAGE = 'faculties';
 
-    const COLUMNS = ["id", "name", "city_id", "tasks"];
+    const COLUMNS = ["id", "name", "city_id", "tasks", "code"];
 
     public $name;
     public $city_id;
     public $tasks;
+    public $code;
 
     /**
      * Returns the city associated to the faculty.
