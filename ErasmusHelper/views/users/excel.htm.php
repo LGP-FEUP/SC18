@@ -11,12 +11,41 @@ use ErasmusHelper\Controllers\Router; ?>
                     <input type="file" accept=".xls,.xlsx" name="excel" required/>
                 </div>
                 <div class="field">
-                    <div class="label">Body of the mail: </div>
-                    <textarea name="body" rows="10" style="width: 1000px;" class="input" type="text"><?= ExcelController::$default_message ?></textarea>
+                    <div class="label">OPTIONAL: Enter the headers from the first line.</div>
                 </div>
-                <div class="field">
-                    <div class="label">Footer of the mail: </div>
-                    <textarea name="body" rows="5" class="input col-8" type="text" disabled><?= ExcelController::$default_footer ?></textarea>
+                <div class="card-columns" >
+                    <div class="field">
+                        <div class="label">Email header</div>
+                        <input name="email" class="input" type="text" placeholder="<?= "E-mail" ?>"/>
+                    </div>
+                    <div class="field">
+                        <div class="label">Firstname header</div>
+                        <input name="firstname" class="input" type="text" placeholder="<?= "Firstname" ?>"/>
+                    </div>
+                    <div class="field">
+                        <div class="label">Lastname header</div>
+                        <input name="lastname" class="input" type="text" placeholder="<?= "Lastname" ?>"/>
+                    </div>
+                    <div class="field">
+                        <div class="label">Date of birth header</div>
+                        <input name="date_of_birth" class="input" type="text" placeholder="<?= "Date of birth" ?>"/>
+                    </div>
+                    <div class="field">
+                        <div class="label">Origin University header</div>
+                        <input name="origin_university" class="input" type="text" placeholder="<?= "Origin University" ?>"/>
+                    </div>
+                    <div class="field">
+                        <div class="label">Origin University Code header</div>
+                        <input name="origin_university_code" class="input" type="text" placeholder="<?= "Origin University Code" ?>"/>
+                    </div>
+                    <div class="field">
+                        <div class="label">Origin University City header</div>
+                        <input name="city_of_origin_university" class="input" type="text" placeholder="<?= "City of Origin University" ?>"/>
+                    </div>
+                    <div class="field">
+                        <div class="label">Origin University Country header</div>
+                        <input name="country_of_origin_university" class="input" type="text" placeholder="<?= "Country of Origin University" ?>"/>
+                    </div>
                 </div>
             </div>
             <div class="box-footer">

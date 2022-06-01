@@ -50,7 +50,7 @@ use ErasmusHelper\Models\User;
     let excelModal;
 
     window.addEventListener("load", () => {
-        excelModal = new Modal({view_url: '<?= Router::route("users.excel")?>', title: 'Import Excel file.'});
+        excelModal = new Modal({view_url: '<?= Router::route("users.excel")?>'});
         excelModal.build();
     });
 

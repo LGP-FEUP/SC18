@@ -4,7 +4,6 @@ namespace ErasmusHelper;
 
 use AgileBundle\Utils\Dbg;
 use ErasmusHelper\Controllers\AuthController;
-use ErasmusHelper\Controllers\UserController;
 use ErasmusHelper\Core\Auth;
 use ErasmusHelper\Core\DBConf;
 use Exception;
