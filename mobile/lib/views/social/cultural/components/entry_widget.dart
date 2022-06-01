@@ -1,4 +1,5 @@
 import 'package:erasmus_helper/models/culture_entry.dart';
+import 'package:erasmus_helper/services/culture_service.dart';
 import 'package:flutter/material.dart';
 
 class EntryWidget extends StatelessWidget {
@@ -21,10 +22,21 @@ class EntryWidget extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 20),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(4),
-                    child: Image.asset(
-                      entry.imagePath,
-                      height: 150,
-                      fit: BoxFit.fitWidth,
+                    child: FutureBuilder(
+                      future: CultureService.getCultureEntryImage(entry.uid),
+                      builder: (context, response) {
+                        if (response.connectionState == ConnectionState.done) {
+                          if (response.data != null) {
+                            String url = response.data as String;
+                            return Image.network(
+                              url,
+                              height: 150,
+                              fit: BoxFit.fitWidth,
+                            );
+                          }
+                        }
+                        return Container();
+                      },
                     ),
                   ),
                 ),

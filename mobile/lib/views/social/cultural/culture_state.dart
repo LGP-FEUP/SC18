@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CultureState extends ChangeNotifier {
-  int selectedCategoryId = 0;
+  String selectedCategoryId = "";
 
-  void updateCategoryId(int selectedCategoryId) {
+  void updateCategoryId(String selectedCategoryId) {
     this.selectedCategoryId = selectedCategoryId;
     notifyListeners();
   }

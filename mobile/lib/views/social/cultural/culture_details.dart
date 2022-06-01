@@ -2,6 +2,7 @@ import 'package:erasmus_helper/models/culture_entry.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../services/culture_service.dart';
 import '../../app_topbar.dart';
 import 'components/culture_content.dart';
 
@@ -26,13 +27,24 @@ class CultureDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 SizedBox(
-                  child: Image.asset(
-                    entry.imagePath,
-                    fit: BoxFit.cover,
-                    height: screenHeight * 0.6,
-                    width: screenWidth,
-                  ),
                   height: 240.0,
+                  child: FutureBuilder(
+                    future: CultureService.getCultureEntryImage(entry.uid),
+                    builder: (context, response) {
+                      if (response.connectionState == ConnectionState.done) {
+                        if (response.data != null) {
+                          String url = response.data as String;
+                          return Image.network(
+                            url,
+                            height: screenHeight * 0.6,
+                            fit: BoxFit.cover,
+                            width: screenWidth,
+                          );
+                        }
+                      }
+                      return Container();
+                    },
+                  ),
                 ),
                 const CultureContent(),
               ],
