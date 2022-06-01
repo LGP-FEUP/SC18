@@ -195,7 +195,7 @@
       <workItem from="1653816216206" duration="5674000" />
       <workItem from="1653825817307" duration="727000" />
       <workItem from="1654014354979" duration="13708000" />
-      <workItem from="1654080063125" duration="9914000" />
+      <workItem from="1654080063125" duration="10231000" />
     </task>
     <task id="LOCAL-00001" summary="Updated staff ids &amp; user information.">
       <created>1652453710224</created>
@@ -281,7 +281,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654084910659</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Added edition for the authed admin/mod.">
+      <created>1654090294426</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1654090294426</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -304,7 +311,8 @@
     <MESSAGE value="Fix." />
     <MESSAGE value="Improved the Excel modal so the body can be edited." />
     <MESSAGE value="Excel import with smart headers." />
-    <option name="LAST_COMMIT_MESSAGE" value="Excel import with smart headers." />
+    <MESSAGE value="Added edition for the authed admin/mod." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added edition for the authed admin/mod." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
