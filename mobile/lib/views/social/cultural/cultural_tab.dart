@@ -73,7 +73,6 @@ class _CulturalTabState extends State<CulturalTab> {
             if (response.connectionState == ConnectionState.done) {
               if (response.data != null) {
                 List cultureEntries = response.data as List;
-                print(categories[_selectedIndex].categoryId);
                 return Expanded(
                   child: ListView.builder(
                     itemCount: cultureEntries.length,
