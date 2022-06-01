@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01e72773-c757-477b-a21c-12eb42dec2f7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/AccountController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ErasmusHelper/views/account/details.htm.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/App.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/App.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/ExcelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/ExcelController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/ModalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/ModalController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/StaffController.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/StaffController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/Router.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/src/Controllers/Router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/layouts/backoffice.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/layouts/backoffice.htm.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/staffs/create.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/staffs/create.htm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/users/excel.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/users/excel.htm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/users/list.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/users/list.htm.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -197,7 +195,7 @@
       <workItem from="1653816216206" duration="5674000" />
       <workItem from="1653825817307" duration="727000" />
       <workItem from="1654014354979" duration="13708000" />
-      <workItem from="1654080063125" duration="4816000" />
+      <workItem from="1654080063125" duration="9914000" />
     </task>
     <task id="LOCAL-00001" summary="Updated staff ids &amp; user information.">
       <created>1652453710224</created>
@@ -276,7 +274,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653827570601</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Excel import with smart headers.">
+      <created>1654084910659</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1654084910659</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -298,7 +303,8 @@
     <MESSAGE value="fas" />
     <MESSAGE value="Fix." />
     <MESSAGE value="Improved the Excel modal so the body can be edited." />
-    <option name="LAST_COMMIT_MESSAGE" value="Improved the Excel modal so the body can be edited." />
+    <MESSAGE value="Excel import with smart headers." />
+    <option name="LAST_COMMIT_MESSAGE" value="Excel import with smart headers." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

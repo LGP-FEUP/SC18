@@ -64,7 +64,7 @@ use ErasmusHelper\Models\Faculty;
                     <div class="box-content">
                         <div class="field">
                             <div class="label">Email</div>
-                            <input name="email" class="value" type="text" value=""/>
+                            <input name="email" class="value" type="email" value=""/>
                         </div>
                         <div class="field">
                             <div class="label">Password</div>

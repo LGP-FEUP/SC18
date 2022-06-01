@@ -29,6 +29,8 @@ class Router extends AbstractRouter
             'login'                         => ["GET", "/login", [AuthController::class, "login"]],
             'logout'                        => ["GET", "/logout", [AuthController::class, "logout"]],
             'auth'                          => ["POST", "/auth", [AuthController::class, "auth"]],
+            'account'                       => ["GET", "/account", [AccountController::class, "edit"]],
+            'account.edit'                  => ["POST", "/account/edit", [AccountController::class, "editPost"]],
             'menu'                          => ["GET", "/menu", [MenuController::class, "displayAll"]],
             'menu.request.history'          => ["POST", "/menu/request/history", [ModalController::class, "requestsHistory"]],
             'menu.request.reject'           => ["GET", "/menu/request/reject/{id}", [MenuController::class, "requestReject"]],
