@@ -1,3 +1,4 @@
+import 'package:erasmus_helper/layout.dart';
 import 'package:erasmus_helper/models/task.dart';
 import 'package:erasmus_helper/views/app_topbar.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class _TaskPageState extends State<TaskPage> {
   Widget build(BuildContext context) {
     TaskModel task = widget.task;
 
-    return AppTopBar(
+    return AppLayout(
         title: task.title,
         activateBackButton: true,
         body: Padding(

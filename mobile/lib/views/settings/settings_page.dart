@@ -1,3 +1,4 @@
+import 'package:erasmus_helper/layout.dart';
 import 'package:erasmus_helper/views/app_topbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppTopBar(
+    return AppLayout(
       body: Column(
         children: const [
           Text('Account Page'),

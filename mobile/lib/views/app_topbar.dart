@@ -27,34 +27,28 @@ class AppTopBar extends StatelessWidget {
     if (!activateBackButton) {
       drawer = const AppDrawer();
     }
-    return SafeArea(
-        child: Scaffold(
-      floatingActionButton: floatingButton,
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        foregroundColor: Theme.of(context).primaryColor,
-        backgroundColor: Colors.white,
-        title: Text(
-          title,
-          style: const TextStyle(fontSize: 23, fontWeight: FontWeight.w600),
-        ),
-        bottom: bottom,
-        actions: [
-          // TODO : change with avatar of the account
-          GestureDetector(
-              child: const CircleAvatar(
-                backgroundImage: AssetImage("assets/avatar.png"),
-              ),
-              onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ProfileScreen()))),
-          // TODO : add notification system
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))
-        ],
-      ),
-      drawer: drawer,
-      body: body,
-    ));
+    return AppBar(
+          automaticallyImplyLeading: true,
+          foregroundColor: Theme.of(context).primaryColor,
+          backgroundColor: Colors.white,
+          title: Text(
+            title,
+            style: const TextStyle(fontSize: 23, fontWeight: FontWeight.w600),
+          ),
+          bottom: bottom,
+          actions: [
+            // TODO : change with avatar of the account
+            GestureDetector(
+                child: const CircleAvatar(
+                  backgroundImage: AssetImage("assets/avatar.png"),
+                ),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ProfileScreen()))),
+            // TODO : add notification system
+            IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))
+          ],
+        );
   }
 }

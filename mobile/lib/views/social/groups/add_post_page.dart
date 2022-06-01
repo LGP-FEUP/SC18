@@ -1,3 +1,4 @@
+import 'package:erasmus_helper/layout.dart';
 import 'package:erasmus_helper/models/post.dart';
 import 'package:erasmus_helper/services/group_service.dart';
 import 'package:erasmus_helper/views/app_topbar.dart';
@@ -29,7 +30,7 @@ class _AddPostPageState extends State<AddPostPage> {
 
   @override
   Widget build(BuildContext context) {
-    return AppTopBar(
+    return AppLayout(
       activateBackButton: true,
       title: "Add Post",
       body: Form(

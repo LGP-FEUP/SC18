@@ -1,6 +1,7 @@
 import 'package:erasmus_helper/blocs/profile_bloc/profile_bloc.dart';
 import 'package:erasmus_helper/blocs/profile_bloc/profile_event.dart';
 import 'package:erasmus_helper/blocs/tag_bloc/tag_cubit.dart';
+import 'package:erasmus_helper/layout.dart';
 import 'package:erasmus_helper/models/user.dart';
 import 'package:erasmus_helper/views/app_topbar.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,7 @@ class _ProfileScreenState extends State {
           ),
           BlocProvider<TagCubit>(create: (_) => TagCubit(<Tag>[])),
         ],
-        child: AppTopBar(
+        child: AppLayout(
             title: "Profile",
             activateBackButton: true,
             body: BlocBuilder<ProfileBloc, ProfileState>(

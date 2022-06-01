@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 
 /// Mother widget of all the 3 pages (Home, School, Social), contain the bottom
 /// navigation bar and its logic
-class AppLayout extends StatefulWidget {
-  const AppLayout({Key? key}) : super(key: key);
+class AppLayout1 extends StatefulWidget {
+  const AppLayout1({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _AppScaffold();
 }
 
-class _AppScaffold extends State<AppLayout> {
+class _AppScaffold extends State<AppLayout1> {
   int _selectedNavBarPageIndex = 2;
 
   final navbarPages = [

@@ -1,5 +1,4 @@
 import 'package:erasmus_helper/services/user_service.dart';
-import 'package:erasmus_helper/views/app_topbar.dart';
 import 'package:erasmus_helper/views/home/components/person_card.dart';
 import 'package:flutter/material.dart';
 
@@ -16,13 +15,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppTopBar(
-      title: "Home",
-      body: SingleChildScrollView(
-        //padding: const EdgeInsets.all(15.0),
-        child: Column(
-          children: [_buildGroupList(), _buildPersonList(), _buildEventList()],
-        ),
+    return SingleChildScrollView(
+      //padding: const EdgeInsets.all(15.0),
+      child: Column(
+        children: [_buildGroupList(), _buildPersonList(), _buildEventList()],
       ),
     );
   }

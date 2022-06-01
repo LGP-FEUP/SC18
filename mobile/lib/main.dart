@@ -1,5 +1,7 @@
+import 'package:erasmus_helper/layout.dart';
 import 'package:erasmus_helper/services/authentication_service.dart';
 import 'package:erasmus_helper/views/authentication/login.dart';
+import 'package:erasmus_helper/views/home/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -90,7 +92,7 @@ class AuthenticationWrapper extends StatelessWidget {
     final firebaseUser = context.watch<User?>();
 
     if (firebaseUser != null) {
-      return const AppLayout();
+      return AppLayout(body: HomePage());
     }
 
     return const LoginPage();

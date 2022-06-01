@@ -1,3 +1,4 @@
+import 'package:erasmus_helper/layout.dart';
 import 'package:erasmus_helper/models/post.dart';
 import 'package:erasmus_helper/services/group_service.dart';
 import 'package:erasmus_helper/views/app_topbar.dart';
@@ -32,7 +33,7 @@ class _GroupPageState extends State<GroupPage> {
               String image = data[0].toString();
               String title = data[1].toString();
 
-              return AppTopBar(
+              return AppLayout(
                   floatingButton: FloatingActionButton(
                       onPressed: _navigateToAddPostPage,
                       child: const Icon(Icons.add)),

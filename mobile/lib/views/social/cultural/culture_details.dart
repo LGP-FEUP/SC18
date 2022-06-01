@@ -1,3 +1,4 @@
+import 'package:erasmus_helper/layout.dart';
 import 'package:erasmus_helper/models/culture_entry.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,7 @@ class CultureDetails extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    return AppTopBar(
+    return AppLayout(
         title: entry.title,
         activateBackButton: true,
         body: Provider<CultureEntry>.value(

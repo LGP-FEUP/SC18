@@ -1,6 +1,7 @@
+import 'package:erasmus_helper/views/home/home_page.dart';
 import 'package:flutter/material.dart';
 
-import '../../../app_layout.dart';
+import '../../../layout.dart';
 
 class Utils {
   static Row genLogo(double ht) {
@@ -58,6 +59,6 @@ class Utils {
 
   static void navigateToHomePage(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const AppLayout()));
+        context, MaterialPageRoute(builder: (context) => AppLayout(body: HomePage())));
   }
 }
