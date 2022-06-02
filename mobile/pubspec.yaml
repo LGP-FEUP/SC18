@@ -47,7 +47,7 @@ dependencies:
   flutter_svg: 1.0.3
   flutterfire_ui: ^0.4.1+2
   path_provider: ^2.0.10
-  cached_network_image: ^3.2.1
+  cached_network_image: ^3.2.0
 
 dev_dependencies:
   flutter_test:
