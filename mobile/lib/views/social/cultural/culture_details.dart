@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:erasmus_helper/models/culture_entry.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,8 +35,8 @@ class CultureDetails extends StatelessWidget {
                       if (response.connectionState == ConnectionState.done) {
                         if (response.data != null) {
                           String url = response.data as String;
-                          return Image.network(
-                            url,
+                          return CachedNetworkImage(
+                            imageUrl: url,
                             height: screenHeight * 0.6,
                             fit: BoxFit.cover,
                             width: screenWidth,

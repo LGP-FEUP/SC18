@@ -9,9 +9,7 @@ class CultureCategory {
 
   CultureCategory.fromJson(this.categoryId, Map<String, dynamic> json)
       : title = json['title'],
-        icon = Icons.add;
+        icon = IconData(json['icon'], fontFamily: 'MaterialIcons');
 
-  Map<String, dynamic> toJson() => {
-        'title': title,
-      };
+  Map<String, dynamic> toJson() => {'title': title, "icon": icon.codePoint};
 }

@@ -17,15 +17,9 @@ class CategoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final cultureState = Provider.of<CultureState>(context);
-    // final isSelected = cultureState.selectedCategoryId == category.categoryId;
-
     return GestureDetector(
       onTap: () {
         selectedCallback(index);
-        // if (!isSelected) {
-        //   cultureState.updateCategoryId(category.categoryId);
-        // }
       },
       child: Container(
         margin: const EdgeInsets.only(left: 5, top: 10, bottom: 10),
@@ -37,21 +31,21 @@ class CategoryWidget extends StatelessWidget {
           color: isSelected ? Theme.of(context).primaryColor : Colors.white,
         ),
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Icon(
-                category.icon,
-                color:
-                    isSelected ? Colors.white : Theme.of(context).primaryColor,
-                size: 30,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(category.title,
-                  style: TextStyle(
-                      color: isSelected ? Colors.white : Colors.black)),
-            ]),
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(
+              category.icon,
+              color: isSelected ? Colors.white : Theme.of(context).primaryColor,
+              size: 30,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(category.title,
+                style:
+                    TextStyle(color: isSelected ? Colors.white : Colors.black)),
+          ],
+        ),
       ),
     );
   }
