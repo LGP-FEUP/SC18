@@ -78,7 +78,8 @@ class HomePage extends StatelessWidget {
                       )));
             }
           }
-          return Container();
+          return const SizedBox(
+              height: 200, child: Center(child: CircularProgressIndicator()));
         });
   }
 
@@ -132,7 +133,8 @@ class HomePage extends StatelessWidget {
                       )));
             }
           }
-          return Container();
+          return const SizedBox(
+              height: 200, child: Center(child: CircularProgressIndicator()));
         });
   }
 
@@ -197,7 +199,8 @@ class HomePage extends StatelessWidget {
               );
             }
           }
-          return Container();
+          return const SizedBox(
+              height: 200, child: Center(child: CircularProgressIndicator()));
         });
   }
 
