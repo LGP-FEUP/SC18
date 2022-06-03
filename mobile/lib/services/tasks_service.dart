@@ -48,6 +48,33 @@ class TasksService {
     }
   }
 
+  // Returns new parentTask state
+  static Future<bool> deleteUserDoneStep(
+      String id, TaskModel parentTask) async {
+    await TasksService.deleteUserDoneTask(parentTask.uid);
+    await TasksService.deleteUserDoneTask(id);
+
+    return false;
+  }
+
+  // Returns new parentTask state
+  static Future<bool> addUserDoneStep(String id, TaskModel parentTask) async {
+    List<String> userDoneTasks = await TasksService.getUserDoneTasks();
+    var doneSteps = parentTask.steps
+        .map((e) => e.uid)
+        .where((element) => userDoneTasks.contains(element));
+
+    // Adding step completes the task
+    if (doneSteps.length + 1 == parentTask.steps.length) {
+      await TasksService.addUserDoneTask(parentTask.uid);
+      await TasksService.addUserDoneTask(id);
+      return true;
+    } else {
+      await TasksService.addUserDoneTask(id);
+      return false;
+    }
+  }
+
   static Future<void> addUserDoneTask(String id) async {
     await getUserDoneTasksRef().push().set({"task_id": id});
   }
