@@ -53,7 +53,7 @@ use ErasmusHelper\Models\User;
                             </div>
                             <div class="field">
                                 <div class="label">Email Address</div>
-                                <input name="email" class="value" type="text" value="<?= $staff->email; ?>"/>
+                                <input id="email" name="email" class="value" type="text" value="<?= $staff->email; ?>"/>
                             </div>
                             <div class="field">
                                 <div class="label">Faculty</div>
@@ -69,7 +69,8 @@ use ErasmusHelper\Models\User;
                             <div class="button-group">
                                 <a href="<?= Router::route('staffs') ?>" class="button">Cancel</a>
                                 <a onclick="confirm('Confirm the staff member ability update request ?') ? window.location = '<?= Router::route('staff.ability', ["id" => $staff->id]) ?>' : void(0)" class="button <?= $staff->disabled ? "green" : "red" ?>"><?= $staff->disabled ? "Enable" : "Disable" ?></a>
-                                <button type="submit" class="button cta">Submit</button>
+                                <button id="submit" type="submit" class="button cta">Submit</button>
+                                <div id="status" class="label" hidden></div>
                             </div>
                         </div>
                     </form>
@@ -83,7 +84,7 @@ use ErasmusHelper\Models\User;
                             </div>
                             <div class="field">
                                 <div class="label">Email Address</div>
-                                <input name="email" class="value" type="text" value="<?= $staff->email; ?>"/>
+                                <input id="email" name="email" class="value" type="text" value="<?= $staff->email; ?>"/>
                             </div>
                             <div class="field">
                                 <div class="label">City</div>
@@ -99,7 +100,8 @@ use ErasmusHelper\Models\User;
                             <div class="button-group">
                                 <a href="<?= Router::route('staffs') ?>" class="button">Cancel</a>
                                 <a onclick="confirm('Confirm the staff member ability update request ?') ? window.location = '<?= Router::route('staff.ability', ["id" => $staff->id]) ?>' : void(0)" class="button <?= $staff->disabled ? "green" : "red" ?>"><?= $staff->disabled ? "Enable" : "Disable" ?></a>
-                                <button type="submit" class="button cta">Submit</button>
+                                <button id="submit" type="submit" class="button cta">Submit</button>
+                                <div id="status" class="label" hidden></div>
                             </div>
                         </div>
                     </form>
@@ -112,7 +114,7 @@ use ErasmusHelper\Models\User;
                             </div>
                             <div class="field">
                                 <div class="label">Email Address</div>
-                                <input name="email" class="value" type="text" value="<?= $staff->email; ?>"/>
+                                <input id="email" name="email" class="value" type="text" value="<?= $staff->email; ?>"/>
                             </div>
                             <div class="field">
                                 <div class="label">Country</div>
@@ -128,7 +130,8 @@ use ErasmusHelper\Models\User;
                             <div class="button-group">
                                 <a href="<?= Router::route('staffs') ?>" class="button">Cancel</a>
                                 <a onclick="confirm('Confirm the staff member ability update request ?') ? window.location = '<?= Router::route('staff.ability', ["id" => $staff->id]) ?>' : void(0)" class="button <?= $staff->disabled ? "green" : "red" ?>"><?= $staff->disabled ? "Enable" : "Disable" ?></a>
-                                <button type="submit" class="button cta">Submit</button>
+                                <button id="submit" type="submit" class="button cta">Submit</button>
+                                <div id="status" class="label" hidden></div>
                             </div>
                         </div>
                     </form>
@@ -137,4 +140,34 @@ use ErasmusHelper\Models\User;
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    let emailField = document.getElementById("email");
+    let submit = document.getElementById("submit");
+    let status = document.getElementById("status");
+
+    function checkEmailValidity(){
+        return !!emailField.value
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    }
+
+    function updateSubmit() {
+
+        if(checkEmailValidity()) {
+            status.setAttribute("hidden", "hidden");
+            submit.removeAttribute("disabled");
+        } else {
+            status.innerHTML = "Email invalid.";
+            status.removeAttribute("hidden");
+            submit.setAttribute("disabled", "disabled");
+        }
+    }
+
+    emailField.addEventListener("input", () => {
+        updateSubmit();
+    });
+</script>
 

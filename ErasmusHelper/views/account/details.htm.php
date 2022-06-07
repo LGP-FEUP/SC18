@@ -87,5 +87,5 @@ try {
     });
     emailField.addEventListener("input", () => {
         updateSubmit();
-    })
+    });
 </script>
