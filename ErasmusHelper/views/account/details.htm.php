@@ -47,6 +47,8 @@ try {
     let confirmField = document.getElementById("password_verification");
     let passwordField = document.getElementById("password");
     let emailField = document.getElementById("email");
+    let submit = document.getElementById("submit");
+    let status = document.getElementById("status");
 
     function checkEmailValidity(){
         return !!emailField.value
@@ -62,8 +64,6 @@ try {
     }
 
     function updateSubmit() {
-        let submit = document.getElementById("submit");
-        let status = document.getElementById("status");
 
         if(checkEmailValidity() && checkPasswordMatch()) {
             status.setAttribute("hidden", "hidden");
