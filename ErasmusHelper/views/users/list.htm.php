@@ -55,7 +55,7 @@ use ErasmusHelper\Models\User;
     });
 
     document.getElementById("searchBar").addEventListener('change', updateList);
-    let data = <?php echo json_encode($users, JSON_HEX_TAG); ?>;
+    let data = <?php echo json_encode($users); ?>;
 
     function updateList() {
         if(!(this.value === "")) {
