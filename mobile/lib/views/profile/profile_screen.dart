@@ -53,6 +53,7 @@ class _ProfileScreenState extends State {
         child: AppTopBar(
             title: "Profile",
             activateBackButton: true,
+            isOnProfilePage: true,
             body: BlocBuilder<ProfileBloc, ProfileState>(
                 builder: (blocContext, state) {
               if (state is ProfileFetchedState) {
