@@ -3,21 +3,28 @@
 use ErasmusHelper\Controllers\Router;
 
 ?>
-<div class="container-fluid px-5">
-    <div class="row justify-content-center">
+<div class="container-fluid px-xl-5">
+    <div class="row pt-xl-0 pt-3 justify-content-center">
         <div class="col-auto text-center">
             <h4 class="fancy-font">About SumsEra</h4>
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-6 text-center">
-            <img src="<?= Router::resource("images", "logo.png") ?>" class="rounded-img" alt="">
+        <div class="d-none d-xl-flex col-xl-6 text-center">
+            <img src="<?= Router::resource("images", "sumsera.png") ?>" class="rounded-img" alt="">
+        </div>
+        <div class="d-xl-none col text-center">
+            <img src="<?= Router::resource("images", "sumsera1.png") ?>" class="rounded-img" alt="">
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-7 text-center">
+        <div class="d-none d-xl-flex col-xl-7 text-center">
             <h2 class="fancy-font">To help integration and to provide a stress-free experience for ERASMUS
                 students.</h2>
+        </div>
+        <div class="d-xl-none col-xl-7 text-center">
+            <h3 class="fancy-font">To help integration and to provide a stress-free experience for ERASMUS
+                students.</h3>
         </div>
     </div>
     <div class="row justify-content-center">

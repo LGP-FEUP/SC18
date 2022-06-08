@@ -1,0 +1,38 @@
+@import "~bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.rounded-img {
+  border-radius: 50%;
+  width: max(20vh, 300px);
+  height: max(20vh, 300px);
+  object-fit: cover;
+}
+
+.homepage-figure {
+  height: max(14vh, 150px);
+}
+
+.background-white {
+  background-color: white;
+}
+
+.ultra-small-rounded {
+  border-radius: 1%;
+}
+
+.small-rounded {
+  border-radius: 5%;
+}
+
+.fancy-font {
+  font-family: 'Press Start 2P', cursive;
+}
+
+#row-with-video {
+  height: max(20vh, 500px);
+}
+
+.border-divisor-right {
+  border-right: black;
+  border-right-style: solid;
+}
