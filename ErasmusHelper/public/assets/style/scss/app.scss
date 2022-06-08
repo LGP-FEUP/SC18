@@ -1,5 +1,10 @@
 @import "~bootstrap";
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;300&display=swap');
+
+* {
+  font-family: 'Raleway', sans-serif;
+}
 
 .rounded-img {
   border-radius: 50%;
@@ -35,4 +40,17 @@
 .border-divisor-right {
   border-right: black;
   border-right-style: solid;
+}
+
+.border-divisor-bottom {
+  border-bottom: black;
+  border-bottom-style: solid;
+}
+
+.btn-xl {
+  font-size: 3rem;
+}
+
+.qr {
+  max-width: 200px;
 }

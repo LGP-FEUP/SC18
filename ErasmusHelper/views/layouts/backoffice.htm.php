@@ -18,7 +18,6 @@ use ErasmusHelper\Controllers\Router;
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <script src="https://kit.fontawesome.com/269a112bad.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="<?= Router::resource("style/css", "main.css") ?>"/>
-    <link rel="stylesheet" href="<?= Router::resource("style/css", "app.css") ?>"/>
 </head>
 <body id="master">
 <header>
