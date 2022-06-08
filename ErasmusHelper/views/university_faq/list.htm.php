@@ -12,8 +12,8 @@ use ErasmusHelper\Models\UniversityFaq;
             <div class="table-wrapper">
                 <table class="table <?= empty($university_faqs) ? 'empty' : '' ?>">
                     <tr>
-                        <th>Identifier</th>
                         <th>Question</th>
+                        <th>Reply</th>
                         <th>Order</th>
                         <th><a class="button" href="<?= Router::route('university_faq.create.page') ?>"><i
                                         class="fas fa-plus r"></i>Add a FAQ Item</a></th>

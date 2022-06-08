@@ -21,17 +21,17 @@ use ErasmusHelper\Controllers\Router;
                 <div class="field">
                     <div class="label">Before Arrival</div>
                     <input name="when" class="value" type="radio"
-                           value="before"/>
+                           value="before_arrival"/>
                 </div>
                 <div class="field">
                     <div class="label">During Stay</div>
                     <input name="when" class="value" type="radio"
-                           value="during"/>
+                           value="during_stay"/>
                 </div>
                 <div class="field">
-                    <div class="label">After Departure</div>
+                    <div class="label">Before Departure</div>
                     <input name="when" class="value" type="radio"
-                           value="after"/>
+                           value="before_departure"/>
                 </div>
                 <div class="field">
                     <div class="label">Deadline</div>
