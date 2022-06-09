@@ -19,4 +19,6 @@ class DateModel extends FirebaseModel{
       : day = json["day"],
         month = json["month"],
         year = json["year"];
+
+
 }
