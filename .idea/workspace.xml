@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01e72773-c757-477b-a21c-12eb42dec2f7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ErasmusHelper/ErasmusHelper - Admin Manual.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/account/details.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/account/details.htm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErasmusHelper/views/staffs/details.htm.php" beforeDir="false" afterPath="$PROJECT_DIR$/ErasmusHelper/views/staffs/details.htm.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,7 +17,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="backoffice-staff" />
+        <entry key="$PROJECT_DIR$" value="backoffice-dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -194,6 +193,8 @@
       <workItem from="1654014354979" duration="13708000" />
       <workItem from="1654080063125" duration="10231000" />
       <workItem from="1654611197869" duration="308000" />
+      <workItem from="1654776785732" duration="188000" />
+      <workItem from="1654776985384" duration="341000" />
     </task>
     <task id="LOCAL-00001" summary="Updated staff ids &amp; user information.">
       <created>1652453710224</created>
@@ -318,7 +319,8 @@
     <MESSAGE value="Excel import with smart headers." />
     <MESSAGE value="Added edition for the authed admin/mod." />
     <MESSAGE value="Js improved." />
-    <option name="LAST_COMMIT_MESSAGE" value="Js improved." />
+    <MESSAGE value="Admin Manual added." />
+    <option name="LAST_COMMIT_MESSAGE" value="Admin Manual added." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
