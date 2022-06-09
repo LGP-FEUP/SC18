@@ -1,3 +1,4 @@
+import 'package:erasmus_helper/services/event_service.dart';
 import 'package:erasmus_helper/services/user_service.dart';
 import 'package:erasmus_helper/views/app_topbar.dart';
 import 'package:erasmus_helper/views/home/components/person_card.dart';
@@ -30,11 +31,14 @@ class HomePage extends StatelessWidget {
   Widget _buildEventList() {
     return FutureBuilder(
         //TODO: fetch Event Ids from firebase
-        future: Future<List<String>>.value(["1", "2", "3"]),
+        future: Future.wait([
+          EventService.getIdEventsForUser()
+        ]),
         builder: (context, response) {
           if (response.connectionState == ConnectionState.done) {
             if (response.data != null) {
-              List eventIds = response.data as List<String>;
+              final listFuture = response.data as List<dynamic>;
+              final eventIds = listFuture[0] as List<String>;
 
               if (eventIds.isEmpty) return Container();
               return Card(

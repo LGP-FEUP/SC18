@@ -25,8 +25,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     emit(ProfileFetchingState());
     UserModel? profile = await UserService.getUserProfile();
     if (profile != null) {
-      profile.facultyOriginName =
-          await FacultyService.getFacultyById(profile.facultyOrigin);
+      final fac = await FacultyService.getFacultyById(profile.facultyOrigin);
+      profile.facultyOriginName = fac?.name ?? "";
       tags = await TagService.getTags();
       emit(ProfileFetchedState(profile));
     } else {
