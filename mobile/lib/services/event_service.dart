@@ -3,6 +3,7 @@ import 'package:erasmus_helper/services/faculty_service.dart';
 import 'package:erasmus_helper/services/user_service.dart';
 import 'package:erasmus_helper/services/utils_service.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class EventService {
   /// Return the list of ID events from the same city as the user
@@ -36,5 +37,9 @@ class EventService {
       return EventModel.fromJson(eventId, json);
     }
     return null;
+  }
+
+  static Future<String> getEventImageURL(String eventId) async {
+    return await UtilsService.getImageURL("events", eventId);
   }
 }
