@@ -58,7 +58,7 @@ class PersonCard extends StatelessWidget {
                 ),
               ],
             ),
-            const Positioned(
+            Positioned(
                 left: 35,
                 top: 20,
                 child: CircleAvatar(
@@ -66,7 +66,7 @@ class PersonCard extends StatelessWidget {
                     radius: 45,
                     child: CircleAvatar(
                       radius: 40,
-                      backgroundImage: AssetImage("assets/avatar.png"),
+                      backgroundImage: NetworkImage(user.avatar!),
                     )))
           ],
         ),

@@ -76,7 +76,8 @@ class _ProfileScreenState extends State {
                               _profile?.fName ?? "",
                               _profile?.lName ?? "",
                               _profile?.countryCode ?? "",
-                              _profile?.description ?? ""),
+                              _profile?.description ?? "",
+                              _profile?.avatar),
                           const SizedBox(
                             height: 40.0,
                           ),
@@ -155,15 +156,20 @@ class _ProfileScreenState extends State {
   }
 
   Widget _buildProfileBanner(bool editing, String fname, String lname,
-      String country, String description) {
+      String country, String description, String? image) {
     return !editing
         ? Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const CircleAvatar(
-                backgroundImage: AssetImage("assets/avatar.png"),
-                radius: 60,
-              ),
+              image != null
+                  ? CircleAvatar(
+                      backgroundImage: NetworkImage(image),
+                      radius: 60,
+                    )
+                  : const CircleAvatar(
+                      backgroundImage: AssetImage("assets/avatar.png"),
+                      radius: 60,
+                    ),
               const SizedBox(
                 width: 20.0,
               ),
