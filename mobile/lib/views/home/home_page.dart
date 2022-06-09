@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
           if (response.connectionState == ConnectionState.done) {
             if (response.data != null) {
               final listFuture = response.data as List<dynamic>;
-              final eventIds = listFuture[0] as List<String>;
+              final eventIds = (listFuture[0] as List<String>?) ?? [];
 
               if (eventIds.isEmpty) return Container();
               return Card(

@@ -6,16 +6,16 @@ import 'package:firebase_database/firebase_database.dart';
 
 class EventService {
   /// Return the list of ID events from the same city as the user
-  static Future<List<String>> getIdEventsForUser() async {
+  static Future<List<String>?> getIdEventsForUser() async {
     // get the faculty of the current user
     final faculty = await FacultyService.getFacultyById(await FacultyService.getUserFacultyId());
     if (faculty != null) {
       return await getIdEventsByCity(faculty.cityId);
     }
-    return [];
+    return null;
   }
   
-  static Future<List<String>> getIdEventsByCity(String cityId) async {
+  static Future<List<String>?> getIdEventsByCity(String cityId) async {
     List<String> eventList = [];
     final DataSnapshot snap = await FirebaseDatabase.instance.ref("events/").orderByChild("cityId").equalTo(cityId).get();
 
@@ -25,7 +25,7 @@ class EventService {
       }
     }
 
-    return eventList;
+    return null;
   }
 
   static Future<EventModel?> getEventById(String eventId) async {
