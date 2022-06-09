@@ -6,9 +6,10 @@ import 'package:intl/intl.dart';
 import 'components/step_tile.dart';
 
 class TaskPage extends StatefulWidget {
-  const TaskPage({Key? key, required this.task}) : super(key: key);
+  const TaskPage({Key? key, required this.task, required this.updateCallback}) : super(key: key);
 
   final TaskModel task;
+  final Function(bool) updateCallback;
 
   @override
   State<TaskPage> createState() => _TaskPageState();
@@ -20,20 +21,22 @@ class _TaskPageState extends State<TaskPage> {
     TaskModel task = widget.task;
 
     return AppTopBar(
-        title: task.title,
-        activateBackButton: true,
-        body: Padding(
-            padding: const EdgeInsets.all(14),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [_showTaskInfo(task), ..._showSteps(task.steps)],
-              ),
-            )));
+      title: task.title,
+      activateBackButton: true,
+      body: Padding(
+        padding: const EdgeInsets.all(14),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [_showTaskInfo(task), ..._showSteps(task.steps)],
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _showTaskInfo(TaskModel task) {
@@ -60,17 +63,22 @@ class _TaskPageState extends State<TaskPage> {
     if (steps.isNotEmpty) {
       return [
         const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: Text(
-              "Steps:",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            )),
+          padding: EdgeInsets.symmetric(horizontal: 15),
+          child: Text(
+            "Steps:",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ),
         ListView.builder(
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           itemCount: steps.length,
           itemBuilder: (BuildContext context, int index) {
-            return StepTile(step: steps[index]);
+            return StepTile(
+              step: steps[index],
+              parentTask: widget.task,
+              updateCallback: widget.updateCallback,
+            );
           },
         )
       ];
