@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
       body: SingleChildScrollView(
         //padding: const EdgeInsets.all(15.0),
         child: Column(
-          children: [_buildGroupList(), _buildPersonList(), _buildEventList()],
+          children: [_buildGroupList(), _buildEventList(), _buildPersonList()],
         ),
       ),
     );
