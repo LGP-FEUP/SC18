@@ -37,56 +37,52 @@ class HomePage extends StatelessWidget {
             if (response.data != null) {
               //final listFuture = response.data as List<dynamic>;
               final eventIds = (response.data as List<String>?) ?? [];
-              print(eventIds.toString());
 
               if (eventIds.isEmpty) return Container();
               return Card(
                 //color: Colors.white,
-                  elevation: 0,
-                  child: Padding(
-                      padding:
-                      const EdgeInsets.only(left: 10, top: 10, bottom: 15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Padding(
-                                padding: EdgeInsets.all(5),
-                                child: Text(
-                                  "Upcoming Events",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18),
-                                ),
-                              ),
-                            ],
+                elevation: 0,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10, top: 10, bottom: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Text(
+                              "Upcoming Events",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 18),
+                            ),
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          SizedBox(
-                              height: 208,
-                              child: ListView.builder(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: eventIds.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    print(eventIds[index]);
-                                    return EventCard(eventId: eventIds[index]);
-                                  })),
                         ],
-                      )
-                  )
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      SizedBox(
+                        height: 208,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: eventIds.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return EventCard(eventId: eventIds[index]);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               );
-          }
+            }
           }
           return Container();
-        }
-        );
+        });
   }
 
   Widget _buildGroupList() {

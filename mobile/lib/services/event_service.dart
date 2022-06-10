@@ -1,9 +1,7 @@
 import 'package:erasmus_helper/models/event.dart';
 import 'package:erasmus_helper/services/faculty_service.dart';
-import 'package:erasmus_helper/services/user_service.dart';
 import 'package:erasmus_helper/services/utils_service.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 class EventService {
   /// Return the list of ID events from the same city as the user
@@ -36,7 +34,6 @@ class EventService {
 
     if (snap.exists) {
       final json = UtilsService.snapToMap(snap);
-      print(json["date"]);
       final event = EventModel.fromJson(eventId, json);
       return event;
     }
