@@ -11,7 +11,7 @@ use ErasmusHelper\Controllers\Router; ?>
                     <input type="file" accept=".xls,.xlsx" name="excel" required/>
                 </div>
                 <div class="field">
-                    <div class="label">OPTIONAL: Enter the headers from the first line.</div>
+                    <div class="label">OPTIONAL: Enter the headers from the first line (please fill all the fields).</div>
                 </div>
                 <div class="card-columns" >
                     <div class="field">
