@@ -1,4 +1,6 @@
+import 'package:erasmus_helper/models/faculty.dart';
 import 'package:erasmus_helper/services/user_service.dart';
+import 'package:erasmus_helper/services/utils_service.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class FacultyService {
@@ -20,10 +22,13 @@ class FacultyService {
     return snap.value.toString();
   }
 
-  static Future<String> getFacultyById(String id) async {
+  static Future<FacultyModel?> getFacultyById(String id) async {
     final DataSnapshot snap =
         await FirebaseDatabase.instance.ref(collectionName + id).get();
-    final Map map = snap.value as Map<dynamic, dynamic>;
-    return map["name"];
+    if (snap.exists) {
+      final faculty = FacultyModel.fromJson(snap.key, UtilsService.snapToMap(snap));
+      return faculty;
+    }
+    return null;
   }
 }

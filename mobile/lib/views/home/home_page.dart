@@ -1,3 +1,4 @@
+import 'package:erasmus_helper/services/event_service.dart';
 import 'package:erasmus_helper/services/user_service.dart';
 import 'package:erasmus_helper/views/app_topbar.dart';
 import 'package:erasmus_helper/views/home/components/person_card.dart';
@@ -30,52 +31,54 @@ class HomePage extends StatelessWidget {
   Widget _buildEventList() {
     return FutureBuilder(
         //TODO: fetch Event Ids from firebase
-        future: Future<List<String>>.value(["1", "2", "3"]),
+        future: EventService.getIdEventsForUser(),
         builder: (context, response) {
           if (response.connectionState == ConnectionState.done) {
             if (response.data != null) {
-              List eventIds = response.data as List<String>;
+              //final listFuture = response.data as List<dynamic>;
+              final eventIds = (response.data as List<String>?) ?? [];
 
               if (eventIds.isEmpty) return Container();
               return Card(
-                  //color: Colors.white,
-                  elevation: 0,
-                  child: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 10, top: 10, bottom: 15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Padding(
-                                padding: EdgeInsets.all(5),
-                                child: Text(
-                                  "Upcoming Events",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18),
-                                ),
-                              ),
-                            ],
+                //color: Colors.white,
+                elevation: 0,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10, top: 10, bottom: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Text(
+                              "Upcoming Events",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 18),
+                            ),
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          SizedBox(
-                              height: 208,
-                              child: ListView.builder(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: eventIds.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return EventCard(eventId: eventIds[index]);
-                                  })),
                         ],
-                      )));
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      SizedBox(
+                        height: 208,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: eventIds.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return EventCard(eventId: eventIds[index]);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
             }
           }
           return const SizedBox(
