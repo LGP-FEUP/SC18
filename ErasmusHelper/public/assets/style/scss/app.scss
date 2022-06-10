@@ -52,11 +52,11 @@
 
 #qr-big {
   height: 500px;
-  width: 65%;
+  //width: 75%;
 }
 
 #qr-small {
-  height: 250px;
-  width: 75%;
+  height: max(20vh, 230px);
+  width: max(50%, 290px);
 }
 

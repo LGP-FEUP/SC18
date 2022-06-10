@@ -38,6 +38,9 @@ use ErasmusHelper\Controllers\Router;
         </a>
         <a class="btn btn-xl" href="https://www.instagram.com/sumsera.lgp/"><i class="fa fa-instagram"
                                                                                aria-hidden="true"></i></a>
+        <a class="btn btn-xl" href="https://drive.google.com/drive/folders/1hpJjgHSMMTeeLO8mKMvFwGe7CMRidwaS"><i
+                    class="fa fa-cloud-download"
+                    aria-hidden="true"></i></a>
     </div>
     <div id="row-with-video" class="d-none d-xl-flex row mt-5 px-xl-5">
         <div class="col background-white ultra-small-rounded py-5">
@@ -101,7 +104,7 @@ use ErasmusHelper\Controllers\Router;
                     <p>The product we present you is Erasmus Helper</p>
                 </div>
                 <div class="col-6 text-center">
-                    <img id="qr-big" src="<?= Router::resource("images", "qr.png") ?>" class="pt-5" alt="">
+                    <img id="qr-big" src="<?= Router::resource("images", "team.jpg") ?>" class="pt-5" alt="">
                     <!--
                     <iframe width="100%" height="100%" src="https://www.youtube.com/embed/1FJHYqE0RDg?autoplay=0&mute=1"
                             title="YouTube video player" frameborder="0"
@@ -121,7 +124,7 @@ use ErasmusHelper\Controllers\Router;
             </div>
             <div class="row h-50">
                 <div class="col text-center">
-                    <img id="qr-small" src="<?= Router::resource("images", "qr.png") ?>" alt="">
+                    <img id="qr-small" src="<?= Router::resource("images", "team.jpg") ?>" alt="">
                     <!--
                         <iframe width="100%" height="100%" src="https://www.youtube.com/embed/1FJHYqE0RDg?autoplay=0&mute=1"
                                 title="YouTube video player" frameborder="0"
