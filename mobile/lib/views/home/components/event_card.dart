@@ -31,14 +31,14 @@ class EventCard extends StatelessWidget {
     );
   }
 
-  Widget genCard(String image, String title) {
+  Widget genCard(String imageURL, String title) {
     return Card(
       elevation: 3,
       child: Stack(
         alignment: Alignment.topCenter,
         children: [
           Row(
-            children: [genEventImage(image)],
+            children: [genEventImage(imageURL)],
           ),
           Positioned(top: 150, child: Row(children: [genEventInfo(title)]))
         ],

@@ -7,13 +7,13 @@ class FacultyModel extends FirebaseModel {
   String? id;
 
   FacultyModel.fromJson(this.id, Map<dynamic, dynamic> json):
-      cityId = json["cityId"],
+      cityId = json["city_id"],
       name = json["name"],
       code = json["code"];
 
   @override
   Map<String, dynamic> toJson() => {
-    "cityId" : cityId,
+    "city_id" : cityId,
     "name": name,
     "code": code,
   };

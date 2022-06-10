@@ -9,20 +9,28 @@ class EventModel extends FirebaseModel {
   String description;
   String location;
   String cityId;
-  DateModel date;
-  TimeModel time;
+  DateModel date = DateModel("01/01/1970");
+  TimeModel time = TimeModel("00:00");
 
   EventModel(this.title, this.author, this.description, this.location, this.cityId,
       this.date, this.time);
 
+  @override
   EventModel.fromJson(this.uid, Map<dynamic, dynamic> json) :
       title = json["title"],
       author = json["author"],
       description = json["description"],
       location = json["location"],
-      cityId = json["cityId"],
-      date = DateModel.fromJson(json["date"]),
-      time = TimeModel.fromJson(json["time"]);
+      cityId = json["city_id"] {
+      final Map<String, dynamic> mapDate =
+      (json["date"] as Map<dynamic, dynamic>)
+          .map((key, value) => MapEntry(key.toString(), value));
+      date = DateModel.fromJson(mapDate);
+      final Map<String, dynamic> mapTime =
+      (json["time"] as Map<dynamic, dynamic>)
+          .map((key, value) => MapEntry(key.toString(), value));
+      time = TimeModel.fromJson(mapTime);
+  }
 
   @override
   Map<String, dynamic> toJson() => {
@@ -30,7 +38,7 @@ class EventModel extends FirebaseModel {
     "author": author,
     "description": description,
     "location": location,
-    "cityId": cityId,
+    "city_id": cityId,
     "date": date.toJson(),
     "time": time.toJson()
   };

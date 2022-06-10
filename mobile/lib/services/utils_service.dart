@@ -59,13 +59,16 @@ class UtilsService {
   /// ```
   static Future<String> getImageURL(String path, String? name) async {
     // If there is a missing / at the end of path
+
     if (path[path.length - 1] != '/') {
       path += '/';
     }
-    final defaultImage = FirebaseStorage.instance.ref(path+"default.png");
+    FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+    final defaultImage = firebaseStorage.ref().child(path+"default.jpg");
+
     if (name != null) {
       try {
-        return await FirebaseStorage.instance.ref(path+name).getDownloadURL();
+        return await firebaseStorage.ref().child(path+name+".jpg").getDownloadURL();
       } catch (e) {
         return await defaultImage.getDownloadURL();
       }

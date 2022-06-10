@@ -9,7 +9,8 @@ class EventService {
   /// Return the list of ID events from the same city as the user
   static Future<List<String>?> getIdEventsForUser() async {
     // get the faculty of the current user
-    final faculty = await FacultyService.getFacultyById(await FacultyService.getUserFacultyId());
+    final facultyID = await FacultyService.getUserFacultyId();
+    final faculty = await FacultyService.getFacultyById(facultyID);
     if (faculty != null) {
       return await getIdEventsByCity(faculty.cityId);
     }
@@ -18,14 +19,13 @@ class EventService {
   
   static Future<List<String>?> getIdEventsByCity(String cityId) async {
     List<String> eventList = [];
-    final DataSnapshot snap = await FirebaseDatabase.instance.ref("events/").orderByChild("cityId").equalTo(cityId).get();
-
+    final DataSnapshot snap = await FirebaseDatabase.instance.ref("events").get();
     if (snap.exists) {
       for (var element in UtilsService.snapToMapOfMap(snap).entries) {
         eventList.add(element.key);
       }
+      return eventList;
     }
-
     return null;
   }
 
@@ -34,12 +34,14 @@ class EventService {
 
     if (snap.exists) {
       final json = UtilsService.snapToMap(snap);
-      return EventModel.fromJson(eventId, json);
+      print(json["date"]);
+      final event = EventModel.fromJson(eventId, json);
+      return event;
     }
     return null;
   }
 
-  static Future<String> getEventImageURL(String eventId) async {
+  static Future<String> getEventImageURL(String? eventId) async {
     return await UtilsService.getImageURL("events", eventId);
   }
 }

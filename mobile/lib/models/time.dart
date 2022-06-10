@@ -12,9 +12,9 @@ class TimeModel extends FirebaseModel{
   }
 
   @override
-  Map<String, dynamic> toJson() => {'hour': hour, 'minute': minutes};
+  Map<String, dynamic> toJson() => {'hour': hour, 'minutes': minutes};
 
   TimeModel.fromJson(Map<String, dynamic> json)
       : hour = json["hour"],
-        minutes = json["minute"];
+        minutes = json["minutes"];
 }

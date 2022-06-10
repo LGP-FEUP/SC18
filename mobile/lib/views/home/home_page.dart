@@ -31,22 +31,21 @@ class HomePage extends StatelessWidget {
   Widget _buildEventList() {
     return FutureBuilder(
         //TODO: fetch Event Ids from firebase
-        future: Future.wait([
-          EventService.getIdEventsForUser()
-        ]),
+        future: EventService.getIdEventsForUser(),
         builder: (context, response) {
           if (response.connectionState == ConnectionState.done) {
             if (response.data != null) {
-              final listFuture = response.data as List<dynamic>;
-              final eventIds = (listFuture[0] as List<String>?) ?? [];
+              //final listFuture = response.data as List<dynamic>;
+              final eventIds = (response.data as List<String>?) ?? [];
+              print(eventIds.toString());
 
               if (eventIds.isEmpty) return Container();
               return Card(
-                  //color: Colors.white,
+                //color: Colors.white,
                   elevation: 0,
                   child: Padding(
                       padding:
-                          const EdgeInsets.only(left: 10, top: 10, bottom: 15),
+                      const EdgeInsets.only(left: 10, top: 10, bottom: 15),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
@@ -76,14 +75,18 @@ class HomePage extends StatelessWidget {
                                   itemCount: eventIds.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
+                                    print(eventIds[index]);
                                     return EventCard(eventId: eventIds[index]);
                                   })),
                         ],
-                      )));
-            }
+                      )
+                  )
+              );
+          }
           }
           return Container();
-        });
+        }
+        );
   }
 
   Widget _buildGroupList() {

@@ -23,10 +23,12 @@ class FacultyService {
   }
 
   static Future<FacultyModel?> getFacultyById(String id) async {
+    print(collectionName+id);
     final DataSnapshot snap =
         await FirebaseDatabase.instance.ref(collectionName + id).get();
     if (snap.exists) {
-      return FacultyModel.fromJson(snap.key, UtilsService.snapToMap(snap));
+      final faculty = FacultyModel.fromJson(snap.key, UtilsService.snapToMap(snap));
+      return faculty;
     }
     return null;
   }
