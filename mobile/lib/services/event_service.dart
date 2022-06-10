@@ -22,7 +22,9 @@ class EventService {
     final DataSnapshot snap = await FirebaseDatabase.instance.ref("events").get();
     if (snap.exists) {
       for (var element in UtilsService.snapToMapOfMap(snap).entries) {
-        eventList.add(element.key);
+        if (element.value["city_id"] == cityId) {
+          eventList.add(element.key);
+        }
       }
       return eventList;
     }
