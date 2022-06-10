@@ -101,7 +101,7 @@ use ErasmusHelper\Controllers\Router;
                     <p>The product we present you is Erasmus Helper</p>
                 </div>
                 <div class="col-6 text-center">
-                    <img src="<?= Router::resource("images", "qr.png") ?>" class="w-50" alt="">
+                    <img id="qr-big" src="<?= Router::resource("images", "qr.png") ?>" class="pt-5" alt="">
                     <!--
                     <iframe width="100%" height="100%" src="https://www.youtube.com/embed/1FJHYqE0RDg?autoplay=0&mute=1"
                             title="YouTube video player" frameborder="0"
@@ -121,7 +121,7 @@ use ErasmusHelper\Controllers\Router;
             </div>
             <div class="row h-50">
                 <div class="col text-center">
-                    <img src="<?= Router::resource("images", "qr.png") ?>" class="qr" alt="">
+                    <img id="qr-small" src="<?= Router::resource("images", "qr.png") ?>" alt="">
                     <!--
                         <iframe width="100%" height="100%" src="https://www.youtube.com/embed/1FJHYqE0RDg?autoplay=0&mute=1"
                                 title="YouTube video player" frameborder="0"
@@ -144,8 +144,8 @@ use ErasmusHelper\Controllers\Router;
             <p>Courses of University Involved: MEIC, MM, MESG, MESW </p>
         </div>
         <div class="col-8 col-xl-2 mb-3 text-center homepage-figure background-white small-rounded">
-            <h3 class="py-3 fancy-font">18</h3>
-            <p>Teams in the 2022 edition. 250 Students</p>
+            <h3 class="py-3 fancy-font">20 + 4</h3>
+            <p>20 Teams and 4 agencies in the 2022 edition. 250 Students</p>
         </div>
         <div class="col-8 col-xl-2 mb-3 text-center homepage-figure background-white small-rounded">
             <h3 class="py-3 fancy-font">+2500</h3>

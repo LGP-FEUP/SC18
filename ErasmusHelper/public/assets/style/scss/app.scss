@@ -1,5 +1,4 @@
 @import "~bootstrap";
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;300&display=swap');
 
 * {
@@ -30,11 +29,11 @@
 }
 
 .fancy-font {
-  font-family: 'Press Start 2P', cursive;
+  font-family: monospace;
 }
 
 #row-with-video {
-  height: max(20vh, 500px);
+  height: max(20vh, 600px);
 }
 
 .border-divisor-right {
@@ -51,6 +50,13 @@
   font-size: 3rem;
 }
 
-.qr {
-  max-width: 200px;
+#qr-big {
+  height: 500px;
+  width: 65%;
 }
+
+#qr-small {
+  height: 250px;
+  width: 75%;
+}
+
