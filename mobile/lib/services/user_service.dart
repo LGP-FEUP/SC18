@@ -59,12 +59,14 @@ class UserService {
           UserModel.fromProfileJson(snapshot.value as Map<dynamic, dynamic>);
       final storageRef =
           storage.ref().child('avatars/${auth.currentUser!.uid}.jpg');
-      print(storageRef);
+      // print(storageRef);
       try {
         userModel.avatar = await storageRef.getDownloadURL();
-      } on FirebaseException catch (e) {
+      } on FirebaseException {
         // Caught an exception from Firebase.
-        print("Failed with error '${e.code}': ${e.message}");
+        final storageRef = storage.ref().child('avatars/default.png');
+        userModel.avatar = await storageRef.getDownloadURL();
+        // print("Failed with error '${e.code}': ${e.message}");
       }
       return userModel;
     } else {
@@ -93,9 +95,9 @@ class UserService {
     try {
       final storageRef = storage.ref().child('avatars/$userId.jpg');
       userModel.avatar = await storageRef.getDownloadURL();
-    } on FirebaseException catch (e) {
+    } on FirebaseException {
       // Caught an exception from Firebase.
-      print("Failed with error '${e.code}': ${e.message}");
+      // print("Failed with error '${e.code}': ${e.message}");
       final storageRef = storage.ref().child('avatars/default.png');
       userModel.avatar = await storageRef.getDownloadURL();
     }

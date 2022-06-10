@@ -59,15 +59,17 @@ class PersonCard extends StatelessWidget {
               ],
             ),
             Positioned(
-                left: 35,
-                top: 20,
+              left: 35,
+              top: 20,
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 45,
                 child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 45,
-                    child: CircleAvatar(
-                      radius: 40,
-                      backgroundImage: NetworkImage(user.avatar!),
-                    )))
+                  radius: 40,
+                  backgroundImage: NetworkImage(user.avatar!),
+                ),
+              ),
+            )
           ],
         ),
       ),
