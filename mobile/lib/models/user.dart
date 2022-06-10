@@ -2,10 +2,13 @@ import 'package:erasmus_helper/models/date.dart';
 import 'package:erasmus_helper/models/model.dart';
 import 'package:erasmus_helper/models/tag.dart';
 
-class UserModel extends FirebaseModel{
+class UserModel extends FirebaseModel {
   String fName, lName, facultyOrigin, erasmusFaculty;
-  DateModel birthdate = DateModel("00/00/0000");
-  String? email, password,description,
+
+  DateModel birthdate = DateModel("01/01/1970");
+  String? email,
+      password,
+      description,
       countryCode,
       phone,
       whatsapp,
@@ -13,6 +16,7 @@ class UserModel extends FirebaseModel{
       facultyOriginName;
   List<Tag> interests = [];
   String uid = "";
+  String? avatar;
   List<String>? doneTasks;
 
   UserModel(

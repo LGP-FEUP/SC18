@@ -13,13 +13,9 @@ class AppLayout extends StatefulWidget {
 }
 
 class _AppScaffold extends State<AppLayout> {
-  int _selectedNavBarPageIndex = 2;
+  int _selectedNavBarPageIndex = 0;
 
-  final navbarPages = [
-    HomePage(),
-    const GuidesPage(),
-    const SocialPage()
-  ];
+  final navbarPages = [HomePage(), const GuidesPage(), const SocialPage()];
 
   void _changeNavBarPage(int index) {
     setState(() {

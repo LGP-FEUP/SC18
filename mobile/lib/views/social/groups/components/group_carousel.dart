@@ -28,28 +28,28 @@ class GroupCarousel extends StatelessWidget {
 
   Widget _genCarrousel(String title, List groupIds) {
     return Card(
-        elevation: 0,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
-              child: Text(
-                title,
-                style:
-                    const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
-              ),
+      elevation: 0,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+            child: Text(
+              title,
+              style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
             ),
-            SizedBox(
-              height: 208,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: groupIds.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return GroupCard(groupId: groupIds[index]);
-                  }),
-            ),
-          ],
-        ));
+          ),
+          SizedBox(
+            height: 208,
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: groupIds.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return GroupCard(groupId: groupIds[index]);
+                }),
+          ),
+        ],
+      ),
+    );
   }
 }

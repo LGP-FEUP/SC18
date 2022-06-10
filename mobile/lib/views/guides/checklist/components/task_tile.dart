@@ -18,6 +18,12 @@ class _TaskTileState extends State<TaskTile> {
   final doneIcon = const Icon(Icons.check_circle, color: Color(0xFF0038FF)),
       notDoneIcon = const Icon(Icons.circle_outlined, color: Colors.black);
 
+  updateTasksStatus(bool done) {
+    setState(() {
+      widget.task.done = done;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     TaskModel task = widget.task;
@@ -25,13 +31,16 @@ class _TaskTileState extends State<TaskTile> {
     return ListTile(
       onTap: () => _navigateToTaskPage(task),
       dense: true,
-      title: Text(task.title,
-          style: const TextStyle(
-            fontSize: 16,
-          )),
+      title: Text(
+        task.title,
+        style: const TextStyle(
+          fontSize: 16,
+        ),
+      ),
       subtitle: Text(
-          "Due date: ${DateFormat("dd/MM/yyyy").format(task.dueDate)}",
-          style: const TextStyle(fontSize: 14)),
+        "Due date: ${DateFormat("dd/MM/yyyy").format(task.dueDate)}",
+        style: const TextStyle(fontSize: 14),
+      ),
       leading: GestureDetector(
         onTap: () => _changeTaskState(task),
         child: _icon,
@@ -55,6 +64,13 @@ class _TaskTileState extends State<TaskTile> {
 
   void _navigateToTaskPage(TaskModel task) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => TaskPage(task: task)));
+      context,
+      MaterialPageRoute(
+        builder: (context) => TaskPage(
+          task: task,
+          updateCallback: updateTasksStatus,
+        ),
+      ),
+    );
   }
 }

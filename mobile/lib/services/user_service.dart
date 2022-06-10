@@ -2,6 +2,7 @@ import 'package:erasmus_helper/services/user_interests_service.dart';
 import 'package:erasmus_helper/services/utils_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import '../models/user.dart';
 
@@ -50,19 +51,57 @@ class UserService {
 
   static Future<UserModel?> getUserProfile() async {
     final snapshot = await getUserRef().get();
+    FirebaseStorage storage =
+        FirebaseStorage.instanceFor(bucket: "gs://erasmus-helper.appspot.com");
+    FirebaseAuth auth = FirebaseAuth.instance;
     if (snapshot.exists) {
-      return UserModel.fromProfileJson(snapshot.value as Map<dynamic, dynamic>);
+      UserModel userModel =
+          UserModel.fromProfileJson(snapshot.value as Map<dynamic, dynamic>);
+      final storageRef =
+          storage.ref().child('avatars/${auth.currentUser!.uid}.jpg');
+      // print(storageRef);
+      try {
+        userModel.avatar = await storageRef.getDownloadURL();
+      } on FirebaseException {
+        // Caught an exception from Firebase.
+        final storageRef = storage.ref().child('avatars/default.png');
+        userModel.avatar = await storageRef.getDownloadURL();
+        // print("Failed with error '${e.code}': ${e.message}");
+      }
+      return userModel;
     } else {
       return null;
     }
   }
 
   static Future<UserModel?> getProfileFromId(String userId) async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref(collectionName + userId);
-    Map<String, dynamic> map = await UtilsService.mapOfRefChildren(ref, ["firstname",
-      "lastname", "interests", "faculty_origin_id", "faculty_arriving_id",
-      "description", "country_code", "phone", "whatsapp", "facebook"]);
-    return UserModel.fromProfileJson(map);
+    DatabaseReference ref =
+        FirebaseDatabase.instance.ref(collectionName + userId);
+    FirebaseStorage storage =
+        FirebaseStorage.instanceFor(bucket: "gs://erasmus-helper.appspot.com");
+    Map<String, dynamic> map = await UtilsService.mapOfRefChildren(ref, [
+      "firstname",
+      "lastname",
+      "interests",
+      "faculty_origin_id",
+      "faculty_arriving_id",
+      "description",
+      "country_code",
+      "phone",
+      "whatsapp",
+      "facebook"
+    ]);
+    UserModel userModel = UserModel.fromProfileJson(map);
+    try {
+      final storageRef = storage.ref().child('avatars/$userId.jpg');
+      userModel.avatar = await storageRef.getDownloadURL();
+    } on FirebaseException {
+      // Caught an exception from Firebase.
+      // print("Failed with error '${e.code}': ${e.message}");
+      final storageRef = storage.ref().child('avatars/default.png');
+      userModel.avatar = await storageRef.getDownloadURL();
+    }
+    return userModel;
   }
 
   static Future<void> updateUserProfile(UserModel profile) async {

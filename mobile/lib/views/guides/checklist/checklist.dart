@@ -55,7 +55,11 @@ class _ChecklistState extends State<Checklist> {
 
   Widget _buildList(List<TaskModel> tasks) {
     List<TaskModel> sortedTasks = _sortTasks(tasks);
-    final tasksList = sortedTasks.map((e) => TaskTile(task: e)).toList();
+    final tasksList = sortedTasks
+        .map((e) => TaskTile(
+              task: e,
+            ))
+        .toList();
 
     return ListView(
       children: _genListItems(tasksList),
@@ -123,7 +127,7 @@ class _ChecklistState extends State<Checklist> {
   }
 
   ExpansionTileCard _genTileCard(String title, List<Widget> taskTiles) {
-    return (ExpansionTileCard(
+    return ExpansionTileCard(
       title: _genListTitle(title),
       children: [
         Padding(
@@ -131,7 +135,7 @@ class _ChecklistState extends State<Checklist> {
           child: Column(children: taskTiles),
         ),
       ],
-    ));
+    );
   }
 
   List<TaskModel> _sortTasks(List<TaskModel> tasks) {
@@ -154,11 +158,12 @@ class _ChecklistState extends State<Checklist> {
     return Row(
       children: const [
         Padding(
-            padding: EdgeInsets.all(10),
-            child: Text(
-              "No tasks...",
-              style: TextStyle(fontSize: 18, color: Colors.black54),
-            ))
+          padding: EdgeInsets.all(10),
+          child: Text(
+            "No tasks...",
+            style: TextStyle(fontSize: 18, color: Colors.black54),
+          ),
+        ),
       ],
     );
   }
