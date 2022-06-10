@@ -1,3 +1,5 @@
+import 'package:erasmus_helper/models/event.dart';
+import 'package:erasmus_helper/services/event_service.dart';
 import 'package:flutter/material.dart';
 
 class EventCard extends StatelessWidget {
@@ -9,17 +11,19 @@ class EventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: Future.wait([
-        //TODO: fetch events from firebase
-        Future<String>.value("assets/event_default.jpg"),
-        Future<String>.value("Surfing Trip!!!")
+        EventService.getEventById(eventId),
+        EventService.getEventImageURL(eventId)
       ]),
       builder: (context, response) {
         if (response.connectionState == ConnectionState.done) {
           if (response.data != null) {
             List data = response.data as List;
-            String image = data[0].toString();
-            String title = data[1].toString();
-            return genCard(image, title);
+            EventModel? event = data[0];
+            String imageURL = data[1];
+            if (event != null) {
+              String title = event.title;
+              return genCard(imageURL, title);
+            }
           }
         }
         return Container();
@@ -27,14 +31,14 @@ class EventCard extends StatelessWidget {
     );
   }
 
-  Widget genCard(String image, String title) {
+  Widget genCard(String imageURL, String title) {
     return Card(
       elevation: 3,
       child: Stack(
         alignment: Alignment.topCenter,
         children: [
           Row(
-            children: [genEventImage(image)],
+            children: [genEventImage(imageURL)],
           ),
           Positioned(top: 150, child: Row(children: [genEventInfo(title)]))
         ],
@@ -42,7 +46,7 @@ class EventCard extends StatelessWidget {
     );
   }
 
-  Widget genEventImage(String image) {
+  Widget genEventImage(String imageURL) {
     return Container(
       height: 170,
       width: 252,
@@ -51,9 +55,7 @@ class EventCard extends StatelessWidget {
         image: DecorationImage(
           fit: BoxFit.fill,
           //TODO: change to Network Image
-          image: AssetImage(
-            image,
-          ),
+          image: Image.network(imageURL).image,
         ),
       ),
     );

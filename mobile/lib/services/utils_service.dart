@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class UtilsService {
   static Map<String, dynamic> snapToMap(DataSnapshot snap) {
@@ -45,5 +46,33 @@ class UtilsService {
       }
     }
     return map;
+  }
+
+  /// Used to get the URL of an image in the firebase cloud.
+  /// If the name is null or the image is not found, it will return the default
+  /// image inside the path file.
+  ///
+  /// ```dart
+  ///   final imageURL = getImageURL("events/", event.id);
+  /// or
+  ///   final imageURL = getImageURL("events", event.id);
+  /// ```
+  static Future<String> getImageURL(String path, String? name) async {
+    // If there is a missing / at the end of path
+
+    if (path[path.length - 1] != '/') {
+      path += '/';
+    }
+    FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+    final defaultImage = firebaseStorage.ref().child(path+"default.jpg");
+
+    if (name != null) {
+      try {
+        return await firebaseStorage.ref().child(path+name+".jpg").getDownloadURL();
+      } catch (e) {
+        return await defaultImage.getDownloadURL();
+      }
+    }
+    return await defaultImage.getDownloadURL();
   }
 }
