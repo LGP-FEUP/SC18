@@ -1,0 +1,32 @@
+// Grille de Bootstrap utilisée pour positionner les éléments du manager
+@import "../../../../node_modules/bootstrap/scss/bootstrap-grid";
+
+// Abstracts (variables, typo, animations, mixins, tout ce qui ne sert pas directement à rendre)
+@import "abstracts/variables";
+@import "abstracts/typography";
+@import "abstracts/animations";
+
+// Base (reset et styles racines)
+@import "base/reset";
+
+// Components (boutons, containers, liens...)
+@import "components/shadows";
+@import "components/groups";
+@import "components/icons";
+@import "components/links";
+@import "components/boxes";
+@import "components/fields";
+@import "components/tables";
+@import "components/buttons";
+@import "components/menus";
+@import "components/inputs";
+@import "components/modals";
+@import "components/notifications";
+
+// Layouts (layouts + gestion de l'application)
+@import "layouts/master";
+@import "layouts/grid";
+
+// Pages (vues)
+@import "pages/login";
+

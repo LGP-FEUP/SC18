@@ -1,0 +1,36 @@
+// Main Color for the project
+$primaryColor: #2250fe;
+$primaryColorHover: darken($primaryColor, 5%);
+$primaryColorLight: lighten($primaryColor, 25%);
+$primaryColorLighter: lighten($primaryColor, 35%);
+
+// Secondary color (CTA)
+$secondColor: #99bfe3;
+$secondColorHover: darken($secondColor, 5%);
+
+// Link color
+$linkColor: #3297d3;
+$linkHoverColor: lighten($linkColor, 10%);
+
+// Background color
+$backgroundColor: #e3e8ee;
+
+// Grey variations
+$lightGray: #ededed;
+$boxGray: #f5f6f8;
+$gray: #eaeaea;
+$darkGray: #697386;
+
+// Useful colors
+$black: #23282e;
+$lightBlack: #32373d;
+$lightRed: #fff0f0;
+$red: #ff2d38;
+$darkRed: #c30000;
+$green: #4fb268;
+$darkGreen: #1ea536;
+$yellow: #fff13d;
+$darkYellow: #b5b500;
+
+// Taille du header
+$headerHeight: 70px;
