@@ -11,8 +11,12 @@ use ErasmusHelper\Controllers\Router;
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title><?php if(isset($title)) { echo  $title." - ErasmusHelper"; } else { echo "BackOffice - ErasmusHelper"; } ?></title>
-    <link rel="icon" type="image/png" href="<?= Router::resource("images", "title.png"); ?>">
+    <title><?php if (isset($title)) {
+            echo $title . " - ErasmusHelper";
+        } else {
+            echo "BackOffice - ErasmusHelper";
+        } ?></title>
+    <link rel="icon" href="<?= Router::resource("images", "favicon.svg") ?>" sizes="any" type="image/svg+xml">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -62,7 +66,8 @@ use ErasmusHelper\Controllers\Router;
                 <?php
             } else {
                 ?>
-                <a class="<?= strpos($_SERVER["REQUEST_URI"], "account") ? "active" : "link" ?>" href="<?= Router::route("account") ?>"><i
+                <a class="<?= strpos($_SERVER["REQUEST_URI"], "account") ? "active" : "link" ?>"
+                   href="<?= Router::route("account") ?>"><i
                             class="fas fa-user r"></i><?php echo App::getInstance()->firebase->auth->getUser(App::getInstance()->auth->getAdminUID())->email; ?>
                 </a>
                 <a class="link" type="button" href="<?= Router::route("logout") ?>">Log out</a>
