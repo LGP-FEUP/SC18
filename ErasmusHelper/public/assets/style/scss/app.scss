@@ -46,17 +46,11 @@
   border-bottom-style: solid;
 }
 
+.border-divisor-top {
+  border-top: black;
+  border-top-style: solid;
+}
+
 .btn-xl {
   font-size: 3rem;
 }
-
-#qr-big {
-  height: 480px;
-  width: 90%;
-}
-
-#qr-small {
-  height: max(20vh, 230px);
-  width: max(50%, 290px);
-}
-

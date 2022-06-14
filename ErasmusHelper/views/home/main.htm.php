@@ -91,9 +91,9 @@
                     class="py-3 fancy-font">31K</h3>
             <p>Spain is the #1 country for Erasmus. It receives 31 thousand students yearly</p></div>
     </div>
-    <div id="row-with-video" class="d-none d-xl-flex row mt-5 px-xl-5">
+    <div class="d-none d-xl-flex row mt-5 px-xl-5">
         <div class="col background-white ultra-small-rounded py-5">
-            <div class="row h-100">
+            <div class="row">
                 <div class="col-6 border-divisor-right"><h3 class="fancy-font mb-4">What is Erasmus Helper</h3>
                     <p class="pt-4">Erasmus Helper is mobile application with a friendly interface developed in Flutter.
                         This
@@ -110,46 +110,39 @@
                     <p class="pt-3">This is our team Rita, André Ricardo, Nuno, Saraah, Ana, Eliott, Júlia and António
                         and Rúben that isn't in the picture</p>
                 </div>
-                <div class="col-6 text-center"><img id="qr-big" src="<?= Router::resource("images", "team.jpg") ?>"
-                                                    class="pt-5" alt="">
-                    <!-- <iframe width="100%" height="100%" src="https://www.youtube.com/embed/1FJHYqE0RDg?autoplay=0&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe> -->
+                <div class="col text-center">
+                    <img class="img-fluid" src="<?= Router::resource("images", "team.jpg") ?>" alt="">
                 </div>
             </div>
         </div>
     </div>
-    <div id="row-with-video" class="d-xl-none row mt-5">
-        <div class="col background-white ultra-small-rounded py-3">
-            <div class="row h-50 border-divisor-bottom">
-                <div class="col"><h3 class="fancy-font mb-4">What is Erasmus Helper</h3>
-                    <p class="pt-md-4 text-justify">Erasmus Helper is mobile application with a friendly interface
-                        developed in
-                        Flutter.
-                        This
-                        frontend has a web based support application allowing managing the data modeling. Erasmus Helper
-                        was designed to allow every Erasmus student to take advantage of
-                        this
-                        technology
-                        it is free for download in this <a
-                                href="https://drive.google.com/drive/folders/1hpJjgHSMMTeeLO8mKMvFwGe7CMRidwaS">link</a>
-                    </p>
-                    <p class="d-none d-md-flex pt-3 text-justify">The current release help users managing bureaucratic
-                        matters,
-                        matching social and
-                        event with
-                        their interests. Creating a happy community for Erasmus students</p>
-                    <p class="d-none d-md-flex pt-md-3 text-justify">This is our team Rita, André Ricardo, Nuno, Saraah,
-                        Ana, Eliott,
-                        Júlia and
-                        António
-                        and Rúben that isn't in the picture</p>
-                </div>
-            </div>
-            <div class="row h-50">
-                <div class="col text-center"><img id="qr-small" src="<?= Router::resource("images", "team.jpg") ?>"
-                                                  alt="">
-                    <!-- <iframe width="100%" height="100%" src="https://www.youtube.com/embed/1FJHYqE0RDg?autoplay=0&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe> -->
-                </div>
-            </div>
+    <div class="d-xl-none row mt-5">
+        <div class="col background-white ultra-small-rounded py-5">
+            <h3 class="fancy-font mb-4">What is Erasmus Helper</h3>
+            <p class="pt-md-4 text-justify">Erasmus Helper is mobile application with a friendly interface
+                developed in
+                Flutter.
+                This
+                frontend has a web based support application allowing managing the data modeling. Erasmus Helper
+                was designed to allow every Erasmus student to take advantage of
+                this
+                technology
+                it is free for download in this <a
+                        href="https://drive.google.com/drive/folders/1hpJjgHSMMTeeLO8mKMvFwGe7CMRidwaS">link</a>
+            </p>
+            <p class="d-none d-md-flex pt-3 text-justify">The current release help users managing bureaucratic
+                matters,
+                matching social and
+                event with
+                their interests. Creating a happy community for Erasmus students</p>
+            <p class="d-none d-md-flex pt-md-3 text-justify">This is our team Rita, André Ricardo,
+                Nuno, Saraah,
+                Ana, Eliott,
+                Júlia and
+                António
+                and Rúben that isn't in the picture</p>
+            <img class="img-fluid border-divisor-top pt-5" src="<?= Router::resource("images", "team.jpg") ?>"
+                 alt="">
         </div>
     </div>
     <div class="row mt-5 mb-3"><h3>LGP in Figures</h3></div>
